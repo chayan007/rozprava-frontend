@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
+import SplashScreen from '../views/SplashScreen.vue'
 
 const routes = [
   {
@@ -12,6 +13,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/splashscreen',
+    name: 'SplashScreen',
+    component: SplashScreen
   }
 ]
 
