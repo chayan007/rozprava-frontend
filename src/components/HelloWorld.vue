@@ -1,6 +1,7 @@
 <template>
   <section class="section section bg-soft pb-5 overflow-hidden z-2">
             <div class="container z-2">
+            <SplashScreen></SplashScreen>
                 <div class="row justify-content-center text-center pt-6">
            <div class="col-lg-4 col-md-6">
                         <!-- Button Social -->
@@ -34,7 +35,9 @@
 </template>
 
 <script>
+import SplashScreen from '../components/SplashScreen.vue'
 export default {
   name: 'HelloWorld',
+  components: {SplashScreen}
 }
 </script>
