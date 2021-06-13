@@ -1,16 +1,12 @@
 <template>
-<section class="section section bg-soft pb-5 overflow-hidden z-2">
-            
-            
-<div class="container z-2">
-    
+
     <div class="box" style="text-align: center;">
+     <div class="mb-5">
+       <img class="mb-2" src="https://user-images.githubusercontent.com/75200810/121477814-edd84700-c9e5-11eb-898c-a21b4d8038e4.png" alt="Rozprava" width="200px">
      
-       <img src="https://user-images.githubusercontent.com/75200810/121477814-edd84700-c9e5-11eb-898c-a21b4d8038e4.png" alt="">
-     
-     <h1 style="margin: 0%; margin-top: 0.5rem;">ROZPRAVA</h1>
+     <h1 style="margin: 0%; margin-top: 0.5rem; font-size:3rem">ROZPRAVA</h1>
      <h3 style="margin: 0%; margin-top: 0rem; margin-bottom: 2rem; font-size: 1.2rem;">Express yourself</h3>
-    
+    </div>
   
   <div class="row justify-content-md-around">
            <div class="col-lg-4 col-md-6">
@@ -47,9 +43,7 @@
                         <button class="btn btn-pill btn-primary login" type="button">Login</button>
                     </div>
                 </div> 
-        </div>
-        </div>
-    </section>                  
+        </div>               
 
 </template>
 
