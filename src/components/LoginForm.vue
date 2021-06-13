@@ -67,14 +67,44 @@
         <div
           class="d-block d-sm-flex justify-content-center align-items-center mt-4"
         >
-          <span class="font-weight-normal">
-            Already have an account?
-            <a href="#" class="font-weight-bold">Login here</a>
+          <span class="font-weight-normal" style="display: flex; margin-bottom: 1.5rem;">
+            <h2 style="font-size: 0.8rem;">Forgot Password?</h2>   
+            <h2 style="font-size: 0.8rem; margin-left: 8rem;">Forgot Username?</h2>       
           </span>
         </div>
+
+            <button class="btn btn-pill github mb-3 pad-twitter" type="button">
+          <span class="mr-1">
+            Sign in using Twitter
+            <img
+              class=""
+              src="https://user-images.githubusercontent.com/83393749/121353888-f9772f80-c94b-11eb-9776-b7f4a5e003b5.png"
+          /></span>
+        </button>
+        <br />
+        <button class="btn btn-pill github mb-3 pad-google" type="button">
+          <span class="mr-1">
+            Sign in using Google
+            <img
+              class=""
+              src="https://user-images.githubusercontent.com/83393749/121353904-fd0ab680-c94b-11eb-8c81-a4b8ffac5a14.png"
+          /></span>
+        </button>
+        <br />
+        <button class="btn btn-pill github mb-3 pad-facebook" type="button">
+          <span class="mr-1">
+            Sign in using Facebook
+            <img
+              class=""
+              src="https://user-images.githubusercontent.com/83393749/121784049-4b7bb780-cbcf-11eb-913a-c47cc60d7831.png"
+          /></span>
+          </button>
+        </div>
+        </div>
+
+
       </div>
-    </div>
-  </div>
+    
 </template>
 
 <script>
@@ -82,3 +112,24 @@ export default {
   name: "LoginForm",
 };
 </script>
+
+<style scoped>
+.username {
+    padding-left: 6rem;
+}
+
+.pad-twitter {
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
+.pad-google {
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
+.pad-facebook {
+  padding-left: 3.4rem;
+  padding-right: 3.4rem;
+}
+</style>

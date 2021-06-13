@@ -2982,7 +2982,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary {
-    color: black;
+    color: #31344b;
     background-color: #e6e7ee;
     border-color: #e6e7ee;
     box-shadow: inset 0 1px 0 rgba(236, 240, 243, 0.15), 0 1px 1px rgba(38, 40, 51, 0.075);
@@ -11178,7 +11178,7 @@ button.bg-slack:focus {
 
 .mb-4,
 .my-4 {
-    margin-bottom: 0rem !important;
+    margin-bottom: 1.5rem !important;
 }
 
 .ml-4,
@@ -11192,7 +11192,7 @@ button.bg-slack:focus {
 
 .mt-5,
 .my-5 {
-    margin-top: 0rem !important;
+    margin-top: 3rem !important;
 }
 
 .mr-5,
@@ -11576,7 +11576,7 @@ button.bg-slack:focus {
 
 .pt-6,
 .py-6 {
-    padding-top: 3rem !important;
+    padding-top: 5rem !important;
 }
 
 .pr-6,
@@ -16923,7 +16923,7 @@ a.text-slack:hover, a.text-slack:focus {
   h3 {
         page-break-after: avoid;
     }
-  @     page {
+  @    page {
         size: a3;
     }
 
@@ -32277,7 +32277,5 @@ article a:hover {
 .tooltip-inner {
     box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #FFFFFF;
 }
-
-
 
 /*# sourceMappingURL=neumorphism.css.map */
