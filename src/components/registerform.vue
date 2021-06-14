@@ -53,7 +53,7 @@
                         </form>
                         <div class="mt-3 mb-4 text-center">
                             <span class="font-weight-normal">or</span>
-                        </div>
+                        </div><h1 class="">hello</h1>
                         <div class="btn-wrapper my-4 text-center">
                             <button class="btn btn-primary btn-pill btn-icon-only text-facebook mr-2" type="button" aria-label="facebook button" title="facebook button">
                                 <span aria-hidden="true" class="fab fa-facebook-f"></span>
