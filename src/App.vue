@@ -12,5 +12,3 @@
   <router-view/>
 </template>
 
-
-
