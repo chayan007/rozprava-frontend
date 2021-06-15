@@ -168,7 +168,7 @@ export default {
 <style scoped>
   .otp{
     width: 50%;
-    justify-content: centre !important;
+    justify-content: center !important;
     margin-left: 25%;
     
   }
