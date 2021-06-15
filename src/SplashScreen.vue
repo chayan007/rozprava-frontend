@@ -6,7 +6,7 @@
       <div class="col-lg-4 col-md-6">
      <button class="btn btn-primary github register mt-6" type="button">
           <span class="mr-1">
-            <router-link to="/signup">Sign Up</router-link>
+            <router-link to="/register">Register</router-link>
           </span>
         </button>
         <div class="mb-2 mt-2">
@@ -14,8 +14,8 @@
             --------------- OR ----------------
           </h3>
         </div>
-        <button class="btn btn-primary github login" type="button">
-          <router-link to="/login"> Login </router-link>
+        <button @onClick="goToLogin" class="btn btn-primary github login" type="button">
+          Login 
         </button>
       </div></div>
 </div></section>
@@ -27,7 +27,13 @@
 
 export default {
   name: 'SplashScreen',
+   methods:{
+   goToLogin(){
+   this.$router.push('/login'); 
+      }
+  }
 }
+
 </script>
 
 <style>

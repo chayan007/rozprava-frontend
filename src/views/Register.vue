@@ -1,5 +1,4 @@
 <template>
-<Nav></Nav>
   <div class="box" style="text-align: center">
     <div class="mb-5">
       <svg
@@ -57,23 +56,21 @@
       </div>
     </div>
   </div>
-  <router-view/>
 </template>
 
 <script>
 // @ is an alias to /src
 import RegisterForm from "@/components/RegisterForm.vue";
-import Nav from '../components/Nav.vue';
 export default {
   name: "Register",
-  components: { RegisterForm,Nav },
+  components: { RegisterForm, },
 };
 </script>
 
 <style scoped>
 .box {
   font-family: Josefin Sans;
-  margin-top: 5rem;
+  margin-top: 7rem;
   padding: 0%;
 }
 </style>

@@ -3,6 +3,7 @@ import SignUp from '../components/SignUp.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import Splash from '../views/Splash.vue'
+import Home from '../views/Home.vue'
 
 const routes = [
   {
@@ -20,11 +21,22 @@ const routes = [
     name: 'Login',
     component: Login
   },
-  {
-    path: '/splash',
-    name: 'Splash',
-    component: Splash
-  }
+    {
+      path: "/",
+    name: "Home",
+    get component() {
+      const x=1; // emulating the value of the condition check for the sign in.
+        if (x==0) {
+            //for signed up users
+
+             return Home;
+        } 
+        else{
+          //for unsigned users
+
+          return Splash;
+        }
+    }}
 ]
 
 const router = createRouter({

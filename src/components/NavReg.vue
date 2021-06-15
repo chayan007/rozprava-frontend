@@ -33,42 +33,8 @@
               <span class="nav-link-inner-text">Menu</span>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item">Settings</a></li>
               <li><a class="dropdown-item">About us</a></li>
-              <li><a class="dropdown-item">Report</a></li>
               <li><a class="dropdown-item">Terms and Conditions</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a href="#" class="nav-link" data-toggle="dropdown">
-              <span class="nav-link-inner-text">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  x="0px"
-                  y="0px"
-                  width="32px"
-                  height="32px"
-                  viewBox="0 0 338.34 338.36"
-                  style="overflow:visible;enable-background:new 0 0 338.34 338.36;"
-                  xml:space="preserve"
-                >
-                  <defs></defs>
-                  <g>
-                    <path
-                      d="M186.94,47.5c-15.39,59.99,38.22,118.57,104.39,103.59c1.32,8.66,3.22,17.22,3.83,25.87   c4.58,64.22-32.78,123.67-92.7,146.43c-40.57,15.41-80.58,12.72-119.28-7.04c-2.9-1.48-5.28-1.78-8.41-0.72   c-22.18,7.53-44.4,14.91-66.68,22.13c-2.25,0.73-5.91,0.98-7.19-0.29c-1.27-1.25-1.01-4.93-0.29-7.18   C7.82,308,15.36,285.81,22.54,263.5c0.75-2.35,0.63-5.68-0.48-7.82C-23.07,169.09,27.4,63.8,123.2,45.28   C144.51,41.16,165.84,41.86,186.94,47.5z"
-                    ></path>
-                    <path
-                      d="M269.96,136.85c-37.68,0.13-68.31-30.62-68.45-68.73c-0.14-36.83,30.78-68,67.58-68.12c38.05-0.13,69.14,30.41,69.25,67.99   C338.44,105.85,307.79,136.72,269.96,136.85z M261.4,55.49c0,7.31-0.01,14.63,0,21.94c0.01,7.27,0.65,7.89,8.03,7.91   c1.16,0,2.33-0.02,3.49-0.01c3.68,0.05,5.54-1.7,5.53-5.44c-0.02-16.13-0.01-32.25-0.01-48.38c0-3.88-1.82-5.87-5.83-5.67   c-1.66,0.08-3.33,0.1-4.99,0c-4.47-0.29-6.35,1.75-6.26,6.21C261.5,39.86,261.4,47.67,261.4,55.49z M278.39,102.57   c0-4.55-4.17-8.56-8.75-8.43c-4.41,0.13-8.22,4.06-8.18,8.44c0.03,4.45,3.75,8.25,8.2,8.38   C274.24,111.08,278.39,107.1,278.39,102.57z"
-                    ></path>
-                  </g>
-                </svg>
-              </span>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item">Chats</a></li>
-              <li><a class="dropdown-item">Groups</a></li>
-              <li><a class="dropdown-item">Notifications</a></li>
             </ul>
           </li>
 
@@ -125,7 +91,7 @@
         class="profile-image bg-primary shadow-inset border border-light rounded-circle p-1"
       >
         <img
-          src="../assets/profile-picture-1.jpg"
+          src="../assets/logo.svg"
           class="card-img-top rounded-circle"
           alt="profile image"
         />
@@ -136,7 +102,7 @@
 
 <script>
 export default {
-  name: "Nav",
+  name: "NavReg",
 };
 </script>
 

@@ -1,13 +1,25 @@
 <template>
-<Splash></Splash>
 
+<!-- when signed in-->
+<div v-if="x==0">
+<Nav/>
+</div>
+
+
+<!-- when not signed in-->
+<div v-else>
+<NavReg/>
+</div>
+<router-view/>
 </template>
 
 <script>
-import Splash from '@/views/Splash.vue'
+import NavReg from '@/components/NavReg.vue'
+import Nav from '@/components/Nav.vue'
 export default {
   components: {
-   Splash,
+   Nav, NavReg, 
   },
+  
 }
 </script>

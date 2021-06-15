@@ -1,5 +1,4 @@
 <template>
-<Nav></Nav>
   <div class="box" style="text-align: center;">
     <div class="mb-5">
       <!-- Generator: Adobe Illustrator 25.0.1, SVG Export Plug-In  -->
@@ -52,7 +51,7 @@
         <!-- Button Social -->
         <button class="btn btn-pill github mb-3 pad-email" type="button">
           <span class="mr-1">
-            Sign up using Email
+            <router-link to="/register"> Sign up using Email </router-link>
             <img
               class=""
               src="https://user-images.githubusercontent.com/83393749/121353745-d3518f80-c94b-11eb-9fab-9b68f81383ed.png"
@@ -97,21 +96,18 @@
       </div>
     </div>
   </div>
-  <router-view/>
 </template>
 
 <script>
-import Nav from "@/components/Nav.vue"
 export default {
   name: "SignUp",
-  components : { Nav}
 };
 </script>
 
 <style scoped>
 .box {
   font-family: Josefin Sans;
-  margin-top: 5rem;
+  margin-top: 7rem;
   padding: 0%;
 }
 .login {
