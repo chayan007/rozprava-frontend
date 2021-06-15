@@ -1,4 +1,5 @@
 <template>
+<Nav></Nav>
   <div class="box" style="text-align: center;">
     <div class="mb-5">
       <!-- Generator: Adobe Illustrator 25.0.1, SVG Export Plug-In  -->
@@ -96,11 +97,14 @@
       </div>
     </div>
   </div>
+  <router-view/>
 </template>
 
 <script>
+import Nav from "@/components/Nav.vue"
 export default {
   name: "SignUp",
+  components : { Nav}
 };
 </script>
 

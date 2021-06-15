@@ -1,4 +1,5 @@
 <template>
+<Nav></Nav>
   <div class="box" style="text-align: center;">
     <div class="mb-5">
       <!-- Generator: Adobe Illustrator 25.0.1, SVG Export Plug-In  -->
@@ -53,14 +54,16 @@
     </div>
     
   </div>
+  <router-view/>
 </template>
 
 <script>
 // @ is an alias to /src
 import LoginForm from "@/components/LoginForm.vue";
+import Nav from "@/components/Nav.vue"
 export default {
   name: "Login",
-  components: { LoginForm },
+  components: { LoginForm, Nav },
 };
 </script>
 

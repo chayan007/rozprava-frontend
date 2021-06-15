@@ -1,4 +1,5 @@
 <template>
+<Nav></Nav>
   <div class="box" style="text-align: center">
     <div class="mb-5">
       <svg
@@ -61,10 +62,10 @@
 <script>
 // @ is an alias to /src
 import RegisterForm from "@/components/RegisterForm.vue";
-
+import Nav from '../components/Nav.vue';
 export default {
   name: "Register",
-  components: { RegisterForm },
+  components: { RegisterForm,Nav },
 };
 </script>
 
