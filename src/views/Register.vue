@@ -60,7 +60,7 @@
 
 <script>
 // @ is an alias to /src
-import RegisterForm from "@/components/registerform.vue";
+import RegisterForm from "@/components/RegisterForm.vue";
 
 export default {
   name: "Register",
