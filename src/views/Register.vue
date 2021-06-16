@@ -61,17 +61,16 @@
 <script>
 // @ is an alias to /src
 import RegisterForm from "@/components/RegisterForm.vue";
-
 export default {
   name: "Register",
-  components: { RegisterForm },
+  components: { RegisterForm, },
 };
 </script>
 
 <style scoped>
 .box {
   font-family: Josefin Sans;
-  margin-top: 5rem;
+  margin-top: 7rem;
   padding: 0%;
 }
 </style>
