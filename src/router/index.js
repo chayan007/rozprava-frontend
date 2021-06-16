@@ -3,6 +3,7 @@ import SignUp from '../components/SignUp.vue'
 import Register from '../views/Register.vue'
 import SplashScreen from '../views/SplashScreen.vue'
 import Login from '../views/Login.vue'
+import Settings from '../views/Settings.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: Settings
   }
 ]
 

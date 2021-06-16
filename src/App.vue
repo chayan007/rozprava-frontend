@@ -5,6 +5,8 @@
     <button type="submit" class="btn btn-primary ml-2"> <router-link to="/register">Register</router-link></button>
     <button type="submit" class="btn btn-primary ml-2"> <router-link to="/splashscreen">SplashScreen</router-link></button>
     <button type="submit" class="btn btn-primary ml-2"> <router-link to="/login">Login</router-link></button>
+    <button type="submit" class="btn btn-primary ml-2"> <router-link to="/Settings">Settings</router-link></button>
+    
 
   </div>     
     </nav>
