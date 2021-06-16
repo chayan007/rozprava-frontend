@@ -52,7 +52,7 @@
         <!-- Button Social -->
         <button class="btn btn-pill github mb-3 pad-email" type="button">
           <span class="mr-1">
-            Sign up using Email
+            <router-link to="/register"> Sign up using Email </router-link>
             <img
               class=""
               src="https://user-images.githubusercontent.com/83393749/121353745-d3518f80-c94b-11eb-9fab-9b68f81383ed.png"
@@ -108,7 +108,7 @@ export default {
 <style scoped>
 .box {
   font-family: Josefin Sans;
-  margin-top: 5rem;
+  margin-top: 7rem;
   padding: 0%;
 }
 .login {
