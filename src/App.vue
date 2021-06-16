@@ -1,7 +1,7 @@
 <template>
 
 <!-- when signed in-->
-<div v-if="x==0">
+<div v-if="true">
 <Nav/>
 </div>
 
