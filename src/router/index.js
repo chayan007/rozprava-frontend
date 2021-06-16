@@ -3,12 +3,17 @@ import SignUp from '../components/SignUp.vue'
 import Register from '../views/Register.vue'
 import SplashScreen from '../views/SplashScreen.vue'
 import Login from '../views/Login.vue'
-
+import Category from '../views/Category.vue'
 const routes = [
   {
     path: '/signup',
     name: 'SignUp',
     component: SignUp
+  },
+  {
+    path: '/category',
+    name: 'Category',
+    component: Category
   },
   {
     path: '/register',
