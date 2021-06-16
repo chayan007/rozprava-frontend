@@ -33,7 +33,7 @@
               <span class="nav-link-inner-text">Menu</span>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item">Settings</a></li>
+              <li><a class="dropdown-item"><router-link to='/settings'>Settings</router-link></a></li>
               <li><a class="dropdown-item">About us</a></li>
               <li><a class="dropdown-item">Report</a></li>
               <li><a class="dropdown-item">Terms and Conditions</a></li>

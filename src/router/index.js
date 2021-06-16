@@ -2,12 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import SignUp from '../components/SignUp.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
-import Splash from '../views/Splash.vue'
 import Home from '../views/Home.vue'
-
+import Splash from '../views/Splash.vue'
+import Settings from '../views/Settings.vue'
 const routes = [
   {
-    path: '/signup',
+     path: '/signup',
     name: 'SignUp',
     component: SignUp
   },
@@ -22,10 +22,10 @@ const routes = [
     component: Login
   },
     {
-      path: "/",
+    path: "/",
     name: "Home",
     get component() {
-      const x=1; // emulating the value of the condition check for the sign in.
+      const x=0; // emulating the value of the condition check for the sign in.
         if (x==0) {
             //for signed up users
 
@@ -36,7 +36,12 @@ const routes = [
 
           return Splash;
         }
-    }}
+    }},
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: Settings
+  }
 ]
 
 const router = createRouter({
