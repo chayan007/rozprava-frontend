@@ -17,6 +17,7 @@
       >
         <defs></defs>
         <g>
+          
           <path
             d="M137.52,0c24.9,10.26,48.5,22.03,65.41,44.48c31.07,41.23,29.3,102.02-5.02,140.79c-2.92,3.3-6.49,6.03-11.29,10.42
 		c-5.56-30.23-10.93-58.44-15.9-86.73c-6.15-35.05-26.09-53.37-57.4-54.7c-26.47-1.12-51.46,15.52-58.52,51.53
@@ -51,7 +52,7 @@
         <!-- Button Social -->
         <button class="btn btn-pill github mb-3 pad-email" type="button">
           <span class="mr-1">
-            Sign up using Email
+            <router-link to="/register"> Sign up using Email </router-link>
             <img
               class=""
               src="https://user-images.githubusercontent.com/83393749/121353745-d3518f80-c94b-11eb-9fab-9b68f81383ed.png"
@@ -107,7 +108,7 @@ export default {
 <style scoped>
 .box {
   font-family: Josefin Sans;
-  margin-top: 5rem;
+  margin-top: 7rem;
   padding: 0%;
 }
 .login {

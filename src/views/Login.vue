@@ -60,14 +60,14 @@
 import LoginForm from "@/components/LoginForm.vue";
 export default {
   name: "Login",
-  components: { LoginForm },
+  components: { LoginForm,  },
 };
 </script>
 
 <style scoped>
 .box {
   font-family: Josefin Sans;
-  margin-top: 5rem;
+  margin-top: 7rem;
   padding: 0%;
 }
 .login {

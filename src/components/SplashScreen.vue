@@ -1,16 +1,30 @@
 <template>
-  <div>
+    <section class="section section bg-soft pb-7 overflow-hidden z-2 mt-5">
     <div class="box" style="text-align: center;">
-     <div class="logo" style="text-align: center;">
-       <img src="https://user-images.githubusercontent.com/75200810/121477814-edd84700-c9e5-11eb-898c-a21b4d8038e4.png" alt="">
-     </div>
-     <h1 style="margin: 0%; margin-top: 0.5rem;">ROZPRAVA</h1>
-     <h3 style="margin: 0%; margin-top: 0.1rem;">Express yourself</h3>
-    </div>
-  </div>
+       <img src="../assets/splash.gif" alt="Splash Rozprava">
+     <div class="row justify-content-md-around">
+      <div class="col-lg-4 col-md-6">
+     <button class="btn btn-primary github register mt-6" type="button">
+          <span class="mr-1">
+            <router-link to="/signup">Sign Up</router-link>
+          </span>
+        </button>
+        <div class="mb-2 mt-2">
+          <h3 class="h5 font-weight-bold">
+            --------------- OR ----------------
+          </h3>
+        </div>
+        <button class="btn btn-primary github login" type="button">
+          <router-link to="/login"> Login </router-link>
+        </button>
+      </div></div>
+</div></section>
+<router-view/>
 </template>
 
 <script>
+
+
 export default {
   name: 'SplashScreen',
 }
@@ -21,11 +35,16 @@ body{
   margin: 0%;
 }
 
-.box{
-  font-family: Josefin Sans;
-  margin-top: 12.8rem;
-  padding: 0%;
+.login {
+  padding-left: 8.6rem;
+  padding-right: 8.6rem;
 }
+
+.register{
+  padding-left: 8rem;
+  padding-right: 8rem;
+}
+
 </style>
 
 
