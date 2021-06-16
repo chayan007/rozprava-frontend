@@ -2,12 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import SignUp from '../components/SignUp.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
-import Splash from '../views/Splash.vue'
 import Home from '../views/Home.vue'
-
+import Settings from '../views/Settings.vue'
 const routes = [
   {
-    path: '/signup',
+     path: '/signup',
     name: 'SignUp',
     component: SignUp
   },
@@ -36,7 +35,12 @@ const routes = [
 
           return Splash;
         }
-    }}
+    }},
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: Settings
+  }
 ]
 
 const router = createRouter({
