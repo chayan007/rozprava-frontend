@@ -14,7 +14,7 @@
 import CategoryForm from '@/components/CategoryForm.vue'
 import PeoplePage from '@/components/PeoplePage.vue'
 export default {
-  name: 'Register',
+  name: 'Category',
   components: { CategoryForm ,PeoplePage
   }
 }

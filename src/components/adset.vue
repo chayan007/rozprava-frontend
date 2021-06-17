@@ -58,7 +58,15 @@
       </a>
       <div class="collapse" id="panel-11">
         <div class="pt-3">
-          <div class="form-group mb-4 focused">
+          <div class="form-group">
+                    <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Country</label>
+                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                        <option selected="">Choose...</option>
+                        <option value="1">United States</option>
+                        <option value="2">Germany</option>
+                        <option value="3">Canada</option>
+                    </select>
+                
             <label for="exampleInputEmail67">Phone Number</label>
             <input
               type="email"

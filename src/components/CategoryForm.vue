@@ -2,26 +2,27 @@
     
         <div class="">
                 
-                    <div class=" space scroll">
+                    <div class="a-1 space scroll">
                 <!--Buttons-->
                 
                 <!--End of Buttons-->
                 
                 <!--Buttons-->
-                <button class="btn btn-pill mr-3 mt-2 mb-3 btn-primary" type="button">Button</button>
-                <button class="btn btn-pill mr-3 mt-2 mb-3 btn-primary" type="button">
+                
+                <button class="btn btn-pill mr-3  mb-3 btn-primary" type="button">Button</button>
+                <button class="btn btn-pill mr-3  mb-3 btn-primary" type="button">
                     <span class="mr-1"><span class="fas fa-cog"></span></span>
                     Icon Left
                 </button>
-                <button class="btn btn-pill mr-3 mt-2 mb-3 btn-primary" type="button">
+                <button class="btn btn-pill mr-3  mb-3 btn-primary" type="button">
                     <span class="mr-1"><span class="fas fa-cog"></span></span>
                     Icon Left
                 </button>
-                <button class="btn btn-pill mr-3 mt-2 mb-3 btn-primary" type="button">
+                <button class="btn btn-pill mr-3  mb-3 btn-primary" type="button">
                     <span class="mr-1"><span class="fas fa-cog"></span></span>
                     Icon Left
                 </button>
-                <button class="btn btn-pill mr-3 mt-2 mb-3 btn-primary" type="button">
+                <button class="btn btn-pill mr-3  mb-3 btn-primary" type="button">
                     <span class="mr-1"><span class="fas fa-cog"></span></span>
                     Icon Left
                 </button>
@@ -84,6 +85,16 @@ export default {
 }
 .space{
     margin-left: 10%;
-    
+    margin-right: 9%;
 }
+.a-1{
+    padding: 1rem 0rem;
+}
+@media (max-width: 700px) {
+    .space {
+     
+        margin-right: 4%;
+        margin-left: 4%;
+    }
+    }
 </style>

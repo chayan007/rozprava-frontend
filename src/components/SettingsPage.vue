@@ -185,7 +185,7 @@
                 <label for="validationServer01">New Username</label>
                 
                 
-                <div v-if="false">
+                <div v-if="true">
                 
                 <!-- available username == true-->
                 
