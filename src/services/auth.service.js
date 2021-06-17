@@ -14,23 +14,20 @@ function login(username, password) {
         password: password
     }
 
-    axios
+    return axios
         .post(
         `${config.commonConfig.$apiUrl}/${config.userConfig.api.login.endpoint}`,
         loginBody
         )
         .then(response => {
-            console.log(response.data)
-            console.log(response.status)
-            console.log(response.headers)
-            if (response) {
-                localStorage.setItem('user', JSON.stringify(response));
+            const data = response.data
+            if (data.user) {
+                localStorage.setItem('user', JSON.stringify(data));
+                return data.user
             }
         })
         .catch(error => {
-            console.log('Error =>', error.response.data);
-            console.log('Error =>', error.response.status);
-            console.log('Error =>', error);
+            console.log(error);
         });
 }
 
