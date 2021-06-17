@@ -14,7 +14,6 @@ export const authStore = {
             commit('loginRequest', { username });
 
             authService.login(username, password)
-            // console.log(user)
                 .then(
                     user => {
                         commit('loginSuccess', user);

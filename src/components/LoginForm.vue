@@ -125,7 +125,6 @@ export default {
     }
   },
   created () {
-    // reset login status
     this.$store.dispatch('authStore/logout');
   },
   methods: {
