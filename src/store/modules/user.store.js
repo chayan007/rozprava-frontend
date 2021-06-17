@@ -9,7 +9,7 @@ export const userStore = {
         getAll({ commit }) {
             commit('getAllRequest');
 
-            userService.getAll()
+            userService.getDetails()
                 .then(
                     users => commit('getAllSuccess', users),
                     error => commit('getAllFailure', error)
