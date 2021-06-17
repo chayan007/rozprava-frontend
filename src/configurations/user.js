@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
                 "endpoint": "register"
             },
             login: {
-                "endpoint": "login"
+                "endpoint": "profile/auth/login/"
             }
         },
         constants: {
@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
                 "endpoint": "register",
             },
             login: {
-                "endpoint": "login"
+                "endpoint": "profile/auth/login/"
             }
         },
         constants: {

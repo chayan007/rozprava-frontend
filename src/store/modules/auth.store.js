@@ -1,5 +1,5 @@
 import { authService } from '@/services';
-import router from "@/router";
+// import router from "@/router";
 
 const user = JSON.parse(localStorage.getItem('user'));
 const initialState = user
@@ -10,20 +10,20 @@ export const authStore = {
     namespaced: true,
     state: initialState,
     actions: {
-        login({ dispatch, commit }, { username, password }) {
+        login({ commit }, { username, password }) {
             commit('loginRequest', { username });
 
             authService.login(username, password)
-                .then(
-                    user => {
-                        commit('loginSuccess', user);
-                        router.push('/');
-                    },
-                    error => {
-                        commit('loginFailure', error);
-                        dispatch('alert/error', error, { root: true });
-                    }
-                );
+                // .then(
+                //     user => {
+                //         commit('loginSuccess', user);
+                //         router.push('/');
+                //     },
+                //     error => {
+                //         commit('loginFailure', error);
+                //         dispatch('alertStore/error', error, { root: true });
+                //     }
+                // );
         },
         logout({ commit }) {
             authService.logout();
