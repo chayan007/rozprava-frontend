@@ -1,4 +1,5 @@
 import {userConfig} from "@/configurations/user";
+import {messagingConfig} from "@/configurations/messages";
 
 let commonConfig;
 
@@ -16,5 +17,6 @@ if (process.env.NODE_ENV === "PRODUCTION") {
 
 export const config = {
     'commonConfig': commonConfig,
-    'userConfig': userConfig
+    'userConfig': userConfig,
+    'messagingConfig': messagingConfig
 };

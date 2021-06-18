@@ -4,7 +4,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
     userConfig = {
         api: {
             register: {
-                "endpoint": "register"
+                "endpoint": "profile/auth/registration/"
             },
             login: {
                 "endpoint": "profile/auth/login/"
@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
     userConfig = {
         api: {
             register: {
-                "endpoint": "register",
+                "endpoint": "profile/auth/registration/",
             },
             login: {
                 "endpoint": "profile/auth/login/"
