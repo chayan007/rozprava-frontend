@@ -28,11 +28,37 @@ export const authStore = {
         logout({ commit }) {
             authService.logout();
             commit('logout');
+        },
+        register({ dispatch, commit }, {
+            username,
+            password1,
+            password2,
+            name,
+            email,
+            phone
+        }) {
+            commit('registerRequest', { username })
+
+            authService.register(name, email, phone, username, password1, password2)
+                .then(
+                    user => {
+                        commit('loginSuccess', user);
+                        router.push('/');
+                    },
+                    error => {
+                        commit('loginFailure', error);
+                        dispatch('alertStore/error', error, { root: true });
+                    }
+                );
         }
     },
     mutations: {
         loginRequest(state, user) {
             state.status = { loggingIn: true };
+            state.user = user;
+        },
+        registerRequest(state, user) {
+            state.status = { registering: true };
             state.user = user;
         },
         loginSuccess(state, user) {

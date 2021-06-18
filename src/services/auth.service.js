@@ -36,21 +36,25 @@ function logout() {
     localStorage.removeItem('user');
 }
 
-function register(username, password) {
+function register(name, email, phone, username, password1, password2) {
     const registerBody = {
         username: username,
-        password: password
+        password1: password1,
+        password2: password2,
+        email: email,
+        phone: phone,
+        name: name
     }
 
     axios.post(
-        `${config.commonConfig.$apiUrl}/${config.userConfig.api.login.endpoint}`,
+        `${config.commonConfig.$apiUrl}/${config.userConfig.api.register.endpoint}`,
         registerBody
     )
         .then((response) => {
-            handleResponse(response)
-            if (response.token) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(response));
+            const data = response.data
+            if (data.profile) {
+                localStorage.setItem('user', JSON.stringify(data));
+                return data.profile
             }
         })
         .catch((error) => {
