@@ -21,7 +21,7 @@ function login(username, password) {
         )
         .then(response => {
             const data = response.data
-            if (data.user) {
+            if (data.profile) {
                 localStorage.setItem('user', JSON.stringify(data));
                 return data.user
             }
