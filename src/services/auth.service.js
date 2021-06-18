@@ -23,7 +23,7 @@ function login(username, password) {
             const data = response.data
             if (data.profile) {
                 localStorage.setItem('user', JSON.stringify(data));
-                return data.user
+                return data.profile
             }
         })
         .catch(error => {
