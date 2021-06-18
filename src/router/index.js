@@ -7,7 +7,7 @@ import Settings from '../views/Settings.vue'
 
 const routes = [
   {
-     path: '/signup',
+    path: '/signup',
     name: 'SignUp',
     component: SignUp
   },
@@ -44,7 +44,8 @@ router.beforeEach((to, from, next) => {
   const publicPages = [
       '/',
       '/login',
-      '/register'
+      '/register',
+      '/signup'
   ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
