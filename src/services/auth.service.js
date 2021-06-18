@@ -43,10 +43,11 @@ function register(name, email, phone, username, password1, password2) {
         password2: password2,
         email: email,
         phone: phone,
-        name: name
+        first_name: name.split(' ')[0],
+        last_name: name.split(' ').slice(1).join(' ')
     }
 
-    axios.post(
+    return axios.post(
         `${config.commonConfig.$apiUrl}/${config.userConfig.api.register.endpoint}`,
         registerBody
     )

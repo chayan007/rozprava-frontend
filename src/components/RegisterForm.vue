@@ -16,7 +16,7 @@
               </div>
               <input
                 class="form-control"
-                id="exampleInputPassword345"
+                id="name-input"
                 placeholder="Name"
                 v-model="name"
                 type="text"
@@ -56,7 +56,7 @@
                 </div>
                 <input
                   class="form-control"
-                  id="exampleInputPassword345"
+                  id="username-input"
                   v-model="username"
                   placeholder="Username"
                   type="text"
@@ -75,7 +75,7 @@
                 </div>
                 <input
                   class="form-control"
-                  id="exampleInputPassword345"
+                  id="password1-input"
                   placeholder="Password"
                   v-model="password1"
                   type="password"
@@ -97,7 +97,7 @@
                 </div>
                 <input
                   class="form-control"
-                  id="exampleConfirmPassword712"
+                  id="password2-input"
                   placeholder="Confirm password"
                   v-model="password2"
                   type="password"
@@ -115,7 +115,7 @@
                 </div>
                 <input
                   class="form-control"
-                  id="exampleInputPassword345"
+                  id="phone-input"
                   placeholder="Phone Number"
                   type="integer"
                   v-model="phone"
