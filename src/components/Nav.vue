@@ -83,6 +83,7 @@
               <li><a class="dropdown-item"><router-link to="/signup">SignUp</router-link></a></li>
               <li><a class="dropdown-item"><router-link to="/register">Register</router-link></a></li>
               <li><a class="dropdown-item"><router-link to="/login">Login</router-link></a></li>
+              <li><a class="dropdown-item"><router-link to="/caseview">CaseView</router-link></a></li>
             </ul>
           </li>
 

@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import Splash from '../views/Splash.vue'
 import Settings from '../views/Settings.vue'
+import CaseView from '../views/CaseView.vue'
 const routes = [
   {
      path: '/signup',
@@ -25,7 +26,7 @@ const routes = [
     path: "/",
     name: "Home",
     get component() {
-      const x=0; // emulating the value of the condition check for the sign in.
+      const x=1; // emulating the value of the condition check for the sign in.
         if (x==0) {
             //for signed up users
 
@@ -41,7 +42,12 @@ const routes = [
     path: '/settings',
     name: 'Settings',
     component: Settings
-  }
+  },
+  {
+     path: '/caseview',
+     name: 'CaseView',
+     component: CaseView
+  },
 ]
 
 const router = createRouter({
