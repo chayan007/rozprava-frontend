@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import Splash from '../views/Splash.vue'
 import Settings from '../views/Settings.vue'
+import Search from '../views/search.vue'
 const routes = [
   {
      path: '/signup',
@@ -41,6 +42,11 @@ const routes = [
     path: '/settings',
     name: 'Settings',
     component: Settings
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search
   }
 ]
 

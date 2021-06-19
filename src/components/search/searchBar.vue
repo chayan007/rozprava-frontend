@@ -5,15 +5,15 @@
       >
         <input
           class="form-control"
-          id="exampleInputIcon2"
+          id="SearchBar"
           placeholder="Search"
           aria-label="Input group"
           type="text"
         />
         <div class="input-group-append">
           <span class="input-group-text"
-            ><span class="fas fa-search"></span
-          ></span>
+            ><router-link to="/search"><span class="fas fa-search"></span
+          ></router-link></span>
         </div>
       </div>
 </template>
