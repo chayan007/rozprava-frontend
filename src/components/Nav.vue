@@ -111,7 +111,7 @@
           data-toggle="collapse"
           data-target="#navbar_global"
           aria-controls="navbar_global"
-          aria-expanded="false"
+          aria-expanded="true"
           aria-label="Toggle navigation"
         >
           <svg
@@ -132,6 +132,22 @@
         </button>
       </div>
 
+      <!--search bar button invoking the search page-->
+
+      <button
+        type="button"
+        class="btn btn-tertiary dropdown-toggle dropdown-toggle-split"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        aria-label="Search"
+      >
+        <span class="fas fa-angle-down dropdown-arrow"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+
+      <!-- search bar completed-->
+
       <div class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown">
           <div
@@ -146,9 +162,7 @@
         </a>
         <ul class="dropdown-menu">
           <li>
-            <a class="dropdown-item"
-              >My Profile</a
-            >
+            <a class="dropdown-item">My Profile</a>
           </li>
           <li><a class="dropdown-item">Recent activity</a></li>
           <li><a class="dropdown-item">Verification Apply</a></li>
@@ -162,6 +176,7 @@
 <script>
 export default {
   name: "Nav",
+  components: {},
 };
 </script>
 
