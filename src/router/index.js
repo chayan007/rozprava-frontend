@@ -3,6 +3,7 @@ import SignUp from '../components/SignUp.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
+import Splash from '../views/Splash.vue'
 import Settings from '../views/Settings.vue'
 import Search from '../views/search.vue'
 
