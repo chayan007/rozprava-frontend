@@ -33,7 +33,11 @@
               <span class="nav-link-inner-text">Menu</span>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item"><router-link to='/settings'>Settings</router-link></a></li>
+              <li>
+                <a class="dropdown-item"
+                  ><router-link to="/settings">Settings</router-link></a
+                >
+              </li>
               <li><a class="dropdown-item">About us</a></li>
               <li><a class="dropdown-item">Report</a></li>
               <li><a class="dropdown-item">Terms and Conditions</a></li>
@@ -72,25 +76,32 @@
             </ul>
           </li>
 
-<!-- this is just a dev component this will be removed-->
-
+          <!-- this is just a dev component this will be removed-->
 
           <li class="nav-item dropdown">
             <a href="#" class="nav-link" data-toggle="dropdown">
               <span class="nav-link-inner-text">Pages</span>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item"><router-link to="/signup">SignUp</router-link></a></li>
-              <li><a class="dropdown-item"><router-link to="/register">Register</router-link></a></li>
-              <li><a class="dropdown-item"><router-link to="/login">Login</router-link></a></li>
+              <li>
+                <a class="dropdown-item"
+                  ><router-link to="/signup">SignUp</router-link></a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item"
+                  ><router-link to="/register">Register</router-link></a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item"
+                  ><router-link to="/login">Login</router-link></a
+                >
+              </li>
             </ul>
           </li>
 
-
-<!-- remove untill here-->
-
-
-
+          <!-- remove untill here-->
         </ul>
       </div>
       <div class="d-flex align-items-center">
@@ -121,14 +132,28 @@
         </button>
       </div>
 
-      <div
-        class="profile-image bg-primary shadow-inset border border-light rounded-circle p-1"
-      >
-        <img
-          src="../assets/profile-picture-1.jpg"
-          class="card-img-top rounded-circle"
-          alt="profile image"
-        />
+      <div class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown">
+          <div
+            class="profile-image bg-primary shadow-inset border rounded-circle p-1"
+          >
+            <img
+              src="../assets/profile-picture-1.jpg"
+              class="card-img-top rounded-circle"
+              alt="profile image"
+            />
+          </div>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item"
+              >My Profile</a
+            >
+          </li>
+          <li><a class="dropdown-item">Recent activity</a></li>
+          <li><a class="dropdown-item">Verification Apply</a></li>
+          <li><a class="dropdown-item">Log out</a></li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -139,7 +164,6 @@ export default {
   name: "Nav",
 };
 </script>
-
 
 <style>
 .profile-image {

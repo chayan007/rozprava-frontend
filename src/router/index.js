@@ -25,7 +25,7 @@ const routes = [
     path: "/",
     name: "Home",
     get component() {
-      const x=0; // emulating the value of the condition check for the sign in.
+      const x=1; // emulating the value of the condition check for the sign in.
         if (x==0) {
             //for signed up users
 
