@@ -10,8 +10,8 @@ export default {
     name: 'Home',
     components: { SplashScreen },
     computed: {
-      is_authenticated: function () {
-        return false;
+      is_authenticated() {
+        return this.$store.state.authStore.user;
       }
     }
 }
