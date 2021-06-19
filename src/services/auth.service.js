@@ -1,6 +1,5 @@
 import { config } from "@/configurations";
 import axios from "axios";
-import {handleResponse} from "@/helpers";
 
 export const authService = {
     login,
@@ -44,7 +43,7 @@ function register(name, email, phone, username, password1, password2) {
         email: email,
         phone: phone,
         first_name: name.split(' ')[0],
-        last_name: name.split(' ').slice(1).join(' ')
+        last_name: name.split(' ').slice(1).join(' ').replace(/\s+/g,' ').trim()
     }
 
     return axios.post(

@@ -37,7 +37,7 @@ export const authStore = {
             email,
             phone
         }) {
-            commit('registerRequest', { username })
+            commit('registerRequest', { username });
 
             authService.register(name, email, phone, username, password1, password2)
                 .then(
@@ -58,7 +58,7 @@ export const authStore = {
             state.user = user;
         },
         registerRequest(state, user) {
-            state.status = { registering: true };
+            state.status = { loggingIn: true };
             state.user = user;
         },
         loginSuccess(state, user) {

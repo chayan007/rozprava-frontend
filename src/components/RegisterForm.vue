@@ -5,7 +5,7 @@
         <h4 class="mb-3 h5"><strong>Register</strong></h4>
       </div>
       <div class="">
-        <form action="#">
+        <form action="" @submit.prevent="handleSubmit">
           <!-- Form -->
           <div class="form-group">
             <label for="exampleInputPassword345">Your Name</label>
@@ -209,7 +209,7 @@ export default {
           );
         }
 
-        dispatch('authStore/login', {
+        dispatch('authStore/register', {
           username,
           password1,
           password2,
