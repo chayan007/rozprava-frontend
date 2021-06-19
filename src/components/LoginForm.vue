@@ -5,7 +5,7 @@
         <h2 class="h1">Log in</h2>
       </div>
       <div class="card-body">
-        <form action="#">
+        <form action="#" @submit.prevent="handleSubmit">
           <!-- Form -->
           <div class="form-group">
             <label for="exampleInputIcon999">Your email</label>
@@ -19,6 +19,7 @@
                 class="form-control"
                 id="exampleInputIcon999"
                 placeholder="example@company.com"
+                v-model="username"
                 type="text"
                 aria-label="email adress"
               />
@@ -40,6 +41,7 @@
                   id="exampleInputPassword345"
                   placeholder="Password"
                   type="password"
+                  v-model="password"
                   aria-label="Password"
                   required=""
                 />
@@ -110,6 +112,31 @@
 <script>
 export default {
   name: "LoginForm",
+  data () {
+    return {
+      username: '',
+      password: '',
+      submitted: false
+    }
+  },
+  computed: {
+    loggingIn () {
+      return this.$store.state.authStore.status.loggingIn;
+    }
+  },
+  created () {
+    this.$store.dispatch('authStore/logout');
+  },
+  methods: {
+    handleSubmit () {
+      this.submitted = true;
+      const { username, password } = this;
+      const { dispatch } = this.$store;
+      if (username && password) {
+        dispatch('authStore/login', { username, password });
+      }
+    }
+  }
 };
 </script>
 

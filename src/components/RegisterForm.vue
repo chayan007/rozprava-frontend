@@ -5,7 +5,7 @@
         <h4 class="mb-3 h5"><strong>Register</strong></h4>
       </div>
       <div class="">
-        <form action="#">
+        <form action="" @submit.prevent="handleSubmit">
           <!-- Form -->
           <div class="form-group">
             <label for="exampleInputPassword345">Your Name</label>
@@ -16,8 +16,9 @@
               </div>
               <input
                 class="form-control"
-                id="exampleInputPassword345"
+                id="name-input"
                 placeholder="Name"
+                v-model="name"
                 type="text"
                 aria-label="Name"
                 required=""
@@ -36,6 +37,7 @@
                 class="form-control"
                 id="exampleInputIcon999"
                 placeholder="example@company.com"
+                v-model="email"
                 type="text"
                 aria-label="email adress"
               />
@@ -46,7 +48,7 @@
             <!-- Form -->
 
             <div class="form-group">
-              <label for="exampleInputPassword345">Username</label>
+              <label for="exampleInputPassword345">Choose an Username</label>
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
@@ -54,7 +56,8 @@
                 </div>
                 <input
                   class="form-control"
-                  id="exampleInputPassword345"
+                  id="username-input"
+                  v-model="username"
                   placeholder="Username"
                   type="text"
                   aria-label="Username"
@@ -72,8 +75,9 @@
                 </div>
                 <input
                   class="form-control"
-                  id="exampleInputPassword345"
+                  id="password1-input"
                   placeholder="Password"
+                  v-model="password1"
                   type="password"
                   aria-label="Password"
                   required=""
@@ -93,8 +97,9 @@
                 </div>
                 <input
                   class="form-control"
-                  id="exampleConfirmPassword712"
+                  id="password2-input"
                   placeholder="Confirm password"
+                  v-model="password2"
                   type="password"
                   aria-label="Password"
                   required=""
@@ -110,9 +115,10 @@
                 </div>
                 <input
                   class="form-control"
-                  id="exampleInputPassword345"
+                  id="phone-input"
                   placeholder="Phone Number"
                   type="integer"
+                  v-model="phone"
                   aria-label="Phone Number"
                   required=""
                 />
@@ -152,17 +158,68 @@
             <img src="../assets/login.svg" alt="sign in" width="30">
           </button>
         </form>
-        
-        
-        
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { config } from "@/configurations";
+
 export default {
   name: "RegisterForm",
+  data () {
+    return {
+      name: '',
+      email: '',
+      username: '',
+      password1: '',
+      password2: '',
+      phone: '',
+      submitted: false
+    }
+  },
+  computed: {
+    loggingIn () {
+      return this.$store.state.authStore.status.loggingIn;
+    }
+  },
+  created () {
+    this.$store.dispatch('authStore/logout');
+  },
+  methods: {
+    handleSubmit () {
+      this.submitted = true;
+      const {
+        username,
+        password1,
+        password2,
+        name,
+        email,
+        phone
+      } = this;
+      const { dispatch } = this.$store;
+      if (username && password1) {
+
+        if (password1.trim() !== password2.trim()){
+          dispatch(
+              'alertStore/error',
+              config.messagingConfig.messages.error.password_mismatch,
+              { root: true }
+          );
+        }
+
+        dispatch('authStore/register', {
+          username,
+          password1,
+          password2,
+          name,
+          email,
+          phone
+        });
+      }
+    }
+  }
 };
 </script>
 <style scoped>
