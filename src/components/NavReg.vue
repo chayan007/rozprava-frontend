@@ -94,15 +94,7 @@
         </button>
       </div>
 
-      <div
-        class="profile-image bg-primary shadow-inset border border-light rounded-circle p-1"
-      >
-        <img
-          src="../assets/logo.svg"
-          class="card-img-top rounded-circle"
-          alt="profile image"
-        />
-      </div>
+      <a href="#" class="btn btn-sm btn-icon btn-primary fmw-100 font-weight-normal" role="button"><span class="mr-2"><span class="fas fa-sign-in-alt"></span></span><router-link to="/login"> Sign In </router-link></a>
     </div>
   </nav>
 </template>

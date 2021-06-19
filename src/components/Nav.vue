@@ -133,19 +133,43 @@
       </div>
 
       <!--search bar button invoking the search page-->
+      
 
-      <button
-        type="button"
-        class="btn btn-tertiary dropdown-toggle dropdown-toggle-split"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-        aria-label="Search"
-      >
-        <span class="fas fa-angle-down dropdown-arrow"></span>
-        <span class="sr-only">Toggle Dropdown</span>
-      </button>
 
+
+      <div class="navbar-collapse collapse" id="searchbar" style="">
+        <div class="navbar-collapse-header">
+          <div class="row">
+            <div class="col-6 collapse-close">
+              <a
+                href="#searchbar"
+                class="fas fa-times collapsed"
+                data-toggle="collapse"
+                data-target="#searchbar"
+                aria-controls="searchbar"
+                aria-expanded="false"
+                title="close"
+                aria-label="searchbar"
+              ></a>
+            </div>
+          </div>
+        </div>
+      <SearchBar/>
+      </div>
+      <div class="d-flex align-items-center">
+        <button
+          class="navbar-toggler collapsed"
+          type="button"
+          data-toggle="collapse"
+          data-target="#searchbar"
+          aria-controls="searchbar"
+          aria-expanded="true"
+          aria-label="Toggle navigation"
+          onClick="logout"
+        >
+          <span class="fas fa-search"></span>
+        </button>
+      </div>
       <!-- search bar completed-->
 
       <div class="nav-item dropdown">
@@ -174,9 +198,10 @@
 </template>
 
 <script>
+import SearchBar from '../components/search/searchBar.vue'
 export default {
   name: "Nav",
-  components: {},
+  components: {SearchBar},
 };
 </script>
 
