@@ -101,7 +101,7 @@
 
 <script>
 export default {
-  name: "NavReg",
+  name: "NavigationRegistered",
 };
 </script>
 

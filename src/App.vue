@@ -1,24 +1,30 @@
 <template>
   <div v-if="is_authenticated()"><Nav /></div>
-  <div v-else><NavReg /></div>
+  <div v-else><NavigationRegistered /></div>
 
-  <div v-if="alert.message" :class="`alert ${alert.type}`">
-    <Alert />
+  <div v-if="alert()">
+    <Alert :type="type" :message="message"/>
   </div>
 
   <router-view />
 </template>
 
 <script>
-import NavReg from "@/components/NavReg.vue";
-import Nav from "@/components/Nav.vue";
+import NavigationRegistered from "@/components/NavigationRegistered.vue";
+import Nav from "@/components/Navigation.vue";
 import Alert from "@/components/alerts/alert.vue"
 export default {
   name: "Rozprava",
   components: {
     Nav,
-    NavReg,
-    Alert,
+    NavigationRegistered,
+    Alert
+  },
+  data(){
+      return {
+        type: this.$store.state.alertStore.type,
+        message: this.$store.state.alertStore.message
+      }
   },
   computed: {
     alert() {

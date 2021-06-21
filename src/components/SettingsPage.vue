@@ -251,7 +251,7 @@
 </template>
 
 <script>
-import AdSettings from "@/components/adset.vue";
+import AdSettings from "@/components/AdvancedSettings.vue";
 export default {
   name: "SettingsPage",
   components: { AdSettings },

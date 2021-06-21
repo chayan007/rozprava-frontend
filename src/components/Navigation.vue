@@ -198,7 +198,7 @@
 </template>
 
 <script>
-import SearchBar from '../components/search/searchBar.vue'
+import SearchBar from './search/searchBar.vue'
 export default {
   name: "Nav",
   components: {SearchBar},
