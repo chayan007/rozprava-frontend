@@ -1,4 +1,5 @@
 <template>
+<div>
   <!--success alert-->
   <div
     v-if="type == 'alert-success'"
@@ -44,6 +45,7 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">×</span>
     </button>
+  </div>
   </div>
 </template>
 <script>
