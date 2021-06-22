@@ -15,7 +15,6 @@ import NavigationRegistered from "@/components/NavigationRegistered.vue";
 import Nav from "@/components/Navigation.vue";
 import Alert from "@/components/alerts/alert.vue"
 export default {
-  name: "Rozprava",
   components: {
     Nav,
     NavigationRegistered,
