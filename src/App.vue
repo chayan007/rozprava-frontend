@@ -1,11 +1,12 @@
 <template>
+  <div>
   <div v-if="is_authenticated()"><Nav /></div>
   <div v-else><NavigationRegistered /></div>
 
   <div v-if="alert()">
     <Alert :type="type" :message="message"/>
   </div>
-
+  </div>
   <router-view />
 </template>
 
