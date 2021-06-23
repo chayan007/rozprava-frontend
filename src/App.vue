@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div v-if="true"><Nav /></div>
+    <div v-if="is_authenticated()"><Nav /></div>
     <div v-else><NavigationRegistered /></div>
 
-    <div v-if="true">
+    <div v-if="alert()">
       <Alert :alerttype="alerttype" :message="message"></Alert>
     </div>
   </div>
@@ -23,8 +23,8 @@ export default {
   },
   data() {
     return {
-      alerttype: "alert-info",
-      message: "This is a trial Message",
+      alerttype: this.$store.state.alertStore.type,
+      message: this.$store.state.alertStore.message,
     };
   },
   computed: {

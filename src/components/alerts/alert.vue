@@ -1,5 +1,4 @@
 <template>
-  <section class="section section bg-soft overflow-hidden z-2">
     <div class="row justify-content-center text-center pt-3">
       <div class="col-lg-8 col-xl-8">
         <!--success alert-->
@@ -67,9 +66,7 @@
             <span aria-hidden="true">×</span>
           </button>
         </div>
-      </div>
-    </div>
-  </section>
+      </div></div>
 </template>
 <script>
 export default {
