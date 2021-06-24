@@ -69,7 +69,7 @@
           /></span>
         </button>
         <br />
-        <button class="btn btn-pill github mb-3 pad-google" type="button">
+        <button class="btn btn-pill github mb-3 pad-google g-signin2" type="button">
           <span class="mr-1">
             Sign up using Google
             <img
@@ -136,3 +136,4 @@ export default {
   padding-right: 3.4rem;
 }
 </style>
+

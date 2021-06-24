@@ -26,7 +26,7 @@
             </div>
           </div>
           <!-- End of Form -->
-          <div class="form-group">
+           <div class="form-group">
             <!-- Form -->
             <div class="form-group">
               <label for="exampleInputPassword345">Password</label>

@@ -255,7 +255,22 @@ import AdSettings from "@/components/adset.vue";
 export default {
   name: "SettingsPage",
   components: { AdSettings },
-};
+  data () {
+    return {
+      username: '',
+      submitted: false
+    }
+},
+methods: {
+    handleSubmit () {
+      this.submitted = true;
+      const {
+        username,
+      }=this;
+      dispatch('authStore/setting', {
+          username,
+        });
+
 </script>
 
 <style scoped>

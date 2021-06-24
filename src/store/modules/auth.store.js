@@ -50,7 +50,13 @@ export const authStore = {
                         dispatch('alertStore/error', error, { root: true });
                     }
                 );
+        },
+        setting({ dispatch, commit }, {
+            username,
+        }) {
+            commit('registerRequest', { username });
         }
+
     },
     mutations: {
         loginRequest(state, user) {
