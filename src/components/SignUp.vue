@@ -69,7 +69,7 @@
           /></span>
         </button>
         <br />
-        <button class="btn btn-pill github mb-3 pad-google g-signin2" type="button">
+        <button class="btn btn-pill github mb-3 pad-google" type="button">
           <span class="mr-1">
             Sign up using Google
             <img

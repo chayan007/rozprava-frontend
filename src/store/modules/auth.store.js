@@ -1,4 +1,4 @@
-import { authService } from '@/services';
+import { authService, userService } from '@/services';
 import router from "@/router";
 
 const user = JSON.parse(localStorage.getItem('user'));
@@ -10,6 +10,23 @@ export const authStore = {
     namespaced: true,
     state: initialState,
     actions: {
+        setting({ dispatch, commit }, {
+            username,
+        }) {
+            commit('settingRequest', { username });
+
+            userService.setting(username,)
+            .then(
+                user => {
+                    commit('loginSuccess', user);
+                    router.push('/');
+                },
+                error => {
+                    commit('loginFailure', error);
+                    dispatch('alertStore/error', error, { root: true });
+                }
+            );
+        },
         login({ dispatch, commit }, { username, password }) {
             commit('loginRequest', { username });
 
@@ -51,12 +68,7 @@ export const authStore = {
                     }
                 );
         },
-        setting({ dispatch, commit }, {
-            username,
-        }) {
-            commit('registerRequest', { username });
-        }
-
+        
     },
     mutations: {
         loginRequest(state, user) {
@@ -64,6 +76,10 @@ export const authStore = {
             state.user = user;
         },
         registerRequest(state, user) {
+            state.status = { loggingIn: true };
+            state.user = user;
+        },
+        settingRequest(state, user){
             state.status = { loggingIn: true };
             state.user = user;
         },
@@ -78,7 +94,8 @@ export const authStore = {
         logout(state) {
             state.status = {};
             state.user = null;
-        }
+        },
+              
     }
 }
 

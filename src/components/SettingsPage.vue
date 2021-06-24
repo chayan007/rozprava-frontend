@@ -243,7 +243,7 @@
         </div>
       </div>
       <!--End of Accordion-->
-      <button class="btn btn-primary text-success ml-3 mt-2" type="button"><a style='color:green'>Save</a></button>
+      <button class="btn btn-primary text-success ml-3 mt-2" type="button" onClick={handleSubmit}><a style='color:green'>Save</a></button>
             <button class="btn btn-primary text-success ml-3 mt-2" type="button"><a style='color:red'>Discard</a></button>
 
     </div>
@@ -260,16 +260,18 @@ export default {
       username: '',
       submitted: false
     }
-},
-methods: {
+  },
+  methods: {
     handleSubmit () {
       this.submitted = true;
-      const {
-        username,
-      }=this;
+      const {username,}=this;
+       const { dispatch } = this.$store;
       dispatch('authStore/setting', {
-          username,
-        });
+          username
+      });
+    }
+  }
+};
 
 </script>
 

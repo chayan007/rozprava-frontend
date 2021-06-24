@@ -8,6 +8,9 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             },
             login: {
                 "endpoint": "profile/auth/login/"
+            },
+            settings: {
+                "endpoint": "profile/user/{0}/"
             }
         },
         constants: {
@@ -22,6 +25,9 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             },
             login: {
                 "endpoint": "profile/auth/login/"
+            },
+            settings: {
+                "endpoint": "profile/user/{0}/"
             }
         },
         constants: {
