@@ -131,12 +131,7 @@
           </svg>
         </button>
       </div>
-
       <!--search bar button invoking the search page-->
-      
-
-
-
       <div class="navbar-collapse collapse" id="searchbar" style="">
         <div class="navbar-collapse-header">
           <div class="row">
