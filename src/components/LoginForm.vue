@@ -102,6 +102,9 @@
           /></span>
           </button>
         </div>
+        <span>
+            <h2 style="font-size: 0.8rem;"><router-link to="/register">Not yet Registered?<br>REGISTER NOW</router-link></h2>    
+          </span>
         </div>
 
 

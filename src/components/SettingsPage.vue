@@ -237,7 +237,7 @@
           ></a>
           <div class="collapse" id="panel-9" data-v-6db336fc="" style="">
             <div class="pt-3" data-v-6db336fc="">
-              <AdSettings />
+              <AdvancedSettings />
             </div>
           </div>
         </div>
@@ -251,10 +251,10 @@
 </template>
 
 <script>
-import AdSettings from "@/components/adset.vue";
+import AdvancedSettings from "@/components/AdvancedSettings.vue";
 export default {
   name: "SettingsPage",
-  components: { AdSettings },
+  components: { AdvancedSettings },
 };
 </script>
 
