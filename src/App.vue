@@ -4,7 +4,7 @@
     <div v-else><NavigationRegistered /></div>
 
     <div v-if="alert.message">
-      <Alert :alerttype="alert.message" :message="alert.type"></Alert>
+      <Alert :alertType="alert.type" :message="alert.message"></Alert>
     </div>
   </div>
   <router-view />

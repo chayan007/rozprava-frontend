@@ -5,10 +5,10 @@
         <h2 class="h1">Log in</h2>
       </div>
       <div class="card-body">
-        <form action="#" @submit.prevent="handleSubmit">
+        <form action="#" @submit.prevent="handleSubmit" novalidate>
           <!-- Form -->
           <div class="form-group">
-            <label for="exampleInputIcon999">Your email</label>
+            <label for="exampleInputIcon999">Username</label>
             <div class="input-group mb-4">
               <div class="input-group-prepend">
                 <span class="input-group-text"
@@ -18,10 +18,11 @@
               <input
                 class="form-control"
                 id="exampleInputIcon999"
-                placeholder="example@company.com"
+                placeholder="Username"
                 v-model="username"
+                name="username"
                 type="text"
-                aria-label="email adress"
+                aria-label="email"
               />
             </div>
           </div>
@@ -42,8 +43,9 @@
                   placeholder="Password"
                   type="password"
                   v-model="password"
+                  name="password"
                   aria-label="Password"
-                  required=""
+                  required
                 />
               </div>
             </div>
@@ -55,6 +57,7 @@
                 type="checkbox"
                 value=""
                 id="defaultCheck634"
+                required
               />
               <label class="form-check-label" for="defaultCheck634"
                 >Remember ME
