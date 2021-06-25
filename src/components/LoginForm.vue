@@ -113,6 +113,9 @@
 </template>
 
 <script>
+import {stringFormat} from "@/helpers";
+import {config} from "@/configurations";
+
 export default {
   name: "LoginForm",
   data () {
@@ -135,7 +138,33 @@ export default {
       this.submitted = true;
       const { username, password } = this;
       const { dispatch } = this.$store;
-      if (username && password) {
+      let isReadyToBeLoggedIn = true;
+
+      if (!username) {
+        isReadyToBeLoggedIn = false;
+        dispatch(
+            'alertStore/error',
+            stringFormat(config.messagingConfig.messages.error.field_error, 'Username').trim(),
+            { root: true }
+        );
+      }
+
+      const password_length_range = config.userConfig.constants.password_length
+
+      if (!password || password_length_range[0] <= password.length <= password_length_range[1]) {
+        isReadyToBeLoggedIn = false;
+        dispatch(
+            'alertStore/error',
+            stringFormat(
+                config.messagingConfig.messages.error.field_error,
+                'Password',
+                'Password needs to 8 characters long.'
+            ).trim(),
+            { root: true }
+        );
+      }
+
+      if (isReadyToBeLoggedIn){
         dispatch('authStore/login', { username, password });
       }
     }

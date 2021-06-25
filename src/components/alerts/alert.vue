@@ -3,7 +3,7 @@
       <div class="col-lg-8 col-xl-8">
         <!--success alert-->
         <div
-          v-if="alerttype == 'alert-success'"
+          v-if="alerttype === 'alert-success'"
           class="alert alert-success alert-dismissible shadow-soft fade show"
           role="alert"
         >
@@ -25,7 +25,7 @@
 
         <!--error alert-->
         <div
-          v-if="alerttype == 'alert-danger'"
+          v-if="alerttype === 'alert-danger'"
           class="alert alert-danger alert-dismissible shadow-soft fade show"
           role="alert"
         >

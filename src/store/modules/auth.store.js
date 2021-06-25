@@ -50,6 +50,9 @@ export const authStore = {
                         dispatch('alertStore/error', error, { root: true });
                     }
                 );
+        },
+        get_authenticated_details() {
+            return JSON.parse(localStorage.getItem('user'))
         }
     },
     mutations: {

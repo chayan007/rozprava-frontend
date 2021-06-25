@@ -258,8 +258,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.togglebtn {
-  padding: 0%;
-}
-</style>
+<style scoped></style>

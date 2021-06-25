@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-if="is_authenticated()"><Nav /></div>
+    <div v-if="is_authenticated"><Nav /></div>
     <div v-else><NavigationRegistered /></div>
 
-    <div v-if="alert()">
-      <Alert :alerttype="alerttype" :message="message"></Alert>
+    <div v-if="alert.message">
+      <Alert :alerttype="alert.message" :message="alert.type"></Alert>
     </div>
   </div>
   <router-view />
@@ -21,17 +21,12 @@ export default {
     NavigationRegistered,
     Alert,
   },
-  data() {
-    return {
-      alerttype: this.$store.state.alertStore.type,
-      message: this.$store.state.alertStore.message,
-    };
-  },
   computed: {
-    is_authenticated: function() {
-      return false;
+    is_authenticated() {
+      return this.$store.state.authStore.user;
     },
     alert() {
+      console.log(this.$store.state.alertStore);
       return this.$store.state.alertStore;
     },
   },
