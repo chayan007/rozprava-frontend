@@ -25,6 +25,11 @@ export const userStore = {
         },
         getAllFailure(state, error) {
             state.all = { error };
+        },
+        refreshUser(state, error){
+            state.all = { error};
+            let user=localStorage.getItem("user");
+            user.profile.user
         }
     }
 }
