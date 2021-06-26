@@ -1,16 +1,10 @@
 <template>
+  <div v-if="true"><Nav/></div>
+  <div v-else><NavReg/></div>
 
-<!-- when signed in-->
-<div v-if="true">
-<Nav/>
-</div>
+  <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
 
-
-<!-- when not signed in-->
-<div v-else>
-<NavReg/>
-</div>
-<router-view/>
+  <router-view/>
 </template>
 
 <script>
@@ -18,8 +12,22 @@ import NavReg from '@/components/NavReg.vue'
 import Nav from '@/components/Nav.vue'
 export default {
   components: {
-   Nav, NavReg, 
+    Nav,
+    NavReg,
   },
-  
+  computed: {
+    alert () {
+      return this.$store.state.alertStore;
+    },
+    is_authenticated() {
+      return this.$store.state.authStore.user;
+    }
+  },
+  watch:{
+    $route (){
+      this.$store.dispatch('alertStore/clear');
+    }
+  }
+
 }
 </script>
