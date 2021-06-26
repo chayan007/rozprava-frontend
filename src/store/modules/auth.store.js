@@ -11,11 +11,15 @@ export const authStore = {
     state: initialState,
     actions: {
         setting({ dispatch, commit }, {
+            profilePicture,
             username,
+            bio,
+            password1,
+            password2,
         }) {
             commit('settingRequest', { username });
 
-            userService.setting(username,)
+            userService.setting(profilePicture, username, bio, password1, password2)
             .then(
                 user => {
                     commit('loginSuccess', user);

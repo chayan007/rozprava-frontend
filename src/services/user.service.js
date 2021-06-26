@@ -14,19 +14,18 @@ function getDetails() {
     };
     return fetch(`${config.commonConfig.$apiUrl}/users`, requestOptions).then(handleResponse);
 }
-function setting(username,) {
+function setting(username, profilePicture, bio, password1, password2) {
     const registerBody = {
+        profilePicture : profilePicture,
         username: username,
-        // password1: password1,
-        // password2: password2,
-        // email: email,
-        // phone: phone,
-        // first_name: name.split(' ')[0],
-        // last_name: name.split(' ').slice(1).join(' ').replace(/\s+/g,' ').trim()
+        bio: bio,
+        password1: password1,
+        password2: password2
     }
+    const existingUsername = JSON.parse(localStorage.get('user')).profile.user.username;
 
     return axios.post(
-        `${config.commonConfig.$apiUrl}/${config.userConfig.api.register.endpoint}`,
+        `${config.commonConfig.$apiUrl}/${config.userConfig.api.setting.endpoint}`,
         registerBody
     )
         .then((response) => {

@@ -26,6 +26,7 @@
                   type="file"
                   class="custom-file-input"
                   id="customFile"
+                  v-on:change="profilePicture"
                   aria-label="File upload"
                   data-v-6db336fc=""
                 /><label
@@ -64,6 +65,7 @@
                   placeholder="Hey there! I am using Rozprava..."
                   id="exampleFormControlTextarea1"
                   rows="4"
+                  v-model="bio"
                   data-v-6db336fc=""
                   style="margin-top: 0px; margin-bottom: 0px; height: 104px;"
                 ></textarea>
@@ -99,6 +101,7 @@
                     id="exampleInputPassword1"
                     placeholder="Password"
                     type="password"
+                    v-model="password1"
                     aria-label="Password"
                     data-v-6db336fc=""
                   />
@@ -118,6 +121,7 @@
                   class="form-control"
                   id="exampleInputPassword1"
                   placeholder="Password"
+                  v-model="password2"
                   type="password"
                   aria-label="Password"
                   data-v-6db336fc=""
@@ -183,25 +187,25 @@
             <div class="pt-3" data-v-6db336fc="">
               <div class="form-group focused">
                 <label for="validationServer01">New Username</label>
-                
-                
-                <div v-if="false">
-                
+
+                <!-- <div v-if="false"> -->
+
                 <!-- available username == true-->
-                
 
                 <input
                   type="text"
                   class="form-control is-valid"
                   id="validationServer01"
-                  value="Username"
+                  placeholder="Username"
+                  v-model="username"
                   required="Mark"
                 />
                 <div class="valid-feedback">
                   Looks good!
-                </div></div>
+                </div>
+                <!-- </div> -->
 
-                <div v-else>
+                <!-- <div v-else>
 
 
                     <input type="text" class="form-control is-invalid" id="validationServerUsername" required="">
@@ -209,11 +213,7 @@
                       Please choose a username.
                     </div>               
 
-                </div> 
-
-
-
-
+                </div>  -->
               </div>
             </div>
           </div>
@@ -243,9 +243,16 @@
         </div>
       </div>
       <!--End of Accordion-->
-      <button class="btn btn-primary text-success ml-3 mt-2" type="button" onClick={handleSubmit}><a style='color:green'>Save</a></button>
-            <button class="btn btn-primary text-success ml-3 mt-2" type="button"><a style='color:red'>Discard</a></button>
-
+      <button
+        class="btn btn-primary text-success ml-3 mt-2"
+        type="button"
+        onClick="{handleSubmit}"
+      >
+        <a style="color:green">Save</a>
+      </button>
+      <button class="btn btn-primary text-success ml-3 mt-2" type="button">
+        <a style="color:red">Discard</a>
+      </button>
     </div>
   </div>
 </template>
@@ -255,24 +262,48 @@ import AdSettings from "@/components/adset.vue";
 export default {
   name: "SettingsPage",
   components: { AdSettings },
-  data () {
+  data() {
     return {
-      username: '',
-      submitted: false
-    }
+      profilePicture: "",
+      username: "",
+      bio: "",
+      password1: "",
+      password2: "",
+      submitted: false,
+    };
   },
   methods: {
-    handleSubmit () {
+    handleSubmit() {
       this.submitted = true;
-      const {username,}=this;
-       const { dispatch } = this.$store;
-      dispatch('authStore/setting', {
-          username
-      });
+      const { profilePicture, username, bio, password1, password2 } = this;
+      const { dispatch } = this.$store;
+      if (username && password1 && bio) {
+
+        if (password1.trim() !== password2.trim()){
+          dispatch(
+              'alertStore/error',
+              config.messagingConfig.messages.error.password_mismatch,
+              { root: true }
+          );
+        }
+        if( bio.length >= 150 ){
+          dispatch(
+              'alertStore/error',
+              config.messagingConfig.messages.error.bio_size,
+              { root: true }
+          );
+        }
+        dispatch("authStore/setting", {
+          profilePicture,
+          username,
+          bio,
+          password1,
+          password2,
+        });
+      }
     }
   }
 };
-
 </script>
 
 <style scoped>
