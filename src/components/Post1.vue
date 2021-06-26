@@ -1,9 +1,13 @@
 <template>
-    <div class="">
+    <div class="cant">
         <div class="card bg-primary  ">
-          <div class="">
+          <div class="a1" >
                     <img src="../assets/post_pic.png"  class="image card-img-top rounded-top" alt="Themesberg office">
+                    <button type="button " class="aero a2"><span class="a2">&lt;-</span></button>
+                    <button type="button" class="a3"> ...</button>
+                    <img src="../assets/profile-picture-2.png"  class="a4" alt="Themesberg office">
                     </div>
+                   
                     <div class="card-body">
                         
                         <h2 class=" card-title mt-3">Tyler, The Creater</h2>
@@ -37,6 +41,7 @@
   margin-left: auto;
   margin-right: auto;
   width: 30rem;
+  
 }
 .btn {
     display: inline-block;
@@ -70,5 +75,36 @@
   white-space: nowrap;
   
   /* width: 5rem; */
+}
+.a1{
+  position: relative;
+  
+}
+.a1 .aero{
+  position: absolute;
+  top: 10%;
+  left: 4%;
+  
+}
+.a2{
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+}
+.a1 .a3{
+  position: absolute;
+  top:0%;
+  left: 85%;
+  background: none;
+  color: white;
+  border: none;
+  font-size: 2rem;
+}
+.a1 .a4{
+  position: absolute;
+  top: 60%;
+  left: 40%;
+  
 }
 </style>

@@ -58,7 +58,9 @@ router.beforeEach((to, from, next) => {
       '/',
       '/login',
       '/register',
-      '/signup'
+      '/signup',
+      '/settings',
+      '/post'
   ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
