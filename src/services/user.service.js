@@ -23,9 +23,11 @@ function setting(username, profilePicture, bio, password1, password2) {
         password1: password1,
         password2: password2
     }
-    const existingUsername = JSON.parse(localStorage.get('user')).profile.user.username;
-    const url =  stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.setting.endpoint}`, existingUsername);
+    
+    const existingUsername = JSON.parse(localStorage.getItem('user')).profile.user.username;
+    const url =  stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.settings.endpoint}`, existingUsername);
     console.log(url);
+    console.log(existingUsername);
 
     return axios.post(
         url,

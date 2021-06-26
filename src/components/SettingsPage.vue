@@ -246,7 +246,7 @@
       <button
         class="btn btn-primary text-success ml-3 mt-2"
         type="button"
-        onClick="{handleSubmit}"
+        v-on:click="handleSubmit"
       >
         <a style="color:green">Save</a>
       </button>
@@ -276,22 +276,20 @@ export default {
   },
   methods: {
     handleSubmit() {
-      debugger
       this.submitted = true;
       const { profilePicture, username, bio, password1, password2 } = this;
       const { dispatch } = this.$store;
-      if (username && password1 && bio) {
 
-        if (password1.trim() !== password2.trim()){
+        if (password1 && password1.trim() !== password2.trim()){
           dispatch(
-              'alertStore/error',
+            'alertStore/error',
               config.messagingConfig.messages.error.password_mismatch,
               { root: true }
           );
         }
-        if( bio.length >= 200 ){
+        if(bio && bio.length >= 200 ){
           dispatch(
-              'alertStore/error',
+            'alertStore/error',
               config.messagingConfig.messages.error.bio_size,
               { root: true }
           );
@@ -303,7 +301,6 @@ export default {
           password1,
           password2,
         });
-      }
     }
   }
 };
