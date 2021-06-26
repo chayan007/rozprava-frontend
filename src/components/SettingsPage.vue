@@ -286,7 +286,7 @@ export default {
               { root: true }
           );
         }
-        if( bio.length >= 150 ){
+        if( bio.length >= 200 ){
           dispatch(
               'alertStore/error',
               config.messagingConfig.messages.error.bio_size,
