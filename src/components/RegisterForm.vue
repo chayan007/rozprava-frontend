@@ -5,10 +5,10 @@
         <h4 class="mb-3 h5"><strong>Register</strong></h4>
       </div>
       <div class="">
-        <form action="" @submit.prevent="handleSubmit">
+        <form action="" @submit.prevent="handleSubmit" novalidate>
           <!-- Form -->
           <div class="form-group">
-            <label for="exampleInputPassword345">Your Name</label>
+            <label for="exampleInputPassword345">Your Full Name</label>
             <div class="input-group mb-4">
               <div class="input-group-prepend">
                 <span class="input-group-text"
@@ -21,7 +21,7 @@
                 v-model="name"
                 type="text"
                 aria-label="Name"
-                required=""
+                required
               />
             </div>
           </div>
@@ -38,8 +38,9 @@
                 id="exampleInputIcon999"
                 placeholder="example@company.com"
                 v-model="email"
-                type="text"
-                aria-label="email adress"
+                type="email"
+                aria-label="email address"
+                required
               />
             </div>
           </div>
@@ -61,7 +62,7 @@
                   placeholder="Username"
                   type="text"
                   aria-label="Username"
-                  required=""
+                  required
                 />
               </div>
             </div>
@@ -80,13 +81,10 @@
                   v-model="password1"
                   type="password"
                   aria-label="Password"
-                  required=""
+                  required
                 />
               </div>
             </div>
-
-            <!-- End of Form -->
-            <!-- Form -->
             <div class="form-group">
               <label for="exampleConfirmPassword712">Confirm Password</label>
               <div class="input-group">
@@ -102,7 +100,7 @@
                   v-model="password2"
                   type="password"
                   aria-label="Password"
-                  required=""
+                  required
                 />
               </div>
             </div>
@@ -120,7 +118,7 @@
                   type="integer"
                   v-model="phone"
                   aria-label="Phone Number"
-                  required=""
+                  required
                 />
               </div>
             </div>
@@ -129,17 +127,14 @@
             <label class="" for="defaultCheck634">
                 ReSend OTP
               </label></div>
-              
-          
               <div class="input-group mb-4 otp" >
-                
                 <input
                   class="form-control " 
                   id="exampleInputPassword345"
                   placeholder="OTP"
                   type="integer"
                   aria-label="Phone Number"
-                  required=""
+                  required
                 />
               </div>
             <div class="form-check mb-4">
@@ -148,6 +143,7 @@
                 type="checkbox"
                 value=""
                 id="defaultCheck634"
+                required
               />
               <label class="form-check-label" for="defaultCheck634">
                 I agree to the <a href="#">terms and conditions</a>
@@ -165,6 +161,7 @@
 
 <script>
 import { config } from "@/configurations";
+import {isInRange, stringFormat} from "@/helpers";
 
 export default {
   name: "RegisterForm",
@@ -199,25 +196,67 @@ export default {
         phone
       } = this;
       const { dispatch } = this.$store;
-      if (username && password1) {
 
-        if (password1.trim() !== password2.trim()){
-          dispatch(
-              'alertStore/error',
-              config.messagingConfig.messages.error.password_mismatch,
-              { root: true }
-          );
-        }
-
-        dispatch('authStore/register', {
-          username,
-          password1,
-          password2,
-          name,
-          email,
-          phone
-        });
+      if (!username) {
+        dispatch(
+            'alertStore/error',
+            stringFormat(config.messagingConfig.messages.error.field_error, 'Username').trim(),
+            { root: true }
+        );
+        return;
       }
+
+      const password_length_range = config.userConfig.constants.password_length;
+
+      if (!password1 || !isInRange(password1.length, password_length_range)) {
+        dispatch(
+            'alertStore/error',
+            stringFormat(
+                config.messagingConfig.messages.error.field_error,
+                'Password',
+                'Password needs to be 8 characters long.'
+            ).trim(),
+            { root: true }
+        );
+        return;
+      }
+
+      if (password1 !== password2) {
+        dispatch(
+            'alertStore/error',
+            stringFormat(
+                config.messagingConfig.messages.error.field_error,
+                'Password',
+                'Both the passwords are not matching.'
+            ).trim(),
+            { root: true }
+        );
+        return;
+      }
+
+      const phone_length_range = config.userConfig.constants.mobile_length;
+
+      if (!phone || !isInRange(phone.length, phone_length_range)) {
+        dispatch(
+            'alertStore/error',
+            stringFormat(
+                config.messagingConfig.messages.error.field_error,
+                'Phone number',
+                'Phone number needs to have 10 numbers.'
+            ).trim(),
+            { root: true }
+        );
+        return;
+      }
+
+      dispatch('authStore/register', {
+        username,
+        password1,
+        password2,
+        name,
+        email,
+        phone
+      });
     }
   }
 };

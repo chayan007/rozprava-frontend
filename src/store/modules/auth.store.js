@@ -20,7 +20,7 @@ export const authStore = {
                         router.push('/');
                     },
                     error => {
-                        commit('loginFailure', error);
+                        commit('loginFailure');
                         dispatch('alertStore/error', error, { root: true });
                     }
                 );
@@ -46,7 +46,7 @@ export const authStore = {
                         router.push('/');
                     },
                     error => {
-                        commit('loginFailure', error);
+                        commit('loginFailure');
                         dispatch('alertStore/error', error, { root: true });
                     }
                 );
