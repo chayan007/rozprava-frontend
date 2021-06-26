@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import {stringFormat} from "@/helpers";
+import {isInRange, stringFormat} from "@/helpers";
 import {config} from "@/configurations";
 
 export default {
@@ -141,35 +141,32 @@ export default {
       this.submitted = true;
       const { username, password } = this;
       const { dispatch } = this.$store;
-      let isReadyToBeLoggedIn = true;
 
       if (!username) {
-        isReadyToBeLoggedIn = false;
         dispatch(
             'alertStore/error',
             stringFormat(config.messagingConfig.messages.error.field_error, 'Username').trim(),
             { root: true }
         );
+        return;
       }
 
-      const password_length_range = config.userConfig.constants.password_length
+      const password_length_range = config.userConfig.constants.password_length;
 
-      if (!password || password_length_range[0] <= password.length <= password_length_range[1]) {
-        isReadyToBeLoggedIn = false;
+      if (!password || !isInRange(password.length, password_length_range)) {
         dispatch(
             'alertStore/error',
             stringFormat(
                 config.messagingConfig.messages.error.field_error,
                 'Password',
-                'Password needs to 8 characters long.'
+                'Password needs to be 8 characters long.'
             ).trim(),
             { root: true }
         );
+        return;
       }
 
-      if (isReadyToBeLoggedIn){
-        dispatch('authStore/login', { username, password });
-      }
+      dispatch('authStore/login', { username, password });
     }
   }
 };

@@ -26,7 +26,6 @@ export default {
       return this.$store.state.authStore.user;
     },
     alert() {
-      console.log(this.$store.state.alertStore);
       return this.$store.state.alertStore;
     },
   },

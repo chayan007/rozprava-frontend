@@ -12,7 +12,8 @@ if (process.env.NODE_ENV === "PRODUCTION") {
         },
         constants: {
             debug: true,
-            password_length: [8, 100]
+            password_length: [8, 100],
+            mobile_length: [10, 10]
         }
     };
 } else {
@@ -27,7 +28,8 @@ if (process.env.NODE_ENV === "PRODUCTION") {
         },
         constants: {
             debug: false,
-            password_length: [8, 100]
+            password_length: [8, 100],
+            mobile_length: [10, 10]
         }
     };
 }

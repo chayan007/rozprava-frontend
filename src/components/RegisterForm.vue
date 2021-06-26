@@ -8,7 +8,7 @@
         <form action="" @submit.prevent="handleSubmit" novalidate>
           <!-- Form -->
           <div class="form-group">
-            <label for="exampleInputPassword345">Your Name</label>
+            <label for="exampleInputPassword345">Your Full Name</label>
             <div class="input-group mb-4">
               <div class="input-group-prepend">
                 <span class="input-group-text"
@@ -39,7 +39,7 @@
                 placeholder="example@company.com"
                 v-model="email"
                 type="email"
-                aria-label="email adress"
+                aria-label="email address"
                 required
               />
             </div>
@@ -161,7 +161,7 @@
 
 <script>
 import { config } from "@/configurations";
-import {stringFormat} from "@/helpers";
+import {isInRange, stringFormat} from "@/helpers";
 
 export default {
   name: "RegisterForm",
@@ -196,34 +196,32 @@ export default {
         phone
       } = this;
       const { dispatch } = this.$store;
-      let isReadyToBeLoggedIn = true;
 
       if (!username) {
-        isReadyToBeLoggedIn = false;
         dispatch(
             'alertStore/error',
             stringFormat(config.messagingConfig.messages.error.field_error, 'Username').trim(),
             { root: true }
         );
+        return;
       }
 
-      const password_length_range = config.userConfig.constants.password_length
+      const password_length_range = config.userConfig.constants.password_length;
 
-      if (!password1 || password_length_range[0] <= password1.length <= password_length_range[1]) {
-        isReadyToBeLoggedIn = false;
+      if (!password1 || !isInRange(password1.length, password_length_range)) {
         dispatch(
             'alertStore/error',
             stringFormat(
                 config.messagingConfig.messages.error.field_error,
                 'Password',
-                'Password needs to 8 characters long.'
+                'Password needs to be 8 characters long.'
             ).trim(),
             { root: true }
         );
+        return;
       }
 
       if (password1 !== password2) {
-        isReadyToBeLoggedIn = false;
         dispatch(
             'alertStore/error',
             stringFormat(
@@ -233,18 +231,32 @@ export default {
             ).trim(),
             { root: true }
         );
+        return;
       }
 
-      if (isReadyToBeLoggedIn){
-        dispatch('authStore/register', {
-          username,
-          password1,
-          password2,
-          name,
-          email,
-          phone
-        });
+      const phone_length_range = config.userConfig.constants.mobile_length;
+
+      if (!phone || !isInRange(phone.length, phone_length_range)) {
+        dispatch(
+            'alertStore/error',
+            stringFormat(
+                config.messagingConfig.messages.error.field_error,
+                'Phone number',
+                'Phone number needs to have 10 numbers.'
+            ).trim(),
+            { root: true }
+        );
+        return;
       }
+
+      dispatch('authStore/register', {
+        username,
+        password1,
+        password2,
+        name,
+        email,
+        phone
+      });
     }
   }
 };
