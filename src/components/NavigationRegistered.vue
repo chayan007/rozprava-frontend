@@ -38,25 +38,32 @@
             </ul>
           </li>
 
-<!-- this is just a dev component this will be removed-->
-
+          <!-- this is just a dev component this will be removed-->
 
           <li class="nav-item dropdown">
             <a href="#" class="nav-link" data-toggle="dropdown">
               <span class="nav-link-inner-text">Pages</span>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item"><router-link to="/signup">SignUp</router-link></a></li>
-              <li><a class="dropdown-item"><router-link to="/register">Register</router-link></a></li>
-              <li><a class="dropdown-item"><router-link to="/login">Login</router-link></a></li>
+              <li>
+                <a class="dropdown-item"
+                  ><router-link to="/signup">SignUp</router-link></a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item"
+                  ><router-link to="/register">Register</router-link></a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item"
+                  ><router-link to="/login">Login</router-link></a
+                >
+              </li>
             </ul>
           </li>
 
-
-<!-- remove untill here-->
-
-
-
+          <!-- remove untill here-->
         </ul>
       </div>
       <div class="d-flex align-items-center">
@@ -87,25 +94,16 @@
         </button>
       </div>
 
-      <div
-        class="profile-image bg-primary shadow-inset border border-light rounded-circle p-1"
-      >
-        <img
-          src="../assets/logo.svg"
-          class="card-img-top rounded-circle"
-          alt="profile image"
-        />
-      </div>
+      <a href="#" class="btn btn-sm btn-icon btn-primary fmw-100 font-weight-normal" role="button"><span class="mr-2"><span class="fas fa-sign-in-alt"></span></span><router-link to="/login"> Sign In </router-link></a>
     </div>
   </nav>
 </template>
 
 <script>
 export default {
-  name: "NavReg",
+  name: "NavigationRegistered",
 };
 </script>
-
 
 <style>
 .profile-image {

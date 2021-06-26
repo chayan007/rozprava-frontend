@@ -230,7 +230,7 @@
           ></a>
           <div class="collapse" id="panel-9" data-v-6db336fc="" style="">
             <div class="pt-3" data-v-6db336fc="">
-              <AdSettings />
+              <AdvancedSettings />
             </div>
           </div>
         </div>
@@ -247,68 +247,11 @@
 </template>
 
 <script>
-  import AdSettings from "@/components/adset.vue";
-  //import axios from 'axios';
-  export default {
-    name: "SettingsPage",
-    components: { AdSettings },
-    /*data(){
-      return {
-        bio :'',
-
-      }
-     },
-    
-     methods:{
-       async handelsubmit(){
-         const data={
-           Bio:this.Bio,
-
-         };
-         
-        const response=await axios.post('http://localhost:8080/settings',data);
-        console.log(response);  
-      }
-      // {BASE_URL}/profiles/user/<username>/*/
-      
-      /*return {
-      username:'new_username',
-      password:'new_password',
-      profile_image:'new_profile_image',
-      bio:'new_bio',
-      dob:'new_dob',
-      contact:'new_contact',
-      address:'new_address',
-      profession:'new_profession',
-      gender:'update_gender',
-      relationship_status:'new_relationship_status'
-
-      }
-      methods:{
-        handelsubmit()
-          {
-            const data={
-              username:this.username,
-          password:this.new_password,
-          profile_image:this.new_profile_image,
-          bio:this.new_bio,
-          dob:this.new_dob,
-          contact:this.new_contact,
-          address:this.new_address,
-          profession:this.new_profession,
-          gender:this.update_gender,
-          relationship_status:this.new_relationship_status
-            }
-            const {dispatch}=this.$store;
-            disptach('userStore/edit_settings',data);
-          }
-      }*/
-  };
-  
+import AdvancedSettings from "@/components/AdvancedSettings.vue";
+export default {
+  name: "SettingsPage",
+  components: { AdvancedSettings },
+};
 </script>
 
-<style scoped>
-.togglebtn {
-  padding: 0%;
-}
-</style>
+<style scoped></style>

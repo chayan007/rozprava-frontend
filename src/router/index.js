@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import SignUp from '../components/SignUp.vue'
-import Register from '../views/Register.vue'
-import Login from '../views/Login.vue'
-import Category from '../views/Category.vue'
-import Home from '../views/Home.vue'
-import Settings from '../views/Settings.vue'
-import Post from '../views/Post.vue'
+import SignUp from '@/components/SignUp.vue'
+import Register from '@/views/Register.vue'
+import Login from '@/views/Login.vue'
+import Home from '@/views/Home.vue'
+import Settings from '@/views/Settings.vue'
+import Search from '@/views/search.vue'
+
 const routes = [
   {
     path: '/signup',
@@ -25,13 +25,8 @@ const routes = [
     component: Login
   },
   {
-    path: '/category',
-    name: 'Category',
-    component: Category
-  },
-    {
-    path: "/",
-    name: "Home",
+    path: '/',
+    name: 'Home',
     component: Home
   },
   {
@@ -43,6 +38,11 @@ const routes = [
     path: '/post',
     name: 'Post',
     component: Post
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search
   }
 ]
 

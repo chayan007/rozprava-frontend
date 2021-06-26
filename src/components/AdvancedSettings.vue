@@ -333,7 +333,7 @@
 <script>
 
 export default {
-  name: "AdSettings",
+  name: "AdvancedSettings",
   components: {},
 };
 </script>
