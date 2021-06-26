@@ -1,5 +1,6 @@
 import { config } from "@/configurations";
 import axios from "axios";
+import {stringFormat} from "@/helpers";
 
 export const authService = {
     login,
@@ -26,12 +27,16 @@ function login(username, password) {
             }
         })
         .catch(error => {
-            console.log(error);
+            const data = error.response.data;
+            if ('non_field_errors' in data){
+                throw data.non_field_errors[0];
+            } else {
+                throw config.messagingConfig.messages.error.unknown_error;
+            }
         });
 }
 
 function logout() {
-    // remove user from local storage to log user out
     localStorage.removeItem('user');
 }
 
@@ -58,6 +63,19 @@ function register(name, email, phone, username, password1, password2) {
             }
         })
         .catch((error) => {
-            console.log(error);
+            const data = error.response.data;
+            if ('non_field_errors' in data){
+                throw data.non_field_errors[0];
+            } else if ('email' in data) {
+                throw stringFormat(config.messagingConfig.messages.error.already_exists_error, 'email');
+            } else if ('username' in data) {
+                throw stringFormat(config.messagingConfig.messages.error.already_exists_error, 'username');
+            } else if ('first_name' in data || 'last_name' in data) {
+                throw stringFormat(config.messagingConfig.messages.error.field_error, 'name', 'It cannot be empty.');
+            } else if ('mobile_number' in data) {
+                throw stringFormat(config.messagingConfig.messages.error.already_exists_error, 'mobile number');
+            } else {
+                throw config.messagingConfig.messages.error.unknown_error;
+            }
         });
 }

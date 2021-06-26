@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import SignUp from '../components/SignUp.vue'
-import Register from '../views/Register.vue'
-import Login from '../views/Login.vue'
-import Home from '../views/Home.vue'
-import Settings from '../views/Settings.vue'
+import SignUp from '@/components/SignUp.vue'
+import Register from '@/views/Register.vue'
+import Login from '@/views/Login.vue'
+import Home from '@/views/Home.vue'
+import Settings from '@/views/Settings.vue'
+import Search from '@/views/search.vue'
 
 const routes = [
   {
@@ -22,14 +23,19 @@ const routes = [
     component: Login
   },
   {
-    path: "/",
-    name: "Home",
+    path: '/',
+    name: 'Home',
     component: Home
   },
   {
     path: '/settings',
     name: 'Settings',
     component: Settings
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search
   }
 ]
 
@@ -45,7 +51,7 @@ router.beforeEach((to, from, next) => {
       '/',
       '/login',
       '/register',
-      '/signup'
+      '/signup',
   ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');

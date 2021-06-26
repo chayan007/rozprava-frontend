@@ -1,6 +1,7 @@
 import {authHeader, handleResponse} from '@/helpers';
 import { config } from "@/configurations";
 import axios from "axios";
+import {stringFormat} from "@/helpers";
 
 export const userService = {
     getDetails,
@@ -23,9 +24,11 @@ function setting(username, profilePicture, bio, password1, password2) {
         password2: password2
     }
     const existingUsername = JSON.parse(localStorage.get('user')).profile.user.username;
+    const url =  stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.setting.endpoint}`, existingUsername);
+    console.log(url);
 
     return axios.post(
-        `${config.commonConfig.$apiUrl}/${config.userConfig.api.setting.endpoint}`,
+        url,
         registerBody
     )
         .then((response) => {

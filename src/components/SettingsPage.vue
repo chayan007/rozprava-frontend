@@ -237,7 +237,7 @@
           ></a>
           <div class="collapse" id="panel-9" data-v-6db336fc="" style="">
             <div class="pt-3" data-v-6db336fc="">
-              <AdSettings />
+              <AdvancedSettings />
             </div>
           </div>
         </div>
@@ -258,10 +258,12 @@
 </template>
 
 <script>
-import AdSettings from "@/components/adset.vue";
+import AdvancedSettings from "@/components/AdvancedSettings.vue";
+import { config } from "@/configurations";
+
 export default {
   name: "SettingsPage",
-  components: { AdSettings },
+  components: { AdvancedSettings },
   data() {
     return {
       profilePicture: "",
@@ -274,6 +276,7 @@ export default {
   },
   methods: {
     handleSubmit() {
+      debugger
       this.submitted = true;
       const { profilePicture, username, bio, password1, password2 } = this;
       const { dispatch } = this.$store;
@@ -306,8 +309,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.togglebtn {
-  padding: 0%;
-}
-</style>
+<style scoped></style>
