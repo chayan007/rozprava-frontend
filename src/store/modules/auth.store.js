@@ -22,8 +22,7 @@ export const authStore = {
             userService.setting(profilePicture, username, bio, password1, password2)
             .then(
                 user => {
-                    // localStorage.setItem('user', JSON.stringify(data));
-                    localStorage.setItem('user', username);
+                    localStorage.setItem('user', JSON.stringify(data));
                     commit('loginSuccess', user);
                     router.push('/');
                 },
