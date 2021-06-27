@@ -1,4 +1,4 @@
-import { authService } from '@/services';
+import { authService, socialAuthService } from '@/services';
 import router from "@/router";
 
 const user = JSON.parse(localStorage.getItem('user'));
@@ -50,6 +50,24 @@ export const authStore = {
                         dispatch('alertStore/error', error, { root: true });
                     }
                 );
+        },
+        social({ dispatch, commit }, provider) {
+            const username = 'boogeyman';
+            commit('loginRequest', { username });
+
+            if (provider === 'google') {
+                socialAuthService.google()
+                    .then(
+                        user => {
+                            commit('loginSuccess', user);
+                            router.push('/');
+                        },
+                        error => {
+                            commit('loginFailure');
+                            dispatch('alertStore/error', error, { root: true });
+                        }
+                    );
+            }
         }
     },
     mutations: {

@@ -69,7 +69,7 @@
           /></span>
         </button>
         <br />
-        <button class="btn btn-pill github mb-3 pad-google" type="button">
+        <button class="btn btn-pill github mb-3 pad-google" type="button" v-on:click="triggerGoogle">
           <span class="mr-1">
             Sign up using Google
             <img
@@ -102,6 +102,14 @@
 <script>
 export default {
   name: "SignUp",
+  methods: {
+    triggerGoogle () {
+      const { dispatch } = this.$store;
+      console.log('Triggering Google.')
+
+      dispatch('authStore/social', 'google');
+    }
+  }
 };
 </script>
 
