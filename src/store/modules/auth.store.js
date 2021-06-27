@@ -22,16 +22,12 @@ export const authStore = {
             userService.setting(profilePicture, username, bio, password1, password2)
             .then(
                 user => {
-<<<<<<< HEAD
                     console.log(user);
                     const storedProfile = JSON.parse(localStorage.getItem('user'));
                     storedProfile.profile = user.profile;
                     localStorage.setItem('user', JSON.stringify(storedProfile));
                     
 
-=======
-                    localStorage.setItem('user', JSON.stringify(data));
->>>>>>> b820a78bff0e3619c96fda9d2523a30f3ecfbc04
                     commit('loginSuccess', user);
                     router.push('/');
                 },
