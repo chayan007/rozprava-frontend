@@ -4,10 +4,15 @@ if (process.env.NODE_ENV === "PRODUCTION") {
     userConfig = {
         api: {
             register: {
-                "endpoint": "profile/auth/registration/"
+                endpoint: "profile/auth/registration/"
             },
             login: {
-                "endpoint": "profile/auth/login/"
+                endpoint: "profile/auth/login/"
+            },
+            socialAuth: {
+                google: {
+                    endpoint: "profile/social-auth/google/"
+                }
             }
         },
         constants: {
@@ -20,10 +25,15 @@ if (process.env.NODE_ENV === "PRODUCTION") {
     userConfig = {
         api: {
             register: {
-                "endpoint": "profile/auth/registration/",
+                endpoint: "profile/auth/registration/",
             },
             login: {
-                "endpoint": "profile/auth/login/"
+                endpoint: "profile/auth/login/"
+            },
+            socialAuth: {
+                google: {
+                    endpoint: "profile/social-auth/google/"
+                }
             }
         },
         constants: {
