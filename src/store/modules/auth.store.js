@@ -22,12 +22,16 @@ export const authStore = {
             userService.setting(profilePicture, username, bio, password1, password2)
             .then(
                 user => {
-                    // localStorage.setItem('user', JSON.stringify(data));
-                    localStorage.setItem('user', username);
+                    console.log(user);
+                    const storedProfile = JSON.parse(localStorage.getItem('user'));
+                    storedProfile.profile = user.profile;
+                    localStorage.setItem('user', JSON.stringify(storedProfile));
+                    
+
                     commit('loginSuccess', user);
                     router.push('/');
                 },
-                error => {
+                error => {        
                     commit('loginFailure', error);
                     dispatch('alertStore/error', error, { root: true });
                 }
