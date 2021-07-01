@@ -15,7 +15,7 @@ function login(username, password) {
     }
 
     return axios
-        .put(
+        .post(
         `${config.commonConfig.$apiUrl}/${config.userConfig.api.login.endpoint}`,
         loginBody
         )
