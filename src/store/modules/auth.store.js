@@ -2,6 +2,7 @@ import { authService, userService } from '@/services';
 import router from "@/router";
 
 const user = JSON.parse(localStorage.getItem('user'));
+// const user = null;
 const initialState = user
     ? { status: { loggedIn: true }, user }
     : { status: {}, user: null };
@@ -24,9 +25,12 @@ export const authStore = {
                 user => {
                     console.log(user);
                     const storedProfile = JSON.parse(localStorage.getItem('user'));
+                    console.log(storedProfile.profile);
                     storedProfile.profile = user.profile;
+                    storedProfile.updateFields = user.updateFields;
                     localStorage.setItem('user', JSON.stringify(storedProfile));
-                    
+                    console.log(storedProfile.updateFields);
+                    console.log(user);
 
                     commit('loginSuccess', user);
                     router.push('/');

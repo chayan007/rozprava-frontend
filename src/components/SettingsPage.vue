@@ -279,30 +279,46 @@ export default {
       this.submitted = true;
       const { profilePicture, username, bio, password1, password2 } = this;
       const { dispatch } = this.$store;
+      let updateFields = {};
+      if (bio) {
+        updateFields["bio"] = bio;
+      }
+      if (profilePicture) {
+        updateFields["profilePicture"] = profilePicture;
+      }
+      if (username) {
+        updateFields["username"] = username;
+      }
+      if (password1) {
+        updateFields["password1"] = password1;
+      }
+      if (password2) {
+        updateFields["password2"] = password2;
+      }
 
-        if (password1 && password1.trim() !== password2.trim()){
-          dispatch(
-            'alertStore/error',
-              config.messagingConfig.messages.error.password_mismatch,
-              { root: true }
-          );
-        }
-        if(bio && bio.length >= 200 ){
-          dispatch(
-            'alertStore/error',
-              config.messagingConfig.messages.error.bio_size,
-              { root: true }
-          );
-        }
-        dispatch("authStore/setting", {
-          profilePicture,
-          username,
-          bio,
-          password1,
-          password2,
-        });
-    }
-  }
+      if (password1 && password1.trim() !== password2.trim()) {
+        dispatch(
+          "alertStore/error",
+          config.messagingConfig.messages.error.password_mismatch,
+          { root: true }
+        );
+      }
+      if (bio && bio.length >= 200) {
+        dispatch(
+          "alertStore/error",
+          config.messagingConfig.messages.error.bio_size,
+          { root: true }
+        );
+      }
+      dispatch("authStore/setting", {
+        profilePicture,
+        username,
+        bio,
+        password1,
+        password2,
+      });
+    },
+  },
 };
 </script>
 
