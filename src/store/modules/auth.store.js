@@ -24,7 +24,7 @@ export const authStore = {
             .then(
                 user => {
                     console.log(user);
-                    const storedProfile = JSON.parse(localStorage.getItem('user'));
+                    let storedProfile = JSON.parse(localStorage.getItem('user'));
                     console.log(storedProfile.profile);
                     storedProfile.profile = user.profile;
                     storedProfile.profile = user.updateFields;
