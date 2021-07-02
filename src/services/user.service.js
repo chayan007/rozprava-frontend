@@ -23,15 +23,17 @@ function setting(profilePicture, username, bio, password1, password2) {
         password1: password1,
         password2: password2
     }
-    
+    const authenticationHeader = authHeader();
     const existingUsername = JSON.parse(localStorage.getItem('user')).profile.user.username;
     const url =  stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.settings.endpoint}`, existingUsername);
     console.log(url);
     console.log(registerBody);
+    console.log(authenticationHeader);
 
     return axios.put(
         url,
-        registerBody
+        registerBody,
+        { headers: authenticationHeader } 
     )
         .then(response => {
             console.log(response)
