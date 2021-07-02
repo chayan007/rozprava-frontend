@@ -44,7 +44,7 @@ function setting(profilePicture, username, bio, password1, password2) {
             }
         })
         .catch((error) => {
-            console.log("yo")
+            console.log("yo");
             console.log(error);
         });
 }

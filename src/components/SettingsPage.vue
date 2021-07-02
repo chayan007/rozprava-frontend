@@ -310,7 +310,7 @@ export default {
           { root: true }
         );
       }
-      dispatch("authStore/setting", {
+      dispatch("userStore/setting", {
         profilePicture,
         username,
         bio,

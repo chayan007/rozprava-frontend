@@ -1,4 +1,4 @@
-import { authService, userService } from '@/services';
+import { authService } from '@/services';
 import router from "@/router";
 
 const user = JSON.parse(localStorage.getItem('user'));
@@ -11,36 +11,6 @@ export const authStore = {
     namespaced: true,
     state: initialState,
     actions: {
-        setting({ dispatch, commit }, {
-            profilePicture,
-            username,
-            bio,
-            password1,
-            password2,
-        }) {
-            commit('settingRequest', { username });
-
-            userService.setting(profilePicture, username, bio, password1, password2)
-            .then(
-                user => {
-                    // console.log(user);
-                    let storedProfile = JSON.parse(localStorage.getItem('user'));
-                    console.log(storedProfile.profile.user);
-                    storedProfile.profile = user.profile;
-                    storedProfile.profile = user.updateFields;
-                    localStorage.setItem('user', JSON.stringify(storedProfile));
-                    console.log(storedProfile.updateFields);
-                    console.log(user);
-
-                    commit('loginSuccess', user);
-                    router.push('/');
-                },
-                error => {        
-                    commit('loginFailure', error);
-                    dispatch('alertStore/error', error, { root: true });
-                }
-            );
-        },
         login({ dispatch, commit }, { username, password }) {
             commit('loginRequest', { username });
 
@@ -90,10 +60,6 @@ export const authStore = {
             state.user = user;
         },
         registerRequest(state, user) {
-            state.status = { loggingIn: true };
-            state.user = user;
-        },
-        settingRequest(state, user){
             state.status = { loggingIn: true };
             state.user = user;
         },
