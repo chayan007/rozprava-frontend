@@ -15,7 +15,7 @@ function getDetails() {
     };
     return fetch(`${config.commonConfig.$apiUrl}/users`, requestOptions).then(handleResponse);
 }
-function setting(username, profilePicture, bio, password1, password2) {
+function setting(profilePicture, username, bio, password1, password2) {
     const registerBody = {
         profilePicture : profilePicture,
         username: username,
@@ -29,7 +29,6 @@ function setting(username, profilePicture, bio, password1, password2) {
     console.log(url);
     console.log(registerBody);
 
-
     return axios.put(
         url,
         registerBody
@@ -42,6 +41,7 @@ function setting(username, profilePicture, bio, password1, password2) {
             }
         })
         .catch((error) => {
+            console.log("yo")
             console.log(error);
         });
 }
