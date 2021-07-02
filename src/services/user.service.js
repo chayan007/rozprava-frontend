@@ -33,7 +33,8 @@ function setting(profilePicture, username, bio, password1, password2) {
         url,
         registerBody
     )
-        .then((response) => {
+        .then(response => {
+            console.log(response)
             const data = response.data
             if (data.profile) {
                 localStorage.setItem('user', JSON.stringify(data));
