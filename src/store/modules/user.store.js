@@ -17,25 +17,17 @@ export const userStore = {
                 );
         },
         setting({ dispatch, commit }, {
-            profilePicture,
-            username,
-            bio,
-            password1,
-            password2,
+            updateFields
         }) {
-            commit('settingRequest', { username });
+            commit('settingRequest', { updateFields });
 
-            userService.setting(profilePicture, username, bio, password1, password2)
+            userService.setting(updateFields)
             .then(
                 user => {
-                    // console.log(user);
                     let storedProfile = JSON.parse(localStorage.getItem('user'));
-                    console.log(storedProfile.profile.user);
                     storedProfile.profile = user.profile;
                     storedProfile.profile = user.updateFields;
                     localStorage.setItem('user', JSON.stringify(storedProfile));
-                    console.log(storedProfile.updateFields);
-                    console.log(user);
 
                     commit('loginSuccess', user);
                     router.push('/');

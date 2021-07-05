@@ -26,7 +26,7 @@
                   type="file"
                   class="custom-file-input"
                   id="customFile"
-                  v-on:change="profilePicture"
+                  v-on:change="handleProfilePicture"
                   aria-label="File upload"
                   data-v-6db336fc=""
                 /><label
@@ -188,10 +188,6 @@
               <div class="form-group focused">
                 <label for="validationServer01">New Username</label>
 
-                <!-- <div v-if="false"> -->
-
-                <!-- available username == true-->
-
                 <input
                   type="text"
                   class="form-control is-valid"
@@ -203,17 +199,6 @@
                 <div class="valid-feedback">
                   Looks good!
                 </div>
-                <!-- </div> -->
-
-                <!-- <div v-else>
-
-
-                    <input type="text" class="form-control is-invalid" id="validationServerUsername" required="">
-                    <div class="invalid-feedback">
-                      Please choose a username.
-                    </div>               
-
-                </div>  -->
               </div>
             </div>
           </div>
@@ -266,7 +251,7 @@ export default {
   components: { AdvancedSettings },
   data() {
     return {
-      profilePicture: "",
+      handleProfilePicture: "",
       username: "",
       bio: "",
       password1: "",
@@ -277,14 +262,14 @@ export default {
   methods: {
     handleSubmit() {
       this.submitted = true;
-      const { profilePicture, username, bio, password1, password2 } = this;
+      const { handleProfilePicture, username, bio, password1, password2 } = this;
       const { dispatch } = this.$store;
       let updateFields = {};
       if (bio) {
         updateFields["bio"] = bio;
       }
-      if (profilePicture) {
-        updateFields["profilePicture"] = profilePicture;
+      if (handleProfilePicture) {
+        updateFields["handleProfilePicture"] = handleProfilePicture;
       }
       if (username) {
         updateFields["username"] = username;
@@ -306,16 +291,12 @@ export default {
       if (bio && bio.length >= 200) {
         dispatch(
           "alertStore/error",
-          config.messagingConfig.messages.error.bio_size,
+          config.messagingConfig.messages.error.field_error,
           { root: true }
         );
       }
       dispatch("userStore/setting", {
-        profilePicture,
-        username,
-        bio,
-        password1,
-        password2,
+        updateFields
       });
     },
   },
