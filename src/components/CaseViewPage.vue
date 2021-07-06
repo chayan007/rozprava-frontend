@@ -1,21 +1,27 @@
 <template>
-  <div class="card bg-primary border-light shadow-soft ml-5 mr-5">
+  <div class="card bg-primary border-light shadow-soft m-5">
     <img
       src="https://user-images.githubusercontent.com/83393749/122279699-f826a380-cf05-11eb-949d-5cbd6bd8027c.png"
       class="card-img-top rounded-top image"
     />
     <div class="card-body">
       <div class="media d-flex align-items-center justify-content-between">
-        <div
-          class="post-group profile-image bg-primary rounded-circle p-1 mr-1"
-        >
-          <img
-            src="../assets/profile-picture-1.jpg"
-            class="card-img-top rounded-circle mr-2"
-            alt="profile image"
-          />
+        <div class="post-group">
+          <a
+            href="#"
+            data-toggle="tooltip"
+            data-placement="top"
+            title=""
+            data-original-title="23k followers"
+          >
+            <img
+              class="avatar-sm mr-2 img-fluid rounded-circle"
+              src="../assets/profile-picture-1.jpg"
+              alt="Jo portrait"
+            />
+            Jo J. Moore
+          </a>
         </div>
-        <div class="d-flex align-items-center">Name</div>
         <div class="btn-group mr-0">
           <button
             type="button"
@@ -69,7 +75,7 @@
   <div class="mt-4">
     <StatusPage></StatusPage>
   </div>
-  <div class="mt-4">
+  <div class="mt-1">
     <CommentPage></CommentPage>
   </div>
 </template>

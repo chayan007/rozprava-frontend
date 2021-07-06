@@ -66,32 +66,46 @@
         into what’s left of it while slashing ad revenues.
       </p>
       <div class="d-flex align-items-center justify-content-between">
+        <a href="#">
         <img
           src="https://user-images.githubusercontent.com/83393749/122516803-d542df00-d02c-11eb-8885-2bf6eaefa28e.png"
         />
+        </a>
         <div class="d-flex">
-          <img
+          <a href="#">
+          <img 
+            class="image-xs p-1"
             src="https://user-images.githubusercontent.com/83393749/122523306-7e410800-d034-11eb-8586-3fcc87584356.png"
           />
+          </a>
+          <a href="#">
           <img
+            class="image-xs p-1"
             src="https://user-images.githubusercontent.com/83393749/122523313-813bf880-d034-11eb-9348-e98508bbdc9b.png"
           />
+          </a>
         </div>
       </div>
       <div class="d-flex align-items-center justify-content-between mt-2">
         <div class="d-flex">
+          <a href="#">
           <img
-            class="mr-2 image-xs"
+            class="mr-2 image-xs p-1"
             src="https://user-images.githubusercontent.com/83393749/122525975-6d45c600-d037-11eb-9d9d-73ec9ee645f3.png"
           />
+          </a>
+          <a href="#">
           <img
-            class="image-xs"
+            class="image-xs p-1"
             src="https://user-images.githubusercontent.com/83393749/122525986-6f0f8980-d037-11eb-89a6-8088d2b0f7b0.png"
           />
+          </a>
         </div>
+        <a href="#">
         <img
           src="https://user-images.githubusercontent.com/83393749/122526001-72a31080-d037-11eb-9080-6e58cb6c90b3.png"
         />
+        </a>
       </div>
     </div>
   </div>
