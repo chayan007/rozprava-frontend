@@ -66,7 +66,11 @@ export const userStore = {
         refreshUser(state, error){
             state.all = { error};
             let user=localStorage.getItem("user");
-            user.profile.user
+            user.profile.user;
+            let storedProfile = JSON.parse(localStorage.getItem('user'));
+            storedProfile.profile = user.profile;
+            storedProfile.profile = user.updateFields;
+            localStorage.setItem('user', JSON.stringify(storedProfile));
         }
     }
 }

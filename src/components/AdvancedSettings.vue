@@ -26,6 +26,7 @@
                 class="form-control datepicker"
                 id="exampleInputDate1"
                 placeholder="Select date"
+                v-model="DOB"
                 type="text"
                 aria-label="Date with icon left"
               />
