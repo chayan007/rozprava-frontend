@@ -29,8 +29,7 @@ export const userStore = {
                     dispatch('alertStore/error', error, { root: true });
                 }
             );
-        },
-        
+        }       
     },
 
     mutations: {

@@ -72,8 +72,7 @@ export const authStore = {
         logout(state) {
             state.status = {};
             state.user = null;
-        },
-              
+        },            
     }
 }
 
