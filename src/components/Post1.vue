@@ -2,6 +2,7 @@
     <div class="cant" >
         <div class="card bg-primary  ">
           <div class="a1" >
+                   
                     <img src="../assets/post_pic.png"  class="image card-img-top rounded-top" alt="Themesberg office">
                     <button type="button " class="aero a2"><span class="a2"><img src="../assets/Back.png" alt="sign in" width="18"></span></button>
                     <button type="button" class="a3" @click="()=>Toggle('buttonTrigger')"> ...</button>
@@ -34,6 +35,7 @@
                             <img src="../assets/black-rose.jpg" class="card-img-top rounded-circle" alt="Christopher Avatar" width="100">
                         </div>
                     </div>
+                    
           <div>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab excepturi doloribus labore error praesentium nostrum beatae quibusdam enim quis? Voluptatibus, qui molestiae. Quaerat dicta eum, similique suscipit placeat optio fuga qui quas impedit vero id, itaque commodi, reprehenderit voluptatem saepe magnam aperiam. Id, veritatis. Doloremque excepturi consequuntur nulla inventore error sapiente in? Ea, delectus suscipit a possimus obcaecati consequatur assumenda at exercitationem repellat quos deserunt, nemo, minus necessitatibus illo neque hic eum vel dolores soluta optio. Quam incidunt fugit et aut labore quisquam sapiente laboriosam animi assumenda optio sunt officia reiciendis doloremque corrupti in facilis voluptatem, blanditiis neque, illo quis harum nesciunt magnam ullam aliquam. Molestiae consequatur, placeat inventore excepturi explicabo quos velit, atque veniam modi odit perferendis deserunt maiores veritatis pariatur sunt optio maxime nesciunt dolore ducimus sapiente! Perspiciatis, deleniti, unde quo a, explicabo doloremque corrupti harum voluptates eius vel sed error aut odit! Iure voluptates ab odit earum natus praesentium animi officia alias itaque dolor, dolore ducimus asperiores accusamus? Vel sint quos ipsa suscipit molestiae delectus commodi aliquid dolore quas totam architecto nam nihil in, blanditiis perspiciatis impedit quo itaque fugit, exercitationem, omnis iure praesentium. Praesentium, officiis autem. Culpa, libero natus? Vero, neque labore tempora quam quis expedita.
           </div>
@@ -48,14 +50,24 @@
     components: { ProfileMenu },
     
     data () {
-      //const user = JSON.parse(localStorage.getItem('user'));
+       const user = JSON.parse(localStorage.getItem('user'));
       return {
-       CoverPhoto:'',
-       ProfilePicture:'',
-       Followers:'',
-       Following:'',
+       username:user.profile.user.username,
       }
     },
+    beforeMount() {
+    this.fun();
+  },
+      methods:{
+        async fun(){
+           const user = JSON.parse(localStorage.getItem('user'));
+         let un = user.profile.user.username;
+        console.log(un);
+       console.log("un");
+        document.getElementById('yoyo').innerHTML = 'un';
+        }
+       
+      },
     setup(){
       const user = JSON.parse(localStorage.getItem('user'));
      
@@ -159,4 +171,5 @@
   height: 8rem;
   padding : 0.15rem;
 }
+
 </style>
