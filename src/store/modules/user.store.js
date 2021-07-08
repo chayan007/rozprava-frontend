@@ -18,21 +18,7 @@ export const userStore = {
                     error => commit('getAllFailure', error)
                 );
         },
-        /*edit_settings({dispatch,commit},data)
-        {
-
-            userService.edit_settings(data)
-            .then(
-                user => {
-                    commit('edit', user);
-                    router.push('/settings');
-                },
-                error => {
-                    commit('edit_failure', error);
-                    dispatch('alertStore/error', error, { root: true });
-                }
-            );
-        }*/
+        
     },
     mutations: {
         getAllRequest(state) {
@@ -44,13 +30,6 @@ export const userStore = {
         getAllFailure(state, error) {
             state.all = { error };
         },
-       /* edit(state, user){
-            state.status={edit:true};
-            state.user=user;
-        },
-        edit_failure(state)
-        {
-            state.status={};
-        }*/
+       
     }
 }

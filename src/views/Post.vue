@@ -2,7 +2,10 @@
   <div class="box " style="text-align: center">
     
           <Post1></Post1>
-          <PostButton></PostButton>
+          <div class="popup">
+            <PostButton ></PostButton>
+          </div>
+          
   </div>
 </template>
 
@@ -17,6 +20,20 @@ export default {
 </script>
 
 <style scoped>
+.popup{
+    position: fixed;
+    top: 90%;
+    left: 0%;
+    right: 0%;
+    bottom: 2%;
+    z-index: 199;
+    
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
 .box {
   font-family: Josefin Sans;
   margin-top: 7rem;

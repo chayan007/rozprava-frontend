@@ -1,11 +1,20 @@
-<template>
-    <div class="cant">
+<template >
+    <div class="cant" >
         <div class="card bg-primary  ">
           <div class="a1" >
                     <img src="../assets/post_pic.png"  class="image card-img-top rounded-top" alt="Themesberg office">
-                    <button type="button " class="aero a2"><span class="a2">&lt;-</span></button>
-                    <button type="button" class="a3"> ...</button>
-                    <img src="../assets/profile-picture-2.png"  class="a4" alt="Themesberg office">
+                    <button type="button " class="aero a2"><span class="a2"><img src="../assets/Back.png" alt="sign in" width="18"></span></button>
+                    <button type="button" class="a3" @click="()=>Toggle('buttonTrigger')"> ...</button>
+                    <ProfileMenu v-if="popupTriggers.buttonTrigger" :Toggle="()=>Toggle('buttonTrigger')" class="popup" >
+                      
+                    </ProfileMenu>
+                    <transition name="fade" appear>
+                      <div @click="()=>ToggleClose('buttonTrigger')"></div>
+                    </transition>
+                    <!-- <img src="../assets/black-rose.jpg"  class="a4" alt="Themesberg office"> -->
+                    <div class="a4 profile-image bg-primary shadow-inset border border-light rounded-circle ">
+                            <img src="../assets/black-rose.jpg" class="card-img-top rounded-circle" alt="Christopher Avatar" width="100">
+                        </div>
                     </div>
                    
                     <div class="card-body">
@@ -20,18 +29,58 @@
                         <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                         
                     </div>
-          <div class="border bg-primary shadow-soft border-light">
-              
+                    <div>
+                      <div class="profile-image bg-primary shadow-inset border border-light rounded-circle ">
+                            <img src="../assets/black-rose.jpg" class="card-img-top rounded-circle" alt="Christopher Avatar" width="100">
+                        </div>
+                    </div>
+          <div>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab excepturi doloribus labore error praesentium nostrum beatae quibusdam enim quis? Voluptatibus, qui molestiae. Quaerat dicta eum, similique suscipit placeat optio fuga qui quas impedit vero id, itaque commodi, reprehenderit voluptatem saepe magnam aperiam. Id, veritatis. Doloremque excepturi consequuntur nulla inventore error sapiente in? Ea, delectus suscipit a possimus obcaecati consequatur assumenda at exercitationem repellat quos deserunt, nemo, minus necessitatibus illo neque hic eum vel dolores soluta optio. Quam incidunt fugit et aut labore quisquam sapiente laboriosam animi assumenda optio sunt officia reiciendis doloremque corrupti in facilis voluptatem, blanditiis neque, illo quis harum nesciunt magnam ullam aliquam. Molestiae consequatur, placeat inventore excepturi explicabo quos velit, atque veniam modi odit perferendis deserunt maiores veritatis pariatur sunt optio maxime nesciunt dolore ducimus sapiente! Perspiciatis, deleniti, unde quo a, explicabo doloremque corrupti harum voluptates eius vel sed error aut odit! Iure voluptates ab odit earum natus praesentium animi officia alias itaque dolor, dolore ducimus asperiores accusamus? Vel sint quos ipsa suscipit molestiae delectus commodi aliquid dolore quas totam architecto nam nihil in, blanditiis perspiciatis impedit quo itaque fugit, exercitationem, omnis iure praesentium. Praesentium, officiis autem. Culpa, libero natus? Vero, neque labore tempora quam quis expedita.
           </div>
         </div>
     </div>
 </template>
 <script>
- 
+ import ProfileMenu from "@/components/ProfileMenu.vue"
+ import { ref } from "vue";
   export default {
     name: "Post1",
+    components: { ProfileMenu },
     
+    data () {
+      //const user = JSON.parse(localStorage.getItem('user'));
+      return {
+       CoverPhoto:'',
+       ProfilePicture:'',
+       Followers:'',
+       Following:'',
+      }
+    },
+    setup(){
+      const user = JSON.parse(localStorage.getItem('user'));
+     
+      const popupTriggers=ref({
+        buttonTrigger:false,
+        timedTrigger:false
+      });
+      const Toggle=(trigger)=>{
+        popupTriggers.value[trigger]=!popupTriggers.value[trigger]
+      }
+      const ToggleClose=(trigger)=>{
+        popupTriggers.value[trigger]=!popupTriggers.value[trigger]
+      }
+      return{
+        popupTriggers,
+        Toggle,
+        ToggleClose,
+        user,
+       /*ProfilePicture:user.ProfilePicture,
+       Followers:user.Followers,
+       Following:user.Following,*/
+      }
+    }
   }
+  
 </script>
 <style scoped>
 .image{
@@ -86,6 +135,7 @@
   left: 4%;
   
 }
+
 .a2{
   background: transparent;
   color: white;
@@ -103,8 +153,10 @@
 }
 .a1 .a4{
   position: absolute;
-  top: 60%;
-  left: 40%;
-  
+  top: 48%;
+  left: 38%;
+  width: 8rem;
+  height: 8rem;
+  padding : 0.15rem;
 }
 </style>

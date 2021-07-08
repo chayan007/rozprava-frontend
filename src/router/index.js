@@ -5,7 +5,7 @@ import Login from '@/views/Login.vue'
 import Home from '@/views/Home.vue'
 import Settings from '@/views/Settings.vue'
 import Search from '@/views/search.vue'
-
+import Post from '@/views/Post.vue'
 const routes = [
   {
     path: '/signup',
