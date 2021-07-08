@@ -31,7 +31,8 @@ function settings(updateFields) {
         .then(response => {
             const data = response.data;
             if (data.profile) {
-                return data.profile;
+                console.log('response', data);
+                return data;
             }
         })
         .catch((error) => {

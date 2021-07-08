@@ -689,9 +689,7 @@ export default {
       }
       
 
-      dispatch("userStore/setting", {
-        updateFields
-      });
+      dispatch("userStore/settings", updateFields );
     },
   },
 };

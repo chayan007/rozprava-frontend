@@ -16,7 +16,7 @@ export const userStore = {
                     error => commit('getAllFailure', error)
                 );
         },
-        setting({ dispatch, commit }, {updateFields}) {
+        settings({ dispatch, commit }, updateFields ) {
             commit('settingRequest', { updateFields });
 
             userService.settings(updateFields)
@@ -42,9 +42,8 @@ export const userStore = {
         getAllFailure(state, error) {
             state.all = { error };
         },
-        settingRequest(state, user){
-            state.status = { loggingIn: true };
-            state.user = user;
+        settingRequest(updateFields){
+            console.log(updateFields);
         },
         loginSuccess(state, user) {
             state.status = { loggedIn: true };
@@ -54,12 +53,12 @@ export const userStore = {
             state.status = {};
             state.user = null;
         },
-        refreshUser(state, error){
-            state.all = { error};
-            let user=localStorage.getItem('user');
+        refreshUser(user){
             let storedProfile = JSON.parse(localStorage.getItem('user'));
+            console.log(storedProfile);
             storedProfile.profile = user.profile;
-            storedProfile.profile = user.updateFields;
+            console.log(user);
+            console.log(storedProfile);
             localStorage.setItem('user', JSON.stringify(storedProfile));
         }
     }
