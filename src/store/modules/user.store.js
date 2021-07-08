@@ -16,24 +16,16 @@ export const userStore = {
                     error => commit('getAllFailure', error)
                 );
         },
-        setting({ dispatch, commit }, {
-            updateFields
-        }) {
+        setting({ dispatch, commit }, {updateFields}) {
             commit('settingRequest', { updateFields });
 
-            userService.setting(updateFields)
+            userService.settings(updateFields)
             .then(
                 user => {
-                    let storedProfile = JSON.parse(localStorage.getItem('user'));
-                    storedProfile.profile = user.profile;
-                    storedProfile.profile = user.updateFields;
-                    localStorage.setItem('user', JSON.stringify(storedProfile));
-
-                    commit('loginSuccess', user);
+                    commit('refreshUser', user);
                     router.push('/');
                 },
                 error => {        
-                    commit('loginFailure', error);
                     dispatch('alertStore/error', error, { root: true });
                 }
             );
@@ -65,8 +57,7 @@ export const userStore = {
         },
         refreshUser(state, error){
             state.all = { error};
-            let user=localStorage.getItem("user");
-            user.profile.user;
+            let user=localStorage.getItem('user');
             let storedProfile = JSON.parse(localStorage.getItem('user'));
             storedProfile.profile = user.profile;
             storedProfile.profile = user.updateFields;

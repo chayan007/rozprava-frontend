@@ -5,7 +5,7 @@ import {stringFormat} from "@/helpers";
 
 export const userService = {
     getDetails,
-    setting
+    settings
 };
 
 function getDetails() {
@@ -15,7 +15,7 @@ function getDetails() {
     };
     return fetch(`${config.commonConfig.$apiUrl}/users`, requestOptions).then(handleResponse);
 }
-function setting(updateFields) {
+function settings(updateFields) {
     const registerBody = {
         updateFields
     }
@@ -29,15 +29,12 @@ function setting(updateFields) {
         { headers: authenticationHeader } 
     )
         .then(response => {
-            console.log(response)
-            const data = response.data
+            const data = response.data;
             if (data.profile) {
-                localStorage.setItem('user', JSON.stringify(data));
-                return data.profile
+                return data.profile;
             }
         })
         .catch((error) => {
-            console.log("yo");
             console.log(error);
         });
 }
