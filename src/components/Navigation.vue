@@ -33,7 +33,11 @@
               <span class="nav-link-inner-text">Menu</span>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item"><router-link to='/settings'>Settings</router-link></a></li>
+              <li>
+                <a class="dropdown-item"
+                  ><router-link to="/settings">Settings</router-link></a
+                >
+              </li>
               <li><a class="dropdown-item">About us</a></li>
               <li><a class="dropdown-item">Report</a></li>
               <li><a class="dropdown-item">Terms and Conditions</a></li>
@@ -72,8 +76,7 @@
             </ul>
           </li>
 
-<!-- this is just a dev component this will be removed-->
-
+          <!-- this is just a dev component this will be removed-->
 
           <li class="nav-item dropdown">
             <a href="#" class="nav-link" data-toggle="dropdown">
@@ -87,11 +90,7 @@
             </ul>
           </li>
 
-
-<!-- remove untill here-->
-
-
-
+          <!-- remove untill here-->
         </ul>
       </div>
       <div class="d-flex align-items-center">
@@ -101,7 +100,7 @@
           data-toggle="collapse"
           data-target="#navbar_global"
           aria-controls="navbar_global"
-          aria-expanded="false"
+          aria-expanded="true"
           aria-label="Toggle navigation"
         >
           <svg
@@ -121,26 +120,74 @@
           </svg>
         </button>
       </div>
+      <!--search bar button invoking the search page-->
+      <div class="navbar-collapse collapse" id="searchbar" style="">
+        <div class="navbar-collapse-header">
+          <div class="row">
+            <div class="col-6 collapse-close">
+              <a
+                href="#searchbar"
+                class="fas fa-times collapsed"
+                data-toggle="collapse"
+                data-target="#searchbar"
+                aria-controls="searchbar"
+                aria-expanded="false"
+                title="close"
+                aria-label="searchbar"
+              ></a>
+            </div>
+          </div>
+        </div>
+      <SearchBar/>
+      </div>
+      <div class="d-flex align-items-center">
+        <button
+          class="navbar-toggler collapsed"
+          type="button"
+          data-toggle="collapse"
+          data-target="#searchbar"
+          aria-controls="searchbar"
+          aria-expanded="true"
+          aria-label="Toggle navigation"
+          onClick="logout"
+        >
+          <span class="fas fa-search"></span>
+        </button>
+      </div>
+      <!-- search bar completed-->
 
-      <div
-        class="profile-image bg-primary shadow-inset border border-light rounded-circle p-1"
-      >
-        <img
-          src="../assets/profile-picture-1.jpg"
-          class="card-img-top rounded-circle"
-          alt="profile image"
-        />
+      <div class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown">
+          <div
+            class="profile-image bg-primary shadow-inset border rounded-circle p-1"
+          >
+            <img
+              src="../assets/profile-picture-1.jpg"
+              class="card-img-top rounded-circle"
+              alt="profile image"
+            />
+          </div>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item">My Profile</a>
+          </li>
+          <li><a class="dropdown-item">Recent activity</a></li>
+          <li><a class="dropdown-item">Verification Apply</a></li>
+          <li><a class="dropdown-item">Log out</a></li>
+        </ul>
       </div>
     </div>
   </nav>
 </template>
 
 <script>
+import SearchBar from './search/searchBar.vue'
 export default {
   name: "Nav",
+  components: {SearchBar},
 };
 </script>
-
 
 <style>
 .profile-image {

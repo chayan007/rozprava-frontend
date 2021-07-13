@@ -1,25 +1,38 @@
 <template>
+  <div>
+    <div v-if="is_authenticated"><Nav /></div>
+    <div v-else><NavigationRegistered /></div>
 
-<!-- when signed in-->
-<div v-if="true">
-<Nav/>
-</div>
-
-
-<!-- when not signed in-->
-<div v-else>
-<NavReg/>
-</div>
-<router-view/>
+    <div v-if="alert.message">
+      <Alert :alertType="alert.type" :message="alert.message"></Alert>
+    </div>
+  </div>
+  <router-view />
 </template>
 
 <script>
-import NavReg from '@/components/NavReg.vue'
-import Nav from '@/components/Nav.vue'
+import NavigationRegistered from "@/components/NavigationRegistered.vue";
+import Nav from "@/components/Navigation.vue";
+import Alert from "@/components/alerts/alert.vue";
+
 export default {
   components: {
-   Nav, NavReg, 
+    Nav,
+    NavigationRegistered,
+    Alert,
   },
-  
-}
+  computed: {
+    is_authenticated() {
+      return this.$store.state.authStore.user;
+    },
+    alert() {
+      return this.$store.state.alertStore;
+    },
+  },
+  watch: {
+    $route() {
+      this.$store.dispatch("alertStore/clear");
+    },
+  },
+};
 </script>
