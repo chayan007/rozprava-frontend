@@ -7,9 +7,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
 
-import CaseViewPage from '../components/CaseViewPage.vue';
+import CaseViewPage from '@/components/CaseViewPage.vue';
 export default {
   name: "CaseView",
   components: { CaseViewPage },

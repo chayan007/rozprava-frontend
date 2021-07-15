@@ -4,6 +4,7 @@ import Register from '@/views/Register.vue'
 import Login from '@/views/Login.vue'
 import Home from '@/views/Home.vue'
 import Settings from '@/views/Settings.vue'
+import CaseView from '@/views/CaseView.vue'
 import Search from '@/views/search.vue'
 
 const routes = [
@@ -57,6 +58,7 @@ router.beforeEach((to, from, next) => {
       '/login',
       '/register',
       '/signup',
+      '/caseview',
   ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');

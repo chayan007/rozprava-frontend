@@ -22,7 +22,7 @@
             Jo J. Moore
           </a>
         </div>
-        <div class="btn-group mr-0">
+        <div class="btn-group mr-0 ">
           <button
             type="button"
             class="
@@ -75,17 +75,13 @@
   <div class="mt-4">
     <StatusPage></StatusPage>
   </div>
-  <div class="mt-1">
-    <CommentPage></CommentPage>
-  </div>
 </template>
 
 <script>
 import StatusPage from "@/components/StatusPage.vue";
-import CommentPage from "@/components/CommentPage.vue";
 export default {
   name: "CaseViewPage",
-  components: { StatusPage, CommentPage },
+  components: { StatusPage },
 };
 </script>
 
