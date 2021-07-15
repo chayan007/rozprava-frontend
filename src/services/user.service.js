@@ -1,24 +1,11 @@
-import {authHeader, handleResponse} from '@/helpers';
+import { authHeader } from '@/helpers';
 import { config } from "@/configurations";
 import axios from "axios";
-import {stringFormat} from "@/helpers";
+import { stringFormat } from "@/helpers";
 
-export const userService = {
-    getDetails,
-    settings
-};
+export const userService = { settings };
 
-function getDetails() {
-    const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
-    };
-    return fetch(`${config.commonConfig.$apiUrl}/users`, requestOptions).then(handleResponse);
-}
 function settings(updateFields) {
-    const registerBody = {
-        updateFields
-    }
     const authenticationHeader = authHeader();
     const existingUsername = JSON.parse(localStorage.getItem('user')).profile.user.username;
     const url =  stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.settings.endpoint}`, existingUsername);
@@ -26,7 +13,7 @@ function settings(updateFields) {
 
     return axios.put(
         url,
-        registerBody,
+        updateFields,
         { headers: authenticationHeader } 
     )
         .then(response => {
