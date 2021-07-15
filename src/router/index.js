@@ -5,6 +5,7 @@ import Login from '@/views/Login.vue'
 import Home from '@/views/Home.vue'
 import Settings from '@/views/Settings.vue'
 import Search from '@/views/search.vue'
+import ForgetLogin from '@/views/ForgetLogin.vue'
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: Search
+  },
+  {
+    path: '/forgetLogin',
+    name: 'ForgetLogin',
+    component: ForgetLogin
   }
 ]
 

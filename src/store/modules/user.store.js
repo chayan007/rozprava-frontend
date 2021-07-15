@@ -22,6 +22,7 @@ export const userStore = {
             userService.settings(updateFields)
             .then(
                 user => {
+                    console.log("then", user);
                     commit('refreshUser', user);
                     router.push('/');
                 },
@@ -54,12 +55,14 @@ export const userStore = {
             state.user = null;
         },
         refreshUser(user){
+            console.log("kk")
             let storedProfile = JSON.parse(localStorage.getItem('user'));
-            console.log(storedProfile);
-            storedProfile.profile = user.profile;
-            console.log(user);
+            console.log("sdsd", storedProfile);
+            storedProfile[ 'profile' ] = user.profile;
+            console.log("sds", user);
             console.log(storedProfile);
             localStorage.setItem('user', JSON.stringify(storedProfile));
+            console.log(user.profile);
         }
     }
 }
