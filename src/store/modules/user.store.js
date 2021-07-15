@@ -13,8 +13,9 @@ export const userStore = {
             userService.settings(updateFields)
             .then(
                 user => {
-                    console.log("then", user);
-                    commit('refreshUser', user);
+                    let storedProfile = JSON.parse(localStorage.getItem('user'));
+                    storedProfile['profile'] = user.profile;
+                    localStorage.setItem('user', JSON.stringify(storedProfile));
                     router.push('/');
                 },
                 error => {        
@@ -27,16 +28,6 @@ export const userStore = {
     mutations: {
         settingRequest(updateFields){
             console.log(updateFields);
-        },
-        refreshUser(user){
-            console.log("kk")
-            let storedProfile = JSON.parse(localStorage.getItem('user'));
-            console.log("sdsd", storedProfile);
-            storedProfile[ 'profile' ] = user.profile;
-            console.log("sds", user);
-            console.log(storedProfile);
-            localStorage.setItem('user', JSON.stringify(storedProfile));
-            console.log(user.profile);
         }
     }
 }
