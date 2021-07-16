@@ -20,6 +20,7 @@ function settings(updateFields) {
             const data = response.data;
             if (data.profile) {
                 console.log('response', data);
+                console.log(updateFields);
                 localStorage.setItem('user', JSON.stringify(data));
                 return data;
             }

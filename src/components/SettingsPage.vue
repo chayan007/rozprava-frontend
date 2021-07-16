@@ -376,7 +376,11 @@
                     <div class="pt-3">
                       <div class="form-group mb-4 focused">
                         <label for="exampleInputEmail67">Profession</label>
-                        <input type="email" class="form-control" v-model="profession" />
+                        <input
+                          type="email"
+                          class="form-control"
+                          v-model="profession"
+                        />
                       </div>
 
                       <div class="custom-control custom-switch mt-2">
@@ -411,45 +415,56 @@
                     <div class="pt-3">
                       <fieldset>
                         <legend class="h6">Choose your Gender</legend>
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            name="exampleRadios"
-                            v-model="gender_male"
-                            id="exampleRadios1"
-                            value="male"
-                            checked=""
-                          />
-                          <label class="form-check-label" for="exampleRadios1">
-                            Male
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            v-model="gender_female"
-                            name="exampleRadios"
-                            id="exampleRadios2"
-                            value="female"
-                          />
-                          <label class="form-check-label" for="exampleRadios2">
-                            Female
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            v-model="gender_ratherNotSay"
-                            name="exampleRadios"
-                            id="exampleRadios3"
-                            value="ratherNotSay"
-                          />
-                          <label class="form-check-label" for="exampleRadios3">
-                            Rather Not Say
-                          </label>
+                        <div id="gender">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="exampleRadios"
+                              v-model="gender"
+                              id="exampleRadios1"
+                              value="male"
+                              checked=""
+                            />
+                            <label
+                              class="form-check-label"
+                              for="exampleRadios1"
+                            >
+                              Male
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              v-model="gender"
+                              name="exampleRadios"
+                              id="exampleRadios2"
+                              value="female"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="exampleRadios2"
+                            >
+                              Female
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              v-model="gender"
+                              name="exampleRadios"
+                              id="exampleRadios3"
+                              value="ratherNotSay"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="exampleRadios3"
+                            >
+                              Rather Not Say
+                            </label>
+                          </div>
                         </div>
                         <!-- End of Radio -->
                       </fieldset>
@@ -489,7 +504,7 @@
                           <input
                             class="form-check-input"
                             type="radio"
-                            v-model="relationshipStatus_single"
+                            v-model="relationshipStatus"
                             name="exampleRadios1"
                             id="exampleRadios4"
                             value="single"
@@ -503,7 +518,7 @@
                           <input
                             class="form-check-input"
                             type="radio"
-                            v-model="relationshipStatus_engaged"
+                            v-model="relationshipStatus"
                             name="exampleRadios1"
                             id="exampleRadios5"
                             value="Engaged"
@@ -516,7 +531,7 @@
                           <input
                             class="form-check-input"
                             type="radio"
-                            v-model="relationshipStatus_married"
+                            v-model="relationshipStatus"
                             name="exampleRadios1"
                             id="exampleRadios6"
                             value="married"
@@ -529,7 +544,7 @@
                           <input
                             class="form-check-input"
                             type="radio"
-                            v-model="relationshipStatus_divorced"
+                            v-model="relationshipStatus"
                             name="exampleRadios1"
                             id="exampleRadios7"
                             value="divorced"
@@ -542,7 +557,7 @@
                           <input
                             class="form-check-input"
                             type="radio"
-                             v-model="relationshipStatus_complicated"
+                            v-model="relationshipStatus"
                             name="exampleRadios1"
                             id="exampleRadios8"
                             value="complicated"
@@ -600,40 +615,46 @@ export default {
       password1: "",
       password2: "",
       DOB: "",
-      contact: "",
+      contact: "",  
       address: "",
       profession: "",
-      gender_male: "",
-      gender_female: "",
-      gender_ratherNotSay: "", 
-      relationshipStatus_single: "",
-      relationshipStatus_engaged: "",
-      relationshipStatus_married: "",
-      relationshipStatus_divorced: "",
-      relationshipStatus_complicated: "",
+      gender: "",
+      relationshipStatus: "",
       submitted: false,
     };
   },
   methods: {
     handleProfilePicture(e) {
-       var files = e.target.files || e.dataTransfer.files;
-        if (!files.length)
-         return;
-        this.profilePicture = files[0];
-      },
-      
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.profilePicture = files[0];
+    },
+
     handleSubmit() {
       this.submitted = true;
-      const { handleProfilePicture, username, bio, password1, password2, DOB, contact, address, profession, gender_male, gender_female, gender_ratherNotSay, relationshipStatus_single, relationshipStatus_engaged, relationshipStatus_married, relationshipStatus_divorced, relationshipStatus_complicated } = this;
+      const {
+        handleProfilePicture,
+        username,
+        bio,
+        password1,
+        password2,
+        DOB,
+        contact,
+        address,
+        profession,
+        gender,
+        relationshipStatus,
+      } = this;
       const { dispatch } = this.$store;
       let updateFields = {};
       if (bio) {
         updateFields["bio"] = bio;
-        if (bio.length >= 200) {dispatch(
-          "alertStore/error",
-          config.messagingConfig.messages.error.field_error,
-          { root: true }
-        );
+        if (bio.length >= 200) {
+          dispatch(
+            "alertStore/error",
+            config.messagingConfig.messages.error.field_error,
+            { root: true }
+          );
         }
       }
       if (handleProfilePicture) {
@@ -644,11 +665,12 @@ export default {
       }
       if (password1 && password2) {
         updateFields["password"] = password1;
-        if (password1.trim() !== password2.trim()) {dispatch(
-          "alertStore/error",
-          config.messagingConfig.messages.error.password_mismatch,
-          { root: true }
-        );
+        if (password1.trim() !== password2.trim()) {
+          dispatch(
+            "alertStore/error",
+            config.messagingConfig.messages.error.password_mismatch,
+            { root: true }
+          );
         }
       }
       if (DOB) {
@@ -663,33 +685,14 @@ export default {
       if (profession) {
         updateFields["profession"] = profession;
       }
-      if (gender_male) {
-        updateFields["gender_male"] = gender_male;
+      if (gender) {
+        updateFields["gender"] = gender;
       }
-      if (gender_female) {
-        updateFields["gender_female"] = gender_female;
+      if (relationshipStatus) {
+        updateFields["relationshipStatus"] = relationshipStatus;
       }
-      if (gender_ratherNotSay) {
-        updateFields["gender_ratherNotSay"] = gender_ratherNotSay;
-      }
-      if (relationshipStatus_single) {
-        updateFields["relationshipStatus_single"] = relationshipStatus_single;
-      }
-      if (relationshipStatus_engaged) {
-        updateFields["relationshipStatus_engaged"] = relationshipStatus_engaged;
-      }
-      if (relationshipStatus_married) {
-        updateFields["relationshipStatus_married"] = relationshipStatus_married;
-      }
-      if (relationshipStatus_divorced) {
-        updateFields["relationshipStatus_divorced"] = relationshipStatus_divorced;
-      }
-      if (relationshipStatus_complicated) {
-        updateFields["relationshipStatus_complicated"] = relationshipStatus_complicated;
-      }
-      
 
-      dispatch("userStore/settings", updateFields );
+      dispatch("userStore/settings", updateFields);
     },
   },
 };
