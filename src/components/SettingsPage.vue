@@ -633,7 +633,7 @@ export default {
     handleSubmit() {
       this.submitted = true;
       const {
-        handleProfilePicture,
+        profilePicture,
         username,
         bio,
         password1,
@@ -657,8 +657,8 @@ export default {
           );
         }
       }
-      if (handleProfilePicture) {
-        updateFields["handleProfilePicture"] = handleProfilePicture;
+      if (profilePicture) {
+        updateFields["display_pic"] = profilePicture;
       }
       if (username) {
         updateFields["username"] = username;
@@ -674,10 +674,10 @@ export default {
         }
       }
       if (DOB) {
-        updateFields["DOB"] = DOB;
+        updateFields["dob"] = DOB;
       }
       if (contact) {
-        updateFields["contact"] = contact;
+        updateFields["mobile_number"] = contact;
       }
       if (address) {
         updateFields["address"] = address;
@@ -689,7 +689,7 @@ export default {
         updateFields["gender"] = gender;
       }
       if (relationshipStatus) {
-        updateFields["relationshipStatus"] = relationshipStatus;
+        updateFields["relationship_status"] = relationshipStatus;
       }
 
       dispatch("userStore/settings", updateFields);
