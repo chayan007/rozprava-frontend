@@ -251,7 +251,7 @@
 </template>
 
 <script>
-import AdvancedSettings from "@/components/AdvancedSettings.vue";
+import AdvancedSettings from "@/components/auth/AdvancedSettings.vue";
 export default {
   name: "SettingsPage",
   components: { AdvancedSettings },

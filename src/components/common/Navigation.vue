@@ -162,7 +162,7 @@
             class="profile-image bg-primary shadow-inset border rounded-circle p-1"
           >
             <img
-              src="../assets/profile-picture-1.jpg"
+              src="../../assets/profile-picture-1.jpg"
               class="card-img-top rounded-circle"
               alt="profile image"
             />
@@ -182,7 +182,7 @@
 </template>
 
 <script>
-import SearchBar from './search/searchBar.vue'
+import SearchBar from '../search/searchBar.vue'
 export default {
   name: "Nav",
   components: {SearchBar},

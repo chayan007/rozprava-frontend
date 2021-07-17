@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Splash from "@/components/Splash.vue";
+import Splash from "@/components/common/Splash.vue";
 
 export default {
   name: "Home",
