@@ -6,7 +6,7 @@
               <!--Home code structure begins here-->
           </div>
           <div v-else>
-            <SplashScreen></SplashScreen>
+            <Splash></Splash>
           </div>
         </div>
       </div>
@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import SplashScreen from "@/components/SplashScreen.vue";
+import Splash from "@/components/Splash.vue";
 
 export default {
   name: "Home",
-  components: { SplashScreen },
+  components: { Splash },
   computed: {
     is_authenticated() {
       return false;
