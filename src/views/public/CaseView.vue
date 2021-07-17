@@ -1,18 +1,46 @@
 <template>
     <div class="container">
         <div class="row justify-content-md-around">
-          <Case></Case>
-          <Case></Case>
+          <template v-for="case_detail in cases" :key="case_detail.uuid">
+            <Case :detail="case_detail"></Case>
+          </template>
         </div>
       </div>
 </template>
 
 <script>
 import Case from "@/components/case/Case.vue";
+import { config } from "@/configurations";
 
 export default {
   name: "CaseView",
   components: { Case },
+  computed: {
+    cases() { return this.$store.state.caseStore.cases; }
+  },
+  methods: {
+    getCasesByURL() {
+      const routePath = this.$route.path;
+      const defined_list_route = config.caseConfig.list_routes[routePath];
+      const { dispatch } = this.$store;
+
+      if (!defined_list_route) {
+        dispatch(
+          'alertStore/error',
+          config.messagingConfig.messages.error.unknown_error,
+          { root: true }
+        );
+        return;
+      }
+
+      if (defined_list_route === 'TIMELINE') {
+        dispatch('caseStore/storeTimelineCases');
+      }
+    }
+  },
+  created() {
+    this.getCasesByURL()
+  }
 };
 </script>
 

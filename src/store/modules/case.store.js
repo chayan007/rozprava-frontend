@@ -2,21 +2,21 @@ import { caseService } from '@/services';
 import {stringFormat} from "@/helpers";
 import {config} from "@/configurations";
 
-export const userStore = {
+export const caseStore = {
     namespaced: true,
     state: {
         cases: []
     },
     actions: {
-        getTimelineCases({ dispatch, commit }) {
+        storeTimelineCases({ dispatch, commit }) {
             caseService.getCases()
                 .then(
                     cases => commit('storeCases', cases),
-                    error => dispatch('alertStore/error', error, { root: true })
-            );
+                    error => dispatch('alertStore/success', error, { root: true })
+                );
         },
 
-        getMyCases({ dispatch, commit }) {
+        storeMyCases({ dispatch, commit }) {
             let user = localStorage.getItem('user')
             let username = null;
 
@@ -37,7 +37,7 @@ export const userStore = {
                 );
         },
 
-        getCasesByCategory( { dispatch, commit }, category) {
+        storeCasesByCategory( { dispatch, commit }, category) {
             const defined_category = config.caseConfig.categories[category]
 
             if (!defined_category) {
@@ -56,7 +56,7 @@ export const userStore = {
                 );
         },
 
-        getProfileCases( { dispatch, commit }, username, category = null) {
+        storeProfileCases( { dispatch, commit }, username, category = null) {
             let defined_category = null;
 
             if (category) {

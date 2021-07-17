@@ -34,7 +34,7 @@ const routes = [
     component: Settings
   },
   {
-     path: '/caseview',
+     path: '/timeline',
      name: 'CaseView',
      component: CaseView
   },
@@ -58,7 +58,7 @@ router.beforeEach((to, from, next) => {
       '/login',
       '/register',
       '/signup',
-      '/caseview',
+      '/timeline',
   ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');

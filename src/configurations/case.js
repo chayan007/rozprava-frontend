@@ -3,7 +3,7 @@ let caseConfig;
 caseConfig = {
     api: {
         list: {
-            endpoint: "case/list/",
+            endpoint: "case/v1/list/",
             queryParameters: {
                 username: "username={}",
                 category: "category={}",
@@ -23,7 +23,11 @@ caseConfig = {
         TECHNOLOGY: 8,
         NATURE: 9,
     },
-    status: ['Revoked', 'Active', 'Under Review']
+    status: ['Revoked', 'Active', 'Under Review'],
+    list_routes: {
+        "/timeline": "TIMELINE",
+        "/cases/profile": "SELF"
+    }
 };
 
 export { caseConfig }

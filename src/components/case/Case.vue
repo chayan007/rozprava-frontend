@@ -1,7 +1,7 @@
 <template>
   <div class="mt-4">
     <div class="card bg-primary border-light shadow-soft m-5">
-      <img
+      <img v-if="hasValue('image_url')"
           src="https://user-images.githubusercontent.com/83393749/122279699-f826a380-cf05-11eb-949d-5cbd6bd8027c.png"
           class="card-img-top rounded-top image"
       />
@@ -17,10 +17,10 @@
             >
               <img
                 class="avatar-sm mr-2 img-fluid rounded-circle"
-                src="@/assets/profile-picture-1.jpg"
-                alt="Jo portrait"
+                :src="detail.profile.display_pic"
+                alt="display_pic"
               />
-              Jo J. Moore
+              {{ detail.profile.user.username }}
             </a>
           </div>
           <span class="btn-group mr-0">
@@ -62,13 +62,11 @@
           </span>
         </div>
         <h3 class="h5 card-title mt-4">
-          Social Sites taking away our PRIVACY...
+          {{ detail.question }}
         </h3>
         <div class="dropdown-divider"></div>
         <p class="card-text">
-          We are facing a serious business dilemma, with Facebook taking away a
-          good chunk of traffic to news and content sites, and ad blockers eating
-          into what’s left of it while slashing ad revenues.
+          {{ detail.description }}
         </p>
         <div class="d-flex align-items-center justify-content-between">
           <a href="#">
@@ -120,6 +118,11 @@
 <script>
 export default {
   name: "Case",
-  components: {},
+  props: ['detail'],
+  methods: {
+    hasValue(key) {
+      return Object.keys(this.detail).includes(key);
+    }
+  }
 };
 </script>

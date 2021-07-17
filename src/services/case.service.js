@@ -28,6 +28,16 @@ function getCases(category= null, username = null) {
             url,
             { headers: headers }
         )
-        .then((response) => {console.log(response)})
-        .catch((error) => {console.log(error)});
+        .then((response) => {
+            if (response.data.length) {
+                return response.data;
+            } else {
+                throw config.messagingConfig.messages.notification.watched_all_cases;
+            }
+        })
+        .catch((error) => {
+            if (typeof error === 'string') {
+                throw error;
+            }
+        });
 }
