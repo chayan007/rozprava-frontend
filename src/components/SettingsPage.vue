@@ -414,58 +414,13 @@
                   <div class="collapse" id="panel-14">
                     <div class="pt-3">
                       <fieldset>
-                        <legend class="h6">Choose your Gender</legend>
-                        <div id="gender">
-                          <div class="form-check">
-                            <input
-                              class="form-check-input"
-                              type="radio"
-                              name="exampleRadios"
-                              v-model="gender"
-                              id="exampleRadios1"
-                              value="male"
-                              checked=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="exampleRadios1"
-                            >
-                              Male
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input
-                              class="form-check-input"
-                              type="radio"
-                              v-model="gender"
-                              name="exampleRadios"
-                              id="exampleRadios2"
-                              value="female"
-                            />
-                            <label
-                              class="form-check-label"
-                              for="exampleRadios2"
-                            >
-                              Female
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input
-                              class="form-check-input"
-                              type="radio"
-                              v-model="gender"
-                              name="exampleRadios"
-                              id="exampleRadios3"
-                              value="ratherNotSay"
-                            />
-                            <label
-                              class="form-check-label"
-                              for="exampleRadios3"
-                            >
-                              Rather Not Say
-                            </label>
-                          </div>
-                        </div>
+                        <legend class="h6" for="gender">Choose your Gender</legend>
+                        <select id="gender" v-model="gender">
+                          <option value="MALE">Male</option>
+                          <option value="FEMALE">Fale</option>
+                          <option value="TRANS">Transgender</option>
+                          <option value="OTHER">Other</option>
+                        </select>
                         <!-- End of Radio -->
                       </fieldset>
                       <div class="custom-control custom-switch mt-2">
@@ -499,73 +454,14 @@
                   <div class="collapse" id="panel-15">
                     <div class="pt-3">
                       <fieldset>
-                        <legend class="h6">Choose your Status</legend>
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            v-model="relationshipStatus"
-                            name="exampleRadios1"
-                            id="exampleRadios4"
-                            value="single"
-                            checked=""
-                          />
-                          <label class="form-check-label" for="exampleRadios4">
-                            Single
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            v-model="relationshipStatus"
-                            name="exampleRadios1"
-                            id="exampleRadios5"
-                            value="Engaged"
-                          />
-                          <label class="form-check-label" for="exampleRadios5">
-                            Engaged
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            v-model="relationshipStatus"
-                            name="exampleRadios1"
-                            id="exampleRadios6"
-                            value="married"
-                          />
-                          <label class="form-check-label" for="exampleRadios6">
-                            Married
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            v-model="relationshipStatus"
-                            name="exampleRadios1"
-                            id="exampleRadios7"
-                            value="divorced"
-                          />
-                          <label class="form-check-label" for="exampleRadios7">
-                            Divorced
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            v-model="relationshipStatus"
-                            name="exampleRadios1"
-                            id="exampleRadios8"
-                            value="complicated"
-                          />
-                          <label class="form-check-label" for="exampleRadios8">
-                            Complicated
-                          </label>
-                        </div>
+                        <legend class="h6" for="relationship_status">Choose your Status</legend>
+                        <select id="relationship_status" v-model="relationship_status">
+                          <option value="0">Single</option>
+                          <option value="1">Engaged</option>
+                          <option value="2">Married</option>
+                          <option value="3">Committed</option>
+                          <option value="4" >Widowed</option>
+                        </select>
                         <!-- End of Radio -->
                       </fieldset>
                       <div class="custom-control custom-switch mt-2">
@@ -615,11 +511,11 @@ export default {
       password1: "",
       password2: "",
       DOB: "",
-      contact: "",  
+      contact: "",
       address: "",
       profession: "",
       gender: "",
-      relationshipStatus: "",
+      relationship_status: "",
       submitted: false,
     };
   },
@@ -643,7 +539,7 @@ export default {
         address,
         profession,
         gender,
-        relationshipStatus,
+        relationship_status,
       } = this;
       const { dispatch } = this.$store;
       let updateFields = {};
@@ -688,8 +584,8 @@ export default {
       if (gender) {
         updateFields["gender"] = gender;
       }
-      if (relationshipStatus) {
-        updateFields["relationship_status"] = relationshipStatus;
+      if (relationship_status) {
+        updateFields["relationship_status"] = relationship_status;
       }
 
       dispatch("userStore/settings", updateFields);
