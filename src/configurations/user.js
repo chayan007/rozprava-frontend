@@ -4,10 +4,10 @@ if (process.env.NODE_ENV === "PRODUCTION") {
     userConfig = {
         api: {
             register: {
-                "endpoint": "profile/auth/registration/"
+                "endpoint": "profile/protected/registration/"
             },
             login: {
-                "endpoint": "profile/auth/login/"
+                "endpoint": "profile/protected/login/"
             }
         },
         constants: {
@@ -20,10 +20,10 @@ if (process.env.NODE_ENV === "PRODUCTION") {
     userConfig = {
         api: {
             register: {
-                "endpoint": "profile/auth/registration/",
+                "endpoint": "profile/protected/registration/",
             },
             login: {
-                "endpoint": "profile/auth/login/"
+                "endpoint": "profile/protected/login/"
             }
         },
         constants: {

@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import SignUp from '@/components/SignUp.vue'
-import Register from '@/views/Register.vue'
-import Login from '@/views/Login.vue'
+import Register from '@/views/auth/Register.vue'
+import Login from '@/views/auth/Login.vue'
 import Home from '@/views/Home.vue'
-import Settings from '@/views/Settings.vue'
-import CaseView from '@/views/CaseView.vue'
-import Search from '@/views/search.vue'
+import Settings from '@/views/protected/Settings.vue'
+import CaseView from '@/views/public/CaseView.vue'
+import Search from '@/views/protected/Search.vue'
 
 const routes = [
   {
