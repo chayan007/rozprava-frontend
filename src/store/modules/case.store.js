@@ -6,12 +6,20 @@ export const userStore = {
         cases: []
     },
     actions: {
-        getTimelineCases({ commit }) {
+        getTimelineCases({ dispatch, commit }) {
             caseService.getDetails()
                 .then(
                     cases => commit('storeCases', cases),
                     error => commit('raiseAlert', error)
                 );
+        },
+
+        getCreatedCases({ dispatch, commit }) {
+            return;
+        },
+
+        getCasesByCategory( { dispatch, commit }, category) {
+            return;
         }
     },
     mutations: {
