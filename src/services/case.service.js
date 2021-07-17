@@ -1,12 +1,33 @@
-import {authHeader, handleResponse} from '@/helpers';
+import {authHeader, stringFormat} from '@/helpers';
 import { config } from "@/configurations";
+import axios from "axios";
 
 export const caseService = { getCases };
 
 function getCases(category= null, username = null) {
-    const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
-    };
-    return fetch(`${config.commonConfig.$apiUrl}/users`, requestOptions).then(handleResponse);
+    const headers = authHeader();
+    let url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.list.endpoint}`;
+
+    // Check if any query parameter is present or not. If present add trailing `?`
+    url = (category || username) ? `${url}?` : url
+
+    // Add category to URL if present.
+    url = category ? `${url}${stringFormat(
+        config.caseConfig.api.list.queryParameters.category,
+        config.caseConfig.categories[category]
+    )}` : url
+
+    // Add username to URL if present.
+    url = username ? `${url}${stringFormat(
+        config.caseConfig.api.list.queryParameters.username,
+        username
+    )}` : url
+
+    return axios
+        .get(
+            url,
+            { headers: headers }
+        )
+        .then((response) => {console.log(response)})
+        .catch((error) => {console.log(error)});
 }
