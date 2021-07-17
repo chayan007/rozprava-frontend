@@ -14,7 +14,7 @@ function getCases(category= null, username = null) {
     // Add category to URL if present.
     url = category ? `${url}${stringFormat(
         config.caseConfig.api.list.queryParameters.category,
-        config.caseConfig.categories[category]
+        category
     )}` : url
 
     // Add username to URL if present.
