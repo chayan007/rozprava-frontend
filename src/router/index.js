@@ -47,17 +47,17 @@ const routes = [
     component: Search
   },
   {
-    path: '/forgetLogin',
+    path: '/forget-login',
     name: 'ForgetLogin',
     component: ForgetLogin
   },
   {
-    path: '/enterOTP',
+    path: '/enter-otp',
     name: 'EnterOTP',
     component: EnterOTP
   },
   {
-    path: '/resetPassword',
+    path: '/reset-password',
     name: 'ResetPassword',
     component: ResetPassword
   }
