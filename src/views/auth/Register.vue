@@ -1,7 +1,6 @@
 <template>
-  <div class="box" style="text-align: center;">
+  <div class="box" style="text-align: center">
     <div class="mb-5">
-      <!-- Generator: Adobe Illustrator 25.0.1, SVG Export Plug-In  -->
       <svg
         class="mt-3"
         version="1.1"
@@ -12,7 +11,7 @@
         width="200px"
         height="200px"
         viewBox="0 0 225.01 243.51"
-        style="overflow:visible;enable-background:new 0 0 225.01 243.51;"
+        style="overflow: visible; enable-background: new 0 0 225.01 243.51"
         xml:space="preserve"
         color="#000000"
       >
@@ -39,28 +38,32 @@
         </g>
       </svg>
 
-      <h1 style="margin: 0%; margin-top: 0.5rem; font-size:3rem">ROZPRAVA</h1>
+      <h1 style="margin: 0%; margin-top: 0.5rem; font-size: 3rem">ROZPRAVA</h1>
       <h3
-        style="margin: 0%; margin-top: 0rem; margin-bottom: 2rem; font-size: 1.2rem;"
+        style="
+          margin: 0%;
+          margin-top: 0rem;
+          margin-bottom: 2rem;
+          font-size: 1.2rem;
+        "
       >
         Express yourself
       </h3>
       <div class="container">
         <div class="row justify-content-md-around">
-          <LoginForm></LoginForm>
+          <RegisterForm></RegisterForm>
         </div>
       </div>
     </div>
-    
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import LoginForm from "@/components/LoginForm.vue";
+import RegisterForm from "@/components/auth/RegisterForm.vue";
 export default {
-  name: "Login",
-  components: { LoginForm,  },
+  name: "Register",
+  components: { RegisterForm, },
 };
 </script>
 
@@ -69,29 +72,5 @@ export default {
   font-family: Josefin Sans;
   margin-top: 7rem;
   padding: 0%;
-}
-.login {
-  padding-left: 8.6rem;
-  padding-right: 8.6rem;
-}
-
-.pad-email {
-  padding-left: 4.2rem;
-  padding-right: 4.2rem;
-}
-
-.pad-twitter {
-  padding-left: 4rem;
-  padding-right: 4rem;
-}
-
-.pad-google {
-  padding-left: 4rem;
-  padding-right: 4rem;
-}
-
-.pad-facebook {
-  padding-left: 3.4rem;
-  padding-right: 3.4rem;
 }
 </style>

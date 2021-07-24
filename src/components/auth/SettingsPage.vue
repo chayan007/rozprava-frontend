@@ -150,17 +150,17 @@
               data-v-6db336fc=""
               >Social Links<img
                 class="ml-6 mr-2"
-                src="../assets/google.svg"
+                src="../../assets/google.svg"
                 alt="Google"
                 width="25"
               /><img
                 class="mr-2"
-                src="../assets/facebook.svg"
+                src="../../assets/facebook.svg"
                 alt="Google"
                 width="25"
               /><img
                 class="mr-2"
-                src="../assets/twitter.svg"
+                src="../../assets/twitter.svg"
                 alt="Google"
                 width="25"
               />
@@ -499,6 +499,7 @@
 
 <script>
 import { config } from "@/configurations";
+// import AdvancedSettings from "@/components/auth/AdvancedSettings.vue";
 
 export default {
   name: "SettingsPage",

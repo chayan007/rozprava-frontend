@@ -11,10 +11,9 @@
 </template>
 
 <script>
-import SearchBar from '../components/search/searchBar.vue'
+import SearchBar from '@/components/search/searchBar.vue'
 export default {
     name: "Search",
-    components:{SearchBar
-    }
+    components:{ SearchBar }
 }
 </script>

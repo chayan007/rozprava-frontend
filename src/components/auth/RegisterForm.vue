@@ -12,7 +12,7 @@
             <div class="input-group mb-4">
               <div class="input-group-prepend">
                 <span class="input-group-text"
-                  ><img src="../assets/name.svg" alt="sign in" width="14"></span>
+                  ><img src="../../assets/name.svg" alt="sign in" width="14"></span>
               </div>
               <input
                 class="form-control"
@@ -53,7 +53,7 @@
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
-                    ><img src="../assets/username.svg" alt="sign in" width="14"></span>
+                    ><img src="../../assets/username.svg" alt="sign in" width="14"></span>
                 </div>
                 <input
                   class="form-control"
@@ -109,7 +109,7 @@
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
-                    ><img src="../assets/phone.svg" alt="sign in" width="14"></span>
+                    ><img src="../../assets/phone.svg" alt="sign in" width="14"></span>
                 </div>
                 <input
                   class="form-control"
@@ -151,7 +151,7 @@
             </div>
           </div>
           <button type="submit" class="btn btn-pill btn-primary">
-            <img src="../assets/login.svg" alt="sign in" width="30">
+            <img src="../../assets/login.svg" alt="sign in" width="30">
           </button>
         </form>
       </div>
