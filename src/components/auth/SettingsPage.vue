@@ -499,7 +499,6 @@
 
 <script>
 import { config } from "@/configurations";
-// import AdvancedSettings from "@/components/auth/AdvancedSettings.vue";
 
 export default {
   name: "SettingsPage",
