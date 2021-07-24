@@ -65,7 +65,7 @@
             </div>
           </div>
           <button type="submit" class="btn btn-pill btn-primary">
-            <img src="../assets/login.svg" alt="sign in" width="30">
+            <img src="../../assets/login.svg" alt="sign in" width="30">
           </button>
         </form>
 

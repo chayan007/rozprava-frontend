@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import SignUp from '@/components/SignUp.vue'
-import Register from '@/views/Register.vue'
-import Login from '@/views/Login.vue'
+import SignUp from '@/components/auth/SignUp.vue'
+import Register from '@/views/auth/Register.vue'
+import Login from '@/views/auth/Login.vue'
 import Home from '@/views/Home.vue'
-import Settings from '@/views/Settings.vue'
-import CaseView from '@/views/CaseView.vue'
-import Search from '@/views/search.vue'
 import ForgetLogin from '@/views/ForgetLogin.vue'
 import EnterOTP from '@/views/EnterOTP.vue'
 import ResetPassword from '@/views/ResetPassword.vue'
+import Settings from '@/views/protected/Settings.vue'
+import CaseView from '@/views/public/CaseView.vue'
+import Search from '@/views/protected/Search.vue'
 
 const routes = [
   {
@@ -37,7 +37,7 @@ const routes = [
     component: Settings
   },
   {
-     path: '/caseview',
+     path: '/timeline',
      name: 'CaseView',
      component: CaseView
   },
@@ -76,10 +76,14 @@ router.beforeEach((to, from, next) => {
       '/login',
       '/register',
       '/signup',
+<<<<<<< HEAD
       '/caseview',
       '/forgetLogin',
       '/enterOTP',
       '/resetPassword',
+=======
+      '/timeline',
+>>>>>>> c9f5fbce9043791adeef45696fdbeeaf4cc1dbb6
   ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');

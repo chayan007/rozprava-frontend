@@ -86,7 +86,7 @@
               <li><a class="dropdown-item"><router-link to="/signup">SignUp</router-link></a></li>
               <li><a class="dropdown-item"><router-link to="/register">Register</router-link></a></li>
               <li><a class="dropdown-item"><router-link to="/login">Login</router-link></a></li>
-              <li><a class="dropdown-item"><router-link to="/caseview">CaseView</router-link></a></li>
+              <li><a class="dropdown-item"><router-link to="/timeline">Timeline</router-link></a></li>
             </ul>
           </li>
 
@@ -162,7 +162,7 @@
             class="profile-image bg-primary shadow-inset border rounded-circle p-1"
           >
             <img
-              src="../assets/profile-picture-1.jpg"
+              src="../../assets/profile-picture-1.jpg"
               class="card-img-top rounded-circle"
               alt="profile image"
             />
@@ -182,7 +182,7 @@
 </template>
 
 <script>
-import SearchBar from './search/searchBar.vue'
+import SearchBar from '../search/searchBar.vue'
 export default {
   name: "Nav",
   components: {SearchBar},
