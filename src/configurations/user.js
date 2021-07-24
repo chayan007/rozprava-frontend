@@ -9,9 +9,6 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             login: {
                 "endpoint": "profile/auth/login/"
             },
-            /*edit: {
-                "endpoint":"profile/user/{{username}}"
-            },*/
         },
         constants: {
             debug: true,
@@ -28,9 +25,6 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             login: {
                 "endpoint": "profile/auth/login/"
             },
-            /*edit: {
-                "endpoint":"profile/user/{{username}}"
-            }*/
         },
         constants: {
             debug: false,

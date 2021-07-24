@@ -1,12 +1,8 @@
 import { userService } from '@/services';
-//import router from "@/router";
-//const user = JSON.parse(localStorage.getItem('user'));
 export const userStore = {
     namespaced: true,
     state: {
         all: {},
-        // ? { status: { loggedIn: true }, user }
-        // : { status: {}, user: null };
     },
     actions: {
         getAll({ commit }) {
@@ -21,6 +17,7 @@ export const userStore = {
         
     },
     mutations: {
+       
         getAllRequest(state) {
             state.all = { loading: true };
         },

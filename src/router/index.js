@@ -6,13 +6,24 @@ import Home from '@/views/Home.vue'
 import Settings from '@/views/Settings.vue'
 import Search from '@/views/search.vue'
 import Post from '@/views/Post.vue'
+import Category from '@/views/Category.vue'
+import Chat from '@/views/SingleChatPage.vue'
 const routes = [
   {
     path: '/signup',
     name: 'SignUp',
     component: SignUp
   },
-  
+  {
+    path: '/chat',
+    name: 'Chat',
+    component: Chat
+  },
+  {
+    path: '/category',
+    name: 'Category',
+    component: Category
+  },
   {
     path: '/register',
     name: 'Register',
@@ -60,7 +71,9 @@ router.beforeEach((to, from, next) => {
       '/register',
       '/signup',
       '/settings',
-      '/post'
+      '/post',
+      '/category',
+      '/chat'
   ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');

@@ -123,7 +123,9 @@ export default {
   name: "LoginForm",
   data () {
     return {
-      
+      username: '',
+      password: '',
+      submitted: false
     }
   },
   computed: {

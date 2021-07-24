@@ -1,11 +1,12 @@
 <template>
   <div class="box " style="text-align: center">
-    
-          <Post1></Post1>
-          <div class="popup">
+      <Post1></Post1>
+          <div class="popup" v-if="true">
             <PostButton ></PostButton>
           </div>
-          
+          <div class="popup" v-else>
+            <PostButton2 ></PostButton2>
+          </div>
   </div>
 </template>
 
@@ -13,9 +14,10 @@
 // @ is an alias to /src
 import Post1 from "@/components/Post1.vue";
 import PostButton from "@/components/PostButton.vue";
+import PostButton2 from "@/components/PostButton2.vue";
 export default {
   name: "Post",
-  components: { Post1,PostButton },
+  components: { Post1,PostButton,PostButton2 },
 };
 </script>
 

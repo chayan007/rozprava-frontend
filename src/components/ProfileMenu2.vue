@@ -1,15 +1,12 @@
 <template>
     <div class="popup" @click="Toggle()">
-        
+       <div>hello</div>
         <div class="popup-inner" @click="Toggle()">
             <slot />
             <div >
                 
-                    <div><a href="" class=" left">Edit Profile</a></div>
-                <div><a href="#" class=" left">Settings</a></div>
-               
-               <div><a href="" class=" left">About Us </a></div>
-                <div><a href="" class=" left">Terms &amp; Condition</a></div>
+                    
+                <div><a href="" class=" left">Report</a></div>
                 
             </div>
         </div>
@@ -19,7 +16,7 @@
 
 
 export default {
-    name: "ProfileMenu",
+    name: "ProfileMenu2",
     props:['Toggle']
 };
 </script>
@@ -32,31 +29,34 @@ export default {
     bottom: 0%;
     z-index: 299;
     background-color: rgba(0,0,0,0.2);
-    max-width: 100%;
+
     display: flex;
-    align-items: center;
-    justify-content: center;
     
+    max-width: 100%;
 }
 .popup-inner{
-        position: relative;
+        
        background: white;
         border-radius: 1rem;
         padding: 1rem;
-        margin-top: -12rem;
-        margin-left: auto;
-        margin-right: 9%;
-        max-width: 100%;
+        margin-top: 8rem;
+         margin-left: auto;
+        margin-right: 12%;
+        height: 2.5rem;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 6rem;
     }
     .left{
         float: right;
-        display: block;
-        
+       display: block;
+       
     }
     @media (max-width: 1000px) {
     .popup-inner {
      
-        margin-top:-21rem;
+        
         margin-right: 2%;
     }
     }

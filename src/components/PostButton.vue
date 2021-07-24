@@ -1,12 +1,12 @@
 <template>
     <div class="cant bg-primary shadow-soft">
-        <button type="submit" class="a1 btn btn-pill btn-primary">
+        <button type="button" class="a1 btn btn-pill btn-primary">
             <img src="../assets/Edit.png" alt="sign in" width="30">
           </button>
-          <button type="submit" class="btn btn-pill btn-primary">
+          <button type="button" class="btn btn-pill btn-primary">
             <img src="../assets/Add.png" alt="sign in" width="33">
           </button>
-          <button type="submit" class="a2 btn btn-pill btn-primary">
+          <button type="button" class="a2 btn btn-pill btn-primary">
             <img src="../assets/upward-arrow.png" alt="sign in" width="33">
           </button>
     </div>

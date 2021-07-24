@@ -2,75 +2,65 @@
     <div class="cant" >
         <div class="card bg-primary  ">
           <div class="a1" >
-                   
+            
                     <img src="../assets/post_pic.png"  class="image card-img-top rounded-top" alt="Themesberg office">
                     <button type="button " class="aero a2"><span class="a2"><img src="../assets/Back.png" alt="sign in" width="18"></span></button>
                     <button type="button" class="a3" @click="()=>Toggle('buttonTrigger')"> ...</button>
+                    <div v-if="false">
                     <ProfileMenu v-if="popupTriggers.buttonTrigger" :Toggle="()=>Toggle('buttonTrigger')" class="popup" >
                       
                     </ProfileMenu>
-                    <transition name="fade" appear>
-                      <div @click="()=>ToggleClose('buttonTrigger')"></div>
-                    </transition>
-                    <!-- <img src="../assets/black-rose.jpg"  class="a4" alt="Themesberg office"> -->
-                    <div class="a4 profile-image bg-primary shadow-inset border border-light rounded-circle ">
-                            <img src="../assets/black-rose.jpg" class="card-img-top rounded-circle" alt="Christopher Avatar" width="100">
-                        </div>
                     </div>
-                   
-                    <div class="card-body">
-                        
-                        <h2 class=" card-title mt-3">Tyler, The Creater</h2>
-                        <div class="nowrap">
-                          <button type="button" class="btn btn-primary margin btn-sm"><span class="h4"><strong>142</strong></span><br>posts</button>
-                          <button type="button" class="btn btn-primary margin btn-sm"><span class="h4"><strong>7.4</strong></span><br>Followers</button>
-                          <button type="button" class="btn btn-primary margin btn-sm"><span class="h4"><strong>117</strong></span><br>Following</button>
-                        </div>
+                    <div v-else-if="true">
+                        <ProfileMenu2 v-if="popupTriggers.buttonTrigger" :Toggle="()=>Toggle('buttonTrigger')" class="popup">
 
-                        <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                        
+                        </ProfileMenu2>
                     </div>
-                    <div>
-                      <div class="profile-image bg-primary shadow-inset border border-light rounded-circle ">
-                            <img src="../assets/black-rose.jpg" class="card-img-top rounded-circle" alt="Christopher Avatar" width="100">
+                   <div class="middle">
+                      <div class="a4 profile-image bg-primary shadow-inset border border-light rounded-circle ">
+                            <img :src="profile_picture" class="card-img-top rounded-circle" alt="Christopher Avatar" width="200" />
                         </div>
+                   </div>
                     </div>
-                    
+                        <h2 class=" card-title mt-3">{{user.profile.user.full_name}}</h2>
+                        <div class="nowrap">
+                          
+                          <div class="c3"><span class="h4"><strong>{{user.profile.metrics.posts}}</strong></span><br>posts</div>
+                          <div class="c2"><span class="h4"><strong>{{user.profile.metrics.followers}}</strong></span><br>Followers</div>
+                          <div class="c1"><span class="h4"><strong>{{user.profile.metrics.following}}</strong></span><br>Following</div>
+                          <!-- <button type="button" class="btn btn-primary margin btn-sm"><span class="h4"><strong>{{posts}}</strong></span><br>posts</button>
+                          <button type="button" class="btn btn-primary margin btn-sm"><span class="h4"><strong>{{followers}}</strong></span><br>Followers</button>
+                          <button type="button" class="btn btn-primary margin btn-sm"><span class="h4"><strong>{{following}}</strong></span><br>Following</button> -->
+                        </div> 
+         
+          <div class="bio">
+            <div>
+              {{user.profile.bio}}
+            </div>
+          </div>
           <div>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab excepturi doloribus labore error praesentium nostrum beatae quibusdam enim quis? Voluptatibus, qui molestiae. Quaerat dicta eum, similique suscipit placeat optio fuga qui quas impedit vero id, itaque commodi, reprehenderit voluptatem saepe magnam aperiam. Id, veritatis. Doloremque excepturi consequuntur nulla inventore error sapiente in? Ea, delectus suscipit a possimus obcaecati consequatur assumenda at exercitationem repellat quos deserunt, nemo, minus necessitatibus illo neque hic eum vel dolores soluta optio. Quam incidunt fugit et aut labore quisquam sapiente laboriosam animi assumenda optio sunt officia reiciendis doloremque corrupti in facilis voluptatem, blanditiis neque, illo quis harum nesciunt magnam ullam aliquam. Molestiae consequatur, placeat inventore excepturi explicabo quos velit, atque veniam modi odit perferendis deserunt maiores veritatis pariatur sunt optio maxime nesciunt dolore ducimus sapiente! Perspiciatis, deleniti, unde quo a, explicabo doloremque corrupti harum voluptates eius vel sed error aut odit! Iure voluptates ab odit earum natus praesentium animi officia alias itaque dolor, dolore ducimus asperiores accusamus? Vel sint quos ipsa suscipit molestiae delectus commodi aliquid dolore quas totam architecto nam nihil in, blanditiis perspiciatis impedit quo itaque fugit, exercitationem, omnis iure praesentium. Praesentium, officiis autem. Culpa, libero natus? Vero, neque labore tempora quam quis expedita.
+            {{username}}
           </div>
         </div>
     </div>
 </template>
 <script>
  import ProfileMenu from "@/components/ProfileMenu.vue"
+ import ProfileMenu2 from "@/components/ProfileMenu2.vue"
  import { ref } from "vue";
   export default {
     name: "Post1",
-    components: { ProfileMenu },
+    components: { ProfileMenu , ProfileMenu2},
     
     data () {
-       const user = JSON.parse(localStorage.getItem('user'));
+      
       return {
-       username:user.profile.user.username,
+       user: null,
+       username:'',
       }
     },
-    beforeMount() {
-    this.fun();
-  },
-      methods:{
-        async fun(){
-           const user = JSON.parse(localStorage.getItem('user'));
-         let un = user.profile.user.username;
-        console.log(un);
-       console.log("un");
-        document.getElementById('yoyo').innerHTML = 'un';
-        }
-       
-      },
+   
     setup(){
-      const user = JSON.parse(localStorage.getItem('user'));
-     
       const popupTriggers=ref({
         buttonTrigger:false,
         timedTrigger:false
@@ -85,24 +75,61 @@
         popupTriggers,
         Toggle,
         ToggleClose,
-        user,
-       /*ProfilePicture:user.ProfilePicture,
-       Followers:user.Followers,
-       Following:user.Following,*/
+        
       }
+    },
+    created(){
+        this.declareUser();
+      },
+     
+
+    methods:{
+      handleUser(){
+        //const routePath = this.$route.path;
+        this.username=this.$route.params.username;
+        
+      },
+      declareUser(){
+           this.user = JSON.parse(localStorage.getItem('user'));
+        }
+    },
+    
     }
-  }
   
 </script>
 <style scoped>
+.bio{
+  width: 30rem;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 100%;
+  margin-top: 1.5rem;
+}
 .image{
-  height: 15rem;
+  max-height: 25rem;
+ 
+}
+.c1{
+  margin-left: auto;
+  padding: 0rem 1rem;
+  order: 2;
+}
+.c2{
+  margin-left: auto;
+  padding-left: 1rem;
+  order: 2;
+}
+.c3{
+  padding: 0rem 1rem;
 }
 .cant{
-  margin-left: auto;
-  margin-right: auto;
-  width: 30rem;
   
+  width: 65rem;
+ margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5rem;
+   max-width: 100%;
+
 }
 .btn {
     display: inline-block;
@@ -133,10 +160,13 @@
     box-shadow: none;
 }
 .nowrap{
-  white-space: nowrap;
-  
-  /* width: 5rem; */
+  display: flex;
+  width: 30rem;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 .a1{
   position: relative;
   
@@ -156,20 +186,36 @@
 }
 .a1 .a3{
   position: absolute;
-  top:0%;
-  left: 85%;
+  top:5%;
+  left: 90%;
   background: none;
   color: white;
   border: none;
   font-size: 2rem;
 }
-.a1 .a4{
-  position: absolute;
-  top: 48%;
-  left: 38%;
-  width: 8rem;
-  height: 8rem;
+ .a4{
+  
+  top: 45%;
+  margin-right: auto;
+  margin-left:auto ;
+  width: 14rem;
+  height: 14rem;
   padding : 0.15rem;
+  
 }
-
+.middle{
+  
+  position: absolute;
+  
+  top: 12rem;
+  width: 100%;
+  
+}
+@media (max-width: 700px) {
+    .space {
+     
+        margin-right: 4%;
+        margin-left: 4%;
+    }
+    }
 </style>
