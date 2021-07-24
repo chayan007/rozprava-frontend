@@ -6,6 +6,9 @@ import Home from '@/views/Home.vue'
 import Settings from '@/views/Settings.vue'
 import CaseView from '@/views/CaseView.vue'
 import Search from '@/views/search.vue'
+import ForgetLogin from '@/views/ForgetLogin.vue'
+import EnterOTP from '@/views/EnterOTP.vue'
+import ResetPassword from '@/views/ResetPassword.vue'
 
 const routes = [
   {
@@ -42,6 +45,21 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: Search
+  },
+  {
+    path: '/forgetLogin',
+    name: 'ForgetLogin',
+    component: ForgetLogin
+  },
+  {
+    path: '/enterOTP',
+    name: 'EnterOTP',
+    component: EnterOTP
+  },
+  {
+    path: '/resetPassword',
+    name: 'ResetPassword',
+    component: ResetPassword
   }
 ]
 
@@ -59,6 +77,9 @@ router.beforeEach((to, from, next) => {
       '/register',
       '/signup',
       '/caseview',
+      '/forgetLogin',
+      '/enterOTP',
+      '/resetPassword',
   ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
