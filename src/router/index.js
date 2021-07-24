@@ -76,14 +76,11 @@ router.beforeEach((to, from, next) => {
       '/login',
       '/register',
       '/signup',
-<<<<<<< HEAD
       '/caseview',
       '/forgetLogin',
       '/enterOTP',
       '/resetPassword',
-=======
       '/timeline',
->>>>>>> c9f5fbce9043791adeef45696fdbeeaf4cc1dbb6
   ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
