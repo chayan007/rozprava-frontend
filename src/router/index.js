@@ -3,6 +3,9 @@ import SignUp from '@/components/auth/SignUp.vue'
 import Register from '@/views/auth/Register.vue'
 import Login from '@/views/auth/Login.vue'
 import Home from '@/views/Home.vue'
+import ForgetLogin from '@/views/ForgetLogin.vue'
+import EnterOTP from '@/views/EnterOTP.vue'
+import ResetPassword from '@/views/ResetPassword.vue'
 import Settings from '@/views/protected/Settings.vue'
 import CaseView from '@/views/public/CaseView.vue'
 import Search from '@/views/protected/Search.vue'
@@ -42,6 +45,21 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: Search
+  },
+  {
+    path: '/forget-login',
+    name: 'ForgetLogin',
+    component: ForgetLogin
+  },
+  {
+    path: '/enter-otp',
+    name: 'EnterOTP',
+    component: EnterOTP
+  },
+  {
+    path: '/reset-password',
+    name: 'ResetPassword',
+    component: ResetPassword
   }
 ]
 
@@ -58,6 +76,10 @@ router.beforeEach((to, from, next) => {
       '/login',
       '/register',
       '/signup',
+      '/caseview',
+      '/forgetLogin',
+      '/enterOTP',
+      '/resetPassword',
       '/timeline',
   ];
   const authRequired = !publicPages.includes(to.path);
