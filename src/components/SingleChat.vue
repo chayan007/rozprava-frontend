@@ -1,16 +1,22 @@
 <template>
-    <div class="cant bg-primary shadow-soft" >
+   <div>
+      <div class="a5">
+      <div class="a3">
+        <h3>Chats</h3>
+        <button class="a6 plus"><img src="@/assets/plus.png" class="plus" alt=""></button>
+      </div>
+      <div class="cant bg-primary shadow-soft" >
 
-       <div class="a1 shadow-soft">
-       <div class="a4 profile-image bg-primary shadow-inset border border-light rounded-circle ml-2 ">
+       <div class="a1 ">
+                        <div class="a4 profile-image bg-primary shadow-inset border border-light rounded-circle ml-2 ">
                             <img src="@/assets/black-rose.jpg" class="card-img-top rounded-circle " alt="Christopher Avatar" width="100" />
                         </div>
                         <div class="a2"><h5>Raju Kumar</h5></div>
         </div>
-        <div class="a3">
-          <input type="text" placeholder="Enter Massage" class="a5">
-        </div>
+        
     </div>
+    </div>
+   </div>
 </template>
 <script>
  
@@ -20,16 +26,24 @@
   }
 </script>
 <style scoped>
+.plus{
+    outline: none;
+    border: none;
+    padding: 0rem 0.1rem;
+    background: transparent;
+}
+.a6{
+  margin-right: 0rem;
+  margin-left: auto;
+}
 .a5{
-  border: none;
-  outline: none;
-  border-radius: 0.5rem;
-  padding: 0.3rem 1.3rem;
-  width: 80%;
+  width: 40rem;
+  margin-right: auto;
+  margin-left: auto;
 }
 .a3{
-  margin-top: 24.5rem;
-  
+ display: flex;
+ margin-bottom: 3rem;
 }
 .a2{
   margin-top: 1rem;
@@ -48,16 +62,21 @@
  
    max-width: 100%;
    border-radius: 1rem;
-   height: 30rem;
+   padding: 0.5rem;
   margin-bottom: 0%;
 }
 .a4{
   
   top: 45%;
  
-  width: 3rem;
-  height: 3rem;
+  width: 3.5rem;
+  height: 3.5rem;
   padding : 0.15rem;
-  
+  margin-right: 0.5rem;
+}
+@media (max-width: 764px) {
+    .a5 {
+        width: 25rem;
+    }
 }
 </style>
