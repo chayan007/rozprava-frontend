@@ -1,7 +1,7 @@
 import { authService } from '@/services';
 import router from "@/router";
 
-const user = JSON.parse(localStorage.getItem('user'));
+let user = JSON.parse(localStorage.getItem('user'));
 const initialState = user
     ? { status: { loggedIn: true }, user }
     : { status: {}, user: null };
@@ -50,7 +50,7 @@ export const authStore = {
                         dispatch('alertStore/error', error, { root: true });
                     }
                 );
-        }
+        }     
     },
     mutations: {
         loginRequest(state, user) {
@@ -72,8 +72,9 @@ export const authStore = {
         logout(state) {
             state.status = {};
             state.user = null;
-        }
+        },            
     }
 }
 
 export default authStore;
+  

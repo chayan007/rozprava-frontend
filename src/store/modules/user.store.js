@@ -1,4 +1,5 @@
-import { userService } from '@/services';
+import {  userService } from '@/services';
+import router from "@/router";
 
 export const userStore = {
     namespaced: true,
@@ -6,25 +7,27 @@ export const userStore = {
         all: {}
     },
     actions: {
-        getAll({ commit }) {
-            commit('getAllRequest');
+        settings({ dispatch, commit }, updateFields ) {
+            commit('settingRequest', { updateFields });
 
-            userService.getDetails()
-                .then(
-                    users => commit('getAllSuccess', users),
-                    error => commit('getAllFailure', error)
-                );
-        }
+            userService.settings(updateFields)
+            .then(
+                user => {
+                    let storedProfile = JSON.parse(localStorage.getItem('user'));
+                    storedProfile['profile'] = user.profile;
+                    localStorage.setItem('user', JSON.stringify(storedProfile));
+                    router.push('/');
+                },
+                error => {        
+                    dispatch('alertStore/error', error, { root: true });
+                }
+            );
+        }       
     },
+
     mutations: {
-        getAllRequest(state) {
-            state.all = { loading: true };
-        },
-        getAllSuccess(state, users) {
-            state.all = { items: users };
-        },
-        getAllFailure(state, error) {
-            state.all = { error };
+        settingRequest(updateFields){
+            console.log(updateFields);
         }
     }
 }
