@@ -108,7 +108,7 @@ router.beforeEach((to, from, next) => {
       '/profile',
       '/recommendation',
       '/inbox',
-      'chat'
+      '/chat'
   ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');

@@ -3,8 +3,7 @@
     <div class="mb-5">
       <Button></Button>
     </div>
-
-    <div
+   <div
       class="
         space
         alert alert-secondary alert-dismissible
@@ -35,9 +34,10 @@
 // @ is an alias to /src
 import Button from "@/components/recommendation/Button.vue";
 import PeopleCard from "@/components/recommendation/PeopleCard.vue";
+
 export default {
   name: "Recommendation",
-  components: { Button, PeopleCard },
+  components: {Button, PeopleCard},
 };
 </script>
 

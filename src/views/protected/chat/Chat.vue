@@ -1,15 +1,13 @@
 <template>
   <div class="box " style="text-align: center">
-      
       <ChatComponent></ChatComponent>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
-
 import Chat from "@/components/chat/Chat.vue";
+
 export default {
   name: "Chat",
   components: { "ChatComponent":Chat },

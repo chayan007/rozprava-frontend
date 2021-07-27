@@ -32,15 +32,13 @@
     </div>
 </template>
 <script>
- 
  import PopupMenu from "@/components/profile/PopupMenu.vue"
  import { ref } from "vue";
+
   export default {
     name: "Profile",
-    components: { PopupMenu , },
-    
+    components: { PopupMenu ,},
     data () {
-      
       return {
        user: null,
        username:'',
@@ -68,14 +66,10 @@
     created(){
         this.declareUser();
       },
-     
-
-    methods:{
+   methods:{
       handleUser(){
-        //const routePath = this.$route.path;
-         this.username=this.$route.params.username;
-        
-      },
+          this.username=this.$route.params.username;
+       },
       declareUser(){
            this.user = JSON.parse(localStorage.getItem('user'));
            console.log(this.user.profile.user.username);
