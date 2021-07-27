@@ -5,10 +5,8 @@
                     <img src="@/assets/post_pic.png"  class="image card-img-top rounded-top" alt="Themesberg office">
                     <button type="button " class="aero a2"><span class="a2"><img src="@/assets/Back.png" alt="sign in" width="18"></span></button>
                     <button type="button" class="a3" @click="()=>Toggle('buttonTrigger')"> ...</button>
-                   
                     <PopupMenu v-if="popupTriggers.buttonTrigger" :Toggle="()=>Toggle('buttonTrigger')" class="popup" >
-                      
-                    </PopupMenu>
+                     </PopupMenu>
                    <div class="middle">
                       <div class="a4 profile-image bg-primary shadow-inset border border-light rounded-circle ">
                             <img src="@/assets/black-rose.jpg" class="card-img-top rounded-circle" alt="Profile Pic" width="200" />
@@ -17,13 +15,11 @@
                     </div>
                         <h2 class=" card-title mt-3">{{user.profile.user.full_name}}</h2>
                         <div class="nowrap">
-                          
-                          <div class="c3"><span class="h4"><strong>{{user.profile.metrics.posts}}</strong></span><br>posts</div>
+                           <div class="c3"><span class="h4"><strong>{{user.profile.metrics.posts}}</strong></span><br>posts</div>
                           <div class="c2"><span class="h4"><strong>{{user.profile.metrics.followers}}</strong></span><br>Followers</div>
                           <div class="c1"><span class="h4"><strong>{{user.profile.metrics.following}}</strong></span><br>Following</div>
                         </div> 
-         
-          <div class="bio">
+         <div class="bio">
             <div>
               {{user.profile.bio}}
             </div>
@@ -44,7 +40,6 @@
        username:'',
       }
     },
-   
     setup(){
       const popupTriggers=ref({
         buttonTrigger:false,
@@ -60,7 +55,6 @@
         popupTriggers,
         Toggle,
         ToggleClose,
-        
       }
     },
     created(){
@@ -75,9 +69,7 @@
            console.log(this.user.profile.user.username);
         }
     },
-    
-    }
-  
+  }
 </script>
 <style scoped>
 .bio{

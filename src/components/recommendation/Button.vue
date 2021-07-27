@@ -38,12 +38,9 @@ export default {
 }
 </script>
 <style scoped>
-    
-    .scroll {
- 
+ .scroll {
   overflow-x: auto;
-  white-space: nowrap;
-  
+  white-space: nowrap; 
 }
 .scroll::-webkit-scrollbar{
     text-decoration: none;
@@ -57,9 +54,8 @@ export default {
 }
 @media (max-width: 700px) {
     .space {
-     
         margin-right: 4%;
         margin-left: 4%;
     }
-    }
+}
 </style>

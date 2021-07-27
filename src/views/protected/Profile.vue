@@ -6,18 +6,15 @@
     </div>
   </div>
 </template>
-
 <script>
-// @ is an alias to /src
 import Profile from "@/components/profile/Profile.vue";
 import BottomMenu from "@/components/profile/BottomMenu.vue";
 
 export default {
   name: "Profile",
-  components: { ProfileComponent: Profile, BottomMenu },
+  components: { "ProfileComponent": Profile, BottomMenu },
 };
 </script>
-
 <style scoped>
 .popup {
   position: fixed;

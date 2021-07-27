@@ -7,7 +7,6 @@
           <div>
             <div><a href="" class="left">Edit Profile</a></div>
             <div><a href="#" class="left">Settings</a></div>
-
             <div><a href="" class="left">About Us </a></div>
             <div><a href="" class="left">Terms &amp; Condition</a></div>
           </div>
@@ -74,13 +73,10 @@ export default {
     bottom: 0%;
     z-index: 299;
     background-color: rgba(0,0,0,0.2);
-
     display: flex;
-    
     max-width: 100%;
 }
-.popup-inner-unauth{
-        
+.popup-inner-unauth{ 
        background: white;
         border-radius: 1rem;
         padding: 1rem;
@@ -93,12 +89,9 @@ export default {
         text-align: center;
         width: 6rem;
     }
-    
     @media (max-width: 1000px) {
     .popup-inner-unauth {
-     
-        
-        margin-right: 2%;
+      margin-right: 2%;
     }
     }
 </style>

@@ -9,29 +9,23 @@
         alert alert-secondary alert-dismissible
         shadow-inset
         fade
-        show
-      "
-      role="alert"
-    >
+        show"
+      role="alert">
       <h5>People you may know</h5>
       <button
         type="button"
         class="close top"
         data-dismiss="alert"
-        aria-label="Close"
-      >
+        aria-label="Close">
         <span aria-hidden="true">×</span>
       </button>
-
       <div>
         <PeopleCard></PeopleCard>
       </div>
     </div>
   </div>
 </template>
-
 <script>
-// @ is an alias to /src
 import Button from "@/components/recommendation/Button.vue";
 import PeopleCard from "@/components/recommendation/PeopleCard.vue";
 
@@ -40,7 +34,6 @@ export default {
   components: {Button, PeopleCard},
 };
 </script>
-
 <style scoped>
 .box {
   font-family: Josefin Sans;

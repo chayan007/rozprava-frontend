@@ -23,7 +23,6 @@
                  <input type="text"  class="a3" placeholder="Enter Message" valign="bottom">
                 <button type="button" class="microphone"><img src="@/assets/microphone.png" class="microphone" alt="Microphone" width=""></button>
                 <button type="button" class="microphone"><img src="@/assets/attach.png" class="microphone" alt="Attach pic" width=""></button>
-            
             </div>
            <div>
                 <button type="button" class="microphone"><img src="@/assets/send.png" class="microphone" alt="Send Pic" width=""></button>
@@ -32,10 +31,8 @@
     </div>
 </template>
 <script>
- 
   export default {
     name: "Chat",
-    
   }
 </script>
 <style scoped>
@@ -43,14 +40,12 @@
      margin-top: 1rem;
 }
 .chat-detail{
-    
-    display: flex;
+  display: flex;
   border-top-left-radius:1rem;
   border-top-right-radius:1rem;
 }
 .chat-img{
-    top: 45%;
- 
+  top: 45%;
   width: 3.5rem;
   height: 3.5rem;
   padding : 0.15rem;
@@ -59,7 +54,6 @@
 .wrap{
     overflow-wrap: break-word;
     overflow-y: auto;
-    
 }
 .wrap::-webkit-scrollbar{
     text-decoration: none;
@@ -68,8 +62,6 @@
     background-color: white;
     border-radius: 0.5rem;
     margin-left: 1rem;
-   
-   
 }
 .microphone{
     outline: none;
@@ -80,11 +72,10 @@
 .a2{
     margin-top: auto;
     margin-bottom: 1rem;
-    
     display: flex;
     background-color: yellow;
 }
-    .a1{
+.a1{
         width: 25rem;
         margin-left: auto;
         margin-right: auto;

@@ -25,7 +25,6 @@ export default {
   width: 25%;
   height: 15rem;
   padding: 1rem 1rem;
-  
 }
 .a2{
   width: 100%;
@@ -39,12 +38,10 @@ export default {
 }
 @media (max-width: 1000px) and (min-width: 701px){
     .a1 {
-        
         width: 33.33333%;
     }}
     @media (max-width: 700px) {
     .a1 {
-        
         width: 50%;
         padding:0.7rem 0.7rem;
     }}
