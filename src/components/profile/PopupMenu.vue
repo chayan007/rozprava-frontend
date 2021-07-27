@@ -77,21 +77,21 @@ export default {
     max-width: 100%;
 }
 .popup-inner-unauth{ 
-       background: white;
-        border-radius: 1rem;
-        padding: 1rem;
-        margin-top: 8rem;
-         margin-left: auto;
-        margin-right: 12%;
-        height: 2.5rem;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        width: 6rem;
-    }
-    @media (max-width: 1000px) {
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-top: 8rem;
+  margin-left: auto;
+  margin-right: 12%;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 6rem;
+}
+@media (max-width: 1000px) {
     .popup-inner-unauth {
       margin-right: 2%;
     }
-    }
+ }
 </style>

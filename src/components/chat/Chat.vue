@@ -2,9 +2,9 @@
     <div class="a1 shadow-soft mt-5 ">
         <div class="chat-detail shadow-soft">
            <div class="chat-img profile-image bg-primary shadow-inset border border-light rounded-circle ml-2 ">
-                            <img src="@/assets/black-rose.jpg" class="card-img-top rounded-circle " alt="User image" width="100" />
-                        </div>
-                        <div class="friend-name"><h5>Raju Kumar</h5></div>
+                <img src="@/assets/black-rose.jpg" class="card-img-top rounded-circle " alt="User image" width="100" />
+            </div>
+            <div class="friend-name"><h5>Raju Kumar</h5></div>
         </div>
         <div class="wrap">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam illo nesciunt, maxime ducimus repudiandae nulla aspernatur. Officia, explicabo velit nesciunt iure itaque recusandae laudantium, animi libero sed, quasi obcaecati neque!

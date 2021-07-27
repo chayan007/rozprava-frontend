@@ -7,7 +7,7 @@
       </div>
       <InboxCard></InboxCard>
     </div>
-    </div>
+  </div>
 </template>
 <script>
 import Inbox from "@/components/chat/Inbox.vue";

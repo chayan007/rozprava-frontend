@@ -3,14 +3,7 @@
     <div class="mb-5">
       <Button></Button>
     </div>
-   <div
-      class="
-        space
-        alert alert-secondary alert-dismissible
-        shadow-inset
-        fade
-        show"
-      role="alert">
+    <div class="space alert alert-secondary alert-dismissible shadow-inset fade show" role="alert">
       <h5>People you may know</h5>
       <button
         type="button"
