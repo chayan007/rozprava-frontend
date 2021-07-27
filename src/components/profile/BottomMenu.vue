@@ -3,13 +3,13 @@
     <div  v-if="false">
       <div class="cant bg-primary shadow-soft">
         <button type="button" class="a1 btn btn-pill btn-primary">
-          <img src="@/assets/Edit.png" alt="sign in" width="30" />
+          <img src="@/assets/Edit.png" alt="Edit icon image" width="30" />
         </button>
         <button type="button" class="btn btn-pill btn-primary">
-          <img src="@/assets/Add.png" alt="sign in" width="33" />
+          <img src="@/assets/Add.png" alt="Add Icon image" width="33" />
         </button>
         <button type="button" class="a2 btn btn-pill btn-primary">
-          <img src="@/assets/upward-arrow.png" alt="sign in" width="33" />
+          <img src="@/assets/upward-arrow.png" alt="Upward arrow image" width="33" />
         </button>
       </div>
     </div>

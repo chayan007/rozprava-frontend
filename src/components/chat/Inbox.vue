@@ -4,7 +4,7 @@
       <div class="cant bg-primary shadow-soft" >
        <div class="a1 ">
                         <div class="a4 profile-image bg-primary shadow-inset border border-light rounded-circle ml-2 ">
-                            <img src="@/assets/black-rose.jpg" class="card-img-top rounded-circle " alt="Christopher Avatar" width="100" />
+                            <img src="@/assets/black-rose.jpg" class="card-img-top rounded-circle " alt="Image" width="100" />
                         </div>
                         <div class="a2"><h5>Raju Kumar</h5></div>
         </div>

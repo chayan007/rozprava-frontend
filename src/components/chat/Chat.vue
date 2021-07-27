@@ -2,7 +2,7 @@
     <div class="a1 shadow-soft mt-5 ">
         <div class="chat-detail shadow-soft">
            <div class="chat-img profile-image bg-primary shadow-inset border border-light rounded-circle ml-2 ">
-                            <img src="@/assets/black-rose.jpg" class="card-img-top rounded-circle " alt="Christopher Avatar" width="100" />
+                            <img src="@/assets/black-rose.jpg" class="card-img-top rounded-circle " alt="User image" width="100" />
                         </div>
                         <div class="friend-name"><h5>Raju Kumar</h5></div>
         </div>
@@ -90,6 +90,5 @@
         outline: none;
         border-radius: 0.5rem;
         padding: 0.3rem 0.5rem;
-        
     }
 </style>

@@ -2,8 +2,8 @@
     <div class="cant mt-5" >
         <div class="card bg-primary  ">
           <div class="a1" >
-                    <img src="@/assets/post_pic.png"  class="image card-img-top rounded-top" alt="Themesberg office">
-                    <button type="button " class="aero a2"><span class="a2"><img src="@/assets/Back.png" alt="sign in" width="18"></span></button>
+                    <img src="@/assets/post_pic.png"  class="image card-img-top rounded-top" alt="Cover picture">
+                    <button type="button " class="aero a2"><span class="a2"><img src="@/assets/Back.png" alt="Back icon image" width="18"></span></button>
                     <button type="button" class="a3" @click="()=>Toggle('buttonTrigger')"> ...</button>
                     <PopupMenu v-if="popupTriggers.buttonTrigger" :Toggle="()=>Toggle('buttonTrigger')" class="popup" >
                      </PopupMenu>
