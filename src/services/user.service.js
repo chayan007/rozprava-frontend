@@ -27,7 +27,13 @@ function settings(updateFields) {
         });
 }
 function getProfile(username){
+    const authenticationHeader = authHeader();
     const url =  stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.getProfile.endpoint}`, username);
-    return axios.get(
-        url, username);
+    return axios.get(url, { headers: authenticationHeader })
+    .then(response => {
+        console.log('response = ',response.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 }

@@ -58,11 +58,11 @@
       }
     },
     computed:{
-      profileUser(){
+      profile(){
        return this.$store.state.userStore.profile;
      },
     },
-    create(){
+    created(){
         this.declareUser();
       },
    methods:{
@@ -77,7 +77,9 @@
            if(this.user.profile.user.username != this.username){
              //disptach
              dispatch('userStore/getProfile',this.username);
-             this.user = this.profileUser(this.username);
+             if(this.profile){
+               this.user=this.profile;
+             }
            }
           console.log(this.user.profile.user.username);
           console.log('helo');

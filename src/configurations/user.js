@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
                 "endpoint": "profile/user/{0}/"
             },
             getProfile:{
-                "endpoint": "/profile/user/{0}/"
+                "endpoint": "profile/user/{0}/"
             },
         },
         constants: {
@@ -34,8 +34,8 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             settings: {
                 "endpoint": "profile/user/{0}/"
             },
-            getPRofile:{
-                "endpoint": ""
+            getProfile:{
+                "endpoint": "profile/user/{0}/"
             },
         },
         constants: {
