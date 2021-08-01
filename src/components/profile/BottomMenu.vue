@@ -14,12 +14,12 @@
       </div>
     </div>
     <div  v-else>
-       <div class="cant bg-primary shadow-soft">
-         <div class="nowrap">
-            <button type="button" class="bg-primary btn-unauth btn-primary margin btn-sm"><span class="h4"><strong>Message</strong></span></button> 
-             <button type="button" class="a2-unauth bg-primary btn-unauth btn-primary  btn-sm"><span class="h4"><strong>Follow</strong></span></button> 
-         </div>
+      <div class="cant bg-primary shadow-soft">
+        <div class="nowrap">
+          <button type="button" class="bg-primary btn-unauth btn-primary margin btn-sm"><span class="h4"><strong>Message</strong></span></button> 
+          <button type="button" class="a2-unauth bg-primary btn-unauth btn-primary  btn-sm"><span class="h4"><strong>Follow</strong></span></button> 
         </div>
+      </div>
     </div>
   </div>
 </template>

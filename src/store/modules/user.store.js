@@ -26,7 +26,8 @@ export const userStore = {
             userService.getProfile(username)
            .then(
                userProfile=>{
-                commit('setProfile',userProfile);
+                    console.log('from store',userProfile);
+                    commit('setProfile', userProfile);
                },
                error=>{
                     dispatch('alertStore/error', error, { root: true });

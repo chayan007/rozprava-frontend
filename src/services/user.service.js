@@ -32,6 +32,7 @@ function getProfile(username){
     return axios.get(url, { headers: authenticationHeader })
     .then(response => {
         console.log('response = ',response.data);
+        return response.data;
     })
     .catch((error) => {
         console.log(error);
