@@ -57,18 +57,33 @@
         ToggleClose,
       }
     },
-    created(){
+    computed:{
+      profileUser(){
+       return this.$store.state.userStore.profile;
+     },
+    },
+    create(){
         this.declareUser();
       },
    methods:{
       handleUser(){
-          this.username=this.$route.params.username;
+          this.username = this.$route.params.username;
        },
       declareUser(){
+        const { dispatch } = this.$store;
            this.user = JSON.parse(localStorage.getItem('user'));
+           this.handleUser();
            console.log(this.user.profile.user.username);
+           if(this.user.profile.user.username != this.username){
+             //disptach
+             dispatch('userStore/getProfile',this.username);
+             this.user = this.profileUser(this.username);
+           }
+          console.log(this.user.profile.user.username);
+          console.log('helo');
         }
-    },
+      },
+
   }
 </script>
 <style scoped>

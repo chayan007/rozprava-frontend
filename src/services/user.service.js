@@ -3,7 +3,7 @@ import { config } from "@/configurations";
 import axios from "axios";
 import { stringFormat } from "@/helpers";
 
-export const userService = { settings };
+export const userService = { settings, getProfile };
 
 function settings(updateFields) {
     const authenticationHeader = authHeader();
@@ -25,4 +25,9 @@ function settings(updateFields) {
         .catch((error) => {
             console.log(error);
         });
+}
+function getProfile(username){
+    const url =  stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.getProfile.endpoint}`, username);
+    return axios.get(
+        url, username);
 }

@@ -1,10 +1,9 @@
 import {  userService } from '@/services';
 import router from "@/router";
-
 export const userStore = {
     namespaced: true,
     state: {
-        all: {}
+        profile: null
     },
     actions: {
         settings({ dispatch, commit }, updateFields ) {
@@ -22,12 +21,26 @@ export const userStore = {
                     dispatch('alertStore/error', error, { root: true });
                 }
             );
-        }       
+        },
+        getProfile({ commit,dispatch },username){
+            userService.getProfile(username)
+           .then(
+               userProfile=>{
+                commit('setProfile',userProfile);
+               },
+               error=>{
+                    dispatch('alertStore/error', error, { root: true });
+               }
+           )
+        }
     },
 
     mutations: {
         settingRequest(updateFields){
             console.log(updateFields);
+        },
+        setProfile(state, userProfile){
+            state.profile = userProfile;
         }
     }
 }

@@ -36,7 +36,7 @@ const routes = [
     component: Recommendation
   },
   {
-    path: '/profile',
+    path: '/profile/:username',
     name: 'Profile',
     component: Profile
   },
@@ -105,7 +105,6 @@ router.beforeEach((to, from, next) => {
       '/enterOTP',
       '/resetPassword',
       '/timeline',
-      '/profile',
       '/recommendation',
       '/inbox',
       '/chat'
