@@ -18,6 +18,5 @@ export function compileURL(apiConfig, pathValues = null, queryValues = null) {
             }
         }
     }
-
     return URL;
 }
