@@ -221,7 +221,7 @@ export default {
         return;
       }
 
-      if (password1 !== password2) {
+      if (password1.trim() !== password2.trim()) {
         dispatch(
             'alertStore/error',
             stringFormat(
