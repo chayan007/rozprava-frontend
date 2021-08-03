@@ -13,6 +13,7 @@ import Profile from '@/views/protected/Profile.vue'
 import Recommendation from '@/views/protected/Recommendation.vue'
 import Inbox from '@/views/protected/chat/Inbox.vue'
 import Chat from '@/views/protected/chat/Chat.vue'
+import ChatMainPageHeader from '@views/protected/chat/ChatMainPageHeader.vue';
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/chat',
     name: 'Chat',
     component: Chat
+  },
+  {
+    path: '/mainchat',
+    name: 'mainchat',
+    component: ChatMainPageHeader
   },
   {
     path: '/inbox',
@@ -108,7 +114,8 @@ router.beforeEach((to, from, next) => {
       '/profile',
       '/recommendation',
       '/inbox',
-      '/chat'
+      '/chat',
+      '/mainchat'
   ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
