@@ -50,7 +50,61 @@ export const authStore = {
                         dispatch('alertStore/error', error, { root: true });
                     }
                 );
-        }     
+        },
+
+        chechUser( {dispatch, commit}, userId){
+            authService.chechUser(userId)
+            .then(
+                () => {
+                    if(userId)
+                    {
+                        this.$router.push({path: '/enter-otp/username'});
+                    }
+                    else{
+                        alert('Enter you email or username');
+                    }
+                },
+                error => {
+                    commit('loginFailure');
+                    dispatch('alertStore/error', error, { root: true });
+                }
+            ); 
+        },
+            
+        sendOtp() {
+
+            authService.sendOtp()
+        },
+
+        verifyOtp({dispatch}, otp) {
+
+            authService.verifyOtp(otp)
+            .then(
+                () => {
+                    router.push('/reset-password');
+                },
+                error => {
+                    dispatch('alertStore/error', error, { root: true });
+                }
+            ); 
+        },
+
+        resetPassword({ dispatch, commit }, {
+            updateFields
+        }){
+
+            authService.resetPassword(updateFields)
+                .then(
+                    user => {
+                        commit('loginSuccess', user);
+                        router.push('/');
+                    },
+                    error => {
+                        commit('loginFailure');
+                        dispatch('alertStore/error', error, { root: true });
+                    }
+                );
+        },
     },
     mutations: {
         loginRequest(state, user) {

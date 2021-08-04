@@ -73,7 +73,7 @@
           class="d-block d-sm-flex justify-content-center align-items-center mt-4"
         >
           <span class="font-weight-normal" style="display: flex; margin-bottom: 1.5rem;">
-            <h2 style="font-size: 0.8rem;"><router-link to="/forgetLogin">Forgot Password?</router-link></h2>   
+            <h2 style="font-size: 0.8rem;"><router-link to="/forget-login">Forgot Password?</router-link></h2>   
             <h2 style="font-size: 0.8rem; margin-left: 8rem;">Forgot Username?</h2>       
           </span>
         </div>

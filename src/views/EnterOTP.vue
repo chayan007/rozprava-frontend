@@ -1,12 +1,12 @@
 <template>
-    <EnterOTPPage></EnterOTPPage>
+    <OTP></OTP>
 </template>
 <script>
 // @ is an alias to /src
-import EnterOTPPage from "@/components/EnterOTPPage.vue";
+import OTP from "@/components/OTP.vue";
 
 export default {
   name: "EnterOTP",
-  components: {EnterOTPPage},
+  components: {OTP},
 };
 </script>

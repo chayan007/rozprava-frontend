@@ -20,12 +20,12 @@
                 <div class="input-group">
                   <input
                     class="form-control form-control-xl border-light"
-                    id="subscribeInputEmail"
+                    v-model="otp"
                     placeholder=""
                   />
                   <div class="input-group-prepend">
-                    <button type="submit" class="btn btn-primary rounded-right">
-                      <router-link to="/resetPassword"> Enter </router-link>
+                    <button type="submit" class="btn btn-primary rounded-right" v-on:click="handleSubmit">
+                       Send OTP 
                     </button>
                   </div>
                 </div>
@@ -36,12 +36,40 @@
       </div>
       <hr>
       <a href=""><h6>resend OTP</h6></a>
+      <button class="btn btn-primary" id="next" type="button" v-on:click="handleSubmit2"> 
+         Enter 
+      </button>
     </div>
   </div>
 </template>
 <script>
+import router from "@/router";
+
 export default {
-  name: "EnterOTPPage",
+  name: "OTP",
+  components: {},
+  data() {
+    return {
+      otp: "",
+      submitted: false,
+    };
+  },
+  methods: {
+    handleSubmit() {
+      const route = router()
+      console.warn(route.params.username);
+      this.submitted = true;
+      const { otp } = this;
+      const { dispatch } = this.$store;
+      dispatch("authStore/sendOtp", otp);
+  },
+  handleSubmit2() {
+      this.submitted = true;
+      const { otp } = this;
+      const { dispatch } = this.$store;
+      dispatch("authStore/verifyOtp", otp);
+  },
+  },
 };
 </script>
 <style>
@@ -50,6 +78,11 @@ export default {
     margin-top: 100px;
     margin-left: 50%;
     margin-right: 50%;
+}
+#next{
+  width: 7rem !important;
+  margin-left: 39rem !important;
+  margin-top: -3rem !important;
 }
 #OTPBox{
   margin-top: -1px !important;

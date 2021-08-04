@@ -14,19 +14,20 @@
               <label
                 class="h6 font-weight-light text-gray"
                 for="subscribeInputEmail"
-                >Email address or username</label
+                >username or Email address</label
               >
               <div class="d-flex flex-row justify-content-center">
                 <div class="input-group">
                   <input
                     class="form-control form-control-xl border-light"
                     id="subscribeInputEmail"
+                    v-model="userId"
                     placeholder="example@company.com"
                     type="email"
                   />
                   <div class="input-group-prepend">
-                    <button type="submit" class="btn btn-primary rounded-right">
-                      <router-link to="/enterOTP"> Continue </router-link>
+                    <button type="submit" class="btn btn-primary rounded-right" v-on:click="handleSubmit">
+                      Continue 
                     </button>
                   </div>
                 </div>
@@ -42,6 +43,21 @@
 
 export default {
   name: "ForgetLogin",
+  components: {},
+  data() {
+    return {
+      userId: "",
+      submitted: false,
+    };
+  },
+  methods: {
+    handleSubmit() {
+      this.submitted = true;
+      const { userId } = this;
+      const { dispatch } = this.$store;
+      dispatch("authStore/chechUser", userId);
+  },
+  },
 };
 </script>
 

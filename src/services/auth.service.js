@@ -1,11 +1,16 @@
 import { config } from "@/configurations";
 import axios from "axios";
 import {stringFormat} from "@/helpers";
+let username;
 
 export const authService = {
     login,
     logout,
-    register
+    register,
+    chechUser,
+    sendOtp,
+    verifyOtp,
+    resetPassword
 };
 
 function login(username, password) {
@@ -78,4 +83,35 @@ function register(name, email, phone, username, password1, password2) {
                 throw config.messagingConfig.messages.error.unknown_error;
             }
         });
+}
+function chechUser(userId) {
+    console.log(userId);
+     return axios.get(
+        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.checkUser.endpoint}`, userId)
+    )
+
+        .then((response) =>{
+            console.log('response =', response.data);
+        })
+        .catch((error) => {
+            console.log('error =', error.data)
+        }) 
+}
+
+function sendOtp() {
+    return axios.post(
+        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.sendOtp.endpoint}`, username)
+   )  
+}
+
+function verifyOtp(otp){
+    return axios.put(
+        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.verifyOtp.endpoint}`, username, otp)
+    )
+}
+
+function resetPassword(otp){
+    return axios.put(
+        `${config.commonConfig.$apiUrl}/${config.userConfig.api.resetPassword.endpoint}`, otp
+    )
 }

@@ -27,6 +27,7 @@
                   id="exampleInputPassword345"
                   placeholder="Password"
                   type="password"
+                  v-model="password1"
                   aria-label="Password"
                   required=""
                 />
@@ -45,6 +46,7 @@
                   id="exampleConfirmPassword712"
                   placeholder="Confirm password"
                   type="password"
+                  v-model="password2"
                   aria-label="Password"
                   required=""
                 />
@@ -58,9 +60,37 @@
   </div>
 </template>
 <script>
+import { config } from "@/configurations";
 
 export default {
   name: "ResetPassword",
+  components: {},
+  data() {
+    return {
+      password1: "",
+      password2: "",
+      submitted: false,
+    };
+  },
+  methods: {
+    handleSubmit() {
+      this.submitted = true;
+      const { password1, password2 } = this;
+      const { dispatch } = this.$store;
+      let updateFields = {};
+      if (password1 && password2) {
+        updateFields["password"] = password1;
+        if (password1.trim() !== password2.trim()) {
+          dispatch(
+            "alertStore/error",
+            config.messagingConfig.messages.error.password_mismatch,
+            { root: true }
+          );
+        }
+      }
+      dispatch("authStore/resetPassword", updateFields);
+  }
+  }
 };
 </script>
 

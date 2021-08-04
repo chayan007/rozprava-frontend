@@ -11,7 +11,19 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             },
             settings: {
                 "endpoint": "profile/user/{0}/"
-            }
+            },
+            checkUser: {
+                "endpoint": "profile/reset-password/check-user/{}/"
+            },
+            sendOtp: {
+                "endpoint": "profile/reset-password/send-otp/{}/"
+            },
+            verifyOtp: {
+                "endpoint": "profile/reset-password/verify-otp/{}/{}/"
+            },
+            resetPassword: {
+                "endpoint": "profile/reset-password/change-password/{}/"
+            },
         },
         constants: {
             debug: true,
@@ -30,7 +42,19 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             },
             settings: {
                 "endpoint": "profile/user/{0}/"
-            }
+            },
+            checkUser: {
+                "endpoint": "profile/reset-password/check-user/{0}/"
+            },
+            sendOtp: {
+                "endpoint": "profile/reset-password/send-otp/{0}/"
+            },
+            verifyOtp: {
+                "endpoint": "profile/reset-password/verify-otp/{0}/{1}/"
+            },   
+            resetPassword: {
+                "endpoint": "profile/reset-password/change-password/{0}/"
+            },      
         },
         constants: {
             debug: false,

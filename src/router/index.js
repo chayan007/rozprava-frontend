@@ -76,7 +76,7 @@ const routes = [
     component: ForgetLogin
   },
   {
-    path: '/enter-otp',
+    path: '/enter-otp/:username',
     name: 'EnterOTP',
     component: EnterOTP
   },
@@ -101,9 +101,9 @@ router.beforeEach((to, from, next) => {
       '/register',
       '/signup',
       '/caseview',
-      '/forgetLogin',
-      '/enterOTP',
-      '/resetPassword',
+      '/forget-login',
+      '/enter-otp',
+      '/reset-password',
       '/timeline',
       '/profile',
       '/recommendation',
