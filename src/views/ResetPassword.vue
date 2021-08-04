@@ -27,7 +27,7 @@
                   id="exampleInputPassword345"
                   placeholder="Password"
                   type="password"
-                  v-model="password1"
+                  v-model="password"
                   aria-label="Password"
                   required=""
                 />
@@ -67,7 +67,7 @@ export default {
   components: {},
   data() {
     return {
-      password1: "",
+      password: "",
       password2: "",
       submitted: false,
     };
@@ -75,12 +75,10 @@ export default {
   methods: {
     handleSubmit() {
       this.submitted = true;
-      const { password1, password2 } = this;
+      const { password, password2 } = this;
       const { dispatch } = this.$store;
-      let updateFields = {};
-      if (password1 && password2) {
-        updateFields["password"] = password1;
-        if (password1.trim() !== password2.trim()) {
+      if (password && password2) {
+        if (password.trim() !== password2.trim()) {
           dispatch(
             "alertStore/error",
             config.messagingConfig.messages.error.password_mismatch,
@@ -88,7 +86,7 @@ export default {
           );
         }
       }
-      dispatch("authStore/resetPassword", updateFields);
+      dispatch("authStore/resetPassword", password);
   }
   }
 };

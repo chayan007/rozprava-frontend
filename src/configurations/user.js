@@ -13,13 +13,13 @@ if (process.env.NODE_ENV === "PRODUCTION") {
                 "endpoint": "profile/user/{0}/"
             },
             checkUser: {
-                "endpoint": "profile/reset-password/check-user/{}/"
+                "endpoint": "profile/reset-password/check-user/{0}/"
             },
             sendOtp: {
-                "endpoint": "profile/reset-password/send-otp/{}/"
+                "endpoint": "profile/reset-password/send-otp/{0}/"
             },
             verifyOtp: {
-                "endpoint": "profile/reset-password/verify-otp/{}/{}/"
+                "endpoint": "profile/reset-password/verify-otp/{0}/{1}/"
             },
             resetPassword: {
                 "endpoint": "profile/reset-password/change-password/{}/"

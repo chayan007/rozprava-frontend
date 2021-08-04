@@ -52,17 +52,11 @@ export const authStore = {
                 );
         },
 
-        chechUser( {dispatch, commit}, userId){
-            authService.chechUser(userId)
+        checkUser( {dispatch, commit}, userId) {
+            authService.checkUser(userId)
             .then(
                 () => {
-                    if(userId)
-                    {
-                        this.$router.push({path: '/enter-otp/username'});
-                    }
-                    else{
-                        alert('Enter you email or username');
-                    }
+                    
                 },
                 error => {
                     commit('loginFailure');
@@ -71,13 +65,11 @@ export const authStore = {
             ); 
         },
             
-        sendOtp() {
-
-            authService.sendOtp()
+        OTP() {
+            authService.OTP()
         },
 
         verifyOtp({dispatch}, otp) {
-
             authService.verifyOtp(otp)
             .then(
                 () => {
@@ -89,23 +81,21 @@ export const authStore = {
             ); 
         },
 
-        resetPassword({ dispatch, commit }, {
-            updateFields
-        }){
-
-            authService.resetPassword(updateFields)
-                .then(
-                    user => {
-                        commit('loginSuccess', user);
-                        router.push('/');
-                    },
-                    error => {
-                        commit('loginFailure');
-                        dispatch('alertStore/error', error, { root: true });
-                    }
-                );
+        resetPassword({ dispatch, commit }, { password}) {
+            authService.resetPassword(password)
+            .then(
+                user => {
+                    commit('loginSuccess', user);
+                    router.push('/');
+                },
+                error => {
+                    commit('loginFailure');
+                    dispatch('alertStore/error', error, { root: true });
+                }
+            );
         },
     },
+
     mutations: {
         loginRequest(state, user) {
             state.status = { loggingIn: true };

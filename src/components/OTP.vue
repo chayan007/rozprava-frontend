@@ -24,7 +24,7 @@
                     placeholder=""
                   />
                   <div class="input-group-prepend">
-                    <button type="submit" class="btn btn-primary rounded-right" v-on:click="handleSubmit">
+                    <button type="submit" class="btn btn-primary rounded-right" v-on:click="handleOTPSend">
                        Send OTP 
                     </button>
                   </div>
@@ -36,34 +36,32 @@
       </div>
       <hr>
       <a href=""><h6>resend OTP</h6></a>
-      <button class="btn btn-primary" id="next" type="button" v-on:click="handleSubmit2"> 
+      <button class="btn btn-primary" id="next" type="button" v-on:click="handleOTPSubmission"> 
          Enter 
       </button>
     </div>
   </div>
 </template>
 <script>
-import router from "@/router";
 
 export default {
   name: "OTP",
   components: {},
   data() {
     return {
+      resend_flag: false,
       otp: "",
       submitted: false,
     };
   },
   methods: {
-    handleSubmit() {
-      const route = router()
-      console.warn(route.params.username);
+    handleOTPSend() {
       this.submitted = true;
       const { otp } = this;
       const { dispatch } = this.$store;
-      dispatch("authStore/sendOtp", otp);
+      dispatch("authStore/OTP", otp);
   },
-  handleSubmit2() {
+  handleOTPSubmission() {
       this.submitted = true;
       const { otp } = this;
       const { dispatch } = this.$store;

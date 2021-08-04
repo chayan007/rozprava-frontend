@@ -1,14 +1,13 @@
 import { config } from "@/configurations";
 import axios from "axios";
 import {stringFormat} from "@/helpers";
-let username;
 
 export const authService = {
     login,
     logout,
     register,
-    chechUser,
-    sendOtp,
+    checkUser,
+    OTP,
     verifyOtp,
     resetPassword
 };
@@ -84,34 +83,40 @@ function register(name, email, phone, username, password1, password2) {
             }
         });
 }
-function chechUser(userId) {
+
+function checkUser(userId) {
+    
     console.log(userId);
      return axios.get(
         stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.checkUser.endpoint}`, userId)
     )
-
         .then((response) =>{
             console.log('response =', response.data);
+            if ('username' in response.data) {
+                return response.data.username;
+            } else{
+                throw 'this username does not exist, please enter proper username';
+            }
         })
         .catch((error) => {
-            console.log('error =', error.data)
+            console.log('error =', error.data);
         }) 
 }
 
-function sendOtp() {
+function OTP() {
     return axios.post(
-        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.sendOtp.endpoint}`, username)
+        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.sendOtp.endpoint}`)
    )  
 }
 
 function verifyOtp(otp){
     return axios.put(
-        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.verifyOtp.endpoint}`, username, otp)
+        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.verifyOtp.endpoint}`, otp)
     )
 }
 
-function resetPassword(otp){
+function resetPassword(otp, password){
     return axios.put(
-        `${config.commonConfig.$apiUrl}/${config.userConfig.api.resetPassword.endpoint}`, otp
+        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.resetPassword.endpoint}`, otp, password)
     )
 }
