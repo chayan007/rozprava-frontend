@@ -13,7 +13,7 @@ import Profile from '@/views/protected/Profile.vue'
 import Recommendation from '@/views/protected/Recommendation.vue'
 import Inbox from '@/views/protected/chat/Inbox.vue'
 import Chat from '@/views/protected/chat/Chat.vue'
-import ChatMainPageHeader from '@views/protected/chat/ChatMainPageHeader.vue';
+import MainChat from '@/views/protected/chat/MainChat.vue';
 
 const routes = [
   {
@@ -29,7 +29,7 @@ const routes = [
   {
     path: '/mainchat',
     name: 'mainchat',
-    component: ChatMainPageHeader
+    component: MainChat
   },
   {
     path: '/inbox',
