@@ -41,7 +41,7 @@
 </template>
 <script>
 export default {
-  name: "EnterOTPPage",
+  name: "OTP",
 };
 </script>
 <style>
