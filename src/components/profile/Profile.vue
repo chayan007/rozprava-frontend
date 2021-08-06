@@ -13,7 +13,7 @@
             </div>
           </div>
         </div>
-        <h2 class=" card-title mt-3">{{user.profile.user.full_name}}</h2>
+        <h2 class=" card-title mt-3">{{ user.profile.user.full_name }}</h2>
         <div class="nowrap">
           <div class="c3"><span class="h4"><strong>{{user.profile.metrics.posts}}</strong></span><br>posts</div>
           <div class="c2"><span class="h4"><strong>{{user.profile.metrics.followers}}</strong></span><br>Followers</div>
@@ -21,7 +21,7 @@
         </div> 
         <div class="bio">
           <div>
-            {{user.profile.bio}}
+            {{ user.profile.bio }}
           </div>
         </div>
       </div>
@@ -30,10 +30,11 @@
 <script>
  import PopupMenu from "@/components/profile/PopupMenu.vue"
  import { ref } from "vue";
+ import {  userService } from '@/services';
 
-  export default {
+ export default {
     name: "Profile",
-    components: { PopupMenu ,},
+    components: { PopupMenu },
     data () {
       return {
         user: null,
@@ -41,15 +42,15 @@
       }
     },
     setup(){
-      const popupTriggers=ref({
+      const popupTriggers = ref({
         buttonTrigger:false,
         timedTrigger:false
       });
-      const Toggle=(trigger)=>{
-        popupTriggers.value[trigger]=!popupTriggers.value[trigger]
+      const Toggle = (trigger) => {
+        popupTriggers.value[trigger] = !popupTriggers.value[trigger]
       }
-      const ToggleClose=(trigger)=>{
-        popupTriggers.value[trigger]=!popupTriggers.value[trigger]
+      const ToggleClose = (trigger) => {
+        popupTriggers.value[trigger] = !popupTriggers.value[trigger]
       }
       return{
         popupTriggers,
@@ -57,30 +58,28 @@
         ToggleClose,
       }
     },
-    computed:{
-      profile(){
-        return this.$store.state.userStore.profile;
-      },
-    },
     created(){
       this.declareUser();
     },
     methods:{
-      handleUser(){
-        this.username = this.$route.params.username;
-      },
       declareUser(){
-        const { dispatch } = this.$store;
         this.user = JSON.parse(localStorage.getItem('user'));
-        this.handleUser();
-        if(this.user.profile.user.username != this.username){
-          dispatch('userStore/getProfile',this.username);
-          if(this.profile){
-            this.user=this.profile;
-          }
+        this.username = this.$route.params.username;
+
+        if(this.user.profile.user.username !== this.username){
+          this.getProfileDetails(this.username)
+              .then(userProfile => { this.user = userProfile; });
         }
       }
     },
+    getProfileDetails(username){
+      const { dispatch } = this.$store;
+      return userService.getProfile(username)
+          .then(
+              userProfile => { return userProfile; },
+              error => { dispatch('alertStore/error', error, { root: true }); }
+          );
+    }
   }
 </script>
 <style scoped>
@@ -137,10 +136,10 @@
 
 }
 .btn-primary {
-    color: #31344b;
-    background-color: #e6e7ee;
-    border-color: #e6e7ee;
-    box-shadow: none;
+  color: #31344b;
+  background-color: #e6e7ee;
+  border-color: #e6e7ee;
+  box-shadow: none;
 }
 .nowrap{
   display: flex;
@@ -149,18 +148,14 @@
   margin-left: auto;
   margin-right: auto;
 }
-
 .a1{
   position: relative;
-  
 }
 .a1 .aero{
   position: absolute;
   top: 10%;
   left: 4%;
-  
 }
-
 .a2{
   background: transparent;
   color: white;
@@ -176,8 +171,7 @@
   border: none;
   font-size: 2rem;
 }
- .a4{
-  
+.a4{
   top: 45%;
   margin-right: auto;
   margin-left:auto ;
@@ -187,18 +181,15 @@
   
 }
 .middle{
-  
   position: absolute;
-  
   top: 12rem;
   width: 100%;
   
 }
 @media (max-width: 700px) {
     .space {
-     
-        margin-right: 4%;
-        margin-left: 4%;
+      margin-right: 4%;
+      margin-left: 4%;
     }
-    }
+}
 </style>

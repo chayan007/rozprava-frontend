@@ -38,7 +38,7 @@ const routes = [
   {
     path: '/profile/:username',
     name: 'Profile',
-    component: Profile
+    component: Profile,
   },
   {
     path: '/register',
@@ -109,7 +109,9 @@ router.beforeEach((to, from, next) => {
       '/inbox',
       '/chat'
   ];
-  const authRequired = !publicPages.includes(to.path);
+  const publicPagesName = ['Profile'];
+
+  const authRequired = !publicPages.includes(to.path) || !publicPagesName.includes(to.name);
   const loggedIn = localStorage.getItem('user');
 
   if (authRequired && !loggedIn) {
