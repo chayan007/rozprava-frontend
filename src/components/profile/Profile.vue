@@ -27,6 +27,7 @@
       </div>
     </div>
 </template>
+
 <script>
  import PopupMenu from "@/components/profile/PopupMenu.vue"
  import { ref } from "vue";
@@ -41,38 +42,46 @@
         username:'',
       }
     },
+
     setup(){
       const popupTriggers = ref({
         buttonTrigger:false,
         timedTrigger:false
       });
+
       const Toggle = (trigger) => {
         popupTriggers.value[trigger] = !popupTriggers.value[trigger]
       }
+
       const ToggleClose = (trigger) => {
         popupTriggers.value[trigger] = !popupTriggers.value[trigger]
       }
+
       return{
         popupTriggers,
         Toggle,
         ToggleClose,
       }
     },
+
     created(){
       this.declareUser();
     },
+
     methods:{
       declareUser(){
-        this.user = JSON.parse(localStorage.getItem('user'));
         this.username = this.$route.params.username;
+        this.user = JSON.parse(localStorage.getItem('user'));
+        const ref = this;
 
-        if(this.user.profile.user.username !== this.username){
-          this.getProfileDetails(this.username)
+        if(this.user && this.user.profile.user.username !== this.username){
+          ref.getProfileDetails(this.username)
               .then(userProfile => { this.user = userProfile; });
         }
       }
     },
     getProfileDetails(username){
+      console.log('Username', username)
       const { dispatch } = this.$store;
       return userService.getProfile(username)
           .then(
@@ -82,6 +91,7 @@
     }
   }
 </script>
+
 <style scoped>
 .bio{
   width: 30rem;

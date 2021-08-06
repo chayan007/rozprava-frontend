@@ -111,10 +111,11 @@ router.beforeEach((to, from, next) => {
   ];
   const publicPagesName = ['Profile'];
 
-  const authRequired = !publicPages.includes(to.path) || !publicPagesName.includes(to.name);
+  const authRequired = !publicPages.includes(to.path);
+  const isPublicPage = publicPagesName.includes(to.name);
   const loggedIn = localStorage.getItem('user');
 
-  if (authRequired && !loggedIn) {
+  if (!isPublicPage && authRequired && !loggedIn) {
     return next('/login');
   }
   next();
