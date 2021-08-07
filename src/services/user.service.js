@@ -29,12 +29,17 @@ function settings(updateFields) {
 function getProfile(username){
     const authenticationHeader = authHeader();
     const url =  stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.getProfile.endpoint}`, username);
+
     return axios.get(url, { headers: authenticationHeader })
-    .then(response => {
-        console.log('response = ',response.data);
-        return response.data;
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+        .then(response => {
+            const data = response.data;
+            if (data) {
+                return data;
+            } else {
+                throw config.messagingConfig.messages.error.unknown_error;
+            }
+        })
+        .catch(() => {
+            throw stringFormat(config.messagingConfig.messages.error.does_not_exist_error, username);
+        });
 }
