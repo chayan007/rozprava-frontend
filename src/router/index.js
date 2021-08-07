@@ -13,6 +13,7 @@ import Profile from '@/views/protected/Profile.vue'
 import Recommendation from '@/views/protected/Recommendation.vue'
 import Inbox from '@/views/protected/chat/Inbox.vue'
 import Chat from '@/views/protected/chat/Chat.vue'
+import CaseCreate from '@/views/public/Create.vue'
 
 const routes = [
   {
@@ -84,6 +85,11 @@ const routes = [
     path: '/reset-password',
     name: 'ResetPassword',
     component: ResetPassword
+  },
+  {
+    path: '/case-create',
+    name: 'CaseCreate',
+    component: CaseCreate
   }
 ]
 
@@ -108,7 +114,8 @@ router.beforeEach((to, from, next) => {
       '/profile',
       '/recommendation',
       '/inbox',
-      '/chat'
+      '/chat',
+      '/case-create'
   ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
