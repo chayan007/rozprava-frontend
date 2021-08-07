@@ -95,21 +95,20 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
 
-  const publicPages = [
-      '/',
-      '/login',
-      '/register',
-      '/signup',
-      '/caseview',
-      '/forgetLogin',
-      '/enterOTP',
-      '/resetPassword',
-      '/timeline',
-      '/recommendation',
-      '/inbox',
-      '/chat'
+  const publicPagesName = [
+      'Home',
+      'Login',
+      'Register',
+      'Signup',
+      'CaseView',
+      'ForgetLogin',
+      'EnterOTP',
+      'ResetPassword',
+      'Timeline',
+      'Recommendation',
+      'Inbox',
+      'Chat'
   ];
-  const publicPagesName = ['Profile'];
   const authPagesName = [
       'Login',
       'Register',
@@ -117,15 +116,14 @@ router.beforeEach((to, from, next) => {
       'EnterOTP'
   ];
 
-  const authRequired = !publicPages.includes(to.path);
-  const isPublicPage = publicPagesName.includes(to.name);
+  const authRequired = !publicPagesName.includes(to.name);
   const loggedIn = localStorage.getItem('user');
 
   if (loggedIn && authPagesName.includes(to.name)) {
     next(to.path);
   }
 
-  if (!isPublicPage && authRequired && !loggedIn) {
+  if (authRequired && !loggedIn) {
     return next('/login');
   }
 
