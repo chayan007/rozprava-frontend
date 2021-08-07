@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
                 "endpoint": "profile/reset-password/verify-otp/{0}/{1}/"
             },
             resetPassword: {
-                "endpoint": "profile/reset-password/change-password/{}/"
+                "endpoint": "profile/reset-password/change-password/{0}/"
             },
         },
         constants: {

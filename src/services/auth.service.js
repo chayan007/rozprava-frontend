@@ -117,6 +117,6 @@ function verifyOtp(otp){
 
 function resetPassword(otp, password){
     return axios.put(
-        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.resetPassword.endpoint}`, otp, password)
+        `${config.commonConfig.$apiUrl}/${config.userConfig.api.resetPassword.endpoint}`, otp, password
     )
 }
