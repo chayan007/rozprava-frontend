@@ -1,6 +1,6 @@
 <template>
   <div class="bottom-box">
-    <div  v-if="false">
+    <div  v-if="is_authenticated_user">
       <div class="cant bg-primary shadow-soft">
         <button type="button" class="a1 btn btn-pill btn-primary">
           <img src="@/assets/Edit.png" alt="Edit icon image" width="30" />
@@ -26,6 +26,11 @@
 <script>
 export default {
   name: "BottomMenu",
+  methods:{
+    is_authenticated_user(){
+      
+    }
+  }
 };
 </script>
 <style scoped>
