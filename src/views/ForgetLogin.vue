@@ -50,6 +50,9 @@
 </template>
 <script>
 import router from "@/router";
+import { authService } from '@/services';
+import { config } from "@/configurations";
+import {stringFormat} from "@/helpers";
 
 export default {
   name: "ForgetLogin",
@@ -65,12 +68,18 @@ export default {
       this.submitted = true;
       const { userId } = this;
       const { dispatch } = this.$store;
-      if (userId) {
-        router.push({ name: "EnterOTP", params: { username: userId } });
+
+      if (userId.trim()) {
+        authService.checkUser(userId.trim())
+          .then(username => { router.push({ name: "EnterOTP", params: { username: username } }); })
+          .catch(error => { dispatch('alertStore/error', error, { root: true }); })
       } else {
-        alert("Enter you email or username");
+        dispatch(
+          'alertStore/error',
+          stringFormat(config.messagingConfig.messages.error.empty_field_error, 'username / email'),
+          { root: true }
+        );
       }
-      dispatch("authStore/checkUser", userId);
     },
   },
 };
