@@ -24,6 +24,9 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             resetPassword: {
                 "endpoint": "profile/reset-password/change-password/{0}/"
             },
+            getProfile:{
+                "endpoint": "profile/user/{0}/"
+            },
         },
         constants: {
             debug: true,
@@ -55,6 +58,9 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             resetPassword: {
                 "endpoint": "profile/reset-password/change-password/{0}/"
             },      
+            getProfile:{
+                "endpoint": "profile/user/{0}/"
+            },
         },
         constants: {
             debug: false,

@@ -20,8 +20,8 @@ export const authStore = {
                         router.push('/');
                     },
                     error => {
-                        commit('loginFailure');
                         dispatch('alertStore/error', error, { root: true });
+                        commit('loginFailure');
                     }
                 );
         },
