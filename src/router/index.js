@@ -110,14 +110,25 @@ router.beforeEach((to, from, next) => {
       '/chat'
   ];
   const publicPagesName = ['Profile'];
+  const authPagesName = [
+      'Login',
+      'Register',
+      'ForgetLogin',
+      'EnterOTP'
+  ];
 
   const authRequired = !publicPages.includes(to.path);
   const isPublicPage = publicPagesName.includes(to.name);
   const loggedIn = localStorage.getItem('user');
 
+  if (loggedIn && authPagesName.includes(to.name)) {
+    next(to.path);
+  }
+
   if (!isPublicPage && authRequired && !loggedIn) {
     return next('/login');
   }
+
   next();
 })
 

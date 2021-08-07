@@ -1,44 +1,45 @@
 <template>
-    <div class="cant mt-5" >
-      <div class="card bg-primary  ">
-        <div class="a1" >
-          <img src="@/assets/post_pic.png"  class="image card-img-top rounded-top" alt="Cover picture">
-          <button type="button " class="aero a2"><span class="a2"><img src="@/assets/Back.png" alt="Back icon image" width="18"></span></button>
-          <button type="button" class="a3" @click="()=>Toggle('buttonTrigger')">...</button>
-          <PopupMenu v-if="popupTriggers.buttonTrigger" :Toggle="()=>Toggle('buttonTrigger')" class="popup" >
-          </PopupMenu>
-          <div class="middle">
-            <div class="a4 profile-image bg-primary shadow-inset border border-light rounded-circle">
-              <img src="@/assets/black-rose.jpg" class="card-img-top rounded-circle" alt="Profile Pic" width="200" />
-            </div>
-          </div>
-        </div>
-        <h2 class=" card-title mt-3">{{ user.profile.user.full_name }}</h2>
-        <div class="nowrap">
-          <div class="c3"><span class="h4"><strong>{{user.profile.metrics.posts}}</strong></span><br>posts</div>
-          <div class="c2"><span class="h4"><strong>{{user.profile.metrics.followers}}</strong></span><br>Followers</div>
-          <div class="c1"><span class="h4"><strong>{{user.profile.metrics.following}}</strong></span><br>Following</div>
-        </div> 
-        <div class="bio">
-          <div>
-            {{ user.profile.bio }}
+  <div class="cant mt-5" >
+    <div class="card bg-primary  ">
+      <div class="a1" >
+        <img src="@/assets/post_pic.png"  class="image card-img-top rounded-top" alt="Cover picture">
+        <button type="button " class="aero a2"><span class="a2"><img src="@/assets/Back.png" alt="Back icon image" width="18"></span></button>
+        <button type="button" class="a3" @click="()=>Toggle('buttonTrigger')">...</button>
+        <PopupMenu v-if="popupTriggers.buttonTrigger" :Toggle="()=>Toggle('buttonTrigger')" class="popup" >
+        </PopupMenu>
+        <div class="middle">
+          <div class="a4 profile-image bg-primary shadow-inset border border-light rounded-circle">
+            <img src="@/assets/black-rose.jpg" class="card-img-top rounded-circle" alt="Profile Pic" width="200" />
           </div>
         </div>
       </div>
+      <h2 class=" card-title mt-3">{{ profile.user.full_name }}</h2>
+      <div class="nowrap">
+        <div class="c3"><span class="h4"><strong>{{ profile.metrics.posts }}</strong></span><br>posts</div>
+        <div class="c2"><span class="h4"><strong>{{ profile.metrics.followers }}</strong></span><br>Followers</div>
+        <div class="c1"><span class="h4"><strong>{{ profile.metrics.following }}</strong></span><br>Following</div>
+      </div>
+      <div class="bio">
+        <div>
+          {{ profile.bio }}
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
  import PopupMenu from "@/components/profile/PopupMenu.vue"
  import { ref } from "vue";
  import {  userService } from '@/services';
+ import router from "../../router";
 
  export default {
     name: "Profile",
     components: { PopupMenu },
     data () {
       return {
-        user: null,
+        profile: null,
         username:'',
       }
     },
@@ -71,24 +72,25 @@
     methods:{
       declareUser(){
         this.username = this.$route.params.username;
-        this.user = JSON.parse(localStorage.getItem('user'));
-        const ref = this;
+        this.profile = JSON.parse(localStorage.getItem('user'));
+        if (!this.profile){
+          router.push('/login');
+        }
+        this.profile = this.profile.profile;
+        const { dispatch } = this.$store;
 
-        if(this.user && this.user.profile.user.username !== this.username){
-          ref.getProfileDetails(this.username)
-              .then(userProfile => { this.user = userProfile; });
+        if(this.profile.user.username !== this.username){
+          // When profile is not the authenticated profile (any other random profile).
+          userService.getProfile(this.username)
+              .then(
+                  userProfile => { this.profile = userProfile; console.log(userProfile); },
+                  error => { console.log('>>>>1 ', error); dispatch('alertStore/error', error, { root: true }); }
+              ).catch(
+              error => { console.log('>>>>2 ', error); dispatch('alertStore/error', error, { root: true }); }
+          );
         }
       }
     },
-    getProfileDetails(username){
-      console.log('Username', username)
-      const { dispatch } = this.$store;
-      return userService.getProfile(username)
-          .then(
-              userProfile => { return userProfile; },
-              error => { dispatch('alertStore/error', error, { root: true }); }
-          );
-    }
   }
 </script>
 

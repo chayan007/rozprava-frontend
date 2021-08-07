@@ -33,8 +33,8 @@ function getProfile(username){
     return axios.get(url, { headers: authenticationHeader })
         .then(response => {
             const data = response.data;
-            if (data.profile) {
-                return data.profile;
+            if (data) {
+                return data;
             } else {
                 throw config.messagingConfig.messages.error.unknown_error;
             }
