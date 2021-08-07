@@ -24,11 +24,24 @@
   </div>
 </template>
 <script>
+import router from "@/router";
+
 export default {
   name: "BottomMenu",
   methods:{
     is_authenticated_user(){
-      
+        const username = this.$route.params.username;
+        let profile = JSON.parse(localStorage.getItem('user'));
+        if (!profile){
+          router.push('/login');
+        }
+        profile = profile.profile;
+        if(profile.user.username !== username){
+          // When profile is not the authenticated profile (any other random profile).
+          return false;
+        } else {
+          return true;
+        }
     }
   }
 };

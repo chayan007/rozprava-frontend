@@ -36,7 +36,7 @@ const routes = [
     component: Recommendation
   },
   {
-    path: '/profile',
+    path: '/profile/:username',
     name: 'Profile',
     component: Profile,
   },
