@@ -84,9 +84,9 @@
           userService.getProfile(this.username)
               .then(
                   userProfile => { this.profile = userProfile; console.log(userProfile); },
-                  error => { console.log('>>>>1 ', error); dispatch('alertStore/error', error, { root: true }); }
+                  error => { dispatch('alertStore/error', error, { root: true }); }
               ).catch(
-              error => { console.log('>>>>2 ', error); dispatch('alertStore/error', error, { root: true }); }
+              error => { dispatch('alertStore/error', error, { root: true }); }
           );
         }
       }
