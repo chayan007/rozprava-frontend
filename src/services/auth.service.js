@@ -90,12 +90,16 @@ function checkUser(userId) {
      return axios.get(
         stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.checkUser.endpoint}`, userId)
     )
-        .then((response) =>{
+        .then((response, dispatch) =>{
             console.log('response =', response.data);
             if ('username' in response.data) {
                 return response.data.username;
-            } else{
-                throw 'this username does not exist, please enter proper username';
+            } else {
+                dispatch(
+                  'alertStore/error',
+                  stringFormat(config.messagingConfig.messages.error.user_not_found),
+                  { root: true }
+                );
             }
         })
         .catch((error) => {
@@ -103,20 +107,41 @@ function checkUser(userId) {
         }) 
 }
 
-function OTP() {
+function OTP(username) {
     return axios.post(
-        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.sendOtp.endpoint}`)
+        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.sendOtp.endpoint}`, username)
    )  
 }
 
-function verifyOtp(otp){
+function verifyOtp(username, otp){
     return axios.put(
-        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.verifyOtp.endpoint}`, otp)
+        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.verifyOtp.endpoint}`, username, otp)
     )
+    .then((response) => {
+        const data = response.data;
+        console.log(data);
+        // if (data.is_verifed){
+        //     return data.is_verifed;
+        // }
+        return true
+    })
+    .catch((error) => {
+        console.log('error =', error.data);
+    }) 
 }
 
 function resetPassword(otp, password){
     return axios.put(
         `${config.commonConfig.$apiUrl}/${config.userConfig.api.resetPassword.endpoint}`, otp, password
     )
+        .then(response => {
+            const data = response.data;
+            if (response.data) {
+                localStorage.setItem('user', JSON.stringify(data));
+                return data;
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }

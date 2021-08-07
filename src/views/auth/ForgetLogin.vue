@@ -1,15 +1,15 @@
 <template>
   <div>
     <div
-      id="OTPBox"
+      id="forgetLoginBox"
       class="card bg-primary shadow-soft border-light px-4 py-5"
-      style="width: 800px; height: 500px; margin-top: 13%; margin-left: 25%;"
+      style="width: 800px; height: 420px; margin-top: 13%; margin-left: 25%;"
     >
       <div class="card-header pb-0 text-center">
-        <h2 class="h1 mb-3">Enter OTP</h2>
+        <h2 class="h1 mb-3">Find Your Account</h2>
         <p class="mb-5 lead">
-          Please check your email for a text message with your OTP. Your OTP is
-          6 characters in length.
+          Please enter your email address or username to search for your
+          account.
         </p>
       </div>
       <div class="card-body pt-2 px-0 px-lg-7">
@@ -19,22 +19,24 @@
               <label
                 class="h6 font-weight-light text-gray"
                 for="subscribeInputEmail"
-                >Enter OTP</label
+                >username or Email address</label
               >
               <div class="d-flex flex-row justify-content-center">
                 <div class="input-group">
                   <input
                     class="form-control form-control-xl border-light"
-                    v-model="otp"
-                    placeholder=""
+                    id="subscribeInputEmail"
+                    v-model="userId"
+                    placeholder="example@company.com"
+                    type="email"
                   />
                   <div class="input-group-prepend">
                     <button
                       type="submit"
                       class="btn btn-primary rounded-right"
-                      v-on:click="handleOTPSend"
+                      v-on:click="handleSubmit"
                     >
-                      Send OTP
+                      Continue
                     </button>
                   </div>
                 </div>
@@ -43,18 +45,6 @@
           </div>
         </div>
       </div>
-      <hr />
-      <div v-if="resend_flag">
-        <a href=""><h6>resend OTP</h6></a>
-      </div>
-      <button
-        class="btn btn-primary"
-        id="next"
-        type="button"
-        v-on:click="handleOTPSubmission"
-      >
-        Enter
-      </button>
     </div>
   </div>
 </template>
@@ -65,49 +55,36 @@ import { config } from "@/configurations";
 import {stringFormat} from "@/helpers";
 
 export default {
-  name: "OTP",
+  name: "ForgetLogin",
   components: {},
   data() {
     return {
-      resend_flag: false,
-      otp: "",
+      userId: "",
       submitted: false,
     };
   },
   methods: {
-    handleOTPSend() {
-      if (!this.resend_flag) {
-        this.resent_flag = true;
-      }
-      console.log(this.resent_flag);
+    handleSubmit() {
       this.submitted = true;
-      const username = this.$route.params.username;
-      console.log(username);
-      // const { otp } = this;
+      const { userId } = this;
       const { dispatch } = this.$store;
-      dispatch("authStore/OTP", username);
-    },
-    handleOTPSubmission() {
-      this.submitted = true;
-      const username = this.$route.params.username;
-      const { otp } = this;
-      const { dispatch } = this.$store;
-      if (otp) {
-        authService.verifyOtp(username, otp)
-          .then(username => { router.push({ name: "ResetPassword", params: { username: username } }); })
+
+      if (userId.trim()) {
+        authService.checkUser(userId.trim())
+          .then(username => { router.push({ name: "EnterOTP", params: { username: username } }); })
           .catch(error => { dispatch('alertStore/error', error, { root: true }); })
       } else {
         dispatch(
           'alertStore/error',
-          stringFormat(config.messagingConfig.messages.error.empty_otp_field),
+          stringFormat(config.messagingConfig.messages.error.empty_field_error, 'username / email'),
           { root: true }
         );
       }
-      // dispatch("authStore/verifyOtp", username, otp);
     },
   },
 };
 </script>
+
 <style>
 .yo {
   width: 400px;
@@ -115,22 +92,11 @@ export default {
   margin-left: 50%;
   margin-right: 50%;
 }
-#next {
-  width: 7rem !important;
-  margin-left: 19.5rem !important;
-  margin-top: -3rem !important;
-}
-#OTPBox {
-  margin-top: -1px !important;
-  margin-top: 10rem !important;
-}
 @media only screen and (max-width: 1024px) {
-  #OTPBox {
+  #forgetLoginBox {
     margin-top: 50% !important;
     width: 100%;
-    /* height: 420px; */
     margin-left: 0% !important;
-    /* margin-right: 20% !important; */
     border: 0px solid black !important;
     box-shadow: 0px 0px 0px #e6e7ee !important;
   }

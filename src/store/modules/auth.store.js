@@ -51,41 +51,18 @@ export const authStore = {
                     }
                 );
         },
-
-        checkUser( {dispatch, commit}, userId) {
-            authService.checkUser(userId)
-            .then(
-                () => {
-                    
-                },
-                error => {
-                    commit('loginFailure');
-                    dispatch('alertStore/error', error, { root: true });
-                }
-            ); 
-        },
             
-        OTP() {
-            authService.OTP()
-        },
-
-        verifyOtp({dispatch}, otp) {
-            authService.verifyOtp(otp)
-            .then(
-                () => {
-                    router.push('/reset-password');
-                },
-                error => {
-                    dispatch('alertStore/error', error, { root: true });
-                }
-            ); 
+        OTP(username) {
+            authService.OTP(username)
         },
 
         resetPassword({ dispatch, commit }, { password}) {
             authService.resetPassword(password)
             .then(
                 user => {
-                    commit('loginSuccess', user);
+                    let storedProfile = JSON.parse(localStorage.getItem('user'));
+                    storedProfile['profile'] = user.profile;
+                    localStorage.setItem('user', JSON.stringify(storedProfile));
                     router.push('/');
                 },
                 error => {
