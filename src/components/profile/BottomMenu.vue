@@ -1,6 +1,6 @@
 <template>
   <div class="bottom-box">
-    <div  v-if="false">
+    <div  v-if="is_authenticated_user">
       <div class="cant bg-primary shadow-soft">
         <button type="button" class="a1 btn btn-pill btn-primary">
           <img src="@/assets/Edit.png" alt="Edit icon image" width="30" />
@@ -14,18 +14,36 @@
       </div>
     </div>
     <div  v-else>
-       <div class="cant bg-primary shadow-soft">
-         <div class="nowrap">
-            <button type="button" class="bg-primary btn-unauth btn-primary margin btn-sm"><span class="h4"><strong>Message</strong></span></button> 
-             <button type="button" class="a2-unauth bg-primary btn-unauth btn-primary  btn-sm"><span class="h4"><strong>Follow</strong></span></button> 
-         </div>
+      <div class="cant bg-primary shadow-soft">
+        <div class="nowrap">
+          <button type="button" class="bg-primary btn-unauth btn-primary margin btn-sm"><span class="h4"><strong>Message</strong></span></button> 
+          <button type="button" class="a2-unauth bg-primary btn-unauth btn-primary  btn-sm"><span class="h4"><strong>Follow</strong></span></button> 
         </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import router from "@/router";
+
 export default {
   name: "BottomMenu",
+  methods:{
+    is_authenticated_user(){
+        const username = this.$route.params.username;
+        let profile = JSON.parse(localStorage.getItem('user'));
+        if (!profile){
+          router.push('/login');
+        }
+        profile = profile.profile;
+        if(profile.user.username !== username){
+          // When profile is not the authenticated profile (any other random profile).
+          return false;
+        } else {
+          return true;
+        }
+    }
+  }
 };
 </script>
 <style scoped>
