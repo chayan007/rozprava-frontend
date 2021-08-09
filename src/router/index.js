@@ -3,9 +3,9 @@ import SignUp from '@/components/auth/SignUp.vue'
 import Register from '@/views/auth/Register.vue'
 import Login from '@/views/auth/Login.vue'
 import Home from '@/views/Home.vue'
-import ForgetLogin from '@/views/ForgetLogin.vue'
-import EnterOTP from '@/views/EnterOTP.vue'
-import ResetPassword from '@/views/ResetPassword.vue'
+import ForgetLogin from '@/views/auth/ForgetLogin.vue'
+import EnterOTP from '@/views/auth/EnterOTP.vue'
+import ResetPassword from '@/views/auth/ResetPassword.vue'
 import Settings from '@/views/protected/Settings.vue'
 import CaseView from '@/views/public/CaseView.vue'
 import Search from '@/views/protected/Search.vue'
@@ -37,9 +37,9 @@ const routes = [
     component: Recommendation
   },
   {
-    path: '/profile',
+    path: '/profile/:username',
     name: 'Profile',
-    component: Profile
+    component: Profile,
   },
   {
     path: '/register',
@@ -101,28 +101,39 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
 
-  const publicPages = [
-      '/',
-      '/login',
-      '/register',
-      '/signup',
-      '/caseview',
-      '/forgetLogin',
-      '/enterOTP',
-      '/resetPassword',
-      '/timeline',
-      '/profile',
-      '/recommendation',
-      '/inbox',
-      '/chat',
-      '/case-create'
+  const publicPagesName = [
+      'Home',
+      'Login',
+      'Register',
+      'Signup',
+      'CaseView',
+      'ForgetLogin',
+      'EnterOTP',
+      'ResetPassword',
+      'Timeline',
+      'Recommendation',
+      'Inbox',
+      'Chat',
+      'CaseCreate'
   ];
-  const authRequired = !publicPages.includes(to.path);
+  const authPagesName = [
+      'Login',
+      'Register',
+      'ForgetLogin',
+      'EnterOTP'
+  ];
+
+  const authRequired = !publicPagesName.includes(to.name);
   const loggedIn = localStorage.getItem('user');
+
+  if (loggedIn && authPagesName.includes(to.name)) {
+    next(to.path);
+  }
 
   if (authRequired && !loggedIn) {
     return next('/login');
   }
+
   next();
 })
 
