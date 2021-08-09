@@ -10,6 +10,7 @@ const messagingConfig = {
             empty_otp_field: 'Please enter otp',
             user_not_found: 'No records found for the username / email.',
             does_not_exist_error: 'This {0} does not exist. Please check again.',
+            otp_not_match: 'The number that you have entered does not match your code. Please try again.',
         },
         notification: {
             watched_all_cases: 'You have watched all cases. Please wait till someone raises some.'

@@ -75,6 +75,7 @@ export default {
   methods: {
     handleSubmit() {
       this.submitted = true;
+      const username = this.$route.params.username;
       const { password, password2 } = this;
       const { dispatch } = this.$store;
       if (password && password2) {
@@ -86,7 +87,7 @@ export default {
           );
         }
       }
-      dispatch("authStore/resetPassword", password);
+      dispatch("authStore/resetPassword", password, username);
   }
   }
 };

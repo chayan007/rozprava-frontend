@@ -79,13 +79,10 @@ export default {
       if (!this.resend_flag) {
         this.resent_flag = true;
       }
-      console.log(this.resent_flag);
       this.submitted = true;
       const username = this.$route.params.username;
-      console.log(username);
-      // const { otp } = this;
       const { dispatch } = this.$store;
-      dispatch("authStore/OTP", username);
+      dispatch("authStore/sendOTP", username);
     },
     handleOTPSubmission() {
       this.submitted = true;

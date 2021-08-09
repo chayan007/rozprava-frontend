@@ -52,17 +52,18 @@ export const authStore = {
                 );
         },
             
-        OTP(username) {
+        sendOTP(username) {
             authService.OTP(username)
         },
 
-        resetPassword({ dispatch, commit }, { password}) {
-            authService.resetPassword(password)
+        resetPassword({ dispatch, commit },username, password) {
+            authService.resetPassword(username, password)
             .then(
                 user => {
                     let storedProfile = JSON.parse(localStorage.getItem('user'));
                     storedProfile['profile'] = user.profile;
                     localStorage.setItem('user', JSON.stringify(storedProfile));
+                    commit('refreshUser');
                     router.push('/');
                 },
                 error => {
@@ -83,6 +84,10 @@ export const authStore = {
             state.user = user;
         },
         loginSuccess(state, user) {
+            state.status = { loggedIn: true };
+            state.user = user;
+        },
+        refreshUser(state, user) {
             state.status = { loggedIn: true };
             state.user = user;
         },

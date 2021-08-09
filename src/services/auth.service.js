@@ -7,7 +7,7 @@ export const authService = {
     logout,
     register,
     checkUser,
-    OTP,
+    sendOTP,
     verifyOtp,
     resetPassword
 };
@@ -84,9 +84,7 @@ function register(name, email, phone, username, password1, password2) {
         });
 }
 
-function checkUser(userId) {
-    
-    console.log(userId);
+function checkUser(userId) {  
      return axios.get(
         stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.checkUser.endpoint}`, userId)
     )
@@ -103,7 +101,7 @@ function checkUser(userId) {
         }) 
 }
 
-function OTP(username) {
+function sendOTP(username) {
     return axios.post(
         stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.sendOtp.endpoint}`, username)
    )  
@@ -116,19 +114,17 @@ function verifyOtp(username, otp){
     .then((response) => {
         const data = response.data;
         console.log(data);
-        // if (data.is_verifed){
-        //     return data.is_verifed;
-        // }
-        return true
+        return true;
     })
-    .catch((error) => {
-        console.log('error =', error.data);
+    .catch(() => {
+        throw config.messagingConfig.messages.error.otp_not_match;
     }) 
 }
 
-function resetPassword(otp, password){
+function resetPassword(username, password){
     return axios.put(
-        `${config.commonConfig.$apiUrl}/${config.userConfig.api.resetPassword.endpoint}`, otp, password
+        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.resetPassword.endpoint}`, username),
+        { password: password }
     )
         .then(response => {
             const data = response.data;
