@@ -95,22 +95,6 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
 
-<<<<<<< HEAD
-  const publicPages = [
-      '/',
-      '/login',
-      '/register',
-      '/signup',
-      '/caseview',
-      '/forget-login',
-      '/enter-otp/vicky',
-      '/reset-password/vicky',
-      '/timeline',
-      '/profile',
-      '/recommendation',
-      '/inbox',
-      '/chat'
-=======
   const publicPagesName = [
       'Home',
       'Login',
@@ -124,7 +108,6 @@ router.beforeEach((to, from, next) => {
       'Recommendation',
       'Inbox',
       'Chat'
->>>>>>> 1ce672a92e2bb65cfe3e273b34075ed2040ba26c
   ];
   const authPagesName = [
       'Login',

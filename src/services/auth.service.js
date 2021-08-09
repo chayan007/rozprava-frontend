@@ -90,20 +90,16 @@ function checkUser(userId) {
      return axios.get(
         stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.checkUser.endpoint}`, userId)
     )
-        .then((response, dispatch) =>{
+        .then((response) =>{
             console.log('response =', response.data);
             if ('username' in response.data) {
                 return response.data.username;
             } else {
-                dispatch(
-                  'alertStore/error',
-                  stringFormat(config.messagingConfig.messages.error.user_not_found),
-                  { root: true }
-                );
+                throw config.messagingConfig.messages.error.unknown_error;
             }
         })
-        .catch((error) => {
-            console.log('error =', error.data);
+        .catch(() => {
+            throw stringFormat(config.messagingConfig.messages.error.does_not_exist_error, 'user');
         }) 
 }
 
