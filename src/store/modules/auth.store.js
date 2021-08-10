@@ -52,10 +52,6 @@ export const authStore = {
                 );
         },
             
-        sendOTP(username) {
-            authService.OTP(username)
-        },
-
         resetPassword({ dispatch, commit },username, password) {
             authService.resetPassword(username, password)
             .then(

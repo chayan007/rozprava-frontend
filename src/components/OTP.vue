@@ -81,8 +81,7 @@ export default {
       }
       this.submitted = true;
       const username = this.$route.params.username;
-      const { dispatch } = this.$store;
-      dispatch("authStore/sendOTP", username);
+      authService.sendOTP(username);
     },
     handleOTPSubmission() {
       this.submitted = true;
@@ -96,7 +95,7 @@ export default {
       } else {
         dispatch(
           'alertStore/error',
-          stringFormat(config.messagingConfig.messages.error.empty_otp_field),
+          stringFormat(config.messagingConfig.messages.error.empty_field_error, 'OTP'),
           { root: true }
         );
       }
