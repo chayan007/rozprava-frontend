@@ -13,12 +13,19 @@ import Profile from '@/views/protected/Profile.vue'
 import Recommendation from '@/views/protected/Recommendation.vue'
 import Inbox from '@/views/protected/chat/Inbox.vue'
 import Chat from '@/views/protected/chat/Chat.vue'
+import Notification from '@/views/public/Notification.vue'
+
 
 const routes = [
   {
     path: '/signup',
     name: 'SignUp',
     component: SignUp
+  },
+  {
+    path: '/notifications' ,
+    name: 'Notifications' ,
+    component: Notification
   },
   {
     path: '/chat',
@@ -101,6 +108,7 @@ router.beforeEach((to, from, next) => {
       'Register',
       'Signup',
       'CaseView',
+      'Notifications',
       'ForgetLogin',
       'EnterOTP',
       'ResetPassword',
