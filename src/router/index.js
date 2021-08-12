@@ -13,12 +13,9 @@ import Profile from '@/views/protected/Profile.vue'
 import Recommendation from '@/views/protected/Recommendation.vue'
 import Inbox from '@/views/protected/chat/Inbox.vue'
 import Chat from '@/views/protected/chat/Chat.vue'
-<<<<<<< HEAD
 import CaseCreate from '@/views/public/Create.vue'
-=======
 import Notification from '@/views/public/Notification.vue'
 
->>>>>>> ab7c732b13004ec34bf7986d216b053d42596e3f
 
 const routes = [
   {
