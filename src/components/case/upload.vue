@@ -33,3 +33,16 @@ export default ({
     name:'Upload'
 })
 </script>
+<style scoped>
+.modal1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+}
+</style>
