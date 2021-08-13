@@ -87,6 +87,7 @@
               <li><a class="dropdown-item"><router-link to="/register">Register</router-link></a></li>
               <li><a class="dropdown-item"><router-link to="/login">Login</router-link></a></li>
               <li><a class="dropdown-item"><router-link to="/timeline">Timeline</router-link></a></li>
+              <li><a class="dropdown-item"><router-link to="/case-create">Create</router-link></a></li>
             </ul>
           </li>
 

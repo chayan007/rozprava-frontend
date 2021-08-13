@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import SignUp from '@/components/auth/SignUp.vue'
 import Register from '@/views/auth/Register.vue'
 import Login from '@/views/auth/Login.vue'
@@ -13,7 +14,8 @@ import Profile from '@/views/protected/Profile.vue'
 import Recommendation from '@/views/protected/Recommendation.vue'
 import Inbox from '@/views/protected/chat/Inbox.vue'
 import Chat from '@/views/protected/chat/Chat.vue'
-import Notification from '@/views/public/Notification.vue'
+import CaseCreate from '@/views/protected/case/Create.vue'
+import Notification from '@/views/protected/Notification.vue'
 
 
 const routes = [
@@ -91,6 +93,11 @@ const routes = [
     path: '/reset-password',
     name: 'ResetPassword',
     component: ResetPassword
+  },
+  {
+    path: '/case-create',
+    name: 'CaseCreate',
+    component: CaseCreate
   }
 ]
 
@@ -115,7 +122,8 @@ router.beforeEach((to, from, next) => {
       'Timeline',
       'Recommendation',
       'Inbox',
-      'Chat'
+      'Chat',
+      'CaseCreate'
   ];
   const authPagesName = [
       'Login',

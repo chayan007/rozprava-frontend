@@ -6,7 +6,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import Profile from "@/components/profile/Profile.vue";
 import BottomMenu from "@/components/profile/BottomMenu.vue";
@@ -16,7 +15,6 @@ export default {
   components: { "ProfileComponent": Profile, BottomMenu },
 };
 </script>
-
 <style scoped>
 .popup {
   position: fixed;
