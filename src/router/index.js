@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import SignUp from '@/components/auth/SignUp.vue'
 import Register from '@/views/auth/Register.vue'
 import Login from '@/views/auth/Login.vue'
@@ -14,7 +15,7 @@ import Recommendation from '@/views/protected/Recommendation.vue'
 import Inbox from '@/views/protected/chat/Inbox.vue'
 import Chat from '@/views/protected/chat/Chat.vue'
 import CaseCreate from '@/views/public/Create.vue'
-import Notification from '@/views/public/Notification.vue'
+import Notification from '@/views/protected/Notification.vue'
 
 
 const routes = [
