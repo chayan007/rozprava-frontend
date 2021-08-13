@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import SignUp from '@/components/auth/SignUp.vue'
 import Register from '@/views/auth/Register.vue'
 import Login from '@/views/auth/Login.vue'
@@ -13,9 +14,8 @@ import Profile from '@/views/protected/Profile.vue'
 import Recommendation from '@/views/protected/Recommendation.vue'
 import Inbox from '@/views/protected/chat/Inbox.vue'
 import Chat from '@/views/protected/chat/Chat.vue'
-import MainChat from '@/views/protected/chat/MainChat.vue';
-import CaseCreate from '@/views/public/Create.vue'
-import Notification from '@/views/public/Notification.vue'
+import CaseCreate from '@/views/protected/case/Create.vue'
+import Notification from '@/views/protected/Notification.vue'
 
 
 const routes = [
@@ -33,11 +33,6 @@ const routes = [
     path: '/chat',
     name: 'Chat',
     component: Chat
-  },
-  {
-    path: '/mainchat',
-    name: 'mainchat',
-    component: MainChat
   },
   {
     path: '/inbox',
