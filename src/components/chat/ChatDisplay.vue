@@ -1,11 +1,10 @@
 <template>
-  
-                <div class="alert alert-secondary chat-shadow" role="alert">
-                    <div id="chatImageDiv">
+  <div class="alert alert-secondary chat-shadow" role="alert">
+    <div id="chatImageDiv">
       <img class="chatImage" :src="src">
     </div>
-                    <div class="alert-inner--text chat-text">{{ text }}</div>
-                </div>
+    <div class="alert-inner--text chat-text">{{ text }}</div>
+  </div>
 </template>
 
 <script>

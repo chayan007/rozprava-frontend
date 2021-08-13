@@ -1,24 +1,44 @@
 <template>
     <div class="a1">
       <div class="chat-detail bg-primary shadow-soft">
-           <div class="chat-img profile-image bg-primary shadow-inset border border-light rounded-circle ml-2 ">
-                <img src="@/assets/black-rose.jpg" class="card-img-top rounded-circle " alt="User image" width="100" />
-            </div>
-            <div class="friend-name"><h5>Raju Kumar</h5></div>
+        <div>
+          <button type="button" class="a4"><img src="@/assets/chat2.png" class="back" alt="Microphone" width="25"></button>
+        </div>
+        <div class="chat-img profile-image bg-primary shadow-inset border border-light rounded-circle  ml-1">
+          <img src="@/assets/black-rose.jpg" class="card-img-top rounded-circle " alt="User image" width="100" />
+        </div>
+        <div class="friend-name"><h5>Raju Kumar</h5></div>
       </div>
       <div class="scroll">
-        <div class="">
+        <div class="bubble">
           <div class="send">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, delectus, fuga adipisci necessitatibus quisquam reprehenderit beatae nulla odit ratione facilis similique facere id rem dolorem omnis unde vero nesciunt eaque?
+            <div class="massage">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi accusamus illum expedita maxime numquam esse cumque iure molestiae dolorum in! Adipisci provident esse veniam aut velit optio laborum eaque amet?
+            </div>
+            <div class="time-tag">
+              <span class="time">2PM</span>
+            </div>
           </div>
         </div>
-        <div>
+        <div class="bubble">
           <div class="receive">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, perspiciatis reprehenderit! Nemo, ipsum vero labore sapiente totam reprehenderit delectus ut quas soluta, voluptatem, illo quod at. Commodi illum totam voluptates.
+            <div class="massage">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati optio quos sapiente illo et deserunt recusandae temporibus ex iure! Harum eligendi tenetur illo ex a saepe quos ipsa quam commodi?
+            </div>
+            <div class="time-tag">
+              <span class="time">2PM</span>
+            </div>
           </div>
+        </div>
+        <div class="bubble">
           <div class="receive">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab illum odio saepe pariatur perferendis aliquid hic recusandae veniam architecto deleniti ratione, in tenetur beatae amet eaque fugiat blanditiis consectetur voluptas.
-            Est sint laborum eum molestiae praesentium! Ullam aliquam hic assumenda magnam officia provident consectetur, commodi porro fugiat? Earum est, eos dolore aperiam dicta, provident porro ea similique eum facere pariatur.
+            <div class="massage">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem minima libero ex eaque, odio omnis officiis natus iste qui vel, impedit veritatis nesciunt obcaecati accusamus iure? Asperiores aperiam beatae nesciunt!
+              Omnis placeat a illum itaque iste veniam facere. Vitae, quidem suscipit dolorem iure provident necessitatibus assumenda dolorum alias cumque recusandae quod iste corrupti nisi impedit, sequi perferendis et amet quo.
+            </div>
+            <div class="time-tag">
+              <span class="time">2PM</span>
+            </div>
           </div>
         </div>
       </div>
@@ -27,9 +47,8 @@
           <input type="text"  class="a3" placeholder="Enter Message" valign="bottom">
         </div>
         <div class="a6">
-           <button type="button" class="a4"><img src="@/assets/microphone.png" class="microphone" alt="Microphone" width=""></button>
-          <button type="button" class="a4"><img src="@/assets/attach.png" class="microphone" alt="Attach pic" width=""></button>
-          <button type="button" class="a4"><img src="@/assets/send.png" class="microphone" alt="Send Pic" width=""></button>
+          <button type="button" class="a4"><img src="@/assets/attachment1.png" class="microphone" alt="Attach pic" width="25"></button>
+          <button type="button" class="a4"><img src="@/assets/send1.png" class="microphone" alt="Send Pic" width="25"></button>
         </div>
       </div>
     </div>
@@ -40,12 +59,27 @@
   }
 </script>
 <style scoped>
+.time{
+  font-size: 10pt;
+  opacity: 0.7;
+}
+.time-tag{
+  margin-left: auto;
+  margin-right: 0rem;
+  display: inline-block;
+}
+.massage{
+  padding: 1rem 1rem 0rem 1rem;
+}
+.back{
+  margin-top: 0.5rem;
+  background: transparent;
+}
 .scroll{
   overflow-y: auto;
-  
 }
 .scroll::-webkit-scrollbar{
-    text-decoration: none;
+  text-decoration: none;
 }
 .send-box{
   padding: 1rem;
@@ -57,7 +91,8 @@
   margin-right: 0%;
   margin-left: auto;
   margin-bottom: 0.5rem;
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 .receive{
   max-width: 70%;
@@ -65,30 +100,32 @@
   background-color: white;
   margin-left: 2%;
   margin-bottom: 0.5rem;
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 .a6{
   white-space: nowrap;
-  margin-right: 2rem !important;
+  margin-right: 1rem !important;
 }
 .a5{
   width: 100%;
 }
 .a4{
   border: none;
+  background: none;
 }
 .a3{
   outline: none;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   background-color: rgb(215, 247, 247);
   padding: 0.3rem 1rem;
-  
   margin-left: 0rem;
   width: 100%;
 }
 .friend-name{
-    margin-top: 1rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
 }
 .chat-detail{
   display: flex;
@@ -103,29 +140,28 @@
   display: flex;
 }
 .a1{
-   width: 50%;
-   margin-left: 25%;
-   margin-right: auto;
-   position: fixed;
-   display: flex;
-   flex-direction: column;
-   bottom: 0rem;
-   top: 6.2rem;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: auto;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 0rem;
+  top: 6.2rem;
 }
 @media (max-width: 700px) {
-    .a1 {
-     width: 100%;
-     top: 6rem;
-     margin-left: 0%;
-    }
+  .a1 {
+    width: 100%;
+    top: 6rem;
+    margin-left: 0%;
   }
-  @media (max-width: 700px) {
-    .send{
-      max-width: 80%;
-
-    }
-    .receive{
-      max-width: 80%;
-    }
+}
+@media (max-width: 700px) {
+  .send{
+    max-width: 80%;
   }
+  .receive{
+    max-width: 80%;
+  }
+}
 </style>

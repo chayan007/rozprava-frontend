@@ -1,15 +1,13 @@
 <template>
-  <div class="box ">
-     
-      <div class="">
-        <ChatComponent></ChatComponent>
-      </div>
-     
+  <div class="box">
+    <div >
+      <ChatComponent></ChatComponent>
+    </div> 
   </div>
 </template>
 <script>
 import Chat1 from "@/components/chat/Chat1.vue";
-//import Inbox from "@/components/chat/Inbox.vue";
+
 export default {
   name: "Chat",
   components: {"ChatComponent":Chat1, },

@@ -11,7 +11,10 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             },
             settings: {
                 "endpoint": "profile/user/{0}/"
-            }
+            },
+            getProfile:{
+                "endpoint": "profile/user/{0}/"
+            },
         },
         constants: {
             debug: true,
@@ -30,7 +33,10 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             },
             settings: {
                 "endpoint": "profile/user/{0}/"
-            }
+            },
+            getProfile:{
+                "endpoint": "profile/user/{0}/"
+            },
         },
         constants: {
             debug: false,

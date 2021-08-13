@@ -1,3 +1,4 @@
+import {activityConfig} from "@/configurations/activity";
 import {userConfig} from "@/configurations/user";
 import {messagingConfig} from "@/configurations/messages";
 import {caseConfig} from "@/configurations/case";
@@ -17,6 +18,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
 }
 
 export const config = {
+    'activityConfig': activityConfig,
     'commonConfig': commonConfig,
     'userConfig': userConfig,
     'messagingConfig': messagingConfig,
