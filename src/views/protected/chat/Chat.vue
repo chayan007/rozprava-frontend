@@ -6,11 +6,11 @@
   </div>
 </template>
 <script>
-import Chat1 from "@/components/chat/Chat1.vue";
+import Chat from "@/components/chat/Chat.vue";
 
 export default {
   name: "Chat",
-  components: {"ChatComponent":Chat1, },
+  components: {"ChatComponent":Chat, },
 };
 </script>
 <style scoped>

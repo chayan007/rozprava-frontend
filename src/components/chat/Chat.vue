@@ -55,7 +55,7 @@
 </template>
 <script>
   export default {
-    name: "Chat1",
+    name: "Chat",
   }
 </script>
 <style scoped>
