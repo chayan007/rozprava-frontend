@@ -6,6 +6,9 @@
         <button class="a6 plus"><img src="@/assets/plus.png" class="plus" alt=""></button>
       </div>
       <InboxCard></InboxCard>
+      <InboxCard></InboxCard>
+      <InboxCard></InboxCard>
+      <InboxCard></InboxCard>
     </div>
   </div>
 </template>
