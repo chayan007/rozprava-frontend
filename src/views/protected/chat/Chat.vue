@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div >
-      <ChatComponent></ChatComponent>
+      <ChatComponent></ChatComponent> 
     </div> 
   </div>
 </template>
