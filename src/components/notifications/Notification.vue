@@ -52,6 +52,8 @@ export default {
 </script>
 
 
+
+
 <style scoped>
 .badge {
   width: 4rem;

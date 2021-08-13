@@ -15,6 +15,9 @@
               <div class="mb-3">
                 <div>
                   <NotifyComponent />
+                    <NotifyComponent />
+                      <NotifyComponent />
+                        <NotifyComponent />
                 </div>
               </div>
             </div>

@@ -23,8 +23,8 @@ const routes = [
     component: SignUp
   },
   {
-    path: '/notifications' ,
-    name: 'Notifications' ,
+    path: '/notifications',
+    name: 'Notifications',
     component: Notification
   },
   {

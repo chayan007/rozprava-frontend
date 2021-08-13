@@ -26,6 +26,7 @@ function settings(updateFields) {
             console.log(error);
         });
 }
+
 function getProfile(username){
     const authenticationHeader = authHeader();
     const url =  stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.getProfile.endpoint}`, username);
