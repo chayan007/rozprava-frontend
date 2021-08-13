@@ -86,12 +86,6 @@ export default {
 </script>
 
 <style>
-.yo {
-  width: 400px;
-  margin-top: 100px;
-  margin-left: 50%;
-  margin-right: 50%;
-}
 @media only screen and (max-width: 1024px) {
   #forgetLoginBox {
     margin-top: 50% !important;

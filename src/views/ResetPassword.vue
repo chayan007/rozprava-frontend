@@ -85,21 +85,16 @@ export default {
             config.messagingConfig.messages.error.password_mismatch,
             { root: true }
           );
+        } else{
+          dispatch("authStore/resetPassword", password, username);
         }
       }
-      dispatch("authStore/resetPassword", password, username);
   }
   }
 };
 </script>
 
 <style>
-.yo {
-  width: 400px;
-  margin-top: 100px;
-  margin-left: 50%;
-  margin-right: 50%;
-}
 #ResetPasswordBox{
   margin-top: -1px !important;
   margin-top: 8.5rem !important;

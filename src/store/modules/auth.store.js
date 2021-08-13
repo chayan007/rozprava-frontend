@@ -1,5 +1,6 @@
 import { authService } from '@/services';
 import router from "@/router";
+import { config } from "@/configurations";
 
 let user = JSON.parse(localStorage.getItem('user'));
 const initialState = user
@@ -59,8 +60,9 @@ export const authStore = {
                     let storedProfile = JSON.parse(localStorage.getItem('user'));
                     storedProfile['profile'] = user.profile;
                     localStorage.setItem('user', JSON.stringify(storedProfile));
-                    commit('refreshUser');
-                    router.push('/');
+                    commit('loginSuccess');
+                    router.push('/login');
+                    "alertStore/error", config.messagingConfig.messages.error.password_updated;
                 },
                 error => {
                     commit('loginFailure');
@@ -80,10 +82,6 @@ export const authStore = {
             state.user = user;
         },
         loginSuccess(state, user) {
-            state.status = { loggedIn: true };
-            state.user = user;
-        },
-        refreshUser(state, user) {
             state.status = { loggedIn: true };
             state.user = user;
         },

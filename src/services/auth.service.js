@@ -89,11 +89,10 @@ function checkUser(userId) {
         stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.checkUser.endpoint}`, userId)
     )
         .then((response) =>{
-            console.log('response =', response.data);
             if ('username' in response.data) {
                 return response.data.username;
             } else {
-                throw config.messagingConfig.messages.error.unknown_error;
+                throw stringFormat(config.messagingConfig.messages.error.unknown_error);
             }
         })
         .catch(() => {
@@ -111,9 +110,7 @@ function verifyOtp(username, otp){
     return axios.put(
         stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.verifyOtp.endpoint}`, username, otp)
     )
-    .then((response) => {
-        const data = response.data;
-        console.log(data);
+    .then(() => {
         return true;
     })
     .catch(() => {
@@ -129,7 +126,6 @@ function resetPassword(username, password){
         .then(response => {
             const data = response.data;
             if (response.data) {
-                localStorage.setItem('user', JSON.stringify(data));
                 return data;
             }
         })

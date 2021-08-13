@@ -9,7 +9,8 @@ const messagingConfig = {
             empty_field_error: 'The {0} field cannot be empty. Please try again.',
             user_not_found: 'No records found for the username / email.',
             does_not_exist_error: 'This {0} does not exist. Please check again.',
-            otp_not_match: 'The number that you have entered does not match your code. Please try again.',
+            otp_not_match: 'Wrong OTP submitted. Please request new OTP and try again',
+            password_updated: 'Your password is updated',
         },
         notification: {
             watched_all_cases: 'You have watched all cases. Please wait till someone raises some.'

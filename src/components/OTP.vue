@@ -99,18 +99,11 @@ export default {
           { root: true }
         );
       }
-      // dispatch("authStore/verifyOtp", username, otp);
     },
   },
 };
 </script>
 <style>
-.yo {
-  width: 400px;
-  margin-top: 100px;
-  margin-left: 50%;
-  margin-right: 50%;
-}
 #next {
   width: 7rem !important;
   margin-left: 19.5rem !important;
