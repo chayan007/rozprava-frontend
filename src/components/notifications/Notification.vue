@@ -17,7 +17,7 @@
         "
       >
         <img
-          src="@/assets/profile-picture-1.jpg"
+          src="{{show[0].profile.display_pic}}"
           class="card-img-top rounded-circle"
           alt="User image"
           width="100"
@@ -25,18 +25,13 @@
       </div>
 
       <!-- notification text  -->
-      <span class="alert-inner--text h3 ml-3"
-        >Text to be notified is shown here and it is the sample of the notification.</span
-      >
-
-    
+      <span class="alert-inner--text h3 ml-3">{{show[0].message}}</span>
 
       <button
         type="button"
         class="close text-dark"
         data-dismiss="alert"
         aria-label="Close"
-    
       >
         <span class="a.text-danger:hover" aria-hidden="true">x</span>
       </button>
@@ -48,6 +43,7 @@
 <script>
 export default {
   name: "Notification",
+  props: ["show"],
 };
 </script>
 
@@ -63,9 +59,8 @@ export default {
   margin-right: 0.5rem;
 }
 
-button span:hover{
+button span:hover {
   color: red;
 }
-
 </style>
 

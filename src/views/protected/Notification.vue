@@ -3,9 +3,9 @@
     <div class="container">
       <div class="row">
         <div class="col">
-            <div class="text-center">
-          <span class="h3">Notifications</span>
-            </div>
+          <div class="text-center">
+            <span class="h3">Notifications</span>
+          </div>
           <!-- heading -->
 
           <div class="position-relative mt-5">
@@ -14,10 +14,7 @@
             >
               <div class="mb-3">
                 <div>
-                  <NotifyComponent />
-                    <NotifyComponent />
-                      <NotifyComponent />
-                        <NotifyComponent />
+                  <NotifyComponent :show="c" />
                 </div>
               </div>
             </div>
@@ -29,10 +26,31 @@
 </template>
 
 <script>
+
+console.log()
+
 import Notification from "@/components/notifications/Notification.vue";
+import { notificationService } from "@/services";
 
 export default {
   name: "Notification",
   components: { NotifyComponent: Notification },
+  methods: {
+    getNotification() {
+      notificationService.getNotification()
+        .then((info_notify) => {
+          let c = info_notify
+          return c 
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },    
+  },
+  created() {
+    this.getNotification();
+  },
 };
+
 </script>
+

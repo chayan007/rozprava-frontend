@@ -126,7 +126,7 @@ router.beforeEach((to, from, next) => {
       'CaseCreate'
   ];
   const authPagesName = [
-      'Login',
+      
       'Register',
       'ForgetLogin',
       'EnterOTP'
