@@ -13,7 +13,7 @@
         <div class="bubble">
           <div class="send">
             <div class="massage">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi accusamus illum expedita maxime numquam esse cumque iure molestiae dolorum in! Adipisci provident esse veniam aut velit optio laborum eaque amet?
+              ram
             </div>
             <div class="time-tag">
               <span class="time">2PM</span>
@@ -23,7 +23,7 @@
         <div class="bubble">
           <div class="receive">
             <div class="massage">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati optio quos sapiente illo et deserunt recusandae temporibus ex iure! Harum eligendi tenetur illo ex a saepe quos ipsa quam commodi?
+              ram is going
             </div>
             <div class="time-tag">
               <span class="time">2PM</span>
@@ -59,6 +59,10 @@
   }
 </script>
 <style scoped>
+.bubble{
+  display: flex;
+  flex-direction: column;
+}
 .time{
   font-size: 10pt;
   opacity: 0.7;
@@ -91,7 +95,7 @@
   margin-right: 0%;
   margin-left: auto;
   margin-bottom: 0.5rem;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
 }
 .receive{
@@ -99,8 +103,9 @@
   border-radius: 0.5rem;
   background-color: white;
   margin-left: 2%;
+  margin-right: auto;
   margin-bottom: 0.5rem;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
 }
 .a6{
