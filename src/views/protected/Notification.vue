@@ -14,7 +14,7 @@
             >
               <div class="mb-3">
                 <div>
-                  <NotifyComponent :show="c" />
+                  <NotifyComponent :show="display_data" />
                 </div>
               </div>
             </div>
@@ -35,12 +35,17 @@ import { notificationService } from "@/services";
 export default {
   name: "Notification",
   components: { NotifyComponent: Notification },
+  data(){
+    return {
+      display_data : null
+    }
+  },
   methods: {
     getNotification() {
       notificationService.getNotification()
         .then((info_notify) => {
-          let c = info_notify
-          return c 
+          this.display_data = info_notify;
+          return this.display_data ;
         })
         .catch((error) => {
           console.log(error);

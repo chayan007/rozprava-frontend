@@ -17,7 +17,7 @@
         "
       >
         <img
-          src="{{show[0].profile.display_pic}}"
+          src= {{show[0].profile.display_pic}}
           class="card-img-top rounded-circle"
           alt="User image"
           width="100"
@@ -46,9 +46,6 @@ export default {
   props: ["show"],
 };
 </script>
-
-
-
 
 <style scoped>
 .badge {
