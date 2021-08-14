@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import SignUp from '@/components/auth/SignUp.vue'
 import Register from '@/views/auth/Register.vue'
 import Login from '@/views/auth/Login.vue'
@@ -13,12 +14,20 @@ import Profile from '@/views/protected/Profile.vue'
 import Recommendation from '@/views/protected/Recommendation.vue'
 import Inbox from '@/views/protected/chat/Inbox.vue'
 import Chat from '@/views/protected/chat/Chat.vue'
+import CaseCreate from '@/views/protected/case/Create.vue'
+import Notification from '@/views/protected/Notification.vue'
+
 
 const routes = [
   {
     path: '/signup',
     name: 'SignUp',
     component: SignUp
+  },
+  {
+    path: '/notifications' ,
+    name: 'Notifications' ,
+    component: Notification
   },
   {
     path: '/chat',
@@ -84,6 +93,11 @@ const routes = [
     path: '/reset-password/:username',
     name: 'ResetPassword',
     component: ResetPassword
+  },
+  {
+    path: '/case-create',
+    name: 'CaseCreate',
+    component: CaseCreate
   }
 ]
 
@@ -101,13 +115,15 @@ router.beforeEach((to, from, next) => {
       'Register',
       'Signup',
       'CaseView',
+      'Notifications',
       'ForgetLogin',
       'EnterOTP',
       'ResetPassword',
       'Timeline',
       'Recommendation',
       'Inbox',
-      'Chat'
+      'Chat',
+      'CaseCreate'
   ];
   const authPagesName = [
       'Login',

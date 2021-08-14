@@ -18,7 +18,7 @@ import Splash from "@/components/common/Splash.vue";
 
 export default {
   name: "Home",
-  components: { Splash },
+  components: { Splash},
   computed: {
     is_authenticated() {
       return false;

@@ -1,6 +1,6 @@
 <template>
   <div class="mt-4">
-    <div class="card bg-primary border-light shadow-soft m-5">
+    <div class="card bg-primary border-light shadow-soft">
       <img v-if="hasValue('image_url')"
           src="https://user-images.githubusercontent.com/83393749/122279699-f826a380-cf05-11eb-949d-5cbd6bd8027c.png"
           class="card-img-top rounded-top image"
@@ -70,22 +70,34 @@
         </p>
         <div class="d-flex align-items-center justify-content-between">
           <a href="#">
-          <img
-            src="https://user-images.githubusercontent.com/83393749/122516803-d542df00-d02c-11eb-8885-2bf6eaefa28e.png"
-          />
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<path d="M0.666504 8.00008C0.666504 8.00008 3.33317 2.66675 7.99984 2.66675C12.6665 2.66675 15.3332 8.00008 15.3332 8.00008C15.3332 8.00008 12.6665 13.3334 7.99984 13.3334C3.33317 13.3334 0.666504 8.00008 0.666504 8.00008Z" stroke="#333333" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z" stroke="#333333" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+
+          <a> 1234</a>
           </a>
           <div class="d-flex">
             <a href="#">
+              <button class="btn btn-primary btn-pill  btn-icon-only text-twitter mr-2" type="button" aria-label="twitter button" title="twitter button">
             <img
               class="image-xs p-1"
               src="https://user-images.githubusercontent.com/83393749/122523306-7e410800-d034-11eb-8586-3fcc87584356.png"
-            />
+            /></button>
             </a>
             <a href="#">
+              <button class="btn btn-primary btn-pill  btn-icon-only text-twitter" type="button" aria-label="twitter button" title="twitter button">
             <img
               class="image-xs p-1"
               src="https://user-images.githubusercontent.com/83393749/122523313-813bf880-d034-11eb-9348-e98508bbdc9b.png"
-            />
+            /></button>
             </a>
           </div>
         </div>
@@ -93,21 +105,41 @@
           <div class="d-flex">
             <a href="#">
             <img
-              class="mr-2 image-xs p-1"
-              src="https://user-images.githubusercontent.com/83393749/122525975-6d45c600-d037-11eb-9d9d-73ec9ee645f3.png"
+              src="../../assets/profile-picture-1.jpg"
+              class="rounded-circle mr-1"
+              alt="profile image"
+              width="30"
+            />
+            <img
+              src="../../assets/profile-picture-1.jpg"
+              class="rounded-circle mr-1"
+              alt="profile image"
+              width="30"
+            />
+            <img
+              src="../../assets/profile-picture-1.jpg"
+              class="rounded-circle mr-1"
+              alt="profile image"
+              width="30"
             />
             </a>
             <a href="#">
+            12
             <img
               class="image-xs p-1"
-              src="https://user-images.githubusercontent.com/83393749/122525986-6f0f8980-d037-11eb-89a6-8088d2b0f7b0.png"
+              src="https://user-images.githubusercontent.com/83393749/122523306-7e410800-d034-11eb-8586-3fcc87584356.png"
+            />
+            </a>
+            <a href="#">
+            12
+            <img
+              class="image-xs p-1"
+              src="https://user-images.githubusercontent.com/83393749/122523306-7e410800-d034-11eb-8586-3fcc87584356.png"
             />
             </a>
           </div>
           <a href="#">
-          <img
-            src="https://user-images.githubusercontent.com/83393749/122526001-72a31080-d037-11eb-9080-6e58cb6c90b3.png"
-          />
+          <a>10 Proofs</a>
           </a>
         </div>
       </div>
