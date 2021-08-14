@@ -1,6 +1,5 @@
 import { authService } from '@/services';
 import router from "@/router";
-import { config } from "@/configurations";
 
 let user = JSON.parse(localStorage.getItem('user'));
 const initialState = user
@@ -55,14 +54,8 @@ export const authStore = {
             
         resetPassword({ dispatch, commit },username, password) {
             authService.resetPassword(username, password)
-            .then(
-                user => {
-                    let storedProfile = JSON.parse(localStorage.getItem('user'));
-                    storedProfile['profile'] = user.profile;
-                    localStorage.setItem('user', JSON.stringify(storedProfile));
-                    commit('loginSuccess');
+            .then(() => {
                     router.push('/login');
-                    "alertStore/error", config.messagingConfig.messages.error.password_updated;
                 },
                 error => {
                     commit('loginFailure');

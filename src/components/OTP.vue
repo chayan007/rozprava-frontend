@@ -32,7 +32,7 @@
                     <button
                       type="submit"
                       class="btn btn-primary rounded-right"
-                      v-on:click="handleOTPSend"
+                      v-on:click="sendOTP"
                     >
                       Send OTP
                     </button>
@@ -45,7 +45,7 @@
       </div>
       <hr />
       <div v-if="resend_flag">
-        <a href=""><h6>resend OTP</h6></a>
+        <a href="" v-on:click="resendOTP"><h6>resend OTP</h6></a>
       </div>
       <button
         class="btn btn-primary"
@@ -75,10 +75,15 @@ export default {
     };
   },
   methods: {
-    handleOTPSend() {
+    sendOTP() {
       if (!this.resend_flag) {
         this.resent_flag = true;
       }
+      this.submitted = true;
+      const username = this.$route.params.username;
+      authService.sendOTP(username);
+    },
+    resendOTP() {
       this.submitted = true;
       const username = this.$route.params.username;
       authService.sendOTP(username);
