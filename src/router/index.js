@@ -95,7 +95,7 @@ const routes = [
     component: ResetPassword
   },
   {
-    path: '/case-create',
+    path: '/case/create',
     name: 'CaseCreate',
     component: CaseCreate
   }
