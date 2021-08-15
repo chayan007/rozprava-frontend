@@ -4,6 +4,7 @@ import authStore from './modules/auth.store'
 import {alertStore} from "@/store/modules/alert.store";
 import {caseStore} from "@/store/modules/case.store";
 import {userStore} from "@/store/modules/user.store";
+import {chatStore} from "@/store/modules/chat.store"; 
 
 export default createStore({
   state: {
@@ -16,6 +17,7 @@ export default createStore({
     alertStore,
     authStore,
     caseStore,
-    userStore
+    userStore,
+    chatStore
   }
 })

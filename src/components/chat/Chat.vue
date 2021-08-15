@@ -1,33 +1,56 @@
 <template>
-    <div class="a1 shadow-soft mt-5 ">
-        <div class="chat-detail shadow-soft">
-           <div class="chat-img profile-image bg-primary shadow-inset border border-light rounded-circle ml-2 ">
-                <img src="@/assets/black-rose.jpg" class="card-img-top rounded-circle " alt="User image" width="100" />
+    <div class="a1">
+      <div class="chat-detail bg-primary shadow-soft">
+        <div>
+          <button type="button" class="a4"><img src="@/assets/chat2.png" class="back" alt="Microphone" width="25"></button>
+        </div>
+        <div class="chat-img profile-image bg-primary shadow-inset border border-light rounded-circle  ml-1">
+          <img src="@/assets/black-rose.jpg" class="card-img-top rounded-circle " alt="User image" width="100" />
+        </div>
+        <div class="friend-name"><h5>Raju Kumar</h5></div>
+      </div>
+      <div class="scroll">
+        <div class="bubble">
+          <div class="send">
+            <div class="massage">
+              ram
             </div>
-            <div class="friend-name"><h5>Raju Kumar</h5></div>
-        </div>
-        <div class="wrap">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam illo nesciunt, maxime ducimus repudiandae nulla aspernatur. Officia, explicabo velit nesciunt iure itaque recusandae laudantium, animi libero sed, quasi obcaecati neque!
-            Aperiam temporibus sint facere quia non commodi repellendus nesciunt accusantium aspernatur ex. Qui id officiis, voluptate enim nobis quibusdam modi nemo quas! Sunt odio possimus dolorem perferendis aperiam ratione quia!
-            Quos quisquam rem, unde omnis numquam accusamus ullam labore eveniet natus eligendi ea vel perspiciatis! Aspernatur laudantium sequi repellendus voluptatum. Voluptate totam itaque unde possimus asperiores alias odio cumque tempora!
-            Cum expedita quaerat placeat praesentium dolorum exercitationem cupiditate commodi rerum necessitatibus similique quidem illo tempora accusamus dicta, delectus aliquam. Cum magnam consequuntur itaque vero maxime, sapiente obcaecati quis enim unde?
-            Placeat obcaecati in ab nobis reiciendis deserunt assumenda! Magnam facere ea alias molestiae ex quia quas nobis aspernatur, quidem minima, necessitatibus dolores perspiciatis. Necessitatibus alias provident tenetur quis corrupti odit.
-            Neque asperiores vel dolores, commodi non repellat aspernatur porro, ex quo illum perferendis harum quos dicta deserunt culpa veniam est debitis? Reiciendis corporis perspiciatis rerum architecto numquam fuga libero hic.
-            Explicabo esse veritatis sequi, error illo incidunt sint deserunt similique fugiat, quia maiores repudiandae. Tempore temporibus est iusto atque quod fuga praesentium nisi totam autem amet, et animi fugiat qui.
-            Quibusdam cumque officia aliquid at ab laudantium laboriosam adipisci et ea quam, nam animi sit doloremque repellat quis nisi fugit, aspernatur veniam aliquam magnam, nesciunt ipsa! Ullam reprehenderit voluptates autem!
-            Placeat quidem ducimus quae facilis perferendis a quo omnis sunt architecto ab sit commodi soluta ipsam blanditiis excepturi quisquam eius deleniti maiores nulla in, natus inventore cumque culpa quaerat! Aperiam?
-            Ad nemo obcaecati numquam vitae vero odio, quos vel quibusdam animi laborum aut inventore nesciunt quasi. Saepe omnis officia necessitatibus. Dolorum, laboriosam. Recusandae nihil vel incidunt distinctio sint, deserunt corporis.
-        </div>
-        <div class="a2">
-            <div class="text">
-                 <input type="text"  class="a3" placeholder="Enter Message" valign="bottom">
-                <button type="button" class="microphone"><img src="@/assets/microphone.png" class="microphone" alt="Microphone" width=""></button>
-                <button type="button" class="microphone"><img src="@/assets/attach.png" class="microphone" alt="Attach pic" width=""></button>
+            <div class="time-tag">
+              <span class="time">2PM</span>
             </div>
-           <div>
-                <button type="button" class="microphone"><img src="@/assets/send.png" class="microphone" alt="Send Pic" width=""></button>
-           </div>
+          </div>
         </div>
+        <div class="bubble">
+          <div class="receive">
+            <div class="massage">
+              ram is going
+            </div>
+            <div class="time-tag">
+              <span class="time">2PM</span>
+            </div>
+          </div>
+        </div>
+        <div class="bubble">
+          <div class="receive">
+            <div class="massage">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem minima libero ex eaque, odio omnis officiis natus iste qui vel, impedit veritatis nesciunt obcaecati accusamus iure? Asperiores aperiam beatae nesciunt!
+              Omnis placeat a illum itaque iste veniam facere. Vitae, quidem suscipit dolorem iure provident necessitatibus assumenda dolorum alias cumque recusandae quod iste corrupti nisi impedit, sequi perferendis et amet quo.
+            </div>
+            <div class="time-tag">
+              <span class="time">2PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="a2">
+        <div class="a5">
+          <input type="text"  class="a3" placeholder="Enter Message" valign="bottom">
+        </div>
+        <div class="a6">
+          <button type="button" class="a4"><img src="@/assets/attachment1.png" class="microphone" alt="Attach pic" width="25"></button>
+          <button type="button" class="a4"><img src="@/assets/send1.png" class="microphone" alt="Send Pic" width="25"></button>
+        </div>
+      </div>
     </div>
 </template>
 <script>
@@ -36,59 +59,114 @@
   }
 </script>
 <style scoped>
+.bubble{
+  display: flex;
+  flex-direction: column;
+}
+.time{
+  font-size: 10pt;
+  opacity: 0.7;
+}
+.time-tag{
+  margin-left: auto;
+  margin-right: 0rem;
+  display: inline-block;
+}
+.massage{
+  padding: 1rem 1rem 0rem 1rem;
+}
+.back{
+  margin-top: 0.5rem;
+  background: transparent;
+}
+.scroll{
+  overflow-y: auto;
+}
+.scroll::-webkit-scrollbar{
+  text-decoration: none;
+}
+.send-box{
+  padding: 1rem;
+}
+.send{
+  max-width: 70%;
+  border-radius: 0.5rem;
+  background-color: rgb(167, 245, 167);
+  margin-right: 0%;
+  margin-left: auto;
+  margin-bottom: 0.5rem;
+  display: inline-flex;
+  flex-direction: column;
+}
+.receive{
+  max-width: 70%;
+  border-radius: 0.5rem;
+  background-color: white;
+  margin-left: 2%;
+  margin-right: auto;
+  margin-bottom: 0.5rem;
+  display: inline-flex;
+  flex-direction: column;
+}
+.a6{
+  white-space: nowrap;
+  margin-right: 1rem !important;
+}
+.a5{
+  width: 100%;
+}
+.a4{
+  border: none;
+  background: none;
+}
+.a3{
+  outline: none;
+  border: none;
+  border-radius: 1rem;
+  background-color: rgb(215, 247, 247);
+  padding: 0.3rem 1rem;
+  margin-left: 0rem;
+  width: 100%;
+}
 .friend-name{
-     margin-top: 1rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
 }
 .chat-detail{
   display: flex;
-  border-top-left-radius:1rem;
-  border-top-right-radius:1rem;
-}
-.chat-img{
-  top: 45%;
-  width: 3.5rem;
-  height: 3.5rem;
-  padding : 0.15rem;
-  margin-right: 0.5rem;
-}
-.wrap{
-    overflow-wrap: break-word;
-    overflow-y: auto;
-}
-.wrap::-webkit-scrollbar{
-    text-decoration: none;
-}
-.text{
-    background-color: white;
-    border-radius: 0.5rem;
-    margin-left: 1rem;
-}
-.microphone{
-    outline: none;
-    border: none;
-    padding: 0rem 0.1rem;
-    background: transparent;
+  z-index: 200;
 }
 .a2{
-    margin-top: auto;
-    margin-bottom: 1rem;
-    display: flex;
-    background-color: yellow;
+  background-color: white;
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: 0rem;
+  padding: 0.3rem;
+  display: flex;
 }
 .a1{
-        width: 25rem;
-        margin-left: auto;
-        margin-right: auto;
-        height: 30rem;
-        border-radius: 1rem;
-       display: flex;
-       flex-direction: column;
-    }
-    .a3{
-        margin-left: 0rem;
-        border: none;
-        outline: none;
-        border-radius: 0.5rem;
-        padding: 0.3rem 0.5rem;
-    }
+  width: 50%;
+  margin-left: 25%;
+  margin-right: auto;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 0rem;
+  top: 6.2rem;
+}
+@media (max-width: 700px) {
+  .a1 {
+    width: 100%;
+    top: 6rem;
+    margin-left: 0%;
+  }
+}
+@media (max-width: 700px) {
+  .send{
+    max-width: 80%;
+  }
+  .receive{
+    max-width: 80%;
+  }
+}
 </style>
