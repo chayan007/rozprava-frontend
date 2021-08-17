@@ -17,15 +17,17 @@
         "
       >
         <img
-          src= {{show[0].profile.display_pic}}
-          class="card-img-top rounded-circle"
+          :src="notification.profile.display_pic"
+          class="card-img-top mt-5 rounded-circle"
           alt="User image"
           width="100"
         />
       </div>
 
       <!-- notification text  -->
-      <span class="alert-inner--text h3 ml-3">{{show[0].message}}</span>
+      <span v-on:click="redirect()" class="alert-inner--text h3 ml-3">{{
+        notification.message
+      }}</span>
 
       <button
         type="button"
@@ -43,7 +45,13 @@
 <script>
 export default {
   name: "Notification",
-  props: ["show"],
+  props: ["notification"],
+  methods: {
+    redirect() {
+      this.$router.push(this.notification.redirect_url);
+        alert(this.notification.redirect_url);
+    },
+  },
 };
 </script>
 
@@ -56,7 +64,7 @@ export default {
   margin-right: 0.5rem;
 }
 
-button span:hover {
+button:hover {
   color: red;
 }
 </style>

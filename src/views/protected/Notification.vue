@@ -14,7 +14,9 @@
             >
               <div class="mb-3">
                 <div>
-                  <NotifyComponent :show="display_data" />
+                  <template v-for = "notification in notifications" :key="notification.message" >
+                  <NotifyComponent :notification="notification" />
+                  </template>
                 </div>
               </div>
             </div>
@@ -26,9 +28,6 @@
 </template>
 
 <script>
-
-console.log()
-
 import Notification from "@/components/notifications/Notification.vue";
 import { notificationService } from "@/services";
 
@@ -37,15 +36,15 @@ export default {
   components: { NotifyComponent: Notification },
   data(){
     return {
-      display_data : null
+     notifications: null
     }
   },
   methods: {
     getNotification() {
       notificationService.getNotification()
-        .then((info_notify) => {
-          this.display_data = info_notify;
-          return this.display_data ;
+        .then((notifications) => {
+          console.log(notifications);
+          this.notifications = notifications;
         })
         .catch((error) => {
           console.log(error);
