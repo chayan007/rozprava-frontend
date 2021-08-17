@@ -10,7 +10,6 @@ import ResetPassword from '@/views/ResetPassword.vue'
 import Settings from '@/views/protected/Settings.vue'
 import CaseView from '@/views/public/CaseView.vue'
 import Activity from '@/views/public/Activity.vue'
-
 import Search from '@/views/protected/Search.vue'
 import Profile from '@/views/protected/Profile.vue'
 import Recommendation from '@/views/protected/Recommendation.vue'
