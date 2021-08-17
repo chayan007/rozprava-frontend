@@ -50,8 +50,21 @@ export const authStore = {
                         dispatch('alertStore/error', error, { root: true });
                     }
                 );
-        }     
+        },
+            
+        resetPassword({ dispatch, commit },username, password) {
+            authService.resetPassword(username, password)
+            .then(() => {
+                    router.push('/login');
+                },
+                error => {
+                    commit('loginFailure');
+                    dispatch('alertStore/error', error, { root: true });
+                }
+            );
+        },
     },
+
     mutations: {
         loginRequest(state, user) {
             state.status = { loggingIn: true };

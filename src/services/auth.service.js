@@ -5,7 +5,11 @@ import {stringFormat} from "@/helpers";
 export const authService = {
     login,
     logout,
-    register
+    register,
+    checkUser,
+    sendOTP,
+    verifyOtp,
+    resetPassword
 };
 
 function login(username, password) {
@@ -77,5 +81,55 @@ function register(name, email, phone, username, password1, password2) {
             } else {
                 throw config.messagingConfig.messages.error.unknown_error;
             }
+        });
+}
+
+function checkUser(userId) {  
+     return axios.get(
+        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.checkUser.endpoint}`, userId)
+    )
+        .then((response) =>{
+            if ('username' in response.data) {
+                return response.data.username;
+            } else {
+                throw stringFormat(config.messagingConfig.messages.error.unknown_error);
+            }
+        })
+        .catch(() => {
+            throw stringFormat(config.messagingConfig.messages.error.does_not_exist_error, 'user');
+        }) 
+}
+
+function sendOTP(username) {
+    return axios.post(
+        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.sendOtp.endpoint}`, username)
+   )  
+}
+
+function verifyOtp(username, otp){
+    return axios.put(
+        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.verifyOtp.endpoint}`, username, otp)
+    )
+    .then(() => {
+        return true;
+    })
+    .catch(() => {
+        throw config.messagingConfig.messages.error.otp_not_match;
+    }) 
+}
+
+function resetPassword(username, password){
+    return axios.put(
+        stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.resetPassword.endpoint}`, username),
+        { password: password }
+    )
+        .then(response => {
+            const data = response.data;
+            if (response.data) {
+                return data;
+            }
+        })
+        .catch((error) => {
+            console.log(error);
         });
 }

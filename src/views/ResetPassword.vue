@@ -75,6 +75,7 @@ export default {
   methods: {
     handleSubmit() {
       this.submitted = true;
+      const username = this.$route.params.username;
       const { password, password2 } = this;
       const { dispatch } = this.$store;
       if (password && password2) {
@@ -84,21 +85,16 @@ export default {
             config.messagingConfig.messages.error.password_mismatch,
             { root: true }
           );
+        } else{
+          dispatch("authStore/resetPassword", password, username);
         }
       }
-      dispatch("authStore/resetPassword", password);
   }
   }
 };
 </script>
 
 <style>
-.yo {
-  width: 400px;
-  margin-top: 100px;
-  margin-left: 50%;
-  margin-right: 50%;
-}
 #ResetPasswordBox{
   margin-top: -1px !important;
   margin-top: 8.5rem !important;

@@ -4,9 +4,9 @@ import SignUp from '@/components/auth/SignUp.vue'
 import Register from '@/views/auth/Register.vue'
 import Login from '@/views/auth/Login.vue'
 import Home from '@/views/Home.vue'
-import ForgetLogin from '@/views/auth/ForgetLogin.vue'
-import EnterOTP from '@/views/auth/EnterOTP.vue'
-import ResetPassword from '@/views/auth/ResetPassword.vue'
+import ForgetLogin from '@/views/ForgetLogin.vue'
+import EnterOTP from '@/views/EnterOTP.vue'
+import ResetPassword from '@/views/ResetPassword.vue'
 import Settings from '@/views/protected/Settings.vue'
 import CaseView from '@/views/public/CaseView.vue'
 import Search from '@/views/protected/Search.vue'
@@ -85,12 +85,12 @@ const routes = [
     component: ForgetLogin
   },
   {
-    path: '/enter-otp',
+    path: '/enter-otp/:username',
     name: 'EnterOTP',
     component: EnterOTP
   },
   {
-    path: '/reset-password',
+    path: '/reset-password/:username',
     name: 'ResetPassword',
     component: ResetPassword
   },

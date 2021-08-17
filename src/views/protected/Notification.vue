@@ -14,9 +14,14 @@
             >
               <div class="mb-3">
                 <div>
+<<<<<<< HEAD
                   <template v-for = "notification in notifications" :key="notification.message" >
                   <NotifyComponent :notification="notification" />
                   </template>
+=======
+                  <NotifyComponent />
+                  <NotifyComponent />
+>>>>>>> f842d138fcbd0f8fbb443e9ab187b0b823285980
                 </div>
               </div>
             </div>
