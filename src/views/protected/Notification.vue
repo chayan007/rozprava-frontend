@@ -7,7 +7,6 @@
             <span class="h3">Notifications</span>
           </div>
           <!-- heading -->
-
           <div class="position-relative mt-5">
             <div
               class="rounded shadow-soft border border-light bg-soft p-4 mb-2"
@@ -30,6 +29,8 @@
 <script>
 import Notification from "@/components/notifications/Notification.vue";
 import { notificationService } from "@/services";
+import { config } from "@/configurations";
+import {stringFormat} from "@/helpers";
 
 export default {
   name: "Notification",
@@ -46,8 +47,8 @@ export default {
           console.log(notifications);
           this.notifications = notifications;
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+         throw stringFormat(config.messagingConfig.messages.notification.failure , 'notifications');
         });
     },    
   },

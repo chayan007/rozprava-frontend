@@ -1,4 +1,4 @@
-import { authHeader } from '@/helpers';
+import { authHeader , stringFormat} from '@/helpers';
 import { config } from "@/configurations";
 import axios from "axios";
 
@@ -18,11 +18,8 @@ function getNotification() {
             console.log((info_notify))
             return (info_notify)
         })
-        .catch((error) => {
-            console.log(error)
-            if (typeof error === 'string') {
-                throw error;
-            }
+        .catch(() => {
+            throw stringFormat(config.messagingConfig.messages.notification.failure , 'info_notify');
         });
 }
 

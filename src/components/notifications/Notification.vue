@@ -49,7 +49,6 @@ export default {
   methods: {
     redirect() {
       this.$router.push(this.notification.redirect_url);
-        alert(this.notification.redirect_url);
     },
   },
 };
@@ -64,8 +63,5 @@ export default {
   margin-right: 0.5rem;
 }
 
-button:hover {
-  color: red;
-}
 </style>
 
