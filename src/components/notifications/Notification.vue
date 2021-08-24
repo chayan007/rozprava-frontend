@@ -17,26 +17,23 @@
         "
       >
         <img
-          src="@/assets/profile-picture-1.jpg"
-          class="card-img-top rounded-circle"
+          :src="notification.profile.display_pic"
+          class="card-img-top mt-5 rounded-circle"
           alt="User image"
           width="100"
         />
       </div>
 
       <!-- notification text  -->
-      <span class="alert-inner--text h3 ml-3"
-        >Text to be notified is shown here and it is the sample of the notification.</span
-      >
-
-    
+      <span v-on:click="redirect()" class="alert-inner--text h3 ml-3">{{
+        notification.message
+      }}</span>
 
       <button
         type="button"
         class="close text-dark"
         data-dismiss="alert"
         aria-label="Close"
-    
       >
         <span class="a.text-danger:hover" aria-hidden="true">x</span>
       </button>
@@ -48,9 +45,14 @@
 <script>
 export default {
   name: "Notification",
+  props: ["notification"],
+  methods: {
+    redirect() {
+      this.$router.push(this.notification.redirect_url);
+    },
+  },
 };
 </script>
-
 
 <style scoped>
 .badge {
@@ -60,10 +62,5 @@ export default {
   top: 45%;
   margin-right: 0.5rem;
 }
-
-button span:hover{
-  color: red;
-}
-
 </style>
 

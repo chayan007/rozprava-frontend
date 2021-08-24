@@ -9,6 +9,9 @@ caseConfig = {
                 category: "category={}",
                 isOrdered: "is_ordered={}"
             }
+        },
+        fetchNotification:{
+            endpoint: "notification/v1/",  
         }
     },
     categories: {
