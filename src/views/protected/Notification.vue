@@ -13,8 +13,11 @@
             >
               <div class="mb-3">
                 <div>
-                  <template v-for = "notification in notifications" :key="notification.message" >
-                  <NotifyComponent :notification="notification" />
+                  <template
+                    v-for="notification in notifications"
+                    :key="notification.message"
+                  >
+                    <NotifyComponent :notification="notification" />
                   </template>
                 </div>
               </div>
@@ -30,32 +33,34 @@
 import Notification from "@/components/notifications/Notification.vue";
 import { notificationService } from "@/services";
 import { config } from "@/configurations";
-import {stringFormat} from "@/helpers";
+import { stringFormat } from "@/helpers";
 
 export default {
   name: "Notification",
   components: { NotifyComponent: Notification },
-  data(){
+  data() {
     return {
-     notifications: null
-    }
+      notifications: null,
+    };
   },
   methods: {
     getNotification() {
-      notificationService.getNotification()
+      notificationService
+        .getNotification()
         .then((notifications) => {
-          console.log(notifications);
           this.notifications = notifications;
         })
         .catch(() => {
-         throw stringFormat(config.messagingConfig.messages.notification.failure , 'notifications');
+          throw stringFormat(
+            config.messagingConfig.messages.notification.failure,
+            "notifications"
+          );
         });
-    },    
+    },
   },
   created() {
     this.getNotification();
   },
 };
-
 </script>
 

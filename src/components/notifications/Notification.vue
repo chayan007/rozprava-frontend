@@ -62,6 +62,5 @@ export default {
   top: 45%;
   margin-right: 0.5rem;
 }
-
 </style>
 

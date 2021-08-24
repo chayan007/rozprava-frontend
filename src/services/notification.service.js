@@ -15,8 +15,7 @@ function getNotification() {
         )
         .then((response) => {
             let info_notify = (response.data)
-            console.log((info_notify))
-            return (info_notify)
+            return info_notify;
         })
         .catch(() => {
             throw stringFormat(config.messagingConfig.messages.notification.failure , 'info_notify');

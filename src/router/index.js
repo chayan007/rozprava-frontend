@@ -16,6 +16,7 @@ import Inbox from '@/views/protected/chat/Inbox.vue'
 import Chat from '@/views/protected/chat/Chat.vue'
 import CaseCreate from '@/views/protected/case/Create.vue'
 import Notification from '@/views/protected/Notification.vue'
+import Upload from '@/components/Upload.vue'
 
 
 const routes = [
@@ -28,6 +29,11 @@ const routes = [
     path: '/notifications',
     name: 'Notifications',
     component: Notification
+  },
+  {
+    path: '/upload',
+    name: 'Upload',
+    component: Upload
   },
   {
     path: '/chat',
