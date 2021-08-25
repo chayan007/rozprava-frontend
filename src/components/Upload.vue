@@ -1,6 +1,10 @@
 <template>
+<<<<<<< Updated upstream
   <div class="row mt-10 ml-10">  
     <!-- the class can be removed as it is to see this on page and also the router /upload -->
+=======
+  <div>
+>>>>>>> Stashed changes
     <div>
       <div class="card shadow-soft border-light container bg-soft p-2">
         <div class="upload_head">

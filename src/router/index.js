@@ -16,7 +16,7 @@ import Inbox from '@/views/protected/chat/Inbox.vue'
 import Chat from '@/views/protected/chat/Chat.vue'
 import CaseCreate from '@/views/protected/case/Create.vue'
 import Notification from '@/views/protected/Notification.vue'
-import Upload from '@/components/Upload.vue'
+import Upload from '@/views/Upload.vue'
 
 
 
