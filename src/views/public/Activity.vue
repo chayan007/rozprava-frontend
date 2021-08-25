@@ -1,8 +1,12 @@
 <template>
   <h2>Activity Feed</h2>
     <ol class="activity-feed">
+      <ActivityItem></ActivityItem>
+      <ActivityItem></ActivityItem>
+      <ActivityItem></ActivityItem>
+      <ActivityItem></ActivityItem>    
     </ol>
-    <ActivityItem></ActivityItem>
+    
 </template>
 <script>
 // @ is an alias to /src
@@ -15,14 +19,11 @@ export default {
 </script>
 
 <style>
-body {
-  font-family: 'Open Sans', sans-serif;
-  color: #4e555f;
-  font-size: 14px;
-}
+
 
 .activity-feed {
-  padding: 15px;
+  padding: 50px;
   list-style: none;
 }
+
 </style>
