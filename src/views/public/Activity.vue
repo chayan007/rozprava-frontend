@@ -24,11 +24,8 @@ export default {
 </script>
 
 <style>
-
-
 .activity-feed {
   padding: 2em;
   list-style: none;
 }
-
 </style>
