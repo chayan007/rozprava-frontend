@@ -1,11 +1,16 @@
 <template>
-  <h2>Activity Feed</h2>
+  <h2 class="mt-6 pl-4">Activity Feed</h2>
     <ol class="activity-feed">
       <ActivityItem></ActivityItem>
       <ActivityItem></ActivityItem>
       <ActivityItem></ActivityItem>
-      <ActivityItem></ActivityItem>    
+      <ActivityItem></ActivityItem>         
     </ol>
+    <div class="w-100 text-center">
+      <a href="">
+        Terms & condition
+      </a>
+    </div>
     
 </template>
 <script>
@@ -22,7 +27,7 @@ export default {
 
 
 .activity-feed {
-  padding: 50px;
+  padding: 2em;
   list-style: none;
 }
 

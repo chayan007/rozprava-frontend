@@ -1,10 +1,16 @@
 <template>
-  <li class="item">
-    <time class="date" datetime="9-25">Sep 25</time>
-    <span class="text">Activity details</span>
-  </li>
-  
-  
+  <div class="col-md-6">
+                
+                <div class= "item">
+                  <div class="iteminner">
+                    
+                    <div class="rounded-circle activitydot">
+                  
+                  </div>
+                <span class="pl-3 itemtext">Activity Module</span></div>    
+                </div>
+                
+            </div>
 </template>
 
 <script>
@@ -25,6 +31,23 @@ html {
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
 
+.activitydot{
+  height: 1.5em;
+  width: 1.5em;
+  background-color:#4e555f;
+  display: inline-block;
+}
+
+.iteminner{
+  position:relative;
+  right: 5.15em;
+  display: flex;
+  align-items: center;
+}
+.itemtext{
+  display: inline-block;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   color: #4e555f;
@@ -36,8 +59,8 @@ body {
     position: relative;
     padding-bottom: 20px;
     padding-left: 60px;
-    border-left: 7px solid black;
     
+    border-left: 4px solid #4e555f;
   }
   
 
@@ -55,7 +78,7 @@ body {
       border-radius: 20px;
       background: #fff;
       border: 8px solid black;
-      align: 50%;
+      
 
       display: block;
       position: 50%;
@@ -67,7 +90,7 @@ body {
     .text {
       position: relative;
       top: -3px;
-      align: 50%;
+      
 
     }
   
