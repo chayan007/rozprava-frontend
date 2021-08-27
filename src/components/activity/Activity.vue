@@ -47,7 +47,7 @@ body {
       border-color: transparent;
       content: "";
       display: circle;
-      position: absolute;
+      position: relative;
       top: 0;
       left: 43%;
       width: 20px;
@@ -55,7 +55,7 @@ body {
       border-radius: 20px;
       background: #fff;
       border: 8px solid black;
-      border-align: 50%;
+      align: 50%;
 
       display: block;
       position: 50%;
@@ -67,6 +67,8 @@ body {
     .text {
       position: relative;
       top: -3px;
+      align: 50%;
+
     }
   
 
