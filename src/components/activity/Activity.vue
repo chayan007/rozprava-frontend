@@ -34,11 +34,17 @@ export default {
   display: inline-block;
 }
 
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #4e555f;
+  font-size: 14px;
+  
+}
+
 .item {
     position: relative;
     padding-bottom: 20px;
     padding-left: 60px;
     border-left: 4px solid #4e555f;
 }
-    
 </style>
