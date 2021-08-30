@@ -258,8 +258,6 @@ input:checked + .slider:before {
   -ms-transform: translateX(1.15em);
   transform: translateX(1.15em);
 }
-
-
 .form-check-input {
   border: 1px solid;
 }
