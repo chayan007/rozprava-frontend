@@ -13,13 +13,13 @@
           "
         >
           <img
-            :src="recommendation.display_pic"
+            :src="getImg()"
             class="card-img-top rounded-circle"
             alt="fail to load image"
             width="100"
           />
         </div>
-        <p class="card-text py-3 mb-0">{{recommendation.user.full_name}}</p>
+        <p class="card-text py-3 mb-0">{{ recommendation.user.full_name }}</p>
         <button
           class="btn btn-pill button-space mb-3 btn-primary"
           type="button"
@@ -30,14 +30,24 @@
     </div>
   </div>
 </template>
+
 <script>
+
 export default {
   name: "PeopleCard",
   props: ["recommendation"],
+  methods: {
+    getImg(){
+      try{ 
+        return require(this.recommendation.display_pic)
+      }catch(_){
+        return require(`@/assets/black-rose.jpg`)
+      }
+    }
+  }
 };
 </script>
 <style scoped>
-
 .a1 {
   width: 80%;
   height: 15rem;
@@ -48,7 +58,7 @@ export default {
   height: 100%;
   background-color: blue;
   border-radius: 1rem;
-  padding:5px;
+  padding: 5px;
 }
 .frame {
   display: flex;
