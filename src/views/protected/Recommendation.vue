@@ -1,6 +1,6 @@
 <template>
   <div class="box" style="text-align: center">
-    <div class="mb-5" @click="open_case">
+    <div class="mb-5 p-5" @click="open_case">
       <Button></Button>
     </div>
     <div
@@ -36,7 +36,7 @@
 <script>
 import Button from "@/components/recommendation/Button.vue";
 import PeopleCard from "@/components/recommendation/PeopleCard.vue";
-import { recommendationService } from "@/services";
+import { userService } from "@/services";
 import { config } from "@/configurations";
 import { stringFormat } from "@/helpers";
 
@@ -50,15 +50,14 @@ export default {
   },
   methods: {
     getRecommendations() {
-      recommendationService
+      userService
         .getRecommendations()
         .then((recommendations) => {
           this.recommendations = recommendations;
         })
         .catch(() => {
           throw stringFormat(
-            config.messagingConfig.messages.recommendation.failure,
-            "recommendations"
+            config.messagingConfig.messages.error.watched_all_recommends,"recommendations"
           );
         });
     },

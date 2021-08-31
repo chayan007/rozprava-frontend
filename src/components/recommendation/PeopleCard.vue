@@ -13,7 +13,15 @@
           "
         >
           <img
-            :src="getImg()"
+            v-if="recommendation.display_pic"
+            :src="recommendation.display_pic"
+            class="card-img-top rounded-circle"
+            alt="fail to load image"
+            width="100"
+          />
+          <img
+            v-else
+            src="@/assets/black-rose.jpg"
             class="card-img-top rounded-circle"
             alt="fail to load image"
             width="100"
@@ -32,19 +40,9 @@
 </template>
 
 <script>
-
 export default {
   name: "PeopleCard",
-  props: ["recommendation"],
-  methods: {
-    getImg(){
-      try{ 
-        return require(this.recommendation.display_pic)
-      }catch(_){
-        return require(`@/assets/black-rose.jpg`)
-      }
-    }
-  }
+  props: ["recommendation"]
 };
 </script>
 <style scoped>

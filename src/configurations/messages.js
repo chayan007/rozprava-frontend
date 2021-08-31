@@ -10,15 +10,9 @@ const messagingConfig = {
             user_not_found: 'No records found for the username / email.',
             does_not_exist_error: 'This {0} does not exist. Please check again.',
             otp_not_match: 'Wrong OTP submitted. Please request new OTP and try again',
-        },
-        notification: {
             watched_all_cases: 'You have watched all cases. Please wait till someone raises some.',
-            failure: 'Failed to retrieve {0}. Please try again'
+            watched_all_recommends: 'You have watched all {0}. Please wait for {0}.'
         },
-        recommendation: {
-            watched_all_recommends: 'You have watched all recommends. Please wait till new recommends.',
-            failure: 'Failed to retrieve recommendation. Please try again'
-        }
     }
 };
 

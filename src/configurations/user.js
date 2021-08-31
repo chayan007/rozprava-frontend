@@ -61,7 +61,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             getProfile:{
                 "endpoint": "profile/user/{0}/"
             },
-            fetchRecommendation:{
+            fetchRecommendations:{
                 "endpoint": "profile/recommend/",  
             }
         },

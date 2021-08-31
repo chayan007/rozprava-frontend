@@ -18,7 +18,7 @@ function getNotification() {
             return info_notify;
         })
         .catch(() => {
-            throw stringFormat(config.messagingConfig.messages.notification.failure , 'info_notify');
+            throw stringFormat(config.messagingConfig.messages.error.unknown_error , 'info_notify');
         });
 }
 
