@@ -6,7 +6,7 @@ export const notificationService = { getNotification };
 
 function getNotification() {
     const headers = authHeader();
-    let url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.fetchNotification.endpoint}`;
+    let url = `${config.commonConfig.$apiUrl}/${config.notificationConfig.api.fetchNotification.endpoint}`;
 
     return axios
         .get(

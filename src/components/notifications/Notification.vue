@@ -35,12 +35,11 @@
         data-dismiss="alert"
         aria-label="Close"
       >
-        <span class="a.text-danger:hover" aria-hidden="true">x</span>
+      <span class="a.text-danger:hover" aria-hidden="true">x</span>
       </button>
     </div>
   </div>
 </template>
-
 
 <script>
 export default {

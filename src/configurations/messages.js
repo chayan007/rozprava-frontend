@@ -14,6 +14,10 @@ const messagingConfig = {
         notification: {
             watched_all_cases: 'You have watched all cases. Please wait till someone raises some.',
             failure: 'Failed to retrieve {0}. Please try again'
+        },
+        recommendation: {
+            watched_all_recommends: 'You have watched all recommends. Please wait till new recommends.',
+            failure: 'Failed to retrieve recommendation. Please try again'
         }
     }
 };

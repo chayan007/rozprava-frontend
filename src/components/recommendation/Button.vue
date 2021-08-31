@@ -1,5 +1,5 @@
 <template>
-        <div >
+        <div>
             <div class="a-1 space scroll">
                 <button class="btn btn-pill mr-3  mb-3 btn-primary" type="button">All</button>
                 <button class="btn btn-pill mr-3  mb-3 btn-primary" type="button">
