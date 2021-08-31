@@ -14,7 +14,7 @@
     
 </template>
 <script>
-// @ is an alias to /src
+
 import Activity from "@/components/activity/Activity.vue";
 
 export default {
