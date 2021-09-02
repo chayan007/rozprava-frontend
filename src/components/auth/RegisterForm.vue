@@ -258,7 +258,8 @@ export default {
         phone
       }
 
-      dispatch('authStore/register', updateField);
+      dispatch('authStore/register', updateField)
+      
     }
   }
 };

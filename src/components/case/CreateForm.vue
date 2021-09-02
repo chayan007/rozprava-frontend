@@ -80,8 +80,9 @@
             <input type="checkbox" checked />
             <span class="slider round"></span>
           </label>
-          <label class="h6 form-check-label" for="flexSwitchCheckDefault"
-            > <img class="anonymous-icon" src="@/assets/anonymous.png" alt=""> Post Anonymously</label
+          <label class="h6 form-check-label" for="flexSwitchCheckDefault">
+            <img class="anonymous-icon" src="@/assets/anonymous.png" alt="" />
+            Post Anonymously</label
           >
         </div>
 
@@ -132,6 +133,7 @@
         <button
           type="submit"
           class="post-btn btn btn-dark rounded-pill justify-content-end"
+          v-on:click="createCase"
         >
           Post
         </button>
@@ -143,15 +145,19 @@
 </template>
 
 <script>
+import {stringFormat} from "@/helpers";
+import { config } from "@/configurations";
+
 export default {
   name: "Create",
- casesData() {
+
+  data() {
     return {
-      title:'',
-      description:'',
+      title: "",
+      description: "",
       tags: [],
-      newTag: '',
-      mention:''
+      newTag: "",
+      // mention: "",
     };
   },
 
@@ -167,8 +173,37 @@ export default {
     removeTag(index) {
       this.tags.splice(index, 1);
     },
+    createCase(){
+      const {
+        title,
+        description,
+      }= this;
+       const { dispatch } = this.$store;
+
+      if (!title){
+        dispatch(
+            'alertStore/error',
+            stringFormat(config.messagingConfig.messages.error.field_error, 'Title').trim(),
+            { root: true }
+        );
+        return;
+      }
+
+       if (!description){
+        dispatch(
+            'alertStore/error',
+            stringFormat(config.messagingConfig.messages.error.field_error, 'Description').trim(),
+            { root: true }
+        );
+        return;
+      }
+      const createCase = {
+        title,
+        description,
+      }
+       dispatch('caseStore/createCase', createCase)
+    }
   },
-  
 };
 </script>
 
@@ -228,7 +263,7 @@ export default {
   width: 2.7em;
   height: 1.5em;
 }
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -241,19 +276,19 @@ export default {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 .slider:before {
   position: absolute;
   content: "";
   height: 1.21em;
   width: 1.21em;
-  left: .15em;
-  bottom: .15em;
+  left: 0.15em;
+  bottom: 0.15em;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 input:checked + .slider {
   background-color: #31344b;

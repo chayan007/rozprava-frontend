@@ -1,6 +1,6 @@
 import { caseService } from '@/services';
-import {stringFormat} from "@/helpers";
-import {config} from "@/configurations";
+import { stringFormat } from "@/helpers";
+import { config } from "@/configurations";
 
 export const caseStore = {
     namespaced: true,
@@ -37,7 +37,7 @@ export const caseStore = {
                 );
         },
 
-        storeCasesByCategory( { dispatch, commit }, category) {
+        storeCasesByCategory({ dispatch, commit }, category) {
             const defined_category = config.caseConfig.categories[category]
 
             if (!defined_category) {
@@ -56,7 +56,7 @@ export const caseStore = {
                 );
         },
 
-        storeProfileCases( { dispatch, commit }, username, category = null) {
+        storeProfileCases({ dispatch, commit }, username, category = null) {
             let defined_category = null;
 
             if (category) {
@@ -66,7 +66,7 @@ export const caseStore = {
                     dispatch(
                         'alertStore/error',
                         stringFormat(config.messagingConfig.messages.error.does_not_exist_error, 'category'),
-                        {root: true}
+                        { root: true }
                     );
                     return;
                 }
@@ -76,6 +76,22 @@ export const caseStore = {
                 .then(
                     cases => commit('storeCases', cases),
                     error => dispatch('alertStore/error', error, { root: true })
+                );
+        },
+        createCase({ dispatch, commit }, {
+            title,
+            description,
+        }) {
+            commit
+            caseService.getCases(title, description)
+                .then(
+                    user => {
+                        commit('caseCreatedsuccessfully', user);
+                    },
+                    error => {
+                        commit('caseCreatedFailure');
+                        dispatch('alertStore/error', error, { root: true });
+                    }
                 );
         }
     },

@@ -12,6 +12,9 @@ caseConfig = {
         },
         fetchNotification:{
             endpoint: "notification/v1/",  
+        },
+        create:{
+            endpoint:"case/v1/create/",
         }
     },
     categories: {

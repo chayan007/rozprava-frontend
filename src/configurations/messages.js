@@ -13,7 +13,8 @@ const messagingConfig = {
         },
         notification: {
             watched_all_cases: 'You have watched all cases. Please wait till someone raises some.',
-            failure: 'Failed to retrieve {0}. Please try again'
+            failure: 'Failed to retrieve {0}. Please try again',
+            case_failure:'The case is not created. Please try again'
         }
     }
 };

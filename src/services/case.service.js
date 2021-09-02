@@ -1,11 +1,11 @@
-import {authHeader, stringFormat} from '@/helpers';
+import { authHeader, stringFormat } from '@/helpers';
 import { config } from "@/configurations";
 import axios from "axios";
 
-export const caseService = { getCases };
+export const caseService = { getCases,createCase };
 //create a function called create 
 
-function getCases(category= null, username = null) {
+function getCases(category = null, username = null) {
     const headers = authHeader();
     let url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.list.endpoint}`;
 
@@ -43,4 +43,22 @@ function getCases(category= null, username = null) {
         });
 }
 
-// function createCase(){}
+function createCase(createCaseBody) {
+    const headers = authHeader();
+    let url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.create.endpoint}`;
+    return axios
+        .post(
+            url,
+            { headers: headers },
+            createCaseBody
+        )
+        .then((response) => {
+            let case_info = (response.data)
+            console.log(case_info)
+            // return case_info;
+        })
+        .catch(() => {
+            throw stringFormat(config.messagingConfig.messages.notification.case_failure , 'case_info');
+        });
+}
+
