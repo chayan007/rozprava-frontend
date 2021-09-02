@@ -63,15 +63,15 @@
           </span>
         </div>
         <br />
-        <label for="Mentions">Mention People:</label>
-        <input
+        <!-- <label for="Mentions">Mention People:</label>
+        <input                commenting mention
           type="Mentions"
           class="form-control1 p-0"
           placeholder="Mention People using @"
           v-model="mention"
           id="Mentions"
           aria-describedby="Mentions"
-        />
+        /> -->
       </div>
 
       <div class="card-footer row m-0 navbar pt-0">
@@ -145,8 +145,9 @@
 </template>
 
 <script>
-import {stringFormat} from "@/helpers";
+import { stringFormat } from "@/helpers";
 import { config } from "@/configurations";
+import { caseService } from "@/services";
 
 export default {
   name: "Create",
@@ -173,36 +174,38 @@ export default {
     removeTag(index) {
       this.tags.splice(index, 1);
     },
-    createCase(){
-      const {
-        title,
-        description,
-      }= this;
-       const { dispatch } = this.$store;
+    createCase() {
+      caseService.createCase();
+      const { title, description } = this;
+      const { dispatch } = this.$store;
 
-      if (!title){
+      if (!title) {
         dispatch(
-            'alertStore/error',
-            stringFormat(config.messagingConfig.messages.error.field_error, 'Title').trim(),
-            { root: true }
+          "alertStore/error",
+          stringFormat(
+            config.messagingConfig.messages.error.field_error,
+            "Title"
+          ).trim(),
+          { root: true }
         );
         return;
       }
 
-       if (!description){
+      if (!description) {
         dispatch(
-            'alertStore/error',
-            stringFormat(config.messagingConfig.messages.error.field_error, 'Description').trim(),
-            { root: true }
+          "alertStore/error",
+          stringFormat(
+            config.messagingConfig.messages.error.field_error,
+            "Description"
+          ).trim(),
+          { root: true }
         );
         return;
       }
-      const createCase = {
-        title,
-        description,
-      }
-       dispatch('caseStore/createCase', createCase)
-    }
+    },
+  },
+  created() {
+    this.createCase();
   },
 };
 </script>

@@ -78,22 +78,6 @@ export const caseStore = {
                     error => dispatch('alertStore/error', error, { root: true })
                 );
         },
-        createCase({ dispatch, commit }, {
-            title,
-            description,
-        }) {
-            commit
-            caseService.getCases(title, description)
-                .then(
-                    user => {
-                        commit('caseCreatedsuccessfully', user);
-                    },
-                    error => {
-                        commit('caseCreatedFailure');
-                        dispatch('alertStore/error', error, { root: true });
-                    }
-                );
-        }
     },
     mutations: {
         storeCases(state, cases) {
