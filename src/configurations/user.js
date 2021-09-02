@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
     userConfig = {
         api: {
             register: {
-                endpoint : "profile/protected/registration/",
+                endpoint : "profile/auth/registration/",
             },
             login: {
                 "endpoint": "profile/auth/login/"

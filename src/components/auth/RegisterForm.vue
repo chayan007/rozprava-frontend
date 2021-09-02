@@ -249,14 +249,16 @@ export default {
         return;
       }
 
-      dispatch('authStore/register', {
+      const updateField =  {
         username,
         password1,
         password2,
         name,
         email,
         phone
-      });
+      }
+
+      dispatch('authStore/register', updateField);
     }
   }
 };

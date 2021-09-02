@@ -28,6 +28,7 @@
           type="Title"
           class="form-control1 p-0 font-weight-bolder"
           placeholder="Give a Title"
+          v-model="title"
           id="CaseTitle"
           aria-describedby="Title"
         />
@@ -35,6 +36,7 @@
         <textarea
           class="form-control1 p-0"
           placeholder="Enter your Opinion..."
+          v-model="description"
           id="Opinion"
           rows="7"
         ></textarea>
@@ -66,6 +68,7 @@
           type="Mentions"
           class="form-control1 p-0"
           placeholder="Mention People using @"
+          v-model="mention"
           id="Mentions"
           aria-describedby="Mentions"
         />
@@ -142,12 +145,16 @@
 <script>
 export default {
   name: "Create",
-  data() {
+ casesData() {
     return {
+      title:'',
+      description:'',
       tags: [],
-      newTag: "",
+      newTag: '',
+      mention:''
     };
   },
+
   methods: {
     addTag() {
       const newTag = {
@@ -161,6 +168,7 @@ export default {
       this.tags.splice(index, 1);
     },
   },
+  
 };
 </script>
 

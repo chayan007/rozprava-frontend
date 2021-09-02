@@ -3,6 +3,7 @@ import { config } from "@/configurations";
 import axios from "axios";
 
 export const caseService = { getCases };
+//create a function called create 
 
 function getCases(category= null, username = null) {
     const headers = authHeader();
@@ -41,3 +42,5 @@ function getCases(category= null, username = null) {
             }
         });
 }
+
+// function createCase(){}
