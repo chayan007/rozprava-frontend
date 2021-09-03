@@ -1,7 +1,7 @@
 <template>
   <button @click="upload">Click Me!</button>
   <div class="mt-10 show_hide" id="show">
-    <UploadComponent/>
+    <UploadComponent  />
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="box" style="text-align: center">
-    <div class="mb-5 p-5" @click="open_case">
+    <div class="mb-5 p-5">
       <Button></Button>
     </div>
     <div
@@ -57,13 +57,10 @@ export default {
         })
         .catch(() => {
           throw stringFormat(
-            config.messagingConfig.messages.error.watched_all_recommends,"recommendations"
+            config.messagingConfig.messages.error.watched_all,"recommendations"
           );
         });
-    },
-    open_case() {
-      alert("hii there");
-    },
+    }
   },
   created() {
     this.getRecommendations();
