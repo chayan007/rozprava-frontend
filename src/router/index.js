@@ -18,6 +18,7 @@ import Chat from '@/views/protected/chat/Chat.vue'
 import CaseCreate from '@/views/protected/case/Create.vue'
 import Notification from '@/views/protected/Notification.vue'
 import Upload from '@/components/Upload.vue'
+import CaseDetail from '@/views/protected/case/Detail.vue'
 
 
 const routes = [
@@ -107,6 +108,11 @@ const routes = [
     component: CaseCreate
   },
   {
+    path: '/case-detail',
+    name: 'CaseDetail',
+    component: CaseDetail
+  },
+  {
     path: '/activity',
     name: 'Activity',
     component: Activity
@@ -136,7 +142,8 @@ router.beforeEach((to, from, next) => {
       'Inbox',
       'Chat',
       'CaseCreate',
-      'Activity'
+      'Activity',
+      'CaseDetail'
   ];
   const authPagesName = [
       
