@@ -66,7 +66,7 @@
         <!-- case comments -->
         <hr class="mt-4 m-0">
         <div class="pri-comments">
-            <List></List>
+            <List :caseUuid="1"></List>
         </div>
 
     </div>

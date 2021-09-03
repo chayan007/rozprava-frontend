@@ -24,12 +24,15 @@
         </div>
 
         <!-- rebuttal -->
-        <!-- <div class="rebuttal-box w-100" v-show="rebuttal"> -->
-            <Rebuttal></Rebuttal>
-        <!-- </div> -->
+        <div class="rebuttal-box w-100" v-if="rebuttal">
+            <div class="w-100 row m-0 justify-content-center p-3">
+                <p class="close-rebuttal shadow-soft p-1 pr-3 pl-3" v-on:click="toggleRebuttals">Close all tabs</p>
+            </div>
+            <Rebuttal :debateUuid="debate.uuid"></Rebuttal>
+        </div>
 
         <!-- add comment dumy box -->
-        <div class="add-comment-btn-box p-2 row m-0 w-100" v-show="!addComment" v-on:click="toggleComment">
+        <div class="add-comment-btn-box p-2 row m-0 w-100" v-show="!addComment&&!rebuttal" v-on:click="toggleComment">
             <div class="comm-inp rounded-pill col col-11 p-2 pl-4">
                 Add a comment...
             </div>
@@ -114,6 +117,10 @@ export default {
     left: 0;
     height: 100vh;
     background-color: rgba(255, 255, 255, 0.849);
+}
+.close-rebuttal{
+    background-color: white;
+    border-radius: 15px;
 }
 
 .filter-btn:hover{
