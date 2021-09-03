@@ -52,7 +52,7 @@ export default {
         })
         .catch(() => {
           throw stringFormat(
-            config.messagingConfig.messages.notification.failure,
+            config.messagingConfig.messages.error.unknown_error,
             "notifications"
           );
         });
