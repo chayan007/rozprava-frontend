@@ -9,6 +9,7 @@ import EnterOTP from '@/views/EnterOTP.vue'
 import ResetPassword from '@/views/ResetPassword.vue'
 import Settings from '@/views/protected/Settings.vue'
 import CaseView from '@/views/public/CaseView.vue'
+import Activity from '@/views/public/Activity.vue'
 import Search from '@/views/protected/Search.vue'
 import Profile from '@/views/protected/Profile.vue'
 import Recommendation from '@/views/protected/Recommendation.vue'
@@ -17,7 +18,6 @@ import Chat from '@/views/protected/chat/Chat.vue'
 import CaseCreate from '@/views/protected/case/Create.vue'
 import Notification from '@/views/protected/Notification.vue'
 import Upload from '@/views/Upload.vue'
-
 
 
 const routes = [
@@ -35,6 +35,11 @@ const routes = [
     path: '/notifications',
     name: 'Notifications',
     component: Notification
+  },
+  {
+    path: '/upload',
+    name: 'Upload',
+    component: Upload
   },
   {
     path: '/chat',
@@ -105,6 +110,11 @@ const routes = [
     path: '/case-create',
     name: 'CaseCreate',
     component: CaseCreate
+  },
+  {
+    path: '/activity',
+    name: 'Activity',
+    component: Activity
   }
 ]
 
@@ -131,10 +141,11 @@ router.beforeEach((to, from, next) => {
       'Recommendation',
       'Inbox',
       'Chat',
-      'CaseCreate'
+      'CaseCreate',
+      'Activity'
   ];
   const authPagesName = [
-      'Login',
+      
       'Register',
       'ForgetLogin',
       'EnterOTP'

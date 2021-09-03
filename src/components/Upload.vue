@@ -59,7 +59,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .container {
   height: 200px;

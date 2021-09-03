@@ -12,7 +12,8 @@ const messagingConfig = {
             otp_not_match: 'Wrong OTP submitted. Please request new OTP and try again',
         },
         notification: {
-            watched_all_cases: 'You have watched all cases. Please wait till someone raises some.'
+            watched_all_cases: 'You have watched all cases. Please wait till someone raises some.',
+            failure: 'Failed to retrieve {0}. Please try again'
         }
     }
 };
