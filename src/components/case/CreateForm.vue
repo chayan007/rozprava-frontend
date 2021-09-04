@@ -158,7 +158,7 @@
 import { stringFormat } from "@/helpers";
 import { config } from "@/configurations";
 import { caseService } from "@/services";
-
+import  router from "@/router";
 export default {
   name: "Create",
 
@@ -248,8 +248,8 @@ export default {
           for_label: "for",
           against_label: "against",
         })
-        .then((res) => {
-          console.log(res);
+        .then((caseResponse) => {
+          router.push({ name: "CaseDetail", params: { slug: caseResponse.slug } })
         })
         .catch((error) => {
            dispatch('alertStore/error');

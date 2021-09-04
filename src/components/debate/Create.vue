@@ -1,0 +1,101 @@
+<template>
+    
+        
+        <div class="create-comment-form-inner shadow-soft p-2">
+            <textarea class="form-control1" name="Comment" id="" cols="30" rows="8" placeholder="Add a comment here...">
+            </textarea>
+
+            <div class="row w-100 m-0 mt-3 mb-3">
+                <button
+                  type="submit"
+                  class="btn attach-btn mr-2 rounded-0 p-0 pr-2"
+                  data-toggle="modal"
+                  data-target="#modal-default"
+                >
+                  <img class="attach-icon" src="@/assets/attachment1.png" alt="" />
+                </button>
+                <small class="row align-items-center col col-9 p-0 m-0"
+                  >PDF, Images, Links, Audios, Videos, etc
+                </small>
+            </div>
+
+            <div class="com-post-btn-box row m-0">
+                <p class="col col-12 pl-2 m-0">Post:</p>
+                <div class="col col-6 p-2">
+                    <div class="p-2 post-com-btn post-com-post-for shadow">
+                        <img class="post-com-icon" src="@/assets/case-like.svg" alt="">
+                        <h6 class="text-center m-0">In Favour</h6>
+                    </div>
+                </div>
+                <div class="col col-6 p-2">
+                    <div class="p-2 post-com-btn post-com-post-aga shadow">
+                        <img class="post-com-icon" src="@/assets/case-dislike.svg" alt="">
+                        <h6 class="text-center m-0">Against</h6>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+</template>
+
+
+<script>
+export default {
+    name: 'Create'
+}
+</script>
+
+<style scoped>
+.form-control1 {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #44476a;
+  background-color: white;
+  background-clip: padding-box;
+  border: none;
+  border-bottom: 0.07rem solid #d1d9e6;
+  border-radius: 15px;
+  transition: all 0.3s ease-in-out;
+}
+.form-control1:focus {
+  outline: none;
+}
+
+.create-comment-form-inner{
+    background-color: rgb(243, 243, 243);
+    border-radius: 20px;
+    border: 2px solid white;
+}
+.attach-btn {
+  box-shadow: none;
+  border: none;
+  border-right: 1px solid;
+}
+.attach-icon {
+  width: 1.5em;
+}
+.post-com-btn{
+    border-radius: 15px;
+}
+.post-com-btn:hover{
+  border: 2px solid white;
+  transform: scale(1.1);
+}
+.post-com-post-for{
+    background-color: #E7FFE5;
+}
+.post-com-post-aga{
+    background-color: #FFEBE5;
+}
+.post-com-icon{
+    width: 1.4em;
+    position: absolute;
+    left: 1.5em;
+}
+
+</style>

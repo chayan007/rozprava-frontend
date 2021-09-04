@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             },
             getProfile:{
                 "endpoint": "profile/user/{0}/"
-            },
+            }
         },
         constants: {
             debug: true,
@@ -61,6 +61,9 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             getProfile:{
                 "endpoint": "profile/user/{0}/"
             },
+            fetchRecommendations:{
+                "endpoint": "profile/recommend/",  
+            }
         },
         constants: {
             debug: false,
