@@ -41,18 +41,28 @@
           rows="7"
         ></textarea>
         <br />
-        <label for="GiveTags">Enter the Tags:</label>
+        <label for="GiveTags">Select the Tags:</label>
+
         <input
-          cols="30"
-          rows="1"
-          type="Tags"
+          list="GiveTags"
           class="tags-input form-control1 p-0"
-          placeholder="Add Tag and press enter,"
-          id="GiveTags"
-          aria-describedby="Tags"
+          v-on:change="addTag"
           v-model="newTag"
-          v-on:keyup.enter="addTag"
+          name="GiveTag"
+          id="GiveTag"
+          v-show="!tagadded"
         />
+        <datalist id="GiveTags">
+          <option value="Politics"></option>
+          <option value="Sports"></option>
+          <option value="Education"></option>
+          <option value="Adult"></option>
+          <option value="Spritiual"></option>
+          <option value="Entertainment"></option>
+          <option value="Business"></option>
+          <option value="Technology"></option>
+          <option value="Nature"></option>
+        </datalist>
         <br />
         <div class="tags-div">
           <span class="pb-3" v-for="(tag, index) in tags" :key="tag.id">
@@ -77,7 +87,7 @@
       <div class="card-footer row m-0 navbar pt-0">
         <div class="anonymous-div mb-2">
           <label class="switch mr-2">
-            <input type="checkbox" checked />
+            <input type="checkbox" v-model="isAnonymous" />
             <span class="slider round"></span>
           </label>
           <label class="h6 form-check-label" for="flexSwitchCheckDefault">
@@ -158,7 +168,10 @@ export default {
       description: "",
       tags: [],
       newTag: "",
+      category: "",
+      isAnonymous: false,
       // mention: "",
+      tagadded: false,
     };
   },
 
@@ -170,13 +183,15 @@ export default {
       };
       this.tags.push(newTag);
       this.newTag = "";
+      this.tagadded = true;
     },
     removeTag(index) {
       this.tags.splice(index, 1);
+      this.tagadded = false;
     },
+
     createCase() {
-      caseService.createCase();
-      const { title, description } = this;
+      const { title, description, tags, isAnonymous } = this;
       const { dispatch } = this.$store;
 
       if (!title) {
@@ -184,7 +199,7 @@ export default {
           "alertStore/error",
           stringFormat(
             config.messagingConfig.messages.error.field_error,
-            "Title"
+            "Title",
           ).trim(),
           { root: true }
         );
@@ -202,6 +217,44 @@ export default {
         );
         return;
       }
+
+      if (!tags) {
+        dispatch(
+          "alertStore/error",
+          stringFormat(
+            config.messagingConfig.messages.error.field_error,
+            "Tags"
+          ).trim(),
+          { root: true }
+        );
+        return;
+      }
+
+      let categoryId = config.caseConfig.categories.OTHER;
+      if (tags.length != 0) {
+        let userSelectedcategory = tags[0].tag.toUpperCase();
+
+        if (userSelectedcategory in config.caseConfig.categories) {
+          categoryId = config.caseConfig.categories[userSelectedcategory];
+        }
+      }
+
+      caseService
+        .createCase({
+          question: title,
+          description: description,
+          category: categoryId,
+          is_anonymous: isAnonymous,
+          for_label: "for",
+          against_label: "against",
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+           dispatch('alertStore/error');
+           console.log(error);
+        });
     },
   },
   created() {

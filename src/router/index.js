@@ -18,6 +18,7 @@ import Chat from '@/views/protected/chat/Chat.vue'
 import CaseCreate from '@/views/protected/case/Create.vue'
 import Notification from '@/views/protected/Notification.vue'
 import Upload from '@/components/Upload.vue'
+import CreateFormcheck from '@/views/CreateFormcheck'
 
 
 const routes = [
@@ -30,6 +31,11 @@ const routes = [
     path: '/notifications',
     name: 'Notifications',
     component: Notification
+  },
+  {
+    path: '/createformcheck',
+    name: 'CreateFormcheck',
+    component: CreateFormcheck
   },
   {
     path: '/upload',

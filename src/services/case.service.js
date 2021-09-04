@@ -46,18 +46,20 @@ function getCases(category = null, username = null) {
 function createCase(createCaseBody) {
     const headers = authHeader();
     let url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.create.endpoint}`;
+    console.log(createCaseBody )
     return axios
         .post(
             url,
-            { headers: headers },
-            createCaseBody
+            createCaseBody,
+            { headers: headers },  
         )
         .then((response) => {
-            let case_info = (response.data)
+            let case_info = response.data
             console.log(case_info)
-            // return case_info;
+            return case_info;
         })
-        .catch(() => {
+        .catch((error) => {
+            console.log(error.response.data)
             throw stringFormat(config.messagingConfig.messages.notification.case_failure , 'case_info');
         });
 }
