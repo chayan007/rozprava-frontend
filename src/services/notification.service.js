@@ -6,7 +6,7 @@ export const notificationService = { getNotification };
 
 function getNotification() {
     const headers = authHeader();
-    let url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.fetchNotification.endpoint}`;
+    let url = `${config.commonConfig.$apiUrl}/${config.notificationConfig.api.fetchNotification.endpoint}`;
 
     return axios
         .get(
@@ -18,7 +18,7 @@ function getNotification() {
             return info_notify;
         })
         .catch(() => {
-            throw stringFormat(config.messagingConfig.messages.notification.failure , 'info_notify');
+            throw stringFormat(config.messagingConfig.messages.error.unknown_error , 'info_notify');
         });
 }
 

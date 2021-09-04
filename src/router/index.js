@@ -17,8 +17,8 @@ import Inbox from '@/views/protected/chat/Inbox.vue'
 import Chat from '@/views/protected/chat/Chat.vue'
 import CaseCreate from '@/views/protected/case/Create.vue'
 import Notification from '@/views/protected/Notification.vue'
-import Upload from '@/components/Upload.vue'
 import CaseDetail from '@/views/protected/case/Detail.vue'
+import Upload from '@/views/Upload.vue'
 
 
 const routes = [
@@ -26,6 +26,11 @@ const routes = [
     path: '/signup',
     name: 'SignUp',
     component: SignUp
+  },
+  {
+    path: '/upload',
+    name: 'Upload',
+    component: Upload
   },
   {
     path: '/notifications',
@@ -134,6 +139,7 @@ router.beforeEach((to, from, next) => {
       'Signup',
       'CaseView',
       'Notifications',
+      'Upload',
       'ForgetLogin',
       'EnterOTP',
       'ResetPassword',
