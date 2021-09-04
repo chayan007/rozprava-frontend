@@ -55,8 +55,7 @@ function createCase(createCaseBody) {
         )
         .then((response) => {
             let case_info = response.data
-            console.log(case_info)
-            return case_info;
+                return case_info;
         })
         .catch((error) => {
             console.log(error.response.data)
