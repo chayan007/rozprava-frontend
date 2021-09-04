@@ -24,11 +24,11 @@
         </div>
 
         <!-- rebuttal -->
-        <div class="rebuttal-box w-100" v-if="rebuttal">
+        <div class="rebuttal-box w-100" v-show="rebuttal">
             <div class="w-100 row m-0 justify-content-center p-3">
                 <p class="close-rebuttal shadow-soft p-1 pr-3 pl-3" v-on:click="toggleRebuttals">Close all tabs</p>
             </div>
-            <Rebuttal :debateUuid="debate.uuid"></Rebuttal>
+            <Rebuttal :debateUuid="1"></Rebuttal>
         </div>
 
         <!-- add comment dumy box -->

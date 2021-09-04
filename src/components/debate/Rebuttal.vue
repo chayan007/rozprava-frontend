@@ -47,7 +47,6 @@
                     <small class="col-12 col mt-3 p-0 m-0 font-weight-bold">12 rebuttals</small>
                 </div>
 
-                <!-- <List></List> -->
             </div>
 
             <!-- ......List component..... -->
