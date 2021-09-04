@@ -3,19 +3,22 @@
     <div class="container">
       <div class="row">
         <div class="col">
-            <div class="text-center">
-          <span class="h3">Notifications</span>
-            </div>
+          <div class="text-center">
+            <span class="h3">Notifications</span>
+          </div>
           <!-- heading -->
-
           <div class="position-relative mt-5">
             <div
               class="rounded shadow-soft border border-light bg-soft p-4 mb-2"
             >
               <div class="mb-3">
                 <div>
-                  <NotifyComponent />
-                  <NotifyComponent />
+                  <template
+                    v-for="notification in notifications"
+                    :key="notification.message"
+                  >
+                    <NotifyComponent :notification="notification" />
+                  </template>
                 </div>
               </div>
             </div>
@@ -28,9 +31,36 @@
 
 <script>
 import Notification from "@/components/notifications/Notification.vue";
+import { notificationService } from "@/services";
+import { config } from "@/configurations";
+import { stringFormat } from "@/helpers";
 
 export default {
   name: "Notification",
   components: { NotifyComponent: Notification },
+  data() {
+    return {
+      notifications: null,
+    };
+  },
+  methods: {
+    getNotification() {
+      notificationService
+        .getNotification()
+        .then((notifications) => {
+          this.notifications = notifications;
+        })
+        .catch(() => {
+          throw stringFormat(
+            config.messagingConfig.messages.error.unknown_error,
+            "notifications"
+          );
+        });
+    },
+  },
+  created() {
+    this.getNotification();
+  },
 };
 </script>
+

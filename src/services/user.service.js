@@ -3,7 +3,7 @@ import { config } from "@/configurations";
 import axios from "axios";
 import { stringFormat } from "@/helpers";
 
-export const userService = { settings, getProfile };
+export const userService = { settings, getProfile, getRecommendations};
 
 function settings(updateFields) {
     const authenticationHeader = authHeader();
@@ -26,6 +26,7 @@ function settings(updateFields) {
             console.log(error);
         });
 }
+
 function getProfile(username){
     const authenticationHeader = authHeader();
     const url =  stringFormat(`${config.commonConfig.$apiUrl}/${config.userConfig.api.getProfile.endpoint}`, username);
@@ -42,4 +43,17 @@ function getProfile(username){
         .catch(() => {
             throw stringFormat(config.messagingConfig.messages.error.does_not_exist_error, username);
         });
+}
+
+function getRecommendations() {
+    let url = `${config.commonConfig.$apiUrl}/${config.userConfig.api.fetchRecommendations.endpoint}`;
+
+    return axios.get(url)
+    .then((response) => {
+        let recommend = response.data;
+        return recommend;
+    })
+    .catch(() => {
+        throw stringFormat(config.messagingConfig.messages.error.unknown_error , 'recommend');
+    });
 }
