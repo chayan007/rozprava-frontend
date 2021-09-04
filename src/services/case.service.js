@@ -2,8 +2,7 @@ import { authHeader, stringFormat } from '@/helpers';
 import { config } from "@/configurations";
 import axios from "axios";
 
-export const caseService = { getCases,createCase };
-//create a function called create 
+export const caseService = { getCases, createCase, getCreatecases };
 
 function getCases(category = null, username = null) {
     const headers = authHeader();
@@ -46,20 +45,37 @@ function getCases(category = null, username = null) {
 function createCase(createCaseBody) {
     const headers = authHeader();
     let url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.create.endpoint}`;
-    console.log(createCaseBody )
+    console.log(createCaseBody)
     return axios
         .post(
             url,
             createCaseBody,
-            { headers: headers },  
+            { headers: headers },
         )
         .then((response) => {
             let case_info = response.data
-                return case_info;
+            return case_info;
         })
         .catch((error) => {
             console.log(error.response.data)
-            throw stringFormat(config.messagingConfig.messages.notification.case_failure , 'case_info');
+            throw config.messagingConfig.messages.unknown_error;
         });
 }
 
+function getCreatecases(slug) {
+    const headers = authHeader();
+    let url = stringFormat(`${config.commonConfig.$apiUrl}/${config.caseConfig.api.getCase.endpoint}`, slug);
+    return axios
+        .get(
+            url,
+            { headers: headers },
+        )
+        .then((response) => {
+            const getCaseInfo = response.data;
+            return getCaseInfo;
+        })
+        .catch((error) => {
+            console.log(error.response.data);
+            throw config.messagingConfig.messages.unknown_error;
+        });
+}

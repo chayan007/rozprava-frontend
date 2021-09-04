@@ -5,9 +5,9 @@ caseConfig = {
         list: {
             endpoint: "case/v1/list/",
             queryParameters: {
-                username: "username={}",
-                category: "category={}",
-                isOrdered: "is_ordered={}"
+                username: "username={0}",
+                category: "category={0}",
+                isOrdered: "is_ordered={0}"
             }
         },
         fetchNotification:{
@@ -15,6 +15,9 @@ caseConfig = {
         },
         create:{
             endpoint:"case/v1/create/",
+        },
+        getCase:{
+            endpoint:"case/v1/{0}/"
         }
     },
     categories: {
