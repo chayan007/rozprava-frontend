@@ -24,7 +24,7 @@
             <small class="case-profile-name m-0">{{
               caseDetail.profile.user.username
             }}</small>
-            <small>4 min ago</small>
+            <small>{{sanitizedTime(caseDetail.created_at)}}</small>
           </span>
         </span>
         <span class="row m-0 align-items-center">
@@ -116,6 +116,7 @@
 import List from "@/components/debate/List.vue";
 import { caseService } from "@/services";
 import { config } from "@/configurations";
+import { getSanitizedTime } from "@/helpers";
 
 export default {
   name: "DetailCase",
@@ -137,6 +138,11 @@ export default {
           throw config.messagingConfig.messages.error.unknown_error;
         });
     },
+
+    sanitizedTime(createdAt){
+      return getSanitizedTime(createdAt);
+    }
+    
   },
   created() {
     this.loadCase();
