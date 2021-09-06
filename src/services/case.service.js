@@ -1,10 +1,10 @@
-import {authHeader, stringFormat} from '@/helpers';
+import { authHeader, stringFormat } from '@/helpers';
 import { config } from "@/configurations";
 import axios from "axios";
 
-export const caseService = { getCases };
+export const caseService = { getCases, createCase, getCase };
 
-function getCases(category= null, username = null) {
+function getCases(category = null, username = null) {
     const headers = authHeader();
     let url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.list.endpoint}`;
 
@@ -39,5 +39,43 @@ function getCases(category= null, username = null) {
             if (typeof error === 'string') {
                 throw error;
             }
+        });
+}
+
+function createCase(createCaseBody) {
+    const headers = authHeader();
+    const url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.create.endpoint}`;
+    console.log(createCaseBody)
+    return axios
+        .post(
+            url,
+            createCaseBody,
+            { headers: headers },
+        )
+        .then((response) => {
+            const case_info = response.data
+            return case_info;
+        })
+        .catch((error) => {
+            console.log(error.response.data)
+            throw config.messagingConfig.messages.unknown_error;
+        });
+}
+
+function getCase(slug) {
+    const headers = authHeader();
+    const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.caseConfig.api.getCase.endpoint}`, slug);
+    return axios
+        .get(
+            url,
+            { headers: headers },
+        )
+        .then((response) => {
+            const getCaseInfo = response.data;
+            return getCaseInfo;
+        })
+        .catch((error) => {
+            console.log(error.response.data);
+            throw config.messagingConfig.messages.unknown_error;
         });
 }

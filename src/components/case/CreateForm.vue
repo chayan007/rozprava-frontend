@@ -28,6 +28,7 @@
           type="Title"
           class="form-control1 p-0 font-weight-bolder"
           placeholder="Give a Title"
+          v-model="title"
           id="CaseTitle"
           aria-describedby="Title"
         />
@@ -35,22 +36,33 @@
         <textarea
           class="form-control1 p-0"
           placeholder="Enter your Opinion..."
+          v-model="description"
           id="Opinion"
           rows="7"
         ></textarea>
         <br />
-        <label for="GiveTags">Enter the Tags:</label>
+        <label for="GiveTags">Select category for your case:</label>
+
         <input
-          cols="30"
-          rows="1"
-          type="Tags"
+          list="GiveTags"
           class="tags-input form-control1 p-0"
-          placeholder="Add Tag and press enter,"
-          id="GiveTags"
-          aria-describedby="Tags"
+          v-on:change="addTag"
           v-model="newTag"
-          v-on:keyup.enter="addTag"
+          name="GiveTag"
+          id="GiveTag"
+          v-show="!tagadded"
         />
+        <datalist id="GiveTags">
+          <option value="Politics"></option>
+          <option value="Sports"></option>
+          <option value="Education"></option>
+          <option value="Adult"></option>
+          <option value="Spritiual"></option>
+          <option value="Entertainment"></option>
+          <option value="Business"></option>
+          <option value="Technology"></option>
+          <option value="Nature"></option>
+        </datalist>
         <br />
         <div class="tags-div">
           <span class="pb-3" v-for="(tag, index) in tags" :key="tag.id">
@@ -61,24 +73,26 @@
           </span>
         </div>
         <br />
-        <label for="Mentions">Mention People:</label>
-        <input
+        <!-- <label for="Mentions">Mention People:</label>
+        <input                commenting mention
           type="Mentions"
           class="form-control1 p-0"
           placeholder="Mention People using @"
+          v-model="mention"
           id="Mentions"
           aria-describedby="Mentions"
-        />
+        /> -->
       </div>
 
       <div class="card-footer row m-0 navbar pt-0">
         <div class="anonymous-div mb-2">
           <label class="switch mr-2">
-            <input type="checkbox" checked />
+            <input type="checkbox" v-model="isAnonymous" />
             <span class="slider round"></span>
           </label>
-          <label class="h6 form-check-label" for="flexSwitchCheckDefault"
-            > <img class="anonymous-icon" src="@/assets/anonymous.png" alt=""> Post Anonymously</label
+          <label class="h6 form-check-label" for="flexSwitchCheckDefault">
+            <img class="anonymous-icon" src="@/assets/anonymous.png" alt="" />
+            Post Anonymously</label
           >
         </div>
 
@@ -87,10 +101,14 @@
           <button
             type="submit"
             class="btn attach-btn mr-2 rounded-0 p-0 pr-2"
-            data-toggle="modal"
             data-target="#modal-default"
           >
-            <img class="attach-icon" src="@/assets/attachment1.png" alt="" />
+            <img
+              @click="upload"
+              class="attach-icon"
+              src="@/assets/attachment1.png"
+              alt=""
+            />
           </button>
           <small class="row align-items-center col col-9 p-0 m-0"
             >PDF, Images, Links, Audios, Videos, etc</small
@@ -129,9 +147,13 @@
         <button
           type="submit"
           class="post-btn btn btn-dark rounded-pill justify-content-end"
+          v-on:click="createCase"
         >
           Post
         </button>
+        <div class="m-0 show_hide" id="show">
+          <UploadComponent />
+        </div>
       </div>
     </div>
   </div>
@@ -140,14 +162,28 @@
 </template>
 
 <script>
+import { stringFormat } from "@/helpers";
+import { config } from "@/configurations";
+import { caseService } from "@/services";
+import router from "@/router";
+import Upload from "@/components/Upload.vue";
+
 export default {
   name: "Create",
+  components: { UploadComponent: Upload },
   data() {
     return {
+      title: "",
+      description: "",
       tags: [],
       newTag: "",
+      category: "",
+      isAnonymous: false,
+      // mention: "",
+      tagadded: false,
     };
   },
+
   methods: {
     addTag() {
       const newTag = {
@@ -156,10 +192,94 @@ export default {
       };
       this.tags.push(newTag);
       this.newTag = "";
+      this.tagadded = true;
     },
     removeTag(index) {
       this.tags.splice(index, 1);
+      this.tagadded = false;
     },
+
+    createCase() {
+      const { title, description, tags, isAnonymous } = this;
+      const { dispatch } = this.$store;
+
+      if (!title) {
+        dispatch(
+          "alertStore/error",
+          stringFormat(
+            config.messagingConfig.messages.error.field_error,
+            "Title",
+            []
+          ).trim(),
+          { root: true }
+        );
+        return;
+      }
+
+      if (!description) {
+        dispatch(
+          "alertStore/error",
+          stringFormat(
+            config.messagingConfig.messages.error.field_error,
+            "Description",
+            []
+          ).trim(),
+          { root: true }
+        );
+        return;
+      }
+
+      if (!tags) {
+        dispatch(
+          "alertStore/error",
+          stringFormat(
+            config.messagingConfig.messages.error.field_error,
+            "Category",
+            []
+          ).trim(),
+          { root: true }
+        );
+        return;
+      }
+
+      let categoryId = config.caseConfig.categories.OTHER;
+      if (tags.length != 0) {
+        let userSelectedcategory = tags[0].tag.toUpperCase();
+
+        if (userSelectedcategory in config.caseConfig.categories) {
+          categoryId = config.caseConfig.categories[userSelectedcategory];
+        }
+      }
+
+      caseService
+        .createCase({
+          question: title,
+          description: description,
+          category: categoryId,
+          is_anonymous: isAnonymous,
+          for_label: "for",
+          against_label: "against",
+        })
+        .then((caseResponse) => {
+          router.push({
+            name: "CaseDetail",
+            params: { slug: caseResponse.slug },
+          });
+        })
+        .catch(() => {
+          dispatch(
+            "alertStore/error",
+            config.messagingConfig.messages.error.unknown_error
+          );
+        });
+    },
+    upload() {
+      var element = document.getElementById("show");
+      element.classList.toggle("show_hide");
+    },
+  },
+  created() {
+    this.createCase();
   },
 };
 </script>
@@ -220,7 +340,7 @@ export default {
   width: 2.7em;
   height: 1.5em;
 }
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -233,19 +353,19 @@ export default {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 .slider:before {
   position: absolute;
   content: "";
   height: 1.21em;
   width: 1.21em;
-  left: .15em;
-  bottom: .15em;
+  left: 0.15em;
+  bottom: 0.15em;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 input:checked + .slider {
   background-color: #31344b;
@@ -263,5 +383,16 @@ input:checked + .slider:before {
 }
 .tags-input {
   border: none;
+}
+
+#show{
+  position: absolute !important;
+  bottom: 5em;
+  left: 2.5em;
+}
+
+/*Upload toogle*/
+.show_hide {
+  display: none !important;
 }
 </style>
