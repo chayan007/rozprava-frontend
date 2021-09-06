@@ -41,7 +41,7 @@
           rows="7"
         ></textarea>
         <br />
-        <label for="GiveTags">Select the Tags:</label>
+        <label for="GiveTags">Select category for your case:</label>
 
         <input
           list="GiveTags"
@@ -101,10 +101,14 @@
           <button
             type="submit"
             class="btn attach-btn mr-2 rounded-0 p-0 pr-2"
-            data-toggle="modal"
             data-target="#modal-default"
           >
-            <img class="attach-icon" src="@/assets/attachment1.png" alt="" />
+            <img
+              @click="upload"
+              class="attach-icon"
+              src="@/assets/attachment1.png"
+              alt=""
+            />
           </button>
           <small class="row align-items-center col col-9 p-0 m-0"
             >PDF, Images, Links, Audios, Videos, etc</small
@@ -147,6 +151,9 @@
         >
           Post
         </button>
+        <div class="m-0 show_hide" id="show">
+          <UploadComponent />
+        </div>
       </div>
     </div>
   </div>
@@ -158,10 +165,12 @@
 import { stringFormat } from "@/helpers";
 import { config } from "@/configurations";
 import { caseService } from "@/services";
-import  router from "@/router";
+import router from "@/router";
+import Upload from "@/components/Upload.vue";
+
 export default {
   name: "Create",
-
+  components: { UploadComponent: Upload },
   data() {
     return {
       title: "",
@@ -200,6 +209,7 @@ export default {
           stringFormat(
             config.messagingConfig.messages.error.field_error,
             "Title",
+            []
           ).trim(),
           { root: true }
         );
@@ -211,7 +221,8 @@ export default {
           "alertStore/error",
           stringFormat(
             config.messagingConfig.messages.error.field_error,
-            "Description"
+            "Description",
+            []
           ).trim(),
           { root: true }
         );
@@ -223,7 +234,8 @@ export default {
           "alertStore/error",
           stringFormat(
             config.messagingConfig.messages.error.field_error,
-            "Tags"
+            "Category",
+            []
           ).trim(),
           { root: true }
         );
@@ -249,12 +261,21 @@ export default {
           against_label: "against",
         })
         .then((caseResponse) => {
-          router.push({ name: "CaseDetail", params: { slug: caseResponse.slug } })
+          router.push({
+            name: "CaseDetail",
+            params: { slug: caseResponse.slug },
+          });
         })
-        .catch((error) => {
-           dispatch('alertStore/error');
-           console.log(error);
+        .catch(() => {
+          dispatch(
+            "alertStore/error",
+            config.messagingConfig.messages.error.unknown_error
+          );
         });
+    },
+    upload() {
+      var element = document.getElementById("show");
+      element.classList.toggle("show_hide");
     },
   },
   created() {
@@ -362,5 +383,16 @@ input:checked + .slider:before {
 }
 .tags-input {
   border: none;
+}
+
+#show{
+  position: absolute !important;
+  bottom: 5em;
+  left: 2.5em;
+}
+
+/*Upload toogle*/
+.show_hide {
+  display: none !important;
 }
 </style>

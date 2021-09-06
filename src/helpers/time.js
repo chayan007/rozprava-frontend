@@ -1,4 +1,4 @@
-let moment = require('moment');
+import moment from 'moment';
 
 export function getSanitizedTime(time) {
 
@@ -12,13 +12,12 @@ export function getSanitizedTime(time) {
     let casePostedDate = timestamp.format('DD');
     let casePostedMonth = timestamp.format('MM');
     let casePostedYear = timestamp.format('YYYY');
-    let casePostedHrs = timestamp.format('h');
+    let casePostedHrs = timestamp.format('HH');
     let casePostedMins = timestamp.format('mm');
 
     if (todayDate == casePostedDate) {
-
         if (todayHrs == casePostedHrs) {
-            return `${todayMins - casePostedMins} + 'ago'`;
+            return `${todayMins - casePostedMins}` + ' mins ago';
         } else {
             return `${Math.abs(todayHrs - casePostedHrs)}hr` + ' ' + `${Math.abs(todayMins - casePostedMins)}min` + ' ago';
         }

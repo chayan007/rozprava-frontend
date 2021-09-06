@@ -2,7 +2,7 @@ import { authHeader, stringFormat } from '@/helpers';
 import { config } from "@/configurations";
 import axios from "axios";
 
-export const caseService = { getCases, createCase, getCreatecases };
+export const caseService = { getCases, createCase, getCase };
 
 function getCases(category = null, username = null) {
     const headers = authHeader();
@@ -44,7 +44,7 @@ function getCases(category = null, username = null) {
 
 function createCase(createCaseBody) {
     const headers = authHeader();
-    let url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.create.endpoint}`;
+    const url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.create.endpoint}`;
     console.log(createCaseBody)
     return axios
         .post(
@@ -53,7 +53,7 @@ function createCase(createCaseBody) {
             { headers: headers },
         )
         .then((response) => {
-            let case_info = response.data
+            const case_info = response.data
             return case_info;
         })
         .catch((error) => {
@@ -62,9 +62,9 @@ function createCase(createCaseBody) {
         });
 }
 
-function getCreatecases(slug) {
+function getCase(slug) {
     const headers = authHeader();
-    let url = stringFormat(`${config.commonConfig.$apiUrl}/${config.caseConfig.api.getCase.endpoint}`, slug);
+    const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.caseConfig.api.getCase.endpoint}`, slug);
     return axios
         .get(
             url,

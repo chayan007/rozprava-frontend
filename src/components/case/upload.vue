@@ -12,13 +12,9 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                            
-                            
-                            
+             
                             </div>
                             <div class="modal-footer">
-                            
-                            
                             
                             </div>
                         </div>

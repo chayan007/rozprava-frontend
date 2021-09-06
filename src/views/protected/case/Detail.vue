@@ -16,7 +16,14 @@
           <span class="">
             <img
               class="case-profile-pic rounded-circle"
+              v-if="caseDetail.profile.display_pic"
               :src="caseDetail.profile.display_pic"
+              alt=""
+            />
+            <img
+              class="case-profile-pic rounded-circle"
+              v-else
+              src="@/assets/black-rose.jpg"
               alt=""
             />
           </span>
@@ -24,7 +31,7 @@
             <small class="case-profile-name m-0">{{
               caseDetail.profile.user.username
             }}</small>
-            <small>{{sanitizedTime(caseDetail.created_at)}}</small>
+            <small>{{ sanitizedTime(caseDetail.created_at) }}</small>
           </span>
         </span>
         <span class="row m-0 align-items-center">
@@ -130,7 +137,7 @@ export default {
     loadCase() {
       const slug = this.$route.params.slug;
       caseService
-        .getCreatecases(slug)
+        .getCase(slug)
         .then((caseDetail) => {
           this.caseDetail = caseDetail;
         })
@@ -139,10 +146,9 @@ export default {
         });
     },
 
-    sanitizedTime(createdAt){
+    sanitizedTime(createdAt) {
       return getSanitizedTime(createdAt);
-    }
-    
+    },
   },
   created() {
     this.loadCase();
