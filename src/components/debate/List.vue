@@ -17,10 +17,12 @@
         <!-- comments -->
         <p>Comments :</p>
         <div class="comments-sec mb-6">
-            <For v-show="fFor" v-on:click="toggleRebuttals()"></For>
-            <Against v-show="fAgainst"  v-on:click="toggleRebuttals()"></Against>
-            <Against v-show="fAgainst"  v-on:click="toggleRebuttals()"></Against>
-            <For v-show="fFor"  v-on:click="toggleRebuttals()"></For>
+            <Comment v-show="fAgainst" :cAga="true" v-on:click="toggleRebuttals()"></Comment>
+            <Comment v-show="fFor" :cAga="false" v-on:click="toggleRebuttals()"></Comment>
+            <Comment v-show="fAgainst" :cAga="true" v-on:click="toggleRebuttals()"></Comment>
+            <Comment v-show="fFor" :cAga="false" v-on:click="toggleRebuttals()"></Comment>
+            <Comment v-show="fAgainst" :cAga="true" v-on:click="toggleRebuttals()"></Comment>
+            <Comment v-show="fFor" :cAga="false" v-on:click="toggleRebuttals()"></Comment>
         </div>
 
         <!-- rebuttal -->
@@ -60,14 +62,12 @@
 
 
 <script>
-
-import For from "@/components/debate/For.vue"
-import Against from "@/components/debate/Against.vue"
+import Comment from "@/components/debate/Comment.vue"
 import Rebuttal from "@/components/debate/Rebuttal.vue";
 import Create from "@/components/debate/Create.vue"
 export default {
     name: 'List',
-    components: {For, Against,Rebuttal, Create},
+    components: {Comment,Rebuttal, Create},
     data(){
         return{
             addComment:false,

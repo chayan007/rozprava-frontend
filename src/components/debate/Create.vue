@@ -5,6 +5,16 @@
             <textarea class="form-control1" name="Comment" id="" cols="30" rows="8" placeholder="Add a comment here...">
             </textarea>
 
+              <div class="anonymous-div mb-2 mt-3">
+          <label class="switch mr-2">
+            <input type="checkbox" checked />
+            <span class="slider round"></span>
+          </label>
+          <label class="h6 form-check-label" for="flexSwitchCheckDefault"
+            > <img class="anonymous-icon" src="@/assets/anonymous.png" alt=""> Post Anonymously</label
+          >
+        </div>
+
             <div class="row w-100 m-0 mt-3 mb-3">
                 <button
                   type="submit"
@@ -96,6 +106,66 @@ export default {
     width: 1.4em;
     position: absolute;
     left: 1.5em;
+}
+
+.anonymous-div {
+  display: block;
+  width: 100%;
+}
+.attach-icon,
+.anonymous-icon {
+  width: 1.5em;
+}
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 2.7em;
+  height: 1.5em;
+}
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.21em;
+  width: 1.21em;
+  left: .15em;
+  bottom: .15em;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+input:checked + .slider {
+  background-color: #31344b;
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px #31344b;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(1.15em);
+  -ms-transform: translateX(1.15em);
+  transform: translateX(1.15em);
 }
 
 </style>

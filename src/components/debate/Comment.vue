@@ -1,20 +1,22 @@
 <template>
-    <div class="row m-0 mb-3">
+    <div class="row m-0 mb-3" :class="[cAgainst ? 'justify-content-end': 'justify-content-start']">
 
-        <div class="for-com col col-10 p-2">
+        <div class="col col-10 p-2" :class="[cAgainst ? 'aga-com': 'for-com']">
 
             <!-- profile -->
             <div class="com-profile-box row align-items-center m-0">
                 <img class="com-pro-img rounded-circle" src="@/assets/profile-picture-1.jpg" >
-                <small class="ml-2 h6 m-0">Shawn Carter</small>
+                <small class="ml-2 h6 m-0">Shawn Carter222</small>
             </div>
 
             <!-- body -->
             <div class="com-body mt-2 pl-1">
                 <small>
-                    sjlkasj ssj sjs jskdjdjkdj sjsdksj
+                    sjlkasj ssj sjs jskdjdjkdj sjsdksj asj
+                    djdkjjd d djds aaaj 
                 </small>
             </div>
+
             <hr class="mb-0 mt-2">
             <!-- reactions -->
             <div class="com-react-box row justify-content-between m-0 p-1">
@@ -37,19 +39,31 @@
             </div>
            
         </div>
-
+        
     </div>
 </template>
 
 <script>
 export default {
-    name: "For"
+    name: "Against",
+    props: {
+        cAga: Boolean
+    },
+    data(){
+        return{
+            cAgainst: this.cAga
+        }
+    }
 }
 </script>
 
 <style scoped>
 .for-com{
     background-color: #E7FFE5;
+    border-radius: 15px;
+}
+.aga-com{
+    background-color: #FFEBE5;
     border-radius: 15px;
 }
 .com-pro-img{

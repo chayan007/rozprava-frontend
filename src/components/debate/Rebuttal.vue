@@ -16,9 +16,9 @@
                             <small>4 min ago</small>
                        </span>
                    </span>
-                   <span class="row m-0 align-items-center">
+                   <!-- <span class="row m-0 align-items-center">
                        <img class="case-menu" src="@/assets/back.svg" alt="">
-                   </span>
+                   </span> -->
                 </div>
 
                 <!-- case text -->
@@ -67,10 +67,10 @@
                 <!-- comments -->
                 <p>Comments :</p>
                 <div class="comments-sec mb-6">
-                <For v-show="fFor" v-on:click="toggleRebuttals()"></For>
-                <Against v-show="fAgainst"  v-on:click="toggleRebuttals()"></Against>
-                <Against v-show="fAgainst"  v-on:click="toggleRebuttals()"></Against>
-                <For v-show="fFor"  v-on:click="toggleRebuttals()"></For>
+                    <Comment v-show="fAgainst" :cAga="true"></Comment>
+                    <Comment v-show="fFor" :cAga="false"></Comment>
+                    <Comment v-show="fAgainst" :cAga="true"></Comment>
+                    <Comment v-show="fFor" :cAga="false"></Comment>
                 </div>
 
                 <!-- add comment dumy box -->
@@ -108,13 +108,11 @@
 
 
 <script>
-
-import For from "@/components/debate/For.vue"
-import Against from "@/components/debate/Against.vue"
+import Comment from "@/components/debate/Comment.vue"
 import Create from "@/components/debate/Create.vue"
 export default {
     name: 'List',
-    components: {For, Against, Create},
+    components: {Comment, Create},
     data(){
         return{
             addComment:false,
@@ -133,7 +131,7 @@ export default {
         },
 
         toggleRebuttals(){
-             if(this.rebuttal){
+             if(this.rebuttal){ 
                 this.rebuttal = false
             } else {
                 this.rebuttal = true
