@@ -117,7 +117,7 @@
 
       <!-- case comments -->
       <hr class="mt-4 m-0" />
-      <div class="pri-comments">
+      <div class="pri-comments" v-if="caseDetail.slug">
         <List :slug="caseDetail.slug"></List>
       </div>
     </div>
