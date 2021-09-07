@@ -4,7 +4,7 @@
     <div class="case-head-box w-100">
       <img class="case-head-img w-100" src="@/assets/Detail-case.png" alt="" />
       <h3 class="case-head p-3 pt-4">
-        Social sites taking away our PRIVACY...
+        {{ caseDetail.question }}
       </h3>
     </div>
     <!-- close btn -->
@@ -17,18 +17,27 @@
     <!-- full case box -->
     <div class="case-detail w-100 mt-7 p-3">
       <!-- profile bar -->
-      <div class="row m-0 mt-2 justify-content-between w-100">
+      <div class="row m-0 justify-content-between w-100">
         <span class="row m-0 align-items-center">
           <span class="">
             <img
               class="case-profile-pic rounded-circle"
-              src="@/assets/profile-picture-1.jpg"
+              v-if="caseDetail.profile.display_pic"
+              :src="caseDetail.profile.display_pic"
+              alt=""
+            />
+            <img
+              class="case-profile-pic rounded-circle"
+              v-else
+              src="@/assets/black-rose.jpg"
               alt=""
             />
           </span>
           <span class="pl-2">
-            <small class="case-profile-name m-0">Shawn Carter {{debate}}</small>
-            <small>4 min ago</small>
+            <small class="case-profile-name m-0">{{
+              caseDetail.profile.user.username
+            }}</small>
+            <small>{{ sanitizedTime(caseDetail.created_at) }}</small>
           </span>
         </span>
         <span class="row m-0 align-items-center">
@@ -38,13 +47,9 @@
 
       <!-- case text -->
       <div class="case-box pt-2 mt-2">
-        <h5>Social sites taking away our PRIVACY</h5>
+        <h5>{{ caseDetail.question }}</h5>
         <hr class="m-0 mb-1" />
-        <small
-          >We are facing a serious business dilemma, with Facebook taking away a
-          good chunk of traffic to news and content sites, and ad blockers
-          eating into what’s left of it while...</small
-        >
+        <small>{{ caseDetail.description }}</small>
       </div>
 
       <!-- case reaction box -->
@@ -56,7 +61,9 @@
               src="@/assets/case-up.svg"
               alt=""
             />
-            <small class="react-txt m-0 mr-3 h6">40</small>
+            <small class="react-txt m-0 mr-3 h6">{{
+              caseDetail.metrics[0]
+            }}</small>
           </span>
           <span class="row m-0 align-items-center">
             <img
@@ -64,7 +71,9 @@
               src="@/assets/case-like.svg"
               alt=""
             />
-            <small class="react-txt m-0 mr-3 h6">58</small>
+            <small class="react-txt m-0 mr-3 h6">{{
+              caseDetail.metrics[1]
+            }}</small>
           </span>
           <span class="row m-0 align-items-center">
             <img
@@ -72,12 +81,16 @@
               src="@/assets/case-dislike.svg"
               alt=""
             />
-            <small class="react-txt m-0 mr-3 h6">12</small>
+            <small class="react-txt m-0 mr-3 h6">{{
+              caseDetail.metrics[2]
+            }}</small>
           </span>
         </span>
         <span class="case-view-box row m-0 align-items-center">
           <img class="case-view-icon" src="@/assets/case-view.svg" alt="" />
-          <small class="react-txt h6 m-0 pl-1">240</small>
+          <small class="react-txt h6 m-0 pl-1">{{
+            caseDetail.metrics[3]
+          }}</small>
         </span>
       </div>
       <!-- case reaction box 2 -->
@@ -105,7 +118,7 @@
       <!-- case comments -->
       <hr class="mt-4 m-0" />
       <div class="pri-comments">
-        <List :caseUuid="1"></List>
+        <List :slug="caseDetail.slug"></List>
       </div>
     </div>
   </div>
@@ -114,37 +127,42 @@
 
 <script>
 import List from "@/components/debate/List.vue";
-import { debateService } from "@/services";
+import { caseService } from "@/services";
 import { config } from "@/configurations";
+import { getSanitizedTime } from "@/helpers";
+
 export default {
   name: "DetailCase",
   components: { List },
+  data() {
+    return {
+      caseDetail: null,
+    };
+  },
   methods: {
-    getDebates() {
-      debateService
-        .getDebates()
-        .then((debate) => {
-          this.debate = debate;
-          console.log(debate);
+    loadCase() {
+      const slug = this.$route.params.slug;
+      caseService
+        .getCase(slug)
+        .then((caseDetail) => {
+          this.caseDetail = caseDetail;
         })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
         });
-      },
     },
-  created() {
-    this.getDebates();
-  },
-}
 
+    sanitizedTime(createdAt) {
+      return getSanitizedTime(createdAt);
+    },
+  },
+  created() {
+    this.loadCase();
+  },
+};
 </script>
 
 <style scoped>
-.close-case-detail{
-  /* position: absolute;
-  top: 0;
-  left: 0; */
-}
 .close-case-detail h2{
   width: 1.7em;
   height: 1.7em;

@@ -4,7 +4,7 @@ let debateConfig;
 debateConfig = {
     api: {
         debate: {
-            endpoint: "/debate​/v1​/list​/"
+            endpoint: "debate/v1/list?slug={0}"
         }
     }
 }

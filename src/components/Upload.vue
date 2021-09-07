@@ -1,7 +1,5 @@
 <template >
-  <div class="row mt-10 ml-10">
-    <!-- the class can be removed as it is to see this on page and also the router /upload -->
-    <div>
+  <div class="row">
       <div>
         <div class="card shadow-soft border-light container bg-soft p-2">
           <div class="upload_head">
@@ -35,7 +33,7 @@
               type="button"
               title="attach button"
             >
-              <img src="@/assets/attachment.png" alt="attach" />
+              <img src="@/assets/attachment1.png" alt="attach" />
             </button>
 
             <button
@@ -48,7 +46,6 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 

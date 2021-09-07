@@ -1,12 +1,12 @@
-import { authHeader } from '@/helpers';
+import { authHeader, stringFormat } from '@/helpers';
 import { config } from "@/configurations";
 import axios from "axios";
 
 export const debateService = { getDebates };
 
-function getDebates() {
+function getDebates(slug) {
     const headers = authHeader();
-    let url = `${config.commonConfig.$apiUrl}/${config.debateConfig.api.endpoint}`;
+    const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.debateConfig.api.endpoint}`, slug);
 
     return axios
         .get(
