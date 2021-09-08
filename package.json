@@ -21,6 +21,7 @@
     "vue-modal": "^1.0.2",
     "vue-modaltor": "^1.5.2",
     "vue-router": "^4.0.0-0",
+    "vue-upload-component": "^2.8.22",
     "vuejs-datepicker": "^1.6.2",
     "vuex": "^4.0.0-0"
   },

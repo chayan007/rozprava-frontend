@@ -110,7 +110,35 @@
               alt=""
             />
           </button>
-          <small class="row align-items-center col col-9 p-0 m-0"
+
+          <small
+            v-if="filenames"
+            class="row align-items-center col col-12 mt-2 p-0 m-0"
+          >
+            <p
+              v-for="(filename, index) in filenames"
+              :key="filename.name"
+              class="
+                tag
+                h6
+                row
+                m-0
+                align-items-center
+                rounded-pill
+                shadow
+                pr-3
+                pl-3
+                pt-2
+                pb-2
+                mr-2
+              "
+            >
+              <span class="file-tag"> {{ filename.name }}</span>
+              <span class="pl-3" v-on:click="removeFile(index)"> x </span>
+            </p>
+          </small>
+
+          <small v-else class="row align-items-center col col-9 p-0 m-0"
             >PDF, Images, Links, Audios, Videos, etc</small
           >
         </div>
@@ -152,7 +180,7 @@
           Post
         </button>
         <div class="m-0 show_hide" id="show">
-          <UploadComponent />
+          <UploadComponent @clicked="addFile" />
         </div>
       </div>
     </div>
@@ -181,6 +209,9 @@ export default {
       isAnonymous: false,
       // mention: "",
       tagadded: false,
+      newfiles: null,
+      filenames: [],
+      proofs: [],
     };
   },
 
@@ -197,6 +228,15 @@ export default {
     removeTag(index) {
       this.tags.splice(index, 1);
       this.tagadded = false;
+    },
+
+    addFile(files) {
+      this.filenames.push(files);
+      console.log(files);
+      this.upload();
+    },
+    removeFile(index) {
+      this.filenames.splice(index, 1);
     },
 
     createCase() {
@@ -264,7 +304,7 @@ export default {
           router.push({
             name: "CaseDetail",
             params: { slug: caseResponse.slug },
-          });
+          }),this.submitFiles();
         })
         .catch(() => {
           dispatch(
@@ -276,6 +316,18 @@ export default {
     upload() {
       var element = document.getElementById("show");
       element.classList.toggle("show_hide");
+    },
+
+    submitFiles(files) {
+      caseService
+        .uploadProof(files)
+        .then((response) => {
+          response = this.response;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   created() {
@@ -385,9 +437,17 @@ input:checked + .slider:before {
   border: none;
 }
 
-#show{
+.file-tag {
+  display: inline-block;
+  width: 6em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#show {
   position: absolute !important;
-  bottom: 5em;
+  bottom: 20em;
   left: 2.5em;
 }
 

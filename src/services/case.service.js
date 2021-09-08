@@ -2,7 +2,7 @@ import { authHeader, stringFormat } from '@/helpers';
 import { config } from "@/configurations";
 import axios from "axios";
 
-export const caseService = { getCases, createCase, getCase };
+export const caseService = { getCases, createCase, getCase, uploadProof };
 
 function getCases(category = null, username = null) {
     const headers = authHeader();
@@ -72,10 +72,29 @@ function getCase(slug) {
         )
         .then((response) => {
             const getCaseInfo = response.data;
+            this.uploadProof(getCaseInfo)
             return getCaseInfo;
         })
         .catch((error) => {
             console.log(error.response.data);
+            throw config.messagingConfig.messages.unknown_error;
+        });
+}
+
+function uploadProof(slug) {
+    const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.caseConfig.api.uploadCaseProof.endpoint}`, slug);
+    return axios
+        .post(url, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        })
+        .then((response) => {
+            const fileInfo = response.data;
+            console.log(fileInfo)
+        })
+        .catch((error) => {
+            console.log(error);
             throw config.messagingConfig.messages.unknown_error;
         });
 }
