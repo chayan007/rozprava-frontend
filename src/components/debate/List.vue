@@ -130,9 +130,8 @@ export default {
   props: ["slug"],
   watch: {
     slug: function (newVal, oldVal) {
-      // watch it
       console.log("Prop changed: ", newVal, " | was: ", oldVal);
-      this.loadDebates(newVal);
+      this.loadDebates();
     },
   },
   created() {
@@ -149,7 +148,9 @@ export default {
     };
   },
   methods: {
-    loadDebates(slug) {
+    loadDebates() {
+      const slug = this.$route.params.slug;
+      console.log("Comment slug", slug);
       debateService
         .getDebates(slug) 
         .then((debates) => {
@@ -166,19 +167,11 @@ export default {
     },
 
     toggleComment() {
-      if (this.addComment) {
-        this.addComment = false;
-      } else {
-        this.addComment = true;
-      }
+      this.addComment = !this.addComment;
     },
 
     toggleRebuttals() {
-      if (this.rebuttal) {
-        this.rebuttal = false;
-      } else {
-        this.rebuttal = true;
-      }
+      this.rebuttal = !this.rebuttal;
     },
 
     filterAll() {
