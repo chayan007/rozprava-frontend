@@ -81,13 +81,13 @@ function getCase(slug) {
         });
 }
 
-function uploadProof(slug) {
+function uploadProof(proofRequestBody, slug) {
     const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.caseConfig.api.uploadCaseProof.endpoint}`, slug);
     return axios
-        .post(url, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
+        .post(
+            url,
+            proofRequestBody,
+            {headers: { "Content-Type": "multipart/form-data"},
         })
         .then((response) => {
             const fileInfo = response.data;

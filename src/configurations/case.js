@@ -20,7 +20,7 @@ caseConfig = {
             endpoint:"case/v1/{0}/"
         },
         uploadCaseProof:{
-            endpoint:"proof/v1/case/"
+            endpoint:"proof/v1/case/{0}/"
         },
         deleteCaseProof:{
             endpoint:"proof/v1/case/"

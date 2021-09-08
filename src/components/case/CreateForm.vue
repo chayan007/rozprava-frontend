@@ -301,10 +301,11 @@ export default {
           against_label: "against",
         })
         .then((caseResponse) => {
+          this.submitFiles(caseResponse.slug);
           router.push({
             name: "CaseDetail",
             params: { slug: caseResponse.slug },
-          }),this.submitFiles();
+          })
         })
         .catch(() => {
           dispatch(
@@ -318,9 +319,16 @@ export default {
       element.classList.toggle("show_hide");
     },
 
-    submitFiles(files) {
+    submitFiles(slug) {
+      // convert the list of files into json object
+      let proofRequestBody = {}
+      for(let x= 0; x < this.filenames.length ; x++) {
+        proofRequestBody[`proof_${x}`] = this.filenames[x];
+      }
+      console.log(proofRequestBody);
+
       caseService
-        .uploadProof(files)
+        .uploadProof(proofRequestBody, slug)
         .then((response) => {
           response = this.response;
           console.log(response);
@@ -329,10 +337,8 @@ export default {
           console.log(error);
         });
     },
-  },
-  created() {
-    this.createCase();
-  },
+  }
+  
 };
 </script>
 
