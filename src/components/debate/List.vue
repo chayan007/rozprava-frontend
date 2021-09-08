@@ -32,35 +32,11 @@
     <!-- comments -->
     <p>Comments :</p>
     <div class="comments-sec mb-6">
-      <Comment
-        v-show="fAgainst"
-        :cAga="true"
-        v-on:click="toggleRebuttals()"
-      ></Comment>
-      <Comment
-        v-show="fFor"
-        :cAga="false"
-        v-on:click="toggleRebuttals()"
-      ></Comment>
-      <Comment
-        v-show="fAgainst"
-        :cAga="true"
-        v-on:click="toggleRebuttals()"
-      ></Comment>
-      <Comment
-        v-show="fFor"
-        :cAga="false"
-        v-on:click="toggleRebuttals()"
-      ></Comment>
-      <Comment
-        v-show="fAgainst"
-        :cAga="true"
-        v-on:click="toggleRebuttals()"
-      ></Comment>
-      <Comment
-        v-show="fFor"
-        :cAga="false"
-        v-on:click="toggleRebuttals()"
+      <Comment v-for="(debate, index) in debates" :key="index"
+        v-show="debate.inclination==inclination || inclination==null"
+        :newdebate="debate"
+        :createdAt="sanitizedTime(debate.created_at)"
+        v-on:click="toggleRebuttals(debate, sanitizedTime(debate.created_at))"
       ></Comment>
     </div>
 
@@ -74,7 +50,7 @@
           Close all tabs
         </p>
       </div>
-      <Rebuttal :debateUuid="1"></Rebuttal>
+      <Rebuttal :rebuttalItem="rebuttalItem" :rebuttalTime="rebuttalTime" :uuid="uuid"></Rebuttal>
     </div>
 
     <!-- add comment dumy box -->
@@ -114,7 +90,6 @@
   </div>
 </template>
 
-
 <script>
 import Comment from "@/components/debate/Comment.vue";
 import Rebuttal from "@/components/debate/Rebuttal.vue";
@@ -143,8 +118,10 @@ export default {
       debates: null,
       addComment: false,
       rebuttal: false,
-      fFor: true,
-      fAgainst: true,
+      rebuttalItem: null,
+      rebuttalTime: null,
+      uuid: null,
+      inclination: null
     };
   },
   methods: {
@@ -152,7 +129,7 @@ export default {
       const slug = this.$route.params.slug;
       console.log("Comment slug", slug);
       debateService
-        .getDebates(slug) 
+        .getDebates(slug)
         .then((debates) => {
           this.debates = debates;
           console.log(debates);
@@ -170,21 +147,24 @@ export default {
       this.addComment = !this.addComment;
     },
 
-    toggleRebuttals() {
+    toggleRebuttals(debate, time) {
       this.rebuttal = !this.rebuttal;
+      if(this.rebuttal){
+        this.rebuttalItem = debate;
+        this.rebuttalTime = time;
+        this.uuid = debate.uuid
+      }
+  
     },
 
     filterAll() {
-      this.fFor = true;
-      this.fAgainst = true;
+      this.inclination = null
     },
     filterFor() {
-      this.fFor = true;
-      this.fAgainst = false;
+      this.inclination = 1
     },
     filterAgainst() {
-      this.fFor = false;
-      this.fAgainst = true;
+      this.inclination = 0
     },
   },
 };

@@ -35,7 +35,7 @@
           </span>
           <span class="pl-2">
             <small class="case-profile-name m-0">{{
-              caseDetail.profile.user.username
+              caseDetail.profile.user.full_name
             }}</small>
             <small>{{ sanitizedTime(caseDetail.created_at) }}</small>
           </span>
@@ -159,6 +159,7 @@ export default {
   created() {
     this.loadCase();
   },
+  
 };
 </script>
 
@@ -188,6 +189,7 @@ export default {
 }
 .case-profile-pic {
   width: 3em;
+  height: 3em;
 }
 .case-profile-name {
   display: block;

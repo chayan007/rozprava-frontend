@@ -27,7 +27,7 @@
               src="@/assets/case-like.svg"
               alt=""
             />
-            <small class="react-txt m-0 mr-3 h6">{{likes}}</small>
+            <small class="react-txt m-0 mr-3 h6">58</small>
           </span>
           <span class="row m-0 align-items-center">
             <img
@@ -35,10 +35,7 @@
               src="@/assets/case-dislike.svg"
               alt=""
             />
-            <small class="react-txt m-0 mr-3 h6">{{dislikes}}</small>
-          </span>
-          <span>
-            <small class="font-weight-bold">12 rebuttals</small>
+            <small class="react-txt m-0 mr-3 h6">12</small>
           </span>
         </span>
         <span class="case-view-box row m-0 align-items-center">
@@ -47,6 +44,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -60,20 +58,6 @@ export default {
     };
   },
   computed: {
-    likes: function () {
-      if (this.newdebate) {
-        return this.newdebate.activities[1];
-      } else {
-        return "";
-      }
-    },
-    dislikes: function () {
-      if (this.newdebate) {
-        return this.newdebate.activities[2];
-      } else {
-        return "";
-      }
-    },
     comment: function () {
       if (this.newdebate) {
         return this.newdebate.comment;

@@ -10,3 +10,4 @@ debateConfig = {
 }
 
 export { debateConfig }
+ 

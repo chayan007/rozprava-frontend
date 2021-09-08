@@ -2,11 +2,11 @@ import {authHeader, stringFormat} from '@/helpers';
 import {config} from "@/configurations";
 import axios from "axios";
 
-export const debateService = { getDebates };
+export const rebuttalService = { getRebuttals };
 
-function getDebates(slug) {
+function getRebuttals(uuid) {
     const headers = authHeader();
-    const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.debateConfig.api.getDebates.endpoint}`, slug);
+    const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.rebuttalConfig.api.getRebuttals.endpoint}`, uuid);
 
     return axios.get(url, { headers: headers })
         .then((response) => {
@@ -18,4 +18,3 @@ function getDebates(slug) {
         });
 }
 
- 
