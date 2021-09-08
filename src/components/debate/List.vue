@@ -151,7 +151,7 @@ export default {
   methods: {
     loadDebates(slug) {
       debateService
-        .getDebates(slug)
+        .getDebates(slug) 
         .then((debates) => {
           this.debates = debates;
           console.log(debates);
