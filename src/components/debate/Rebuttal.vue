@@ -219,7 +219,7 @@ export default {
     loadRebuttals() {
       const uuid = this.uuid;
       console.log("rebuttal uuid", uuid);
-      rebuttalService
+        rebuttalService
         .getRebuttals(uuid)
         .then((rebuttals) => {
           this.rebuttals = rebuttals;
@@ -227,7 +227,7 @@ export default {
         })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
-        });
+      });
     },
 
     sanitizedTime(createdAt) {

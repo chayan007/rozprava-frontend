@@ -32,8 +32,10 @@
     <!-- comments -->
     <p>Comments :</p>
     <div class="comments-sec mb-6">
-      <Comment v-for="(debate, index) in debates" :key="index"
-        v-show="debate.inclination==inclination || inclination==null"
+      <Comment
+        v-for="(debate, index) in debates"
+        :key="index"
+        v-show="debate.inclination == inclination || inclination == null"
         :newdebate="debate"
         :createdAt="sanitizedTime(debate.created_at)"
         v-on:click="toggleRebuttals(debate, sanitizedTime(debate.created_at))"
@@ -50,7 +52,11 @@
           Close all tabs
         </p>
       </div>
-      <Rebuttal :rebuttalItem="rebuttalItem" :rebuttalTime="rebuttalTime" :uuid="uuid"></Rebuttal>
+      <Rebuttal
+        :rebuttalItem="rebuttalItem"
+        :rebuttalTime="rebuttalTime"
+        :uuid="uuid"
+      ></Rebuttal>
     </div>
 
     <!-- add comment dumy box -->
@@ -121,7 +127,7 @@ export default {
       rebuttalItem: null,
       rebuttalTime: null,
       uuid: null,
-      inclination: null
+      inclination: null,
     };
   },
   methods: {
@@ -149,22 +155,21 @@ export default {
 
     toggleRebuttals(debate, time) {
       this.rebuttal = !this.rebuttal;
-      if(this.rebuttal){
+      if (this.rebuttal) {
         this.rebuttalItem = debate;
         this.rebuttalTime = time;
-        this.uuid = debate.uuid
+        this.uuid = debate.uuid;
       }
-  
     },
 
     filterAll() {
-      this.inclination = null
+      this.inclination = null;
     },
     filterFor() {
-      this.inclination = 1
+      this.inclination = 1;
     },
     filterAgainst() {
-      this.inclination = 0
+      this.inclination = 0;
     },
   },
 };

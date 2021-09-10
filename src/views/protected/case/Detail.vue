@@ -1,5 +1,5 @@
 <template>
-  <div class="detail-case-box w-100">
+  <div class="detail-case-box w-100" v-if="caseDetail">
     <!-- case banner art -->
     <div class="case-head-box w-100">
       <img class="case-head-img w-100" src="@/assets/Detail-case.png" alt="" />
@@ -22,14 +22,7 @@
           <span class="">
             <img
               class="case-profile-pic rounded-circle"
-              v-if="caseDetail.profile.display_pic"
               :src="caseDetail.profile.display_pic"
-              alt=""
-            />
-            <img
-              class="case-profile-pic rounded-circle"
-              v-else
-              src="@/assets/black-rose.jpg"
               alt=""
             />
           </span>
@@ -117,7 +110,7 @@
 
       <!-- case comments -->
       <hr class="mt-4 m-0" />
-      <div class="pri-comments" v-if="caseDetail.slug">
+      <div class="pri-comments">
         <List :slug="caseDetail.slug"></List>
       </div>
     </div>
