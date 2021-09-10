@@ -31,9 +31,12 @@
 
     <!-- comments -->
 
-    <p v-if="debates">{{debates.length}} Comments :</p>
+    <p v-if="debates">{{debates.length}} Debates :</p>
     <div v-if="!debates" class="loader-box p-5 w-100 row m-0 justify-content-center align-center">
        <div  class="loader"></div>
+    </div>
+    <div v-else-if="!debates.length" >
+      <p>No Debates Yet!</p>
     </div>
     <div v-else class="comments-sec mb-6">
       <Comment

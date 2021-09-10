@@ -80,7 +80,7 @@
           >
             <small
               class="filter-btn shadow w-100 text-center p-2 rounded-pill"
-              v-on:click="inclination=null"
+              v-on:click="inclination = null"
               >All</small
             >
           </span>
@@ -96,7 +96,7 @@
           >
             <small
               class="filter-btn shadow w-100 text-center p-2 rounded-pill"
-              v-on:click="inclination=1"
+              v-on:click="inclination = 1"
               >In Favour</small
             >
           </span>
@@ -105,7 +105,7 @@
           >
             <small
               class="filter-btn shadow w-100 text-center p-2 rounded-pill"
-              v-on:click="inclination=0"
+              v-on:click="inclination = 0"
               >Against</small
             >
           </span>
@@ -126,6 +126,9 @@
           "
         >
           <div class="loader"></div>
+        </div>
+        <div v-else-if="!rebuttals.length">
+          <p class="text-center p-4">No Rebuttals Yet!</p>
         </div>
         <div v-else class="comments-sec mb-6">
           <Comment
