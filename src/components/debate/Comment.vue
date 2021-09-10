@@ -1,19 +1,19 @@
 <template>
   <div v-if="debate"
     class="row m-0 mb-3"
-    :class="[!inclination ? 'justify-content-end' : 'justify-content-start']"
+    :class="[!debate.inclination ? 'justify-content-end' : 'justify-content-start']"
   >
-    <div class="col col-10 p-2" :class="[!inclination ? 'aga-com' : 'for-com']">
+    <div class="col col-10 p-2" :class="[!debate.inclination  ? 'aga-com' : 'for-com']">
       <!-- profile -->
       <div class="com-profile-box row align-items-center m-0">
-        <img class="com-pro-img rounded-circle" :src="profilePic" />
-        <small class="ml-2 h6 m-0">{{ profile.full_name }}</small>
+        <img class="com-pro-img rounded-circle" :src="debate.profile.display_pic" />
+        <small class="ml-2 h6 m-0">{{ debate.profile.user.full_name }}</small>
       </div>
 
       <!-- body -->
       <div class="com-body mt-2 pl-1">
         <small>
-          {{ comment }}
+          {{  debate.comment }}
         </small>
       </div>
 
@@ -27,7 +27,7 @@
               src="@/assets/case-like.svg"
               alt=""
             />
-            <small class="react-txt m-0 mr-3 h6">{{likes}}</small>
+            <small class="react-txt m-0 mr-3 h6">{{debate.activities[1]}}</small>
           </span>
           <span class="row m-0 align-items-center">
             <img
@@ -35,10 +35,10 @@
               src="@/assets/case-dislike.svg"
               alt=""
             />
-            <small class="react-txt m-0 mr-3 h6">{{dislikes}}</small>
+            <small class="react-txt m-0 mr-2 h6">{{debate.activities[2]}}</small>
           </span>
           <span>
-            <small class="font-weight-bold" v-if="!isRebuttal">12 rebuttals</small>
+            <small class="font-weight-bold" v-if="!isRebuttal">Rebuttals</small>
           </span>
         </span>
         <span class="case-view-box row m-0 align-items-center">
@@ -52,56 +52,12 @@
 <script>
 export default {
   name: "Against",
-  props: ["newdebate", "createdAt", "isRebuttal"],
+  props: ["newDebate", "createdAt", "isRebuttal"],
   data() {
     return {
-      debate: this.newdebate,
+      debate: this.newDebate,
       cAgainst: false,
     };
-  },
-  computed: {
-    likes: function () {
-      if (this.newdebate) {
-        return this.newdebate.activities[1];
-      } else {
-        return "";
-      }
-    },
-    dislikes: function () {
-      if (this.newdebate) {
-        return this.newdebate.activities[2];
-      } else {
-        return "";
-      }
-    },
-    comment: function () {
-      if (this.newdebate) {
-        return this.newdebate.comment;
-      } else {
-        return "";
-      }
-    },
-    inclination: function () {
-      if (this.newdebate) {
-        return this.newdebate.inclination;
-      } else {
-        return "";
-      }
-    },
-    profile: function () {
-      if (this.newdebate) {
-        return this.newdebate.profile.user;
-      } else {
-        return "";
-      }
-    },
-    profilePic: function () {
-      if (this.newdebate) {
-        return this.newdebate.profile.display_pic;
-      } else {
-        return "";
-      }
-    },
   },
 };
 </script>

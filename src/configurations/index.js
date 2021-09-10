@@ -3,7 +3,6 @@ import {messagingConfig} from "@/configurations/messages";
 import {caseConfig} from "@/configurations/case";
 import {notificationConfig} from "@/configurations/notification";
 import {debateConfig} from "@/configurations/debate";
-import {rebuttalConfig} from "@/configurations/rebuttal";
 
 let commonConfig;
 
@@ -26,5 +25,4 @@ export const config = {
     'caseConfig': caseConfig,
     'notificationConfig': notificationConfig,
     'debateConfig': debateConfig,
-    'rebuttalConfig': rebuttalConfig
 };

@@ -7,7 +7,7 @@
       >
         <small
           class="filter-btn shadow w-100 text-center p-2 rounded-pill"
-          v-on:click="filterAll"
+          v-on:click="inclination=null"
           >All</small
         >
       </span>
@@ -16,14 +16,14 @@
       >
         <small
           class="filter-btn shadow w-100 text-center p-2 rounded-pill"
-          v-on:click="filterFor"
+          v-on:click="inclination=1"
           >In Favour</small
         >
       </span>
       <span class="row m-0 justify-content-center align-items-center col col-4">
         <small
           class="filter-btn shadow w-100 text-center p-2 rounded-pill"
-          v-on:click="filterAgainst"
+          v-on:click="inclination=0"
           >Against</small
         >
       </span>
@@ -40,7 +40,7 @@
         v-for="(debate, index) in debates"
         :key="index"
         v-show="debate.inclination == inclination || inclination == null"
-        :newdebate="debate"
+        :newDebate="debate"
         :createdAt="sanitizedTime(debate.created_at)"
         v-on:click="toggleRebuttals(debate, sanitizedTime(debate.created_at))"
       ></Comment>
@@ -114,8 +114,7 @@ export default {
   components: { Comment, Rebuttal, Create },
   props: ["slug"],
   watch: {
-    slug: function (newVal, oldVal) {
-      console.log("Prop changed: ", newVal, " | was: ", oldVal);
+    slug: function () {
       this.loadDebates();
     },
   },
@@ -163,17 +162,10 @@ export default {
         this.uuid = debate.uuid;
       }
     },
-
-    filterAll() {
-      this.inclination = null;
-    },
-    filterFor() {
-      this.inclination = 1;
-    },
-    filterAgainst() {
-      this.inclination = 0;
-    },
   },
+  computed: {
+    
+  }
 };
 </script>
 

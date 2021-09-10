@@ -8,13 +8,13 @@
             <span class="">
               <img
                 class="case-profile-pic rounded-circle"
-                :src="profilePic"
+                :src="rebuttalItem.profile.display_pic"
                 alt=""
               />
             </span>
             <span class="pl-2">
               <small class="case-profile-name m-0">{{
-                profile.full_name
+                rebuttalItem.profile.user.full_name
               }}</small>
               <small>{{ rebuttalTime }}</small>
             </span>
@@ -26,7 +26,7 @@
 
         <!-- case text -->
         <div class="case-box pt-2 mt-2">
-          <small> {{ comment }}</small>
+          <small> {{ rebuttalItem.comment }}</small>
         </div>
 
         <!-- case reaction box -->
@@ -80,7 +80,7 @@
           >
             <small
               class="filter-btn shadow w-100 text-center p-2 rounded-pill"
-              v-on:click="filterAll"
+              v-on:click="inclination=null"
               >All</small
             >
           </span>
@@ -96,7 +96,7 @@
           >
             <small
               class="filter-btn shadow w-100 text-center p-2 rounded-pill"
-              v-on:click="filterFor"
+              v-on:click="inclination=1"
               >In Favour</small
             >
           </span>
@@ -105,7 +105,7 @@
           >
             <small
               class="filter-btn shadow w-100 text-center p-2 rounded-pill"
-              v-on:click="filterAgainst"
+              v-on:click="inclination=0"
               >Against</small
             >
           </span>
@@ -132,7 +132,7 @@
             v-for="(rebuttal, index) in rebuttals"
             :key="index"
             v-show="rebuttal.inclination == inclination || inclination == null"
-            :newdebate="rebuttal"
+            :newDebate="rebuttal"
             :createdAt="sanitizedTime(rebuttal.created_at)"
             :isRebuttal="true"
           ></Comment>
@@ -184,7 +184,7 @@
 import Create from "@/components/debate/Create.vue";
 import Comment from "@/components/debate/Comment.vue";
 
-import { rebuttalService } from "@/services";
+import { debateService } from "@/services";
 import { config } from "@/configurations";
 import { getSanitizedTime } from "@/helpers";
 export default {
@@ -192,10 +192,8 @@ export default {
   components: { Create, Comment },
   props: ["rebuttalItem", "rebuttalTime", "uuid"],
   watch: {
-    uuid: function (newVal, oldVal) {
-      
+    uuid: function () {
       this.rebuttals = null;
-      console.log("Prop changed: ", newVal, " | was: ", oldVal);
       this.loadRebuttals();
     },
   },
@@ -210,36 +208,14 @@ export default {
       inclination: null,
     };
   },
-  computed: {
-    comment: function () {
-      if (this.rebuttalItem) {
-        return this.rebuttalItem.comment;
-      } else {
-        return "";
-      }
-    },
-    profile: function () {
-      if (this.rebuttalItem) {
-        return this.rebuttalItem.profile.user;
-      } else {
-        return "";
-      }
-    },
-    profilePic: function () {
-      if (this.rebuttalItem) {
-        return this.rebuttalItem.profile.display_pic;
-      } else {
-        return "";
-      }
-    },
-  },
+
   methods: {
     loadRebuttals() {
       const uuid = this.uuid;
       if (!uuid) {
         return;
       }
-      rebuttalService
+      debateService
         .getRebuttals(uuid)
         .then((rebuttals) => {
           this.rebuttals = rebuttals.rebuttals;
@@ -259,15 +235,6 @@ export default {
     toggleRebuttals() {
       this.rebuttals = null;
       this.openRebuttal = !this.openRebuttal;
-    },
-    filterAll() {
-      this.inclination = null;
-    },
-    filterFor() {
-      this.inclination = 1;
-    },
-    filterAgainst() {
-      this.inclination = 0;
     },
   },
 };
