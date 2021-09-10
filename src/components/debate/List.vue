@@ -30,8 +30,12 @@
     </div>
 
     <!-- comments -->
-    <p>Comments :</p>
-    <div class="comments-sec mb-6">
+
+    <p v-if="debates">{{debates.length}} Comments :</p>
+    <div v-if="!debates" class="loader-box p-5 w-100 row m-0 justify-content-center align-center">
+       <div  class="loader"></div>
+    </div>
+    <div v-else class="comments-sec mb-6">
       <Comment
         v-for="(debate, index) in debates"
         :key="index"
@@ -133,12 +137,10 @@ export default {
   methods: {
     loadDebates() {
       const slug = this.$route.params.slug;
-      console.log("Comment slug", slug);
       debateService
         .getDebates(slug)
         .then((debates) => {
           this.debates = debates;
-          console.log(debates);
         })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
@@ -219,5 +221,30 @@ export default {
   width: 1.6em;
   background-color: white;
   box-shadow: 5px 5px 10px -1px rgba(77, 77, 77, 0.349);
+}
+
+/* loader */
+.loader-box{
+  height: 40vh;
+}
+.loader {
+  border: 3px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 3px solid #383838;
+  width: 50px;
+  height: 50px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>

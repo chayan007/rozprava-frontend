@@ -4,7 +4,7 @@ let rebuttalConfig;
 rebuttalConfig = {
     api: {
         getRebuttals: {
-            endpoint: "debate/detail/?uuid={0}"
+            endpoint: "debate/v1/detail/{0}/"
         }
     }
 }

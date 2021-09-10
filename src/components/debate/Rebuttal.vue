@@ -1,5 +1,5 @@
 <template>
-  <div class="rebuttal-outer p-2 mb-3 w-100">
+  <div class="rebuttal-outer p-2 mb-3 w-100" v-if="rebuttalItem">
     <div class="rebuttal-inner shadow-soft">
       <div class="pre-comment p-3">
         <!-- profile bar -->
@@ -38,7 +38,9 @@
                 src="@/assets/case-like.svg"
                 alt=""
               />
-              <small class="react-txt m-0 mr-3 h6">58</small>
+              <small class="react-txt m-0 mr-3 h6">{{
+                rebuttalItem.activities[1]
+              }}</small>
             </span>
             <span class="row m-0 align-items-center">
               <img
@@ -46,14 +48,18 @@
                 src="@/assets/case-dislike.svg"
                 alt=""
               />
-              <small class="react-txt m-0 mr-3 h6">12</small>
+              <small class="react-txt m-0 mr-3 h6">{{
+                rebuttalItem.activities[2]
+              }}</small>
             </span>
           </span>
           <span class="case-view-box row m-0 align-items-center">
             <small class="react-txt h6 m-0 pl-1">10 proofs</small>
           </span>
-          <small class="col-12 col mt-3 p-0 m-0 font-weight-bold"
-            >12 rebuttals</small
+          <small
+            class="col-12 col mt-3 p-0 m-0 font-weight-bold"
+            v-if="rebuttals"
+            >{{ rebuttals.length }} rebuttals</small
           >
         </div>
       </div>
@@ -107,18 +113,36 @@
 
         <!-- comments -->
         <p>Rebuttals :</p>
-        <div class="comments-sec mb-6">
-          <!-- <Comment v-show="fAgainst" :cAga="true"></Comment>
-                    <Comment v-show="fFor" :cAga="false"></Comment>
-                    <Comment v-show="fAgainst" :cAga="true"></Comment>
-                    <Comment v-show="fFor" :cAga="false"></Comment> -->
+        <div
+          v-if="!rebuttals"
+          class="
+            loader-box
+            p-5
+            w-100
+            row
+            m-0
+            justify-content-center
+            align-center
+          "
+        >
+          <div class="loader"></div>
+        </div>
+        <div v-else class="comments-sec mb-6">
+          <Comment
+            v-for="(rebuttal, index) in rebuttals"
+            :key="index"
+            v-show="rebuttal.inclination == inclination || inclination == null"
+            :newdebate="rebuttal"
+            :createdAt="sanitizedTime(rebuttal.created_at)"
+            :isRebuttal="true"
+          ></Comment>
         </div>
 
         <!-- add comment dumy box -->
         <div class="add-comment-btn-box-outer p-2 w-100">
           <div
             class="add-comment-btn-box p-2 row m-0"
-            v-show="!addComment && !rebuttal"
+            v-show="!addComment && !openRebuttal"
             v-on:click="toggleComment"
           >
             <div class="comm-inp rounded-pill col col-11 p-2 pl-4">
@@ -156,19 +180,21 @@
   </div>
 </template>
 
-
 <script>
 import Create from "@/components/debate/Create.vue";
+import Comment from "@/components/debate/Comment.vue";
 
 import { rebuttalService } from "@/services";
 import { config } from "@/configurations";
 import { getSanitizedTime } from "@/helpers";
 export default {
   name: "Rebuttal",
-  components: { Create },
+  components: { Create, Comment },
   props: ["rebuttalItem", "rebuttalTime", "uuid"],
   watch: {
     uuid: function (newVal, oldVal) {
+      
+      this.rebuttals = null;
       console.log("Prop changed: ", newVal, " | was: ", oldVal);
       this.loadRebuttals();
     },
@@ -180,22 +206,14 @@ export default {
     return {
       rebuttals: null,
       addComment: false,
-      rebuttal: false,
-      fFor: true,
-      fAgainst: true,
+      openRebuttal: false,
+      inclination: null,
     };
   },
   computed: {
     comment: function () {
       if (this.rebuttalItem) {
         return this.rebuttalItem.comment;
-      } else {
-        return "";
-      }
-    },
-    inclination: function () {
-      if (this.rebuttalItem) {
-        return this.rebuttalItem.inclination;
       } else {
         return "";
       }
@@ -218,16 +236,17 @@ export default {
   methods: {
     loadRebuttals() {
       const uuid = this.uuid;
-      console.log("rebuttal uuid", uuid);
-        rebuttalService
+      if (!uuid) {
+        return;
+      }
+      rebuttalService
         .getRebuttals(uuid)
         .then((rebuttals) => {
-          this.rebuttals = rebuttals;
-          console.log(rebuttals);
+          this.rebuttals = rebuttals.rebuttals;
         })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
-      });
+        });
     },
 
     sanitizedTime(createdAt) {
@@ -235,30 +254,20 @@ export default {
     },
 
     toggleComment() {
-      if (this.addComment) {
-        this.addComment = false;
-      } else {
-        this.addComment = true;
-      }
+      this.addComment = !this.addComment;
     },
     toggleRebuttals() {
-      if (this.rebuttal) {
-        this.rebuttal = false;
-      } else {
-        this.rebuttal = true;
-      }
+      this.rebuttals = null;
+      this.openRebuttal = !this.openRebuttal;
     },
     filterAll() {
-      this.fFor = true;
-      this.fAgainst = true;
+      this.inclination = null;
     },
     filterFor() {
-      this.fFor = true;
-      this.fAgainst = false;
+      this.inclination = 1;
     },
     filterAgainst() {
-      this.fFor = false;
-      this.fAgainst = true;
+      this.inclination = 0;
     },
   },
 };
@@ -357,5 +366,37 @@ export default {
   background-color: white;
   box-shadow: 5px 5px 10px -1px rgba(77, 77, 77, 0.349);
 }
-</style>
 
+/* loader */
+.loader-box {
+  height: 40vh;
+}
+.loader {
+  border: 3px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 3px solid #383838;
+  width: 50px;
+  height: 50px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>

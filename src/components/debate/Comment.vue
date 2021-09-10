@@ -1,5 +1,5 @@
 <template>
-  <div
+  <div v-if="debate"
     class="row m-0 mb-3"
     :class="[!inclination ? 'justify-content-end' : 'justify-content-start']"
   >
@@ -38,7 +38,7 @@
             <small class="react-txt m-0 mr-3 h6">{{dislikes}}</small>
           </span>
           <span>
-            <small class="font-weight-bold">12 rebuttals</small>
+            <small class="font-weight-bold" v-if="!isRebuttal">12 rebuttals</small>
           </span>
         </span>
         <span class="case-view-box row m-0 align-items-center">
@@ -52,7 +52,7 @@
 <script>
 export default {
   name: "Against",
-  props: ["newdebate", "createdAt"],
+  props: ["newdebate", "createdAt", "isRebuttal"],
   data() {
     return {
       debate: this.newdebate,
