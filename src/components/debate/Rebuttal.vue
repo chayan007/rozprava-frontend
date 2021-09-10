@@ -218,6 +218,9 @@ export default {
   methods: {
     loadRebuttals() {
       const uuid = this.uuid;
+      if (!uuid) {
+        return;
+      }
       console.log("rebuttal uuid", uuid);
       rebuttalService
         .getRebuttals(uuid)
@@ -235,18 +238,10 @@ export default {
     },
 
     toggleComment() {
-      if (this.addComment) {
-        this.addComment = false;
-      } else {
-        this.addComment = true;
-      }
+      this.addComment = !this.addComment;
     },
     toggleRebuttals() {
-      if (this.rebuttal) {
-        this.rebuttal = false;
-      } else {
-        this.rebuttal = true;
-      }
+      this.rebuttal = !this.rebuttal;
     },
     filterAll() {
       this.fFor = true;
