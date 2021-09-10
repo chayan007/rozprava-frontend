@@ -50,7 +50,7 @@
           v-model="newTag"
           name="GiveTag"
           id="GiveTag"
-          v-show="!tagadded"
+          v-show="!tagAdded"
         />
         <datalist id="GiveTags">
           <option value="Politics"></option>
@@ -112,11 +112,11 @@
           </button>
 
           <small
-            v-if="filenames"
+            v-if="files"
             class="row align-items-center col col-12 mt-2 p-0 m-0"
           >
             <p
-              v-for="(filename, index) in filenames"
+              v-for="(filename, index) in files"
               :key="filename.name"
               class="
                 tag
@@ -208,9 +208,8 @@ export default {
       category: "",
       isAnonymous: false,
       // mention: "",
-      tagadded: false,
-      newfiles: null,
-      filenames: [],
+      tagAdded: false,
+      files: [],
       proofs: [],
     };
   },
@@ -223,20 +222,20 @@ export default {
       };
       this.tags.push(newTag);
       this.newTag = "";
-      this.tagadded = true;
+      this.tagAdded = true;
     },
     removeTag(index) {
       this.tags.splice(index, 1);
-      this.tagadded = false;
+      this.tagAdded = false;
     },
 
     addFile(files) {
-      this.filenames.push(files);
+      this.files.push(files);
       console.log(files);
       this.upload();
     },
     removeFile(index) {
-      this.filenames.splice(index, 1);
+      this.files.splice(index, 1);
     },
 
     createCase() {
@@ -315,15 +314,15 @@ export default {
         });
     },
     upload() {
-      var element = document.getElementById("show");
+      const element = document.getElementById("show");
       element.classList.toggle("show_hide");
     },
 
     submitFiles(slug) {
       // convert the list of files into json object
       let proofRequestBody = {}
-      for(let x= 0; x < this.filenames.length ; x++) {
-        proofRequestBody[`proof_${x}`] = this.filenames[x];
+      for(let x= 0; x < this.files.length ; x++) {
+        proofRequestBody[`proof_${x}`] = this.files[x];
       }
       console.log(proofRequestBody);
 
@@ -331,14 +330,14 @@ export default {
         .uploadProof(proofRequestBody, slug)
         .then((response) => {
           response = this.response;
-          console.log(response);
+          console.log('debate in createform', response);
         })
         .catch((error) => {
-          console.log(error);
+          console.log('debate error in createform', error);
         });
     },
   }
-  
+
 };
 </script>
 

@@ -32,7 +32,7 @@ function getCases(category = null, username = null) {
             if (response.data.length) {
                 return response.data;
             } else {
-                throw config.messagingConfig.messages.notification.watched_all_cases;
+                throw stringFormat(config.messagingConfig.messages.notification.watched_all, 'cases');
             }
         })
         .catch((error) => {
@@ -83,18 +83,23 @@ function getCase(slug) {
 
 function uploadProof(proofRequestBody, slug) {
     const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.caseConfig.api.uploadCaseProof.endpoint}`, slug);
+    const authHeaders = authHeader();
+    if (!slug) {
+        return;
+    }
+    console.log(url);
     return axios
         .post(
             url,
             proofRequestBody,
-            {headers: { "Content-Type": "multipart/form-data"},
+            {headers: Object.assign({}, { "Content-Type": "multipart/form-data"}, authHeaders),
         })
         .then((response) => {
             const fileInfo = response.data;
             console.log(fileInfo)
         })
         .catch((error) => {
-            console.log(error);
+            console.log('service level error: ', error);
             throw config.messagingConfig.messages.unknown_error;
         });
 }
