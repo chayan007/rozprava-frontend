@@ -8,6 +8,9 @@ debateConfig = {
         },
         getRebuttals: {
             endpoint: "debate/v1/detail/{0}/"
+        },
+        create:{
+            endpoint:"​debate​/v1​/create​/{0}​/",
         }
     }
 }

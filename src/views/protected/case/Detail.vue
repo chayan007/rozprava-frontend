@@ -111,7 +111,7 @@
       <!-- case comments -->
       <hr class="mt-4 m-0" />
       <div class="pri-comments">
-        <List :slug="caseDetail.slug"></List>
+        <List :slug="caseDetail.slug" :caseUuid="caseDetail.uuid"></List>
       </div>
     </div>
   </div>

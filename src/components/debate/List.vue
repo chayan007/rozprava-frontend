@@ -36,7 +36,7 @@
        <div  class="loader"></div>
     </div>
     <div v-else-if="!debates.length" >
-      <p>No Debates Yet!</p>
+      <p class="text-center">No Debates Yet!</p>
     </div>
     <div v-else class="comments-sec mb-6">
       <Comment
@@ -73,7 +73,7 @@
       v-on:click="toggleComment"
     >
       <div class="comm-inp rounded-pill col col-11 p-2 pl-4">
-        Add a comment...
+        Add a comment... 
       </div>
       <div class="col col-1 p-0 row m-0 align-items-center pl-1">
         <img class="comm-send-btn w-100" src="@/assets/send.svg" alt="" />
@@ -97,7 +97,7 @@
             x
           </h3>
         </div>
-        <Create></Create>
+        <Create :caseUuid="caseUuid"></Create>
       </div>
     </div>
   </div>
@@ -115,7 +115,7 @@ import { getSanitizedTime } from "@/helpers";
 export default {
   name: "List",
   components: { Comment, Rebuttal, Create },
-  props: ["slug"],
+  props: ["slug", "caseUuid"],
   watch: {
     slug: function () {
       this.loadDebates();
