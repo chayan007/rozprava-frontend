@@ -18,6 +18,8 @@ import Chat from '@/views/protected/chat/Chat.vue'
 import CaseCreate from '@/views/protected/case/Create.vue'
 import Notification from '@/views/protected/Notification.vue'
 import CaseDetail from '@/views/protected/case/Detail.vue'
+import CreateGroup from '@/views/Group/CreateGroup.vue'
+import Group from '@/views/Group/Group.vue'
 
 
 const routes = [
@@ -110,6 +112,16 @@ const routes = [
     path: '/activity',
     name: 'Activity',
     component: Activity
+  },
+  {
+    path: '/creategroup',
+    name: 'CreateGroup',
+    component: CreateGroup
+  },
+  {
+    path: '/group',
+    name: 'Group',
+    component: Group
   }
 ]
 
@@ -137,7 +149,9 @@ router.beforeEach((to, from, next) => {
       'Chat',
       'CaseCreate',
       'Activity',
-      'CaseDetail'
+      'CaseDetail',
+      'CreateGroup',
+      'Group'
   ];
   const authPagesName = [
       
