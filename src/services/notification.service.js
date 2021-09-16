@@ -1,4 +1,4 @@
-import { authHeader , stringFormat} from '@/helpers';
+import { authHeader } from '@/helpers';
 import { config } from "@/configurations";
 import axios from "axios";
 
@@ -18,7 +18,7 @@ function getNotification() {
             return info_notify;
         })
         .catch(() => {
-            throw stringFormat(config.messagingConfig.messages.error.unknown_error , 'info_notify');
+            throw config.messagingConfig.messages.error.unknown_error;
         });
 }
 

@@ -165,20 +165,7 @@ export default {
     searchProfile() {
       const username = this.searchValue;
       const { dispatch } = this.$store;
-
-      if (!this.searchValue) {
-        dispatch(
-          "alertStore/error",
-          stringFormat(
-            config.messagingConfig.messages.error.field_error,
-            "Members",
-            []
-          ).trim(),
-          { root: true }
-        );
-        return;
-      }
-
+      
       groupService
         .searchProfile(username)
         .then((profile_info) => {
@@ -200,21 +187,8 @@ export default {
         dispatch(
           "alertStore/error",
           stringFormat(
-            config.messagingConfig.messages.error.field_error,
+            config.messagingConfig.messages.error.empty_field_error,
             "Groupname",
-            []
-          ).trim(),
-          { root: true }
-        );
-        return;
-      }
-
-      if (!groupDescription) {
-        dispatch(
-          "alertStore/error",
-          stringFormat(
-            config.messagingConfig.messages.error.field_error,
-            "Group Description",
             []
           ).trim(),
           { root: true }
@@ -229,10 +203,10 @@ export default {
           is_paid: isPaid,
           members: members,
         })
-        .then((response) => {
+        .then(() => {
          router.push({
            name:"Group"
-         },console.log(response))
+         });
         })
         .catch(() => {
           dispatch(

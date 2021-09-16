@@ -2,9 +2,9 @@ import { authHeader, stringFormat } from '@/helpers';
 import { config } from "@/configurations";
 import axios from "axios";
 
-export const groupService = { searchProfile , addGroup }
+export const groupService = { searchProfile, addGroup }
 
-function searchProfile(username){
+function searchProfile(username) {
     const headers = authHeader();
     const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.groupConfig.api.searchProfile.endpoint}`, username);
     return axios
@@ -13,14 +13,12 @@ function searchProfile(username){
             { headers: headers },
         )
         .then((response) => {
-            const profile_info = response.data
-            return profile_info;
+            return response.data;
         })
-        .catch((error) => {
-            console.log(error.response.data)
+        .catch(() => {
             throw config.messagingConfig.messages.unknown_error;
         });
- }
+}
 
 function addGroup(createGroupBody) {
     const headers = authHeader();
@@ -32,12 +30,9 @@ function addGroup(createGroupBody) {
             { headers: headers },
         )
         .then((response) => {
-            const group_info = response.data
-            console.log(group_info);
-            return group_info;
+            return response.data;
         })
-        .catch((error) => {
-            console.log(error.response.data)
+        .catch(() => {
             throw config.messagingConfig.messages.unknown_error;
         });
 }
