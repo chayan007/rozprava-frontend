@@ -5,7 +5,7 @@ import {notificationConfig} from "@/configurations/notification";
 
 let commonConfig;
 
-if (process.env.NODE_ENV === "PRODUCTION") {
+if (process.env.NODE_ENV !== "PRODUCTION") {
     commonConfig = {
         $apiUrl: "http://13.235.74.15",
         timeoutDuration: 30000,
