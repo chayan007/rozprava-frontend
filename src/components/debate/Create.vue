@@ -32,20 +32,26 @@
         <img class="attach-icon" src="@/assets/attachment1.png" alt="" />
       </button>
       <small class="row align-items-center col col-9 p-0 m-0"
-        >PDF, Images, Links, Audios, Videos, etc 
+        >PDF, Images, Links, Audios, Videos, etc
       </small>
     </div>
 
     <div class="com-post-btn-box row m-0">
       <p class="col col-12 pl-2 m-0">Post:</p>
       <div class="col col-6 p-2">
-        <div class="p-2 post-com-btn post-com-post-for shadow" v-on:click="createDebate(1)">
+        <div
+          class="p-2 post-com-btn post-com-post-for shadow"
+          v-on:click="createDebate(1)"
+        >
           <img class="post-com-icon" src="@/assets/case-like.svg" alt="" />
           <h6 class="text-center m-0">In Favour</h6>
         </div>
       </div>
       <div class="col col-6 p-2">
-        <div class="p-2 post-com-btn post-com-post-aga shadow"  v-on:click="createDebate(0)">
+        <div
+          class="p-2 post-com-btn post-com-post-aga shadow"
+          v-on:click="createDebate(0)"
+        >
           <img class="post-com-icon" src="@/assets/case-dislike.svg" alt="" />
           <h6 class="text-center m-0">Against</h6>
         </div>
@@ -64,7 +70,7 @@ import router from "@/router";
 
 export default {
   name: "DebateCreate",
-  props: ["caseUuid"],
+  props: ["caseUuid", "commentSection"],
   // components: { UploadComponent: Upload },
   data() {
     return {
@@ -73,6 +79,11 @@ export default {
       isAnonymous: 0,
       inclination: null,
     };
+  },
+  watch: {
+    caseUuid: function () {
+      this.comment = "";
+    },
   },
 
   methods: {
@@ -94,31 +105,66 @@ export default {
         );
         return;
       }
-
-      debateService
-        .createDebate({
-          comment: comment,
-          is_anonymous: isAnonymous,
-          inclination: inclination
-        }, uuid)
-        .then((debateResponse) => {
-          router.push({
-            name: "CaseDetail",
-            params: { slug: debateResponse.slug },
+      console.log("comment=", comment);
+      console.log("incli= ", inclination);
+      console.log("commentSection", this.commentSection);
+      if (this.commentSection == "Debate") {
+        debateService
+          .createDebate(
+            {
+              comment: comment,
+              is_posted_anonymously: isAnonymous,
+              inclination: inclination,
+            },
+            uuid
+          )
+          .then(() => {
+            const slug = this.$route.params.slug;
+            router.push({
+              name: "CaseDetail",
+              params: { slug: slug },
+            });
+          })
+          .catch(() => {
+            dispatch(
+              "alertStore/error",
+              config.messagingConfig.messages.error.unknown_error
+            );
           });
-        })
-        .catch(() => {
-          dispatch(
-            "alertStore/error",
-            config.messagingConfig.messages.error.unknown_error
-          );
-        });
+          this.$parent.toggleComment();
+          this.$parent.loadDebates();
+      } else {
+        debateService
+          .createRebuttal(
+            {
+              comment: comment,
+              is_posted_anonymously: isAnonymous,
+              inclination: inclination,
+            },
+            uuid
+          )
+          .then(() => {
+            const slug = this.$route.params.slug;
+            router.push({
+              name: "CaseDetail",
+              params: { slug: slug },
+            });
+          })
+          .catch(() => {
+            dispatch(
+              "alertStore/error",
+              config.messagingConfig.messages.error.unknown_error
+            );
+          });
+          this.$parent.toggleComment();
+      }
+      
     },
     upload() {
       var element = document.getElementById("show");
       element.classList.toggle("show_hide");
     },
-  }
+  },
 };
 </script>
 

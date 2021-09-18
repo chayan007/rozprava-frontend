@@ -152,7 +152,7 @@
               Add a comment...
             </div>
             <div class="col col-1 p-0 row m-0 align-items-center pl-1">
-              <img class="comm-send-btn w-100" src="@/assets/send.svg" alt="" />
+              <img class="comm-send-btn" src="@/assets/send.svg" alt="" />
             </div>
           </div>
         </div>
@@ -173,8 +173,9 @@
               >
                 x
               </h3>
-            </div>
-            <Create></Create>
+            </div> 
+            {{rebuttalItem.uuid}}
+            <Create :caseUuid="rebuttalItem.uuid" :commentSection="'Rebuttal'"></Create>
           </div>
         </div>
       </div>
@@ -297,7 +298,7 @@ export default {
 }
 .close-rebuttal {
   background-color: white;
-  border-radius: 15px;
+  border-radius: 15px; 
 }
 
 .filter-btn:hover {
@@ -316,7 +317,9 @@ export default {
 .comm-inp {
   background-color: rgb(236, 236, 236);
 }
-
+.comm-send-btn{
+  width: 2em;
+}
 .add-comment-form {
   position: fixed;
   top: 0%;

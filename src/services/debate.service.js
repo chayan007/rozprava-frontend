@@ -2,7 +2,7 @@ import {authHeader, stringFormat} from '@/helpers';
 import {config} from "@/configurations";
 import axios from "axios";
 
-export const debateService = {getDebates, getRebuttals, createDebate};
+export const debateService = {getDebates, getRebuttals, createDebate, createRebuttal};
 
 function getDebates(slug) {
     const headers = authHeader();
@@ -20,7 +20,6 @@ function getDebates(slug) {
 function createDebate(createDebateBody, uuid) {
     const headers = authHeader();
     const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.debateConfig.api.create.endpoint}`, uuid);
-    console.log(createDebateBody)
     return axios
         .post(
             url,
@@ -32,13 +31,11 @@ function createDebate(createDebateBody, uuid) {
             return debate_info;
         })
         .catch((error) => {
-            console.log(error.response.data)
+            console.log(error.response)
             throw config.messagingConfig.messages.unknown_error;
         });
 }
 
- 
-export const rebuttalService = { getRebuttals };
 
 function getRebuttals(uuid) {
     const headers = authHeader();
@@ -50,5 +47,24 @@ function getRebuttals(uuid) {
         })
         .catch(() => {
             throw config.messagingConfig.messages.error.unknown_error ;
+        });
+}
+
+function createRebuttal(createRebuttalBody, uuid) {
+    const headers = authHeader();
+    const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.debateConfig.api.createRebuttal.endpoint}`, uuid);
+    return axios
+        .post(
+            url,
+            createRebuttalBody,
+            { headers: headers },
+        )
+        .then((response) => {
+            console.log(response.data);
+            return response.data;
+        })
+        .catch((error) => {
+            console.log(error.response)
+            throw config.messagingConfig.messages.unknown_error;
         });
 }

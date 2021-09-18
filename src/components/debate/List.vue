@@ -45,7 +45,6 @@
         v-show="debate.inclination == inclination || inclination == null"
         :newDebate="debate"
         :createdAt="sanitizedTime(debate.created_at)"
-        v-on:click="toggleRebuttals(debate, sanitizedTime(debate.created_at))"
       ></Comment>
     </div>
 
@@ -76,7 +75,7 @@
         Add a comment... 
       </div>
       <div class="col col-1 p-0 row m-0 align-items-center pl-1">
-        <img class="comm-send-btn w-100" src="@/assets/send.svg" alt="" />
+        <img class="comm-send-btn" src="@/assets/send.svg" alt="" />
       </div>
     </div>
     <!-- Add comment form -->
@@ -97,7 +96,7 @@
             x
           </h3>
         </div>
-        <Create :caseUuid="caseUuid"></Create>
+        <Create :caseUuid="caseUuid" :commentSection="'Debate'"></Create>
       </div>
     </div>
   </div>
@@ -197,7 +196,9 @@ export default {
 .comm-inp {
   background-color: rgb(236, 236, 236);
 }
-
+.comm-send-btn{
+  width: 2em;
+}
 .add-comment-form {
   position: fixed;
   top: 0%;

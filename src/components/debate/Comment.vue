@@ -5,9 +5,15 @@
   >
     <div class="col col-10 p-2" :class="[!debate.inclination  ? 'aga-com' : 'for-com']">
       <!-- profile -->
-      <div class="com-profile-box row align-items-center m-0">
-        <img class="com-pro-img rounded-circle" :src="debate.profile.display_pic" />
-        <small class="ml-2 h6 m-0">{{ debate.profile.user.full_name }}</small>
+      <div class="com-profile-box row align-items-center justify-content-between m-0">
+        <div>
+          <img class="com-pro-img rounded-circle" :src="debate.profile.display_pic" />
+          <small class="ml-2 h6 m-0">{{ debate.profile.user.full_name }}</small>
+        </div>
+        <div class="text-right">
+          <img @click="commentMenu = !commentMenu" v-if="is_authenticated" class="comment-menu" src="@/assets/menu-dots.svg" alt="">
+          <div v-show="commentMenu" class="comment-menu-box p-3 w-100"><p class=" p-2 mt-1 w-100 text-center shadow">Delete</p></div>
+        </div>
       </div>
 
       <!-- body -->
@@ -38,7 +44,9 @@
             <small class="react-txt m-0 mr-2 h6">{{debate.activities[2]}}</small>
           </span>
           <span>
-            <small class="font-weight-bold" v-if="!isRebuttal">Rebuttals</small>
+            <small class="font-weight-bold" 
+                   v-on:click="toggleRebuttals()"
+                   v-if="!isRebuttal">Rebuttals</small>
           </span>
         </span>
         <span class="case-view-box row m-0 align-items-center">
@@ -55,10 +63,21 @@ export default {
   props: ["newDebate", "createdAt", "isRebuttal"],
   data() {
     return {
+      commentMenu: 0,
       debate: this.newDebate,
       cAgainst: false,
     };
   },
+  methods: {
+    toggleRebuttals() {
+      this.$parent.toggleRebuttals(this.newDebate, this.createdAt)
+    }
+  },
+  computed: {
+     is_authenticated() {
+      return this.$store.state.authStore.user;
+    },
+  }
 };
 </script>
 
@@ -84,5 +103,17 @@ export default {
 }
 .react-txt {
   font-size: 0.8em;
+}
+.comment-menu{
+  width: 1.2em;
+}
+.comment-menu-box{
+  position: absolute;
+  left: 0%;
+}
+.comment-menu-box p{
+  border-radius: 10px;
+  background-color: #da1024;
+  color: #fff;
 }
 </style>

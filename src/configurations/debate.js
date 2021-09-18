@@ -3,14 +3,17 @@ let debateConfig;
 
 debateConfig = {
     api: {
-        getDebates: {
-            endpoint: "debate/v1/list/?slug={0}"
+        getDebates : {
+            endpoint : "debate/v1/list/?slug={0}"
         },
-        getRebuttals: {
-            endpoint: "debate/v1/detail/{0}/"
+        getRebuttals : {
+            endpoint : "debate/v1/detail/{0}/"
         },
         create:{
-            endpoint:"debate/v1/create/{0}/",
+            endpoint : "debate/v1/create/{0}/",
+        },
+        createRebuttal : {
+            endpoint : "debate/v1/rebuttal/create/{0}​/"
         }
     }
 }
