@@ -13,7 +13,7 @@ debateConfig = {
             endpoint : "debate/v1/create/{0}/",
         },
         createRebuttal : {
-            endpoint : "debate/v1/rebuttal/create/{0}/"
+            endpoint : "debate/v1/rebuttal/create/"
         }
     }
 }

@@ -50,9 +50,9 @@ function getRebuttals(uuid) {
         });
 }
 
-function createRebuttal(createRebuttalBody, uuid) {
+function createRebuttal(createRebuttalBody) {
     const headers = authHeader();
-    const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.debateConfig.api.createRebuttal.endpoint}`, uuid);
+    const url = `${config.commonConfig.$apiUrl}/${config.debateConfig.api.createRebuttal.endpoint}`;
     return axios
         .post(
             url,
