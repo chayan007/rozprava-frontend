@@ -20,18 +20,22 @@ export default {
   components: { ActivityItem: Activity },
   data() {
     return {
-      activities: null,
+      activities: [],
     };
   },
   methods: {
     getActivityList() {
+      const { dispatch } = this.$store;
       activityService
         .getActivity()
         .then((activities) => {
           this.activities = activities;
         })
         .catch(() => {
-          throw config.messagingConfig.messages.error.unknown_error;
+          dispatch(
+            "alertStore/error",
+            config.messagingConfig.messages.error.unknown_error
+          );
         });
     },
   },
