@@ -105,7 +105,11 @@ export default {
         );
         return;
       }
+<<<<<<< HEAD
       if (this.commentSection == "Debate") {
+=======
+      if (this.commentSection === "Debate") {
+>>>>>>> 52af52a448ffcc6e29d69b809b2643eaec492ec6
         debateService
           .createDebate(
             {
@@ -134,11 +138,16 @@ export default {
         debateService
           .createRebuttal(
             {
+              debate_uuid: uuid,
               comment: comment,
               is_posted_anonymously: isAnonymous,
               inclination: inclination,
+<<<<<<< HEAD
               debate_uuid: uuid
             },
+=======
+            }
+>>>>>>> 52af52a448ffcc6e29d69b809b2643eaec492ec6
           )
           .then(() => {
             const slug = this.$route.params.slug;
@@ -156,7 +165,7 @@ export default {
           this.$parent.toggleComment();
           this.$router.go()
       }
-      
+
     },
     upload() {
       var element = document.getElementById("show");
