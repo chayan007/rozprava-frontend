@@ -18,6 +18,9 @@ caseConfig = {
         },
         getCase:{
             endpoint:"case/v1/{0}/"
+        },
+        deleteCase:{
+            endpoint:"case/v1/{0}/"
         }
     },
     categories: {

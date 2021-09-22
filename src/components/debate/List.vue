@@ -31,7 +31,7 @@
 
     <!-- comments -->
 
-    <p v-if="debates">{{debates.length}} Debates :</p>
+    <p v-if="debates" >Debates :</p>
     <div v-if="!debates" class="loader-box p-5 w-100 row m-0 justify-content-center align-center">
        <div  class="loader"></div>
     </div>

@@ -2,7 +2,7 @@ import {authHeader, stringFormat} from '@/helpers';
 import {config} from "@/configurations";
 import axios from "axios";
 
-export const debateService = {getDebates, getRebuttals, createDebate, createRebuttal};
+export const debateService = {getDebates, getRebuttals, createDebate, createRebuttal, deleteDebate};
 
 function getDebates(slug) {
     const headers = authHeader();
@@ -50,9 +50,9 @@ function getRebuttals(uuid) {
         });
 }
 
-function createRebuttal(createRebuttalBody, uuid) {
+function createRebuttal(createRebuttalBody) {
     const headers = authHeader();
-    const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.debateConfig.api.createRebuttal.endpoint}`, uuid);
+    const url = `${config.commonConfig.$apiUrl}/${config.debateConfig.api.createRebuttal.endpoint}`;
     return axios
         .post(
             url,
@@ -62,6 +62,25 @@ function createRebuttal(createRebuttalBody, uuid) {
         .then((response) => {
             console.log(response.data);
             return response.data;
+        })
+        .catch((error) => {
+            console.log(error.response)
+            throw config.messagingConfig.messages.unknown_error;
+        });
+}
+
+
+function deleteDebate(uuid) {
+    const headers = authHeader();
+    const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.debateConfig.api.deleteDebate.endpoint}`, uuid);
+    return axios
+        .delete(
+            url,
+            { headers: headers },
+        )
+        .then((response) => {
+            const debate_info = response.data
+            return debate_info;
         })
         .catch((error) => {
             console.log(error.response)

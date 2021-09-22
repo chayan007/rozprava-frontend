@@ -8,7 +8,7 @@
       </h3>
     </div>
     <!-- close btn -->
-     <!-- <div class="close-case-detail-outer w-100 text-center" v-show="!rebuttal">
+    <!-- <div class="close-case-detail-outer w-100 text-center" v-show="!rebuttal">
         <span class="close-case-detail m-0  row justify-content-center w-100">
           <h2 class="rounded-circle m-0 row align-items-center justify-content-center shadow">x</h2>
         </span>
@@ -34,7 +34,20 @@
           </span>
         </span>
         <span class="row m-0 align-items-center">
-          <img class="case-menu" src="@/assets/menu-dots.svg" alt="" />
+          <img
+            class="case-menu"
+            @click="caseMenu = !caseMenu"
+            src="@/assets/menu-dots.svg"
+            alt=""
+          />
+          <div v-show="caseMenu" class="case-menu-box p-3 w-100">
+            <p
+              class="p-2 mt-1 w-100 text-center shadow"
+              @click="deleteDebate()"
+            >
+              Delete
+            </p>
+          </div>
         </span>
       </div>
 
@@ -123,6 +136,7 @@ import List from "@/components/debate/List.vue";
 import { caseService } from "@/services";
 import { config } from "@/configurations";
 import { getSanitizedTime } from "@/helpers";
+import router from "@/router";
 
 export default {
   name: "DetailCase",
@@ -130,6 +144,7 @@ export default {
   data() {
     return {
       caseDetail: null,
+      caseMenu: 0,
     };
   },
   methods: {
@@ -148,16 +163,36 @@ export default {
     sanitizedTime(createdAt) {
       return getSanitizedTime(createdAt);
     },
+
+    deleteDebate() {
+      console.log(this.$route.params.slug);
+      const slug = this.$route.params.slug;
+      const { dispatch } = this.$store;
+
+      caseService
+        .deleteCase(slug)
+        .then(() => {
+          router.push({
+            name: "CaseCreate",
+          });
+        })
+        .catch(() => {
+          dispatch(
+            "alertStore/error",
+            config.messagingConfig.messages.error.unknown_error
+          );
+        });
+    },
   },
+
   created() {
     this.loadCase();
   },
-  
 };
 </script>
 
 <style scoped>
-.close-case-detail h2{
+.close-case-detail h2 {
   width: 1.7em;
   height: 1.7em;
   background-color: white;
@@ -191,6 +226,17 @@ export default {
 .case-menu {
   width: 1.2em;
 }
+.case-menu-box {
+  position: absolute;
+  left: 0%;
+  top: 3em;
+}
+.case-menu-box p {
+  border-radius: 10px;
+  background-color: #a91e2c;
+  color: #fff;
+}
+
 .case-box hr {
   border: none;
   border-bottom: 1px solid rgb(163, 163, 163);

@@ -105,9 +105,6 @@ export default {
         );
         return;
       }
-      console.log("comment=", comment);
-      console.log("incli= ", inclination);
-      console.log("commentSection", this.commentSection);
       if (this.commentSection == "Debate") {
         debateService
           .createDebate(
@@ -132,7 +129,7 @@ export default {
             );
           });
           this.$parent.toggleComment();
-          this.$parent.loadDebates();
+          this.$router.go()
       } else {
         debateService
           .createRebuttal(
@@ -140,8 +137,8 @@ export default {
               comment: comment,
               is_posted_anonymously: isAnonymous,
               inclination: inclination,
+              debate_uuid: uuid
             },
-            uuid
           )
           .then(() => {
             const slug = this.$route.params.slug;
@@ -157,6 +154,7 @@ export default {
             );
           });
           this.$parent.toggleComment();
+          this.$router.go()
       }
       
     },

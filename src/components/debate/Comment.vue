@@ -1,25 +1,53 @@
 <template>
-  <div v-if="debate"
+  <div
+    v-if="debate"
     class="row m-0 mb-3"
-    :class="[!debate.inclination ? 'justify-content-end' : 'justify-content-start']"
+    :class="[
+      !debate.inclination ? 'justify-content-end' : 'justify-content-start',
+    ]"
   >
-    <div class="col col-10 p-2" :class="[!debate.inclination  ? 'aga-com' : 'for-com']">
+    <div
+      class="col col-10 p-2"
+      :class="[!debate.inclination ? 'aga-com' : 'for-com']"
+    >
       <!-- profile -->
-      <div class="com-profile-box row align-items-center justify-content-between m-0">
+      <div
+        class="
+          com-profile-box
+          row
+          align-items-center
+          justify-content-between
+          m-0
+        "
+      >
         <div>
-          <img class="com-pro-img rounded-circle" :src="debate.profile.display_pic" />
+          <img
+            class="com-pro-img rounded-circle"
+            :src="debate.profile.display_pic"
+          />
           <small class="ml-2 h6 m-0">{{ debate.profile.user.full_name }}</small>
         </div>
         <div class="text-right">
-          <img @click="commentMenu = !commentMenu" v-if="is_authenticated" class="comment-menu" src="@/assets/menu-dots.svg" alt="">
-          <div v-show="commentMenu" class="comment-menu-box p-3 w-100"><p class=" p-2 mt-1 w-100 text-center shadow">Delete</p></div>
+          <img
+            @click="commentMenu = !commentMenu"
+            v-if="
+              is_authenticated.profile.user.username ==
+              debate.profile.user.username
+            "
+            class="comment-menu"
+            src="@/assets/menu-dots.svg"
+            alt=""
+          />
+          <div v-show="commentMenu" class="comment-menu-box p-3 w-100">
+            <p class="p-2 mt-1 w-100 text-center shadow" @click="deleteDebate()">Delete</p>
+          </div>
         </div>
       </div>
 
       <!-- body -->
       <div class="com-body mt-2 pl-1">
         <small>
-          {{  debate.comment }}
+          {{ debate.comment }}
         </small>
       </div>
 
@@ -33,7 +61,9 @@
               src="@/assets/case-like.svg"
               alt=""
             />
-            <small class="react-txt m-0 mr-3 h6">{{debate.activities[1]}}</small>
+            <small class="react-txt m-0 mr-3 h6">{{
+              debate.activities[1]
+            }}</small>
           </span>
           <span class="row m-0 align-items-center">
             <img
@@ -41,12 +71,17 @@
               src="@/assets/case-dislike.svg"
               alt=""
             />
-            <small class="react-txt m-0 mr-2 h6">{{debate.activities[2]}}</small>
+            <small class="react-txt m-0 mr-2 h6">{{
+              debate.activities[2]
+            }}</small>
           </span>
           <span>
-            <small class="font-weight-bold" 
-                   v-on:click="toggleRebuttals()"
-                   v-if="!isRebuttal">Rebuttals</small>
+            <small
+              class="font-weight-bold"
+              v-on:click="toggleRebuttals()"
+              v-if="!isRebuttal"
+              >Rebuttals</small
+            >
           </span>
         </span>
         <span class="case-view-box row m-0 align-items-center">
@@ -58,6 +93,10 @@
 </template>
 
 <script>
+import { config } from "@/configurations";
+import { debateService } from "@/services";
+import router from "@/router";
+
 export default {
   name: "Against",
   props: ["newDebate", "createdAt", "isRebuttal"],
@@ -66,18 +105,42 @@ export default {
       commentMenu: 0,
       debate: this.newDebate,
       cAgainst: false,
+      uuid: this.newDebate.uuid
     };
   },
   methods: {
     toggleRebuttals() {
-      this.$parent.toggleRebuttals(this.newDebate, this.createdAt)
-    }
+      this.$parent.toggleRebuttals(this.newDebate, this.createdAt);
+    },
+
+    deleteDebate() {
+      console.log(this.uuid);
+      const uuid  = this.uuid;
+      const { dispatch } = this.$store;
+
+      debateService
+        .deleteDebate(uuid)
+        .then(() => {
+          const slug = this.$route.params.slug;
+          router.push({
+            name: "CaseDetail",
+            params: { slug: slug },
+          });
+        })
+        .catch(() => {
+          dispatch(
+            "alertStore/error",
+            config.messagingConfig.messages.error.unknown_error
+          );
+        });
+        this.$router.go()
+    },
   },
   computed: {
-     is_authenticated() {
+    is_authenticated() {
       return this.$store.state.authStore.user;
     },
-  }
+  },
 };
 </script>
 
@@ -104,16 +167,16 @@ export default {
 .react-txt {
   font-size: 0.8em;
 }
-.comment-menu{
+.comment-menu {
   width: 1.2em;
 }
-.comment-menu-box{
+.comment-menu-box {
   position: absolute;
   left: 0%;
 }
-.comment-menu-box p{
+.comment-menu-box p {
   border-radius: 10px;
-  background-color: #da1024;
+  background-color: #A91E2C;
   color: #fff;
 }
 </style>

@@ -174,7 +174,6 @@
                 x
               </h3>
             </div> 
-            {{rebuttalItem.uuid}}
             <Create :caseUuid="rebuttalItem.uuid" :commentSection="'Rebuttal'"></Create>
           </div>
         </div>
