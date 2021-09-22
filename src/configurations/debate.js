@@ -14,12 +14,9 @@ debateConfig = {
         },
         createRebuttal : {
             endpoint : "debate/v1/rebuttal/create/"
-<<<<<<< HEAD
         },
         deleteDebate : {
             endpoint : "debate/v1/detail/{0}/"
-=======
->>>>>>> 52af52a448ffcc6e29d69b809b2643eaec492ec6
         }
     }
 }
