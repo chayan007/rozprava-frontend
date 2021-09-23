@@ -41,7 +41,10 @@
             alt=""
           />
           <div v-show="caseMenu" class="case-menu-box p-3 w-100">
-            <p
+            <p v-if="
+              is_authenticated.profile.user.username ==
+              caseDetail.profile.user.username
+            "
               class="p-2 mt-1 w-100 text-center shadow"
               @click="deleteDebate()"
             >
@@ -173,7 +176,7 @@ export default {
         .deleteCase(slug)
         .then(() => {
           router.push({
-            name: "CaseCreate",
+            name: "CaseView",
           });
         })
         .catch(() => {
@@ -187,6 +190,11 @@ export default {
 
   created() {
     this.loadCase();
+  },
+  computed: {
+    is_authenticated() {
+      return this.$store.state.authStore.user;
+    },
   },
 };
 </script>

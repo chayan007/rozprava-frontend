@@ -129,7 +129,7 @@ export default {
         })
         .catch(() => {
           dispatch(
-            "alertStore/error",
+            "alertStore/error", 
             config.messagingConfig.messages.error.unknown_error
           );
         });
