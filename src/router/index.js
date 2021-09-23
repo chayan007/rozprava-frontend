@@ -20,6 +20,7 @@ import Notification from '@/views/protected/Notification.vue'
 import CaseDetail from '@/views/protected/case/Detail.vue'
 import CreateGroup from '@/views/Group/CreateGroup.vue'
 import Group from '@/views/Group/Group.vue'
+import GeneralSearch from '@/views/GeneralSearch.vue'
 
 
 const routes = [
@@ -122,6 +123,11 @@ const routes = [
     path: '/group',
     name: 'Group',
     component: Group
+  },
+  {
+    path: '/generalsearch',
+    name: 'GeneralSearch',
+    component: GeneralSearch
   }
 ]
 
@@ -151,7 +157,8 @@ router.beforeEach((to, from, next) => {
       'Activity',
       'CaseDetail',
       'CreateGroup',
-      'Group'
+      'Group',
+      'GeneralSearch'
   ];
   const authPagesName = [
       
