@@ -4,6 +4,8 @@
     aria-label="Primary navigation"
     class="
       navbar navbar-main navbar-expand-lg navbar-theme-primary
+      p-2
+      pr-3
       headroom
       navbar-light navbar-transparent
       headroom--not-top headroom--not-bottom headroom--pinned
@@ -13,7 +15,7 @@
       <div class="navbar-collapse collapse" id="navbar_global" style="">
         <div class="navbar-collapse-header">
           <div class="row">
-            <div class="col-6 collapse-close">
+            <div class="col-12 text-center collapse-close">
               <a
                 href="#navbar_global"
                 class="fas fa-times collapsed"
@@ -30,11 +32,14 @@
         <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
           <li class="nav-item dropdown">
             <a href="#" class="nav-link" data-toggle="dropdown">
-              <span class="nav-link-inner-text">Menu</span>
+              <span class="nav-link-inner-text w-100 row m-0 justify-content-between">
+                <span>Menu</span>
+                <img class="menu-item-icon pr-2" src="@/assets/menu.svg" alt="">
+              </span>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item">About us</a></li>
-              <li><a class="dropdown-item">Terms and Conditions</a></li>
+              <li data-toggle="collapse" data-target="#navbar_global"><a class="dropdown-item">About us</a></li>
+              <li data-toggle="collapse" data-target="#navbar_global"><a class="dropdown-item">Terms and Conditions</a></li>
             </ul>
           </li>
 
@@ -42,13 +47,16 @@
 
           <li class="nav-item dropdown">
             <a href="#" class="nav-link" data-toggle="dropdown">
-              <span class="nav-link-inner-text">Pages</span>
+              <span class="nav-link-inner-text w-100 row m-0 justify-content-between">
+                <span>Pages</span>
+                <img class="menu-item-icon pr-2" src="@/assets/pages.svg" alt="">
+              </span>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item"><router-link to="/signup">SignUp</router-link></a></li>
-              <li><a class="dropdown-item"><router-link to="/register">Register</router-link></a></li>
-              <li><a class="dropdown-item"><router-link to="/login">Login</router-link></a></li>
-              <li><a class="dropdown-item"><router-link to="/timeline">Timeline</router-link></a></li>
+              <li data-toggle="collapse" data-target="#navbar_global"><a class="dropdown-item"><router-link to="/signup">SignUp</router-link></a></li>
+              <li data-toggle="collapse" data-target="#navbar_global"><a class="dropdown-item"><router-link to="/register">Register</router-link></a></li>
+              <li data-toggle="collapse" data-target="#navbar_global"><a class="dropdown-item"><router-link to="/login">Login</router-link></a></li>
+              <li data-toggle="collapse" data-target="#navbar_global"><a class="dropdown-item"><router-link to="/timeline">Timeline</router-link></a></li>
             </ul>
           </li>
 
@@ -65,21 +73,7 @@
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <svg
-            height="32px"
-            id="Layer_1"
-            style="enable-background:new 0 0 32 32;"
-            version="1.1"
-            viewBox="0 0 32 32"
-            width="32px"
-            xml:space="preserve"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-          >
-            <path
-              d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"
-            />
-          </svg>
+           <img class="menu-item-icon pr-2" src="@/assets/menu.svg" alt="">
         </button>
       </div>
 
@@ -98,5 +92,14 @@ export default {
 .profile-image {
   width: 3rem;
   height: 3rem;
+}
+.menu-icon {
+  width: 1.5em;
+}
+.menu-item-icon {
+  width: 1.9em;
+}
+.nav-item {
+  border-bottom: 1px solid rgb(196, 196, 196);
 }
 </style>
