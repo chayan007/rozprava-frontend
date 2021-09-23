@@ -10,7 +10,7 @@
   </ol>
 
   <footer class="w-100 text-center">
-    <a href=""> Terms & condition </a>
+    <a href=""> Terms &amp; condition </a>
   </footer>
 </template>
 <script>
