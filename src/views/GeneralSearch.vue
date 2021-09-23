@@ -85,13 +85,13 @@
     </div>
 
     <!-- cases -->
-    <div class="row m-0" v-if="cases && casesInfo">
+    <div class="row m-0" v-if="cases && caseInfo">
       <h4 class="cat-head col col-12 mt-1 m-0">Cases</h4>
       <div class="col col-12 pl-3 pr-3">
         <hr />
       </div>
-      <template v-for="cases in caseShowInfo" :key="cases.uuid">
-        <CaseSearchComponent :cases="cases" />
+      <template v-for="allCases in caseShowInfo" :key="allCases.uuid">
+        <CaseSearchComponent :allCases="allCases" />
       </template>
       <div class="m-0 row justify-content-end col col-12">
         <h6
@@ -123,9 +123,9 @@ export default {
   data() {
     return {
       searchValue: "",
-      profileInfo: 0,
-      groupInfo: 0,
-      casesInfo: 0,
+      profileInfo: [],
+      groupInfo: [],
+      caseInfo: [],
       accounts: 1,
       groups: 1,
       cases: 1,
@@ -149,23 +149,23 @@ export default {
         return [];
       }
     },
-    GroupShowInfo() {
+    groupShowInfo() {
       if (this.groupInfo) {
         if (this.displayFlag) {
-          return this.groupInfo.slice(0, 5);
+          return this.groupInfo.data.groups.slice(0, 5);
         } else {
-          return this.groupInfo;
+          return this.groupInfo.data.groups;
         }
       } else {
         return [];
       }
     },
-     CaseShowInfo() {
-      if (this.groupInfo) {
+    caseShowInfo() {
+      if (this.caseInfo) {
         if (this.displayFlag) {
-          return this.groupInfo.slice(0, 5);
+          return this.caseInfo.slice(0, 5);
         } else {
-          return this.groupInfo;
+          return this.caseInfo;
         }
       } else {
         return [];
@@ -192,6 +192,16 @@ export default {
         .searchGroup(username)
         .then((groupInfo) => {
           this.groupInfo = groupInfo;
+        })
+        .catch((e) => {
+          dispatch(
+            "alertStore/error",e
+          );
+        });
+      generalSearchService
+        .searchCase(username)
+        .then((caseInfo) => {
+          this.caseInfo = caseInfo;
         })
         .catch(() => {
           dispatch(
@@ -223,6 +233,7 @@ export default {
       this.accounts = 0;
       this.groups = 0;
       this.cases = 1;
+      console.log("zz");
     },
   },
 };

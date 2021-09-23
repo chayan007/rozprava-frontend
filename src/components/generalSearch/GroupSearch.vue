@@ -14,7 +14,7 @@
         src="@/assets/profile-picture-1.jpg"
         alt=""
       />
-      <h5 class="m-0 ml-2">{{ group.user.username }}</h5>
+      <h5 class="m-0 ml-2">{{ group.name }}</h5>
     </div>
 </template>
 

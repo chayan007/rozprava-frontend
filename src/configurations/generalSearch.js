@@ -9,7 +9,7 @@ generalSearchConfig = {
             endpoint:"profile/group/search/{0}",
         },
         searchCase:{
-            endpoint:""
+            endpoint:"case/v1/search/{0}"
         }
     }
 }

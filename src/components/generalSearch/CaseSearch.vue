@@ -2,8 +2,8 @@
   <div class="p-3 col col-12 row m-0 align-items-center">
     <img
       class="pro-pic-sm rounded-circle mr-2"
-      v-if="cases.display_pic"
-      :src="cases.display_pic"
+      v-if="allCases.display_pic"
+      :src="allCases.display_pic"
       alt=""
     />
     <img
@@ -13,8 +13,8 @@
       alt=""
     />
     <div class="ml-2">
-      <h6 class="m-0">{{ cases.user.username }}</h6>
-      <h5 class="m-0">{{cases.question }}</h5>
+      <h6 class="m-0">{{ allCases.user.username }}</h6>
+      <h5 class="m-0">{{allCases}}</h5>
     </div>
   </div>
 </template>
@@ -22,7 +22,7 @@
 <script>
 export default {
   name: "CaseSearch",
-  props: ["cases"],
+  props: ["allCases"],
 };
 </script>
 
