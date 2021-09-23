@@ -10,7 +10,7 @@
 
 <script>
 import Case from "@/components/case/Case.vue";
-import { config } from "@/configurations";
+import { config } from "@/configurations"; 
 
 export default {
   name: "CaseView",

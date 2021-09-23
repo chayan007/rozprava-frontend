@@ -10,12 +10,9 @@ const messagingConfig = {
             user_not_found: 'No records found for the username / email.',
             does_not_exist_error: 'This {0} does not exist. Please check again.',
             otp_not_match: 'Wrong OTP submitted. Please request new OTP and try again',
+            watched_all: 'You have watched all {0}. Please wait for {0}.'
         },
-        notification: {
-            watched_all_cases: 'You have watched all cases. Please wait till someone raises some.'
-        }
     }
 };
-
 
 export { messagingConfig }
