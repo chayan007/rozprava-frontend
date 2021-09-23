@@ -277,10 +277,7 @@ export default {
       var element = document.getElementById("show");
       element.classList.toggle("show_hide");
     },
-  },
-  created() {
-    this.createCase();
-  },
+  }
 };
 </script>
 

@@ -2,7 +2,7 @@ import { authHeader, stringFormat } from '@/helpers';
 import { config } from "@/configurations";
 import axios from "axios";
 
-export const caseService = { getCases, createCase, getCase };
+export const caseService = { getCases, createCase, getCase, deleteCase };
 
 function getCases(category = null, username = null) {
     const headers = authHeader();
@@ -76,6 +76,24 @@ function getCase(slug) {
         })
         .catch((error) => {
             console.log(error.response.data);
+            throw config.messagingConfig.messages.unknown_error;
+        });
+}
+
+function deleteCase(slug) {
+    const headers = authHeader();
+    const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.caseConfig.api.deleteCase.endpoint}`, slug);
+    return axios
+        .delete(
+            url,
+            { headers: headers },
+        )
+        .then((response) => {
+            const case_info = response.data
+            return case_info;
+        })
+        .catch((error) => {
+            console.log(error.response)
             throw config.messagingConfig.messages.unknown_error;
         });
 }
