@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container mt-6 mb-6">
         <div class="row justify-content-md-around">
           <template v-for="case_detail in cases" :key="case_detail.uuid">
             <Case :detail="case_detail"></Case>

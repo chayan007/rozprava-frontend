@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-4">
+  <div class="mt-4 col col-12">
     <div class="card bg-primary border-light shadow-soft">
       <img v-if="hasValue('image_url')"
           src="https://user-images.githubusercontent.com/83393749/122279699-f826a380-cf05-11eb-949d-5cbd6bd8027c.png"
@@ -23,8 +23,8 @@
               {{ detail.profile.user.username }}
             </a>
           </div>
-          <span class="btn-group mr-0">
-            <button
+          <span class="dropdown btn-group mr-0 ">
+            <span
               type="button"
               class="
                 btn btn-tertiary
@@ -36,15 +36,13 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <span>
                 <img
                   src="https://user-images.githubusercontent.com/83393749/122456289-038fd280-cfcb-11eb-8935-5aa1e729cfb8.png"
                 />
-              </span>
               <span class="sr-only">Toggle Dropdown</span>
-            </button>
+            </span>
             <div
-              class="dropdown-menu"
+              class="dropdown-menu case-dropdown"
               x-placement="bottom-start"
               style="
                 position: absolute;
@@ -106,19 +104,19 @@
             <a href="#">
             <img
               src="../../assets/profile-picture-1.jpg"
-              class="rounded-circle mr-1"
+              class="matrices-profile rounded-circle mr-1"
               alt="profile image"
               width="30"
             />
             <img
               src="../../assets/profile-picture-1.jpg"
-              class="rounded-circle mr-1"
+              class="matrices-profile mat-pro-2  rounded-circle mr-1"
               alt="profile image"
               width="30"
             />
             <img
               src="../../assets/profile-picture-1.jpg"
-              class="rounded-circle mr-1"
+              class="matrices-profile mat-pro-3 rounded-circle mr-1"
               alt="profile image"
               width="30"
             />
@@ -158,3 +156,20 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.matrices-profile {
+  position: relative;
+  border: 2px solid #fff;
+}
+.mat-pro-2 {
+  right: 1em;
+}
+.mat-pro-3 {
+  right: 2em;
+}
+.case-dropdown {
+  left: -5em !important;
+  z-index: 5;
+}
+</style>
