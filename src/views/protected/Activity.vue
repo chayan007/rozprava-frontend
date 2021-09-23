@@ -1,7 +1,10 @@
 <template>
   <h2 class="mt-6 pl-4">Activity Feed</h2>
   <ol class="activity-feed">
-    <template v-for="activity in activities" :key="activity.message">
+    <template v-if="activities.length==0">
+      Welcome
+    </template>
+    <template v-else v-for="activity in activities" :key="activity.message">
       <ActivityItem :activity="activity" />
     </template>
   </ol>
@@ -13,7 +16,6 @@
 <script>
 import Activity from "@/components/activity/Activity.vue";
 import { activityService } from "@/services";
-import { config } from "@/configurations";
 
 export default {
   name: "Activity",
@@ -31,10 +33,9 @@ export default {
         .then((activities) => {
           this.activities = activities;
         })
-        .catch(() => {
+        .catch((error) => {
           dispatch(
-            "alertStore/error",
-            config.messagingConfig.messages.error.unknown_error
+            "alertStore/error", error
           );
         });
     },
