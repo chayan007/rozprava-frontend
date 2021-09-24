@@ -19,7 +19,7 @@
             class="sign-up-icon"
             src="https://user-images.githubusercontent.com/83393749/121353745-d3518f80-c94b-11eb-9fab-9b68f81383ed.png"
           />
-          <span class="mr-1">
+          <span>
             <router-link to="/register">
               <b>Sign up using Email</b>
             </router-link>
@@ -31,7 +31,7 @@
             class="sign-up-icon"
             src="https://user-images.githubusercontent.com/83393749/121353888-f9772f80-c94b-11eb-9776-b7f4a5e003b5.png"
           />
-          <span class="mr-1"> <b>Sign up using Twitter</b> </span>
+          <span> <b>Sign up using Twitter</b> </span>
         </button>
         <br />
         <button class="btn btn-pill github mb-3 w-100" type="button">
@@ -39,7 +39,7 @@
             class="sign-up-icon"
             src="https://user-images.githubusercontent.com/83393749/121353904-fd0ab680-c94b-11eb-8c81-a4b8ffac5a14.png"
           />
-          <span class="mr-1"> <b>Sign up using Google</b> </span>
+          <span> <b>Sign up using Google</b> </span>
         </button>
         <br />
         <button class="btn btn-pill github mb-3 w-100" type="button">
@@ -47,7 +47,7 @@
             class="sign-up-icon"
             src="https://user-images.githubusercontent.com/83393749/121784049-4b7bb780-cbcf-11eb-913a-c47cc60d7831.png"
           />
-          <span class="mr-1"> <b>Sign up using Facebook</b> </span>
+          <span> <b>Sign up using Facebook</b> </span>
         </button>
         <div class="mb-4 mt-5">
           <h3 class="h5 font-weight-bold">
@@ -100,7 +100,7 @@ export default {
 }
 .sign-up-icon {
   position: absolute;
-  left: 1em;
+  left: .8em;
   width: 1.7em;
 }
 .btn {

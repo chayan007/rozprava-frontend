@@ -8,23 +8,15 @@
         alt="Splash Rozprava"
       />
       <img v-show="!gif" class="logo" src="../../assets/splash.svg" alt="" />
-      <div class="row justify-content-md-around">
-        <div class="col-lg-4 col-md-6">
-          <router-link to="/signup">
-            <button class="btn btn-primary github register mt-7" type="button">
-              <span class="mr-1"> Sign Up </span>
-            </button>
+
+      <div class="row m-0 justify-content-around mt-6">
+        <div class="col-lg-5 col-md-6 col-12 p-4">
+          <router-link to="/register">
+            <button class="btn btn-block">Sign Up</button>
           </router-link>
-          
-          <div class="mb-2 mt-2">
-            <h3 class="h5 font-weight-bold">
-              --------------- OR ----------------
-            </h3>
-          </div>
+          <h4 class="m-2">---- OR ----</h4>
           <router-link to="/login">
-            <button class="btn btn-primary github login" type="button">
-              Login
-            </button>
+            <button class="btn btn-block">Login</button>
           </router-link>
         </div>
       </div>

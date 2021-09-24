@@ -95,7 +95,7 @@
               class="login-icons"
               src="https://user-images.githubusercontent.com/83393749/121353888-f9772f80-c94b-11eb-9776-b7f4a5e003b5.png"
           />
-          <span class="login-social-btn-txt mr-1">
+          <span class="login-social-btn-txt">
             Sign in using Twitter
            </span>
         </button>
@@ -105,7 +105,7 @@
               class="login-icons"
               src="https://user-images.githubusercontent.com/83393749/121353904-fd0ab680-c94b-11eb-8c81-a4b8ffac5a14.png"
           />
-          <span class="login-social-btn-txt mr-1">
+          <span class="login-social-btn-txt">
             Sign in using Google
            </span>
         </button>
@@ -115,7 +115,7 @@
               class="login-icons"
               src="https://user-images.githubusercontent.com/83393749/121784049-4b7bb780-cbcf-11eb-913a-c47cc60d7831.png"
           />
-          <span class="login-social-btn-txt mr-1">
+          <span class="login-social-btn-txt">
             Sign in using Facebook
             </span>
         </button>
@@ -202,7 +202,7 @@ export default {
 }
 .login-icons {
   position: absolute;
-  left: 1em;
+  left: .5em;
   width: 1.8em;
 }
 .login-social-btn-txt {
