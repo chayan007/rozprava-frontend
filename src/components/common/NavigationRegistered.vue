@@ -33,15 +33,15 @@
         </div>
       </div>
       <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-        <li class="shadow-soft rounded p-2 mb-3 text-center btn" data-toggle="collapse" data-target="#navbar_global">
+        <li class="shadow-soft rounded p-2 mb-3 text-center btn nav-item" data-toggle="collapse" data-target="#navbar_global">
           <router-link to="/login">
             <h6 class="m-0">
               <b> Login</b> <span class="ml-2 fas fa-sign-in-alt"></span>
             </h6>
           </router-link>
         </li>
-        <p class="mt-2 mb-1">Don't have an account ?</p>
-        <li class="shadow-soft rounded p-2 mb-3 text-center btn btn-primary" data-toggle="collapse" data-target="#navbar_global">
+        <p class="mt-2 mb-1 nav-item">Don't have an account ?</p>
+        <li class="shadow-soft rounded p-2 mb-3 text-center btn btn-primary nav-item" data-toggle="collapse" data-target="#navbar_global">
           <router-link to="/signup">
             <h6 class="m-0">
               <b> Sign Up</b> <span class="ml-2 fas fa-user-plus"></span>
@@ -49,17 +49,17 @@
           </router-link>
         </li>
         <hr class="m-0 mt-3 mb-3 hr-underline" />
-        <li data-toggle="collapse" data-target="#navbar_global">
+        <li class="nav-item" data-toggle="collapse" data-target="#navbar_global">
           <router-link to="/aboutus">
             <h6 class="mb-3">About us</h6>
           </router-link>
         </li>
-        <li data-toggle="collapse" data-target="#navbar_global">
+        <li class="nav-item" data-toggle="collapse" data-target="#navbar_global">
           <router-link to="/report">
             <h6 class="mb-3">Report</h6>
           </router-link>
         </li>
-        <li data-toggle="collapse" data-target="#navbar_global">
+        <li class="nav-item" data-toggle="collapse" data-target="#navbar_global">
           <router-link to="/termsandconditions">
             <h6 class="mb-3">Terms and Conditions</h6>
           </router-link>
