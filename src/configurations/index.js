@@ -2,6 +2,7 @@ import {userConfig} from "@/configurations/user";
 import {messagingConfig} from "@/configurations/messages";
 import {caseConfig} from "@/configurations/case";
 import {notificationConfig} from "@/configurations/notification";
+import {debateConfig} from "@/configurations/debate";
 import { activityConfig } from "@/configurations/activity";
 
 let commonConfig;
@@ -23,6 +24,7 @@ export const config = {
     'userConfig': userConfig,
     'messagingConfig': messagingConfig,
     'caseConfig': caseConfig,
-    'notificationConfig':notificationConfig,
+    'notificationConfig': notificationConfig,
+    'debateConfig': debateConfig,
     'activityConfig':activityConfig
 };

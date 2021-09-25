@@ -242,6 +242,9 @@ export default {
 .nav-profile-dropdown {
   background-color: #fff;
 }
+.nav-menu-collapse{
+  box-shadow: 3px 3px 20px -2px rgba(51, 51, 51, 0.534);
+}
 .menu-icon {
   width: 1.2em;
 }

@@ -12,7 +12,7 @@
   >
     <!-- Navbar open box -->
     <div
-      class="col col-9 ml-3 nav-menu-collapse navbar-collapse collapse mt-3"
+      class="col col-9 m-2 nav-menu-collapse navbar-collapse collapse"
       id="navbar_global"
       style=""
     >
@@ -42,7 +42,7 @@
         </li>
         <p class="mt-2 mb-1 nav-item">Don't have an account ?</p>
         <li class="shadow-soft rounded p-2 mb-3 text-center btn btn-primary nav-item" data-toggle="collapse" data-target="#navbar_global">
-          <router-link to="/signup">
+          <router-link to="/register">
             <h6 class="m-0">
               <b> Sign Up</b> <span class="ml-2 fas fa-user-plus"></span>
             </h6>
@@ -116,6 +116,9 @@ export default {
 .navbar-menu-btn,
 .nav-profile-dropdown {
   background-color: #fff;
+}
+.nav-menu-collapse{
+  box-shadow: 3px 3px 20px -2px rgba(51, 51, 51, 0.534);
 }
 .menu-icon {
   width: 1.2em;

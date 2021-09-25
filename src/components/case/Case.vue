@@ -1,44 +1,31 @@
 <template>
-  <div class="mt-4 col col-12">
-    <div class="card bg-primary border-light shadow-soft">
-      <img v-if="hasValue('image_url')"
-          src="https://user-images.githubusercontent.com/83393749/122279699-f826a380-cf05-11eb-949d-5cbd6bd8027c.png"
-          class="card-img-top rounded-top image"
-      />
-      <div class="card-body pt-2 mt-3">
-        <div class="media d-flex align-items-center justify-content-between">
-          <div class="post-group">
-            <a
-              href="#"
-              data-toggle="tooltip"
-              data-placement="top"
-              title=""
-              data-original-title="23k followers"
-            >
-              <img
-                class="avatar-sm mr-2 img-fluid rounded-circle"
-                :src="detail.profile.display_pic"
-                alt="display_pic"
-              />
-              {{ detail.profile.user.username }}
-            </a>
-          </div>
-          <span class="dropdown btn-group mr-0 ">
+  <div class="case-outer p-3 col col-12">
+    <div class="card case-inner shadow-soft col col-12 pt-3 pb-2 pl-3 pr-3">
+      <!-- case-profile header -->
+      <div class="case-profile-box row m-0 justify-content-between">
+        <div class="profile">
+          <!-- <img v-if="detail.profile.display_pic"
+            class="avatar-sm mr-2 img-fluid rounded-circle"
+            :src="detail.profile.display_pic"
+            alt="display_pic"
+          /> -->
+          <img
+            class="avatar-md mr-2 img-fluid rounded-circle"
+            src="@\assets\profile-picture-1.jpg"
+            alt="display_pic"
+          />
+          {{ detail.profile.user.username }}
+        </div>
+
+        <div class="case-menu row m-0 align-items-center">
+          <span class="dropdown btn-group mr-0">
             <span
-              type="button"
-              class="
-                btn btn-tertiary
-                dropdown-toggle dropdown-toggle-split
-                mr-0
-                p-0
-              "
+              class="dropdown-toggle-split mr-0 p-0"
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
             >
-                <img
-                  src="https://user-images.githubusercontent.com/83393749/122456289-038fd280-cfcb-11eb-8935-5aa1e729cfb8.png"
-                />
+              <img class="case-menu-btn" src="@/assets/menu-dots.svg" />
               <span class="sr-only">Toggle Dropdown</span>
             </span>
             <div
@@ -59,88 +46,84 @@
             </div>
           </span>
         </div>
-        <h3 class="h5 card-title mt-4">
+      </div>
+      <!-- case-profile header -->
+      <!-- case content -->
+      <div class="case-content">
+        <h3 class="case-head h5 card-title mt-3 mb-2">
           {{ detail.question }}
         </h3>
-        <div class="dropdown-divider"></div>
-        <p class="card-text">
+        <p class="case-desc card-text">
           {{ detail.description }}
         </p>
-        <div class="d-flex align-items-center justify-content-between">
-          <a href="#">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0)">
-<path d="M0.666504 8.00008C0.666504 8.00008 3.33317 2.66675 7.99984 2.66675C12.6665 2.66675 15.3332 8.00008 15.3332 8.00008C15.3332 8.00008 12.6665 13.3334 7.99984 13.3334C3.33317 13.3334 0.666504 8.00008 0.666504 8.00008Z" stroke="#333333" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z" stroke="#333333" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0">
-<rect width="16" height="16" fill="white"/>
-</clipPath>
-</defs>
-</svg>
+      </div>
+      <!-- case content -->
+      <!-- proof -->
+      <div class="proof-box mt-3 mb-3">
+        <img class="rounded" src="@/assets/Detail-case.png" alt="" />
+      </div>
+      <!-- proof -->
+      <!-- metrics -->
+      <div
+        class="
+          mt-3
+          metrics-box
+          p-1
+          row
+          m-0
+          justify-content-between
+          align-items-center
+        "
+      >
 
-          <a> 1234</a>
-          </a>
-          <div class="d-flex">
-            <a href="#">
-              <button class="btn btn-primary btn-pill  btn-icon-only text-twitter mr-2" type="button" aria-label="twitter button" title="twitter button">
-            <img
-              class="image-xs p-1"
-              src="https://user-images.githubusercontent.com/83393749/122523306-7e410800-d034-11eb-8586-3fcc87584356.png"
-            /></button>
-            </a>
-            <a href="#">
-              <button class="btn btn-primary btn-pill  btn-icon-only text-twitter" type="button" aria-label="twitter button" title="twitter button">
-            <img
-              class="image-xs p-1"
-              src="https://user-images.githubusercontent.com/83393749/122523313-813bf880-d034-11eb-9348-e98508bbdc9b.png"
-            /></button>
-            </a>
-          </div>
+        <div class="views">
+          <img class="metrics-icon p-1" src="@/assets/Eye.svg" alt="" />
+          {{ detail.metrics[0] }}
         </div>
-        <div class="d-flex align-items-center justify-content-between mt-2">
-          <div class="d-flex">
-            <a href="#">
+
+        <div class="likes-box row m-0">
+          <span class="row m-0 mr-3 align-items-center">
             <img
-              src="../../assets/profile-picture-1.jpg"
-              class="matrices-profile rounded-circle mr-1"
-              alt="profile image"
-              width="30"
+              class="metrics-icon mr-1"
+              src="@/assets/case-like.svg"
+              alt=""
+            />
+            {{ detail.metrics[1] }}
+          </span>
+          <span class="row m-0 align-items-center">
+            <img
+              class="metrics-icon mr-1"
+              src="@/assets/case-dislike.svg"
+              alt=""
+            />
+            {{ detail.metrics[2] }}
+          </span>
+        </div>
+        
+        <div class="w-100 mt-2 row m-0 justify-content-between align-items-center">
+          <div class="top-matrics">
+            <img
+              class="border-metrics-img avatar-sm rounded-circle"
+              src="@\assets\profile-picture-1.jpg"
+              alt=""
             />
             <img
-              src="../../assets/profile-picture-1.jpg"
-              class="matrices-profile mat-pro-2  rounded-circle mr-1"
-              alt="profile image"
-              width="30"
+              class="border-metrics-img rt-2 avatar-sm rounded-circle"
+              src="@\assets\profile-picture-1.jpg"
+              alt=""
             />
             <img
-              src="../../assets/profile-picture-1.jpg"
-              class="matrices-profile mat-pro-3 rounded-circle mr-1"
-              alt="profile image"
-              width="30"
+              class="border-metrics-img rt-3 avatar-sm rounded-circle"
+              src="@\assets\profile-picture-1.jpg"
+              alt=""
             />
-            </a>
-            <a href="#">
-            12
-            <img
-              class="image-xs p-1"
-              src="https://user-images.githubusercontent.com/83393749/122523306-7e410800-d034-11eb-8586-3fcc87584356.png"
-            />
-            </a>
-            <a href="#">
-            12
-            <img
-              class="image-xs p-1"
-              src="https://user-images.githubusercontent.com/83393749/122523306-7e410800-d034-11eb-8586-3fcc87584356.png"
-            />
-            </a>
           </div>
-          <a href="#">
-          <a>10 Proofs</a>
-          </a>
+          <div>
+            10 Proofs
+          </div>
         </div>
       </div>
+      <!-- metrics -->
     </div>
   </div>
 </template>
@@ -148,16 +131,25 @@
 <script>
 export default {
   name: "Case",
-  props: ['detail'],
+  props: ["detail"],
   methods: {
     hasValue(key) {
       return Object.keys(this.detail).includes(key);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
+.case-inner,
+.dropdown-menu {
+  background-color: #fff;
+  border-radius: 15px;
+}
+
+.dropdown-menu {
+  box-shadow: 3px 3px 15px -2px rgba(63, 63, 63, 0.726);
+}
 .matrices-profile {
   position: relative;
   border: 2px solid #fff;
@@ -168,8 +160,28 @@ export default {
 .mat-pro-3 {
   right: 2em;
 }
+.case-menu-btn {
+  width: 1.5em;
+}
 .case-dropdown {
-  left: -5em !important;
+  left: -6em !important;
   z-index: 5;
+}
+.case-desc {
+  white-space: pre-wrap;
+}
+
+.metrics-icon {
+  width: 1.7em;
+}
+.border-metrics-img {
+  border: 2px solid #fff;
+  position: relative;
+}
+.rt-2 {
+  right: 0.5em;
+}
+.rt-3 {
+  right: 1em;
 }
 </style>
