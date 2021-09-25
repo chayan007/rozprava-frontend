@@ -3,100 +3,151 @@
     id="navbar-main"
     aria-label="Primary navigation"
     class="
+      p-2
       navbar navbar-main navbar-expand-lg navbar-theme-primary
+      justify-content-between
       headroom
       navbar-light navbar-transparent
-      headroom--not-top headroom--not-bottom headroom--pinned
     "
   >
-    <div class="container position-relative">
-      <div class="navbar-collapse collapse" id="navbar_global" style="">
-        <div class="navbar-collapse-header">
-          <div class="row">
-            <div class="col-6 collapse-close">
-              <a
-                href="#navbar_global"
-                class="fas fa-times collapsed"
-                data-toggle="collapse"
-                data-target="#navbar_global"
-                aria-controls="navbar_global"
-                aria-expanded="false"
-                title="close"
-                aria-label="Toggle navigation"
-              ></a>
-            </div>
+    <!-- Navbar open box -->
+    <div
+      class="col col-9 m-2 nav-menu-collapse navbar-collapse collapse"
+      id="navbar_global"
+      style=""
+    >
+      <div class="navbar-collapse-header">
+        <div class="row">
+          <div class="col-12 text-left collapse-close">
+            <a
+              href="#navbar_global"
+              class="close-nav-menu fas fa-arrow-left collapsed"
+              data-toggle="collapse"
+              data-target="#navbar_global"
+              aria-controls="navbar_global"
+              aria-expanded="false"
+              title="close"
+              aria-label="Toggle navigation"
+            ></a>
           </div>
         </div>
-        <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-          <li class="nav-item dropdown">
-            <a href="#" class="nav-link" data-toggle="dropdown">
-              <span class="nav-link-inner-text">Menu</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item">About us</a></li>
-              <li><a class="dropdown-item">Terms and Conditions</a></li>
-            </ul>
-          </li>
-
-          <!-- this is just a dev component this will be removed-->
-
-          <li class="nav-item dropdown">
-            <a href="#" class="nav-link" data-toggle="dropdown">
-              <span class="nav-link-inner-text">Pages</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item"><router-link to="/signup">SignUp</router-link></a></li>
-              <li><a class="dropdown-item"><router-link to="/register">Register</router-link></a></li>
-              <li><a class="dropdown-item"><router-link to="/login">Login</router-link></a></li>
-              <li><a class="dropdown-item"><router-link to="/timeline">Timeline</router-link></a></li>
-            </ul>
-          </li>
-
-          <!-- remove untill here-->
-        </ul>
       </div>
-      <div class="d-flex align-items-center">
-        <button
-          class="navbar-toggler collapsed"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbar_global"
-          aria-controls="navbar_global"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <svg
-            height="32px"
-            id="Layer_1"
-            style="enable-background:new 0 0 32 32;"
-            version="1.1"
-            viewBox="0 0 32 32"
-            width="32px"
-            xml:space="preserve"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-          >
-            <path
-              d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"
-            />
-          </svg>
-        </button>
-      </div>
-
-      <a href="#" class="btn btn-sm btn-icon btn-primary fmw-100 font-weight-normal" role="button"><span class="mr-2"><span class="fas fa-sign-in-alt"></span></span><router-link to="/login"> Sign In </router-link></a>
+      <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+        <li class="shadow-soft rounded p-2 mb-3 text-center btn nav-item" data-toggle="collapse" data-target="#navbar_global">
+          <router-link to="/login">
+            <h6 class="m-0">
+              <b> Login</b> <span class="ml-2 fas fa-sign-in-alt"></span>
+            </h6>
+          </router-link>
+        </li>
+        <p class="mt-2 mb-1 nav-item">Don't have an account ?</p>
+        <li class="shadow-soft rounded p-2 mb-3 text-center btn btn-primary nav-item" data-toggle="collapse" data-target="#navbar_global">
+          <router-link to="/register">
+            <h6 class="m-0">
+              <b> Sign Up</b> <span class="ml-2 fas fa-user-plus"></span>
+            </h6>
+          </router-link>
+        </li>
+        <hr class="m-0 mt-3 mb-3 hr-underline" />
+        <li class="nav-item" data-toggle="collapse" data-target="#navbar_global">
+          <router-link to="/aboutus">
+            <h6 class="mb-3">About us</h6>
+          </router-link>
+        </li>
+        <li class="nav-item" data-toggle="collapse" data-target="#navbar_global">
+          <router-link to="/report">
+            <h6 class="mb-3">Report</h6>
+          </router-link>
+        </li>
+        <li class="nav-item" data-toggle="collapse" data-target="#navbar_global">
+          <router-link to="/termsandconditions">
+            <h6 class="mb-3">Terms and Conditions</h6>
+          </router-link>
+        </li>
+      </ul>
     </div>
+    <!-- Navbar open box -->
+
+    <!-- menu btn -->
+    <div class="rounded-circle navbar-menu-btn shadow p-1">
+      <button
+        class="navbar-toggler collapsed p-1"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbar_global"
+        aria-controls="navbar_global"
+        aria-expanded="true"
+        aria-label="Toggle navigation"
+      >
+        <img class="menu-icon" src="@/assets/menu.svg" alt="" />
+      </button>
+    </div>
+    <!-- menu btn -->
+
+    <a
+      href="#"
+      class="btn btn-sm btn-icon btn-primary fmw-100 font-weight-normal"
+      role="button"
+      ><span class="mr-2"><span class="fas fa-sign-in-alt"></span></span
+      ><router-link to="/login"> Sign In </router-link></a
+    >
   </nav>
 </template>
 
 <script>
 export default {
-  name: "NavigationRegistered",
+  name: "Nav",
 };
 </script>
 
-<style>
+<style scoped>
+.hr-underline {
+  border: none;
+  border-bottom: 1px solid rgb(145, 145, 145);
+}
+.navbar-transparent,
+.headroom--not-top,
+.nav-menu-collapse {
+  background-color: #f2f2f5;
+}
+.headroom--not-top {
+  box-shadow: 0 0 15px 5px rgba(107, 107, 107, 0.233);
+}
+.navbar-menu-btn,
+.nav-profile-dropdown {
+  background-color: #fff;
+}
+.nav-menu-collapse{
+  box-shadow: 3px 3px 20px -2px rgba(51, 51, 51, 0.534);
+}
+.menu-icon {
+  width: 1.2em;
+}
+.menu-item-icon {
+  width: 1.9em;
+}
+.nav-item {
+  border-bottom: 1px solid rgb(196, 196, 196);
+}
+.close-nav-menu {
+  font-size: 1.5em;
+}
+.navbar-brand-name {
+  letter-spacing: 3px;
+}
 .profile-image {
   width: 3rem;
   height: 3rem;
+}
+.profile-nav {
+  border: none !important;
+}
+.profile-image img {
+  opacity: 1;
+}
+.nav-profile-dropdown {
+  left: unset;
+  right: 0;
+  box-shadow: 3px 3px 15px -1px rgba(64, 68, 77, 0.404);
 }
 </style>

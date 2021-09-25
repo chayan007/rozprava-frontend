@@ -4,7 +4,7 @@
       <div class="card-header text-center pb-0">
         <h2 class="h1">Log in</h2>
       </div>
-      <div class="card-body">
+      <div class="card-body p-1">
         <form action="#" @submit.prevent="handleSubmit" novalidate>
           <!-- Form -->
           <div class="form-group">
@@ -60,93 +60,112 @@
                 required
               />
               <label class="form-check-label" for="defaultCheck634"
-                >Remember ME
+                >Remember me
               </label>
             </div>
           </div>
-          <button type="submit" class="btn btn-pill btn-primary">
-            <img src="../../assets/login.svg" alt="sign in" width="30">
+          <button type="submit" class="btn btn-pill pl-4 pr-4 btn-primary">
+            <img src="../../assets/login.svg" alt="sign in" width="30" />
           </button>
         </form>
 
         <div
-          class="d-block d-sm-flex justify-content-center align-items-center mt-4"
+          class="
+            d-block d-sm-flex
+            justify-content-center
+            align-items-center
+            mt-4
+          "
         >
-          <span class="font-weight-normal" style="display: flex; margin-bottom: 1.5rem;">
-            <h2 style="font-size: 0.8rem;"><router-link to="/forget-login">Forgot Password?</router-link></h2>   
-            <h2 style="font-size: 0.8rem; margin-left: 8rem;">Forgot Username?</h2>       
+          <span
+            class="font-weight-normal justify-content-between"
+            style="display: flex; margin-bottom: 1.5rem"
+          >
+            <h2 style="font-size: 0.8rem">
+              <router-link to="/forget-login">Forgot Password?</router-link>
+            </h2>
+            <h2 style="font-size: 0.8rem;">
+              Forgot Username?
+            </h2>
           </span>
         </div>
 
-            <button class="btn btn-pill github mb-3 pad-twitter" type="button">
-          <span class="mr-1">
-            Sign in using Twitter
-            <img
-              class=""
+        <button class="login-social-btn  btn btn-pill github mb-3 p-2 w-100" type="button">
+           <img
+              class="login-icons"
               src="https://user-images.githubusercontent.com/83393749/121353888-f9772f80-c94b-11eb-9776-b7f4a5e003b5.png"
-          /></span>
+          />
+          <span class="login-social-btn-txt">
+            Sign in using Twitter
+           </span>
         </button>
         <br />
-        <button class="btn btn-pill github mb-3 pad-google" type="button">
-          <span class="mr-1">
-            Sign in using Google
-            <img
-              class=""
+        <button class="login-social-btn btn btn-pill github mb-3 p-2 w-100" type="button">
+           <img
+              class="login-icons"
               src="https://user-images.githubusercontent.com/83393749/121353904-fd0ab680-c94b-11eb-8c81-a4b8ffac5a14.png"
-          /></span>
+          />
+          <span class="login-social-btn-txt">
+            Sign in using Google
+           </span>
         </button>
         <br />
-        <button class="btn btn-pill github mb-3 pad-facebook" type="button">
-          <span class="mr-1">
-            Sign in using Facebook
-            <img
-              class=""
+        <button class="login-social-btn btn btn-pill github mb-3 p-2 w-100" type="button">
+          <img
+              class="login-icons"
               src="https://user-images.githubusercontent.com/83393749/121784049-4b7bb780-cbcf-11eb-913a-c47cc60d7831.png"
-          /></span>
-          </button>
-        </div>
-        <span>
-            <h2 style="font-size: 0.8rem;"><router-link to="/register">Not yet Registered?<br>REGISTER NOW</router-link></h2>    
-          </span>
-        </div>
-
-
+          />
+          <span class="login-social-btn-txt">
+            Sign in using Facebook
+            </span>
+        </button>
       </div>
-    
+      <span class="mt-4">
+        <h6>
+          <router-link to="/register"
+            >Don't have an account?  <b class="pl-2"> Sign-Up</b></router-link
+          >
+        </h6>
+      </span>
+    </div>
+  </div>
 </template>
 
 <script>
-import {isInRange, stringFormat} from "@/helpers";
-import {config} from "@/configurations";
+import { isInRange, stringFormat } from "@/helpers";
+import { config } from "@/configurations";
 
 export default {
   name: "LoginForm",
-  data () {
+  data() {
     return {
-      username: '',
-      password: '',
-      submitted: false
-    }
+      username: "",
+      password: "",
+      submitted: false,
+    };
   },
   computed: {
-    loggingIn () {
+    loggingIn() {
       return this.$store.state.authStore.status.loggingIn;
-    }
+    },
   },
-  created () {
-    this.$store.dispatch('authStore/logout');
+  created() {
+    this.$store.dispatch("authStore/logout");
   },
   methods: {
-    handleSubmit () {
+    handleSubmit() {
       this.submitted = true;
       const { username, password } = this;
       const { dispatch } = this.$store;
 
       if (!username) {
         dispatch(
-            'alertStore/error',
-            stringFormat(config.messagingConfig.messages.error.field_error, 'Username').trim(),
-            { root: true }
+          "alertStore/error",
+          stringFormat(
+            config.messagingConfig.messages.error.field_error,
+            "Username"
+          ).trim(),
+          { root: true }
         );
         return;
       }
@@ -155,40 +174,38 @@ export default {
 
       if (!password || !isInRange(password.length, password_length_range)) {
         dispatch(
-            'alertStore/error',
-            stringFormat(
-                config.messagingConfig.messages.error.field_error,
-                'Password',
-                'Password needs to be 8 characters long.'
-            ).trim(),
-            { root: true }
+          "alertStore/error",
+          stringFormat(
+            config.messagingConfig.messages.error.field_error,
+            "Password",
+            "Password needs to be 8 characters long."
+          ).trim(),
+          { root: true }
         );
         return;
       }
 
-      dispatch('authStore/login', { username, password });
-    }
-  }
+      dispatch("authStore/login", { username, password });
+    },
+  },
 };
 </script>
 
 <style scoped>
 .username {
-    padding-left: 6rem;
+  padding-left: 6rem;
 }
-
-.pad-twitter {
-  padding-left: 4rem;
-  padding-right: 4rem;
+.login-social-btn {
+  display: inline-flex !important;
+  justify-content: center;
+  align-items: center;
 }
-
-.pad-google {
-  padding-left: 4rem;
-  padding-right: 4rem;
+.login-icons {
+  position: absolute;
+  left: .5em;
+  width: 1.8em;
 }
-
-.pad-facebook {
-  padding-left: 3.4rem;
-  padding-right: 3.4rem;
+.login-social-btn-txt {
+  font-weight: 600 !important;
 }
 </style>
