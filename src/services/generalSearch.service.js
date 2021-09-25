@@ -29,7 +29,7 @@ function searchGroup(username) {
             { headers: headers },
         )
         .then((response) => {
-            return response;
+            return response.data;
         })
         .catch((error) => {
             if (error.response.status == 404)
@@ -49,7 +49,8 @@ function searchCase(username) {
         .then((response) => {
             return response.data;
         })
-        .catch(() => {
+        .catch((e) => {
+            console.log(e);
             throw config.messagingConfig.messages.unknown_error;
         });
 }

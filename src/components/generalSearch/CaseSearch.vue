@@ -13,8 +13,8 @@
       alt=""
     />
     <div class="ml-2">
-      <h6 class="m-0">{{ allCases.user.username }}</h6>
-      <h5 class="m-0">{{allCases}}</h5>
+      <h6 class="m-0">{{allCases.profile.user.username}}</h6>
+      <h5 class="m-0">{{allCases.question}}</h5>
     </div>
   </div>
 </template>

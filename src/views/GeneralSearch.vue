@@ -1,6 +1,7 @@
 <template>
   <div class="search-body m-0">
     <!-- search -->
+    
     <div class="p-2 mb-2">
       <div class="row m-0 align-items-center form-control1 w-100 rounded">
         <span class="fas fa-search col p-1 col-1" />
@@ -12,30 +13,32 @@
       </div>
     </div>
 
+    <p>{{}}</p>
+
     <!-- search categories -->
     <div class="search-cat-box row mb-2 m-0 w-100">
       <span
         class="rounded-pill p-2 pl-4 pr-4 m-2 search-cat"
-        @click="toggleAll"
-        :class="{ active: displayFlag }"
+        @click="filterSearch(0)"
+        :class="{ active: displayFlag == 0 }"
         >All</span
       >
       <span
         class="rounded-pill p-2 pl-4 pr-4 m-2 search-cat"
-        @click="toggleAccounts"
-        :class="{ active: accounts && !displayFlag }"
+        @click="filterSearch(1)"
+        :class="{ active: displayFlag == 1 }"
         >Accounts</span
       >
       <span
         class="rounded-pill p-2 pl-4 pr-4 m-2 search-cat"
-        @click="toggleGroups"
-        :class="{ active: groups && !displayFlag }"
+        @click="filterSearch(2)"
+        :class="{ active: displayFlag == 2 }"
         >Groups</span
       >
       <span
         class="rounded-pill p-2 pl-4 pr-4 m-2 search-cat"
-        @click="toggleCases"
-        :class="{ active: cases && !displayFlag }"
+        @click="filterSearch(3)"
+        :class="{ active: displayFlag == 3 }"
         >Cases</span
       >
     </div>
@@ -43,21 +46,22 @@
     <!-- search results -->
 
     <!-- accounts -->
-    <div class="row m-0" v-if="accounts && profileInfo">
-      <h4 class="cat-head col col-12 mt-1 m-0" @click="toggleAccounts">
-        Accounts
-      </h4>
+    <div
+      class="row m-0"
+      v-if="(displayFlag == 0 || displayFlag == 1) && profileInfo"
+    >
+      <h4 class="cat-head col col-12 mt-1 m-0">Accounts</h4>
       <div class="col col-12 pl-3 pr-3">
         <hr />
       </div>
       <template v-for="account in accountShowInfo" :key="account.uuid">
-        <ProfileSearchComponent :account="account" />
+        <ProfileSearchComponent :account="account"/>
       </template>
       <div class="m-0 row justify-content-end col col-12">
         <h6
           class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
-          v-if="displayFlag"
-          @click="toggleAccounts"
+          v-if="displayFlag == 0"
+          @click="filterSearch(1)"
         >
           View All
         </h6>
@@ -65,7 +69,10 @@
     </div>
 
     <!-- groups -->
-    <div class="row m-0" v-if="groups && groupInfo">
+    <div
+      class="row m-0"
+      v-if="(displayFlag == 0 || displayFlag == 2) && groupInfo"
+    >
       <h4 class="cat-head col col-12 mt-1 m-0">Groups</h4>
       <div class="col col-12 pl-3 pr-3">
         <hr />
@@ -76,8 +83,8 @@
       <div class="m-0 row justify-content-end col col-12">
         <h6
           class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
-          v-if="displayFlag"
-          @click="toggleGroups"
+          v-if="displayFlag == 0"
+          @click="filterSearch(2)"
         >
           View All
         </h6>
@@ -85,7 +92,10 @@
     </div>
 
     <!-- cases -->
-    <div class="row m-0" v-if="cases && caseInfo">
+    <div
+      class="row m-0"
+      v-if="(displayFlag == 0 || displayFlag == 3) && caseInfo"
+    >
       <h4 class="cat-head col col-12 mt-1 m-0">Cases</h4>
       <div class="col col-12 pl-3 pr-3">
         <hr />
@@ -93,11 +103,12 @@
       <template v-for="allCases in caseShowInfo" :key="allCases.uuid">
         <CaseSearchComponent :allCases="allCases" />
       </template>
+      {{allCases}}
       <div class="m-0 row justify-content-end col col-12">
         <h6
           class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
-          v-if="displayFlag"
-          @click="toggleCases"
+          v-if="displayFlag == 0"
+          @click="filterSearch(3)"
         >
           View All
         </h6>
@@ -110,7 +121,6 @@
 import ProfileSearch from "@/components/generalSearch/ProfileSearch.vue";
 import GroupSearch from "@/components/generalSearch/GroupSearch.vue";
 import CaseSearch from "@/components/generalSearch/CaseSearch.vue";
-import { config } from "@/configurations";
 import { generalSearchService } from "@/services";
 
 export default {
@@ -123,49 +133,46 @@ export default {
   data() {
     return {
       searchValue: "",
-      profileInfo: [],
-      groupInfo: [],
-      caseInfo: [],
-      accounts: 1,
-      groups: 1,
-      cases: 1,
-      displayFlag: 1,
+      profileInfo: 0,
+      groupInfo: 0,
+      caseInfo: 0,
+      displayFlag: 0,
     };
   },
   watch: {
     searchValue() {
-      this.search();
+      this.load();
     },
   },
   computed: {
     accountShowInfo() {
-      if (this.profileInfo) {
-        if (this.displayFlag) {
-          return this.profileInfo.slice(0, 5);
+      if (this.profileInfo.results) {
+        if (this.displayFlag == 0) {
+          return this.profileInfo.results.slice(0, 5);
         } else {
-          return this.profileInfo;
+          return this.profileInfo.results;
         }
       } else {
         return [];
       }
     },
     groupShowInfo() {
-      if (this.groupInfo) {
-        if (this.displayFlag) {
-          return this.groupInfo.data.groups.slice(0, 5);
+      if (this.groupInfo.results) {
+        if (this.displayFlag == 0) {
+          return this.groupInfo.results.slice(0, 5);
         } else {
-          return this.groupInfo.data.groups;
+          return this.groupInfo.results;
         }
       } else {
         return [];
       }
     },
     caseShowInfo() {
-      if (this.caseInfo) {
-        if (this.displayFlag) {
-          return this.caseInfo.slice(0, 5);
+      if (this.caseInfo.results) {
+        if (this.displayFlag == 0) {
+          return this.caseInfo.results.slice(0, 5);
         } else {
-          return this.caseInfo;
+          return this.caseInfo.results;
         }
       } else {
         return [];
@@ -173,7 +180,20 @@ export default {
     },
   },
   methods: {
-    search() {
+    load() {
+      if (this.displayFlag == 0) {
+        this.loadProfile();
+        this.loadGroup();
+        this.loadCases();
+      } else if (this.displayFlag == 1) {
+        this.loadProfile();
+      } else if (this.displayFlag == 2) {
+        this.loadGroup();
+      } else {
+        this.loadCases();
+      }
+    },
+    loadProfile() {
       const username = this.searchValue;
       const { dispatch } = this.$store;
 
@@ -182,58 +202,37 @@ export default {
         .then((profileInfo) => {
           this.profileInfo = profileInfo;
         })
-        .catch(() => {
-          dispatch(
-            "alertStore/error",
-            config.messagingConfig.messages.error.unknown_error
-          );
+        .catch((e) => {
+          dispatch("alertStore/error", e);
         });
+    },
+    loadGroup() {
+      const username = this.searchValue;
+      const { dispatch } = this.$store;
       generalSearchService
         .searchGroup(username)
         .then((groupInfo) => {
           this.groupInfo = groupInfo;
         })
         .catch((e) => {
-          dispatch(
-            "alertStore/error",e
-          );
+          dispatch("alertStore/error", e);
         });
+    },
+    loadCases() {
+      const username = this.searchValue;
+      const { dispatch } = this.$store;
       generalSearchService
         .searchCase(username)
         .then((caseInfo) => {
           this.caseInfo = caseInfo;
         })
-        .catch(() => {
-          dispatch(
-            "alertStore/error",
-            config.messagingConfig.messages.error.unknown_error
-          );
+        .catch((e) => {
+          dispatch("alertStore/error", e);
         });
     },
-    toggleAll() {
-      this.displayFlag = 1;
-      this.accounts = 1;
-      this.groups = 1;
-      this.cases = 1;
-    },
-    toggleAccounts() {
-      this.displayFlag = 0;
-      this.groups = 0;
-      this.cases = 0;
-      this.accounts = 1;
-    },
-    toggleGroups() {
-      this.displayFlag = 0;
-      this.accounts = 0;
-      this.cases = 0;
-      this.groups = 1;
-    },
-    toggleCases() {
-      this.displayFlag = 0;
-      this.accounts = 0;
-      this.groups = 0;
-      this.cases = 1;
-      console.log("zz");
+    filterSearch(f) {
+      this.displayFlag = f;
+      this.load();
     },
   },
 };

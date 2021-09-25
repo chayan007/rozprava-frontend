@@ -1,41 +1,56 @@
 <template>
-  <div class="detail-case-box w-100">
+  <div class="detail-case-box w-100" v-if="caseDetail">
     <!-- case banner art -->
     <div class="case-head-box w-100">
       <img class="case-head-img w-100" src="@/assets/Detail-case.png" alt="" />
-      <h3 class="case-head p-3 pt-4">
+      <h3 class="case-head p-3 pt-6">
         {{ caseDetail.question }}
       </h3>
     </div>
+    <!-- close btn -->
+    <!-- <div class="close-case-detail-outer w-100 text-center" v-show="!rebuttal">
+        <span class="close-case-detail m-0  row justify-content-center w-100">
+          <h2 class="rounded-circle m-0 row align-items-center justify-content-center shadow">x</h2>
+        </span>
+      </div> -->
 
     <!-- full case box -->
-    <div class="case-detail w-100 mt-7 p-3">
+    <div class="case-detail w-100 mt-9 p-3">
       <!-- profile bar -->
       <div class="row m-0 justify-content-between w-100">
         <span class="row m-0 align-items-center">
           <span class="">
             <img
               class="case-profile-pic rounded-circle"
-              v-if="caseDetail.profile.display_pic"
               :src="caseDetail.profile.display_pic"
-              alt=""
-            />
-            <img
-              class="case-profile-pic rounded-circle"
-              v-else
-              src="@/assets/black-rose.jpg"
               alt=""
             />
           </span>
           <span class="pl-2">
             <small class="case-profile-name m-0">{{
-              caseDetail.profile.user.username
+              caseDetail.profile.user.full_name
             }}</small>
             <small>{{ sanitizedTime(caseDetail.created_at) }}</small>
           </span>
         </span>
         <span class="row m-0 align-items-center">
-          <img class="case-menu" src="@/assets/menu-dots.svg" alt="" />
+          <img
+            class="case-menu"
+            @click="caseMenu = !caseMenu"
+            src="@/assets/menu-dots.svg"
+            alt=""
+          />
+          <div v-show="caseMenu" class="case-menu-box p-3 w-100">
+            <p v-if="
+              is_authenticated.profile.user.username ==
+              caseDetail.profile.user.username
+            "
+              class="p-2 mt-1 w-100 text-center shadow"
+              @click="deleteDebate()"
+            >
+              Delete
+            </p>
+          </div>
         </span>
       </div>
 
@@ -112,7 +127,7 @@
       <!-- case comments -->
       <hr class="mt-4 m-0" />
       <div class="pri-comments">
-        <List :caseUuid="caseDetail.slug"></List>
+        <List :slug="caseDetail.slug" :caseUuid="caseDetail.uuid"></List>
       </div>
     </div>
   </div>
@@ -124,6 +139,7 @@ import List from "@/components/debate/List.vue";
 import { caseService } from "@/services";
 import { config } from "@/configurations";
 import { getSanitizedTime } from "@/helpers";
+import router from "@/router";
 
 export default {
   name: "DetailCase",
@@ -131,6 +147,7 @@ export default {
   data() {
     return {
       caseDetail: null,
+      caseMenu: 0,
     };
   },
   methods: {
@@ -149,14 +166,45 @@ export default {
     sanitizedTime(createdAt) {
       return getSanitizedTime(createdAt);
     },
+
+    deleteDebate() {
+      console.log(this.$route.params.slug);
+      const slug = this.$route.params.slug;
+      const { dispatch } = this.$store;
+
+      caseService
+        .deleteCase(slug)
+        .then(() => {
+          router.push({
+            name: "CaseView",
+          });
+        })
+        .catch(() => {
+          dispatch(
+            "alertStore/error",
+            config.messagingConfig.messages.error.unknown_error
+          );
+        });
+    },
   },
+
   created() {
     this.loadCase();
+  },
+  computed: {
+    is_authenticated() {
+      return this.$store.state.authStore.user;
+    },
   },
 };
 </script>
 
 <style scoped>
+.close-case-detail h2 {
+  width: 1.7em;
+  height: 1.7em;
+  background-color: white;
+}
 .case-head-box {
   position: fixed;
   top: 0%;
@@ -177,6 +225,7 @@ export default {
 }
 .case-profile-pic {
   width: 3em;
+  height: 3em;
 }
 .case-profile-name {
   display: block;
@@ -185,6 +234,17 @@ export default {
 .case-menu {
   width: 1.2em;
 }
+.case-menu-box {
+  position: absolute;
+  left: 0%;
+  top: 3em;
+}
+.case-menu-box p {
+  border-radius: 10px;
+  background-color: #a91e2c;
+  color: #fff;
+}
+
 .case-box hr {
   border: none;
   border-bottom: 1px solid rgb(163, 163, 163);
@@ -192,6 +252,7 @@ export default {
 .case-box small {
   font-size: 0.95em;
   letter-spacing: 1px;
+  white-space: pre-wrap;
 }
 .react-txt {
   font-size: 0.89em;

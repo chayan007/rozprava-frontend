@@ -4,6 +4,8 @@ import {caseConfig} from "@/configurations/case";
 import {notificationConfig} from "@/configurations/notification";
 import {groupConfig} from "@/configurations/group";
 import {generalSearchConfig} from "@/configurations/generalSearch";
+import {debateConfig} from "@/configurations/debate";
+import { activityConfig } from "@/configurations/activity";
 
 let commonConfig;
 
@@ -26,5 +28,7 @@ export const config = {
     'caseConfig': caseConfig,
     'notificationConfig':notificationConfig,
     'groupConfig':groupConfig,
-    'generalSearchConfig':generalSearchConfig
+    'generalSearchConfig':generalSearchConfig,
+    'debateConfig': debateConfig,
+    'activityConfig':activityConfig
 };
