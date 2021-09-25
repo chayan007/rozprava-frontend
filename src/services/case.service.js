@@ -84,10 +84,10 @@ function getCase(slug) {
 function uploadProof(proofRequestBody, slug) {
     const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.caseConfig.api.uploadCaseProof.endpoint}`, slug);
     const authHeaders = authHeader();
-    if (!slug) {
+    authHeaders['Content-Type'] = 'multipart/form-data';
+    if (!slug)
         return;
-    }
-    console.log(url);
+    console.log(url, authHeaders, proofRequestBody);
     return axios
         .post(
             url,
@@ -99,7 +99,7 @@ function uploadProof(proofRequestBody, slug) {
             console.log(fileInfo)
         })
         .catch((error) => {
-            console.log('service level error: ', error);
+            console.log('service level error: ', error.response);
             throw config.messagingConfig.messages.unknown_error;
         });
 }

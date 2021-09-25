@@ -324,8 +324,8 @@ export default {
       for(let x= 0; x < this.files.length ; x++) {
         proofRequestBody[`proof_${x}`] = this.files[x];
       }
+      console.log("Creating proof for case: ", slug)
       console.log(proofRequestBody);
-
       caseService
         .uploadProof(proofRequestBody, slug)
         .then((response) => {
