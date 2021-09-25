@@ -82,18 +82,25 @@ function getCase(slug) {
 }
 
 function uploadProof(proofRequestBody, slug) {
+    if (!slug)
+        return;
+
     const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.caseConfig.api.uploadCaseProof.endpoint}`, slug);
     const authHeaders = authHeader();
     authHeaders['Content-Type'] = 'multipart/form-data';
-    if (!slug)
-        return;
-    console.log(url, authHeaders, proofRequestBody);
+
+    let data = new FormData();
+    for (const [key, fileObj] of Object.entries(proofRequestBody))
+        data.append(key, fileObj);
+
+    console.log('>>>', url, authHeaders, data);
+    // console.log('>>>', url, {headers: authHeaders, ...data.getHeaders()}, data);
     return axios
         .post(
             url,
-            proofRequestBody,
-            {headers: Object.assign({}, { "Content-Type": "multipart/form-data"}, authHeaders),
-        })
+            data,
+            {headers: authHeaders},
+        )
         .then((response) => {
             const fileInfo = response.data;
             console.log(fileInfo)

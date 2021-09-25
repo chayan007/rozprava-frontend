@@ -282,11 +282,10 @@ export default {
       }
 
       let categoryId = config.caseConfig.categories.OTHER;
-      if (tags.length != 0) {
-        let userSelectedcategory = tags[0].tag.toUpperCase();
-
-        if (userSelectedcategory in config.caseConfig.categories) {
-          categoryId = config.caseConfig.categories[userSelectedcategory];
+      if (tags.length !== 0) {
+        let userSelectedCategory = tags[0].tag.toUpperCase();
+        if (userSelectedCategory in config.caseConfig.categories) {
+          categoryId = config.caseConfig.categories[userSelectedCategory];
         }
       }
 
@@ -306,11 +305,8 @@ export default {
             params: { slug: caseResponse.slug },
           })
         })
-        .catch(() => {
-          dispatch(
-            "alertStore/error",
-            config.messagingConfig.messages.error.unknown_error
-          );
+        .catch((error) => {
+          dispatch("alertStore/error", error);
         });
     },
     upload() {
@@ -319,21 +315,17 @@ export default {
     },
 
     submitFiles(slug) {
+      const { dispatch } = this.$store;
+
       // convert the list of files into json object
       let proofRequestBody = {}
       for(let x= 0; x < this.files.length ; x++) {
-        proofRequestBody[`proof_${x}`] = this.files[x];
+        proofRequestBody[`proof_${x + 1}`] = this.files[x];
       }
-      console.log("Creating proof for case: ", slug)
-      console.log(proofRequestBody);
       caseService
         .uploadProof(proofRequestBody, slug)
-        .then((response) => {
-          response = this.response;
-          console.log('debate in createform', response);
-        })
         .catch((error) => {
-          console.log('debate error in createform', error);
+          dispatch("alertStore/error", error);
         });
     },
   }
