@@ -3,7 +3,7 @@
     <!-- case banner art -->
     <div class="case-head-box w-100">
       <img class="case-head-img w-100" src="@/assets/Detail-case.png" alt="" />
-      <h3 class="case-head p-3 pt-4">
+      <h3 class="case-head p-3 pt-6">
         {{ caseDetail.question }}
       </h3>
     </div>
@@ -15,7 +15,7 @@
       </div> -->
 
     <!-- full case box -->
-    <div class="case-detail w-100 mt-7 p-3">
+    <div class="case-detail w-100 mt-9 p-3">
       <!-- profile bar -->
       <div class="row m-0 justify-content-between w-100">
         <span class="row m-0 align-items-center">
@@ -252,6 +252,7 @@ export default {
 .case-box small {
   font-size: 0.95em;
   letter-spacing: 1px;
+  white-space: pre-wrap;
 }
 .react-txt {
   font-size: 0.89em;

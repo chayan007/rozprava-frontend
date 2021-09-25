@@ -160,6 +160,7 @@ export default {
 .com-body small {
   font-size: 0.9em;
   letter-spacing: 1px;
+  white-space: pre-wrap;
 }
 .case-react-icons {
   width: 1.2em;

@@ -50,7 +50,7 @@
 
     <!-- rebuttal -->
     <div class="rebuttal-box w-100" v-show="rebuttal">
-      <div class="w-100 row m-0 justify-content-center p-3">
+      <div class="w-100 row m-0 justify-content-center p-3 pt-6">
         <p
           class="close-rebuttal shadow-soft p-1 pr-3 pl-3"
           v-on:click="toggleRebuttals"

@@ -249,7 +249,7 @@ export default {
   bottom: 0%;
 }
 .rebuttal-inner {
-  height: 88vh;
+  height: 80vh;
   background-color: white;
   border-radius: 20px;
   overflow-y: scroll;
