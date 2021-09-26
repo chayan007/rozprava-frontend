@@ -7,6 +7,9 @@ activityConfig = {
         },
         debate: {
             endpoint: "debate/activity/{}/{}"
+        },
+        fetchActivity: {
+            endpoint: "activity/v1/list/"
         }
     },
     categories: {

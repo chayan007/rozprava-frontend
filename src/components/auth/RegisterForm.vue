@@ -8,11 +8,12 @@
         <form action="" @submit.prevent="handleSubmit" novalidate>
           <!-- Form -->
           <div class="form-group">
-            <label for="exampleInputPassword345">Your Full Name</label>
+            <label for="exampleInputPassword345">Full Name</label>
             <div class="input-group mb-4">
               <div class="input-group-prepend">
                 <span class="input-group-text"
-                  ><img src="../../assets/name.svg" alt="sign in" width="14"></span>
+                  ><img src="../../assets/name.svg" alt="sign in" width="14"
+                /></span>
               </div>
               <input
                 class="form-control"
@@ -26,7 +27,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="exampleInputIcon999">Your email</label>
+            <label for="exampleInputIcon999">Email</label>
             <div class="input-group mb-4">
               <div class="input-group-prepend">
                 <span class="input-group-text"
@@ -49,11 +50,15 @@
             <!-- Form -->
 
             <div class="form-group">
-              <label for="exampleInputPassword345">Choose an Username</label>
+              <label for="exampleInputPassword345">Choose an username</label>
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
-                    ><img src="../../assets/username.svg" alt="sign in" width="14"></span>
+                    ><img
+                      src="../../assets/username.svg"
+                      alt="sign in"
+                      width="14"
+                  /></span>
                 </div>
                 <input
                   class="form-control"
@@ -109,7 +114,8 @@
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
-                    ><img src="../../assets/phone.svg" alt="sign in" width="14"></span>
+                    ><img src="../../assets/phone.svg" alt="sign in" width="14"
+                  /></span>
                 </div>
                 <input
                   class="form-control"
@@ -123,20 +129,20 @@
               </div>
             </div>
             <!-- End of Form -->
-            <div>
-            <label class="" for="defaultCheck634">
-                ReSend OTP
-              </label></div>
-              <div class="input-group mb-4 otp" >
-                <input
-                  class="form-control " 
-                  id="exampleInputPassword345"
-                  placeholder="OTP"
-                  type="integer"
-                  aria-label="Phone Number"
-                  required
-                />
-              </div>
+            
+            <div class="input-group mb-2 otp">
+              <input
+                class="form-control"
+                id="exampleInputPassword345"
+                placeholder="OTP"
+                type="integer"
+                aria-label="Phone Number"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="text-center" for="defaultCheck634"> <b>Resend OTP</b> </label>
+            </div>
             <div class="form-check mb-4">
               <input
                 class="form-check-input"
@@ -146,12 +152,12 @@
                 required
               />
               <label class="form-check-label" for="defaultCheck634">
-                I agree to the <a href="#">terms and conditions</a>
+                I agree to the <a href="#"><b>Terms and Conditions</b></a>
               </label>
             </div>
           </div>
-          <button type="submit" class="btn btn-pill btn-primary">
-            <img src="../../assets/login.svg" alt="sign in" width="30">
+          <button type="submit" class="btn btn-pill btn-primary pl-4 pr-4">
+            <img src="../../assets/login.svg" alt="sign in" width="30" />
           </button>
         </form>
       </div>
@@ -161,47 +167,43 @@
 
 <script>
 import { config } from "@/configurations";
-import {isInRange, stringFormat} from "@/helpers";
+import { isInRange, stringFormat } from "@/helpers";
 
 export default {
   name: "RegisterForm",
-  data () {
+  data() {
     return {
-      name: '',
-      email: '',
-      username: '',
-      password1: '',
-      password2: '',
-      phone: '',
-      submitted: false
-    }
+      name: "",
+      email: "",
+      username: "",
+      password1: "",
+      password2: "",
+      phone: "",
+      submitted: false,
+    };
   },
   computed: {
-    loggingIn () {
+    loggingIn() {
       return this.$store.state.authStore.status.loggingIn;
-    }
+    },
   },
-  created () {
-    this.$store.dispatch('authStore/logout');
+  created() {
+    this.$store.dispatch("authStore/logout");
   },
   methods: {
-    handleSubmit () {
+    handleSubmit() {
       this.submitted = true;
-      const {
-        username,
-        password1,
-        password2,
-        name,
-        email,
-        phone
-      } = this;
+      const { username, password1, password2, name, email, phone } = this;
       const { dispatch } = this.$store;
 
       if (!username) {
         dispatch(
-            'alertStore/error',
-            stringFormat(config.messagingConfig.messages.error.field_error, 'Username').trim(),
-            { root: true }
+          "alertStore/error",
+          stringFormat(
+            config.messagingConfig.messages.error.field_error,
+            "Username"
+          ).trim(),
+          { root: true }
         );
         return;
       }
@@ -210,26 +212,26 @@ export default {
 
       if (!password1 || !isInRange(password1.length, password_length_range)) {
         dispatch(
-            'alertStore/error',
-            stringFormat(
-                config.messagingConfig.messages.error.field_error,
-                'Password',
-                'Password needs to be 8 characters long.'
-            ).trim(),
-            { root: true }
+          "alertStore/error",
+          stringFormat(
+            config.messagingConfig.messages.error.field_error,
+            "Password",
+            "Password needs to be 8 characters long."
+          ).trim(),
+          { root: true }
         );
         return;
       }
 
       if (password1.trim() !== password2.trim()) {
         dispatch(
-            'alertStore/error',
-            stringFormat(
-                config.messagingConfig.messages.error.field_error,
-                'Password',
-                'Both the passwords are not matching.'
-            ).trim(),
-            { root: true }
+          "alertStore/error",
+          stringFormat(
+            config.messagingConfig.messages.error.field_error,
+            "Password",
+            "Both the passwords are not matching."
+          ).trim(),
+          { root: true }
         );
         return;
       }
@@ -238,33 +240,37 @@ export default {
 
       if (!phone || !isInRange(phone.length, phone_length_range)) {
         dispatch(
-            'alertStore/error',
-            stringFormat(
-                config.messagingConfig.messages.error.field_error,
-                'Phone number',
-                'Phone number needs to have 10 numbers.'
-            ).trim(),
-            { root: true }
+          "alertStore/error",
+          stringFormat(
+            config.messagingConfig.messages.error.field_error,
+            "Phone number",
+            "Phone number needs to have 10 numbers."
+          ).trim(),
+          { root: true }
         );
         return;
       }
 
-      dispatch('authStore/register', {
+      dispatch("authStore/register", {
         username,
         password1,
         password2,
         name,
         email,
-        phone
+        phone,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
-  .otp{
-    width: 50%;
-    justify-content: center !important;
-    margin-left: 25%;
-  }
+.otp {
+  width: 50%;
+  justify-content: center !important;
+  margin-left: 25%;
+}
+label {
+  width: 100%;
+  text-align: left;
+}
 </style>

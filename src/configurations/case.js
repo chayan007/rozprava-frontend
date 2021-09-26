@@ -19,12 +19,18 @@ caseConfig = {
         getCase:{
             endpoint:"case/v1/{0}/"
         },
+<<<<<<< HEAD
         uploadCaseProof:{
             endpoint:"proof/v1/case/{0}/"
         },
         deleteCaseProof:{
             endpoint:"proof/v1/case/"
         },
+=======
+        deleteCase:{
+            endpoint:"case/v1/{0}/"
+        }
+>>>>>>> 9bc0a4e0b676c3fc68f2062b6c3867b23067e0ac
     },
     categories: {
         OTHER: 0,

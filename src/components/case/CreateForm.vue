@@ -12,6 +12,7 @@
             border border-light
             rounded-circle
             p-0
+            row m-0 align-items-center justify-content-center
           "
         >
           <img
@@ -31,6 +32,7 @@
           v-model="title"
           id="CaseTitle"
           aria-describedby="Title"
+           maxlength="100"
         />
         <br />
         <textarea
@@ -329,7 +331,6 @@ export default {
         });
     },
   }
-
 };
 </script>
 
@@ -342,12 +343,20 @@ export default {
   font-weight: 300;
   line-height: 1.5;
   color: #44476a;
-  background-color: #e6e7ee;
+  background-color: #f2f2f5;
   background-clip: padding-box;
   border: none;
   border-bottom: 0.07rem solid #d1d9e6;
   border-radius: 0rem;
   transition: all 0.3s ease-in-out;
+}
+.profile-image{
+  width: 3.2em;
+  height: 3.2em;
+}
+.card-img-top{
+  width: 3.1em;
+  height: 3.1em;
 }
 .form-control1:focus {
   outline: none;
