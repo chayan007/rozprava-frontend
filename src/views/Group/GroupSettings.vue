@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: "Group",
+  name: "GroupSettings",
   data() {
     return {
       openSettings: 0,
