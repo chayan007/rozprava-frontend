@@ -4,7 +4,7 @@
       <div class="iteminner">
         <div class="rounded-circle activitydot">
         </div>
-        <span class="pl-3 itemtext">Activity Module</span></div>    
+        <span class="pl-3 itemtext">{{activity.activity}}</span></div>    
       </div>
     </div>
 </template>
@@ -12,6 +12,7 @@
 <script>
 export default {
   name: "Activity",
+  props: ["activity"],
 };
 </script>
 
