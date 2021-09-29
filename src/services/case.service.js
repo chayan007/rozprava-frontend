@@ -55,7 +55,6 @@ function getCases(category = null, username = null) {
 function createCase(createCaseBody) {
   const headers = authHeader();
   const url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.create.endpoint}`;
-  console.log(createCaseBody);
   return axios
     .post(url, createCaseBody, { headers: headers })
     .then((response) => {
@@ -104,8 +103,7 @@ function uploadProof(proofRequestBody, slug) {
   return axios
     .post(url, data, { headers: authHeaders })
     .then((response) => {
-      const fileInfo = response.data;
-      console.log(fileInfo);
+      return response.data;
     })
     .catch((error) => {
       console.log("service level error: ", error.response);

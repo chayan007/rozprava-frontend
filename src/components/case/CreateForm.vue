@@ -12,7 +12,10 @@
             border border-light
             rounded-circle
             p-0
-            row m-0 align-items-center justify-content-center
+            row
+            m-0
+            align-items-center
+            justify-content-center
           "
         >
           <img
@@ -32,7 +35,7 @@
           v-model="title"
           id="CaseTitle"
           aria-describedby="Title"
-           maxlength="100"
+          maxlength="100"
         />
         <br />
         <textarea
@@ -233,7 +236,6 @@ export default {
 
     addFile(files) {
       this.files.push(files);
-      console.log(files);
       this.upload();
     },
     removeFile(index) {
@@ -305,7 +307,7 @@ export default {
           router.push({
             name: "CaseDetail",
             params: { slug: caseResponse.slug },
-          })
+          });
         })
         .catch((error) => {
           dispatch("alertStore/error", error);
@@ -320,17 +322,15 @@ export default {
       const { dispatch } = this.$store;
 
       // convert the list of files into json object
-      let proofRequestBody = {}
-      for(let x= 0; x < this.files.length ; x++) {
+      let proofRequestBody = {};
+      for (let x = 0; x < this.files.length; x++) {
         proofRequestBody[`proof_${x + 1}`] = this.files[x];
       }
-      caseService
-        .uploadProof(proofRequestBody, slug)
-        .catch((error) => {
-          dispatch("alertStore/error", error);
-        });
+      caseService.uploadProof(proofRequestBody, slug).catch((error) => {
+        dispatch("alertStore/error", error);
+      });
     },
-  }
+  },
 };
 </script>
 
@@ -350,11 +350,11 @@ export default {
   border-radius: 0rem;
   transition: all 0.3s ease-in-out;
 }
-.profile-image{
+.profile-image {
   width: 3.2em;
   height: 3.2em;
 }
-.card-img-top{
+.card-img-top {
   width: 3.1em;
   height: 3.1em;
 }

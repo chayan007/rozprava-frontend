@@ -1,6 +1,6 @@
 <template >
   <div class="row">
-    <div class="w-100 inputfile-box" v-show="docfile">
+    <div class="w-100 inputfile-box" v-show="isDocfile">
       <input
         type="file"
         ref="file"
@@ -94,24 +94,23 @@ export default {
   props:['files'],
   data() {
     return {
-      docfile: false,
+      isDocfile: false,
       file: [],
       filenames:null,
     };
   },
   methods: {
     openFileInput() {
-      if (this.docfile) {
-        this.docfile = false;
+      if (this.isDocfile) {
+        this.isDocfile = false;
       } else {
-        this.docfile = true;
+        this.isDocfile = true;
       }
     },
 
     getFile() {
       let fileInput = document.getElementById("inputfile");
       this.filenames = fileInput.files[0];
-      console.log(fileInput.files);
       this.$emit('clicked',this.filenames)
       fileInput.files = null
     }
