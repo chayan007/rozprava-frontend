@@ -13,8 +13,6 @@
       </div>
     </div>
 
-    <p>{{}}</p>
-
     <!-- search categories -->
     <div class="search-cat-box row mb-2 m-0 w-100">
       <span
@@ -54,9 +52,9 @@
       <div class="col col-12 pl-3 pr-3">
         <hr />
       </div>
-      <template v-for="account in accountShowInfo" :key="account.uuid">
+      <div v-for="account in accountShowInfo" :key="account.uuid">
         <ProfileSearchComponent :account="account"/>
-      </template>
+      </div>
       <div class="m-0 row justify-content-end col col-12">
         <h6
           class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
@@ -77,9 +75,9 @@
       <div class="col col-12 pl-3 pr-3">
         <hr />
       </div>
-      <template v-for="group in groupShowInfo" :key="group.uuid">
+      <div v-for="group in groupShowInfo" :key="group.uuid">
         <GroupSearchComponent :group="group" />
-      </template>
+      </div>
       <div class="m-0 row justify-content-end col col-12">
         <h6
           class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
@@ -100,9 +98,9 @@
       <div class="col col-12 pl-3 pr-3">
         <hr />
       </div>
-      <template v-for="allCases in caseShowInfo" :key="allCases.uuid">
+      <div v-for="allCases in caseShowInfo" :key="allCases.uuid">
         <CaseSearchComponent :allCases="allCases" />
-      </template>
+      </div>
       {{allCases}}
       <div class="m-0 row justify-content-end col col-12">
         <h6
@@ -121,7 +119,7 @@
 import ProfileSearch from "@/components/generalSearch/ProfileSearch.vue";
 import GroupSearch from "@/components/generalSearch/GroupSearch.vue";
 import CaseSearch from "@/components/generalSearch/CaseSearch.vue";
-import { generalSearchService } from "@/services";
+import { searchService } from "@/services";
 
 export default {
   name: "GeneralSearch",
@@ -197,7 +195,7 @@ export default {
       const username = this.searchValue;
       const { dispatch } = this.$store;
 
-      generalSearchService
+     searchService
         .searchProfile(username)
         .then((profileInfo) => {
           this.profileInfo = profileInfo;
@@ -209,7 +207,7 @@ export default {
     loadGroup() {
       const username = this.searchValue;
       const { dispatch } = this.$store;
-      generalSearchService
+      searchService
         .searchGroup(username)
         .then((groupInfo) => {
           this.groupInfo = groupInfo;
@@ -221,7 +219,7 @@ export default {
     loadCases() {
       const username = this.searchValue;
       const { dispatch } = this.$store;
-      generalSearchService
+      searchService
         .searchCase(username)
         .then((caseInfo) => {
           this.caseInfo = caseInfo;

@@ -1,24 +1,8 @@
-import { authHeader, stringFormat } from '@/helpers';
+import { authHeader } from '@/helpers';
 import { config } from "@/configurations";
 import axios from "axios";
 
-export const groupService = { searchProfile, addGroup }
-
-function searchProfile(username) {
-    const headers = authHeader();
-    const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.groupConfig.api.searchProfile.endpoint}`, username);
-    return axios
-        .get(
-            url,
-            { headers: headers },
-        )
-        .then((response) => {
-            return response.data;
-        })
-        .catch(() => {
-            throw config.messagingConfig.messages.unknown_error;
-        });
-}
+export const groupService = { addGroup }
 
 function addGroup(createGroupBody) {
     const headers = authHeader();
