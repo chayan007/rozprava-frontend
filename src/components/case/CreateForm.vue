@@ -199,7 +199,7 @@ import { stringFormat } from "@/helpers";
 import { config } from "@/configurations";
 import { caseService } from "@/services";
 import router from "@/router";
-import Upload from "@/components/Upload.vue";
+import Upload from "@/components/Proof/Upload.vue";
 
 export default {
   name: "Create",
@@ -214,8 +214,7 @@ export default {
       isAnonymous: false,
       // mention: "",
       tagAdded: false,
-      files: [],
-      proofs: [],
+      files: []
     };
   },
 

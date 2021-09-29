@@ -97,9 +97,6 @@ function uploadProof(proofRequestBody, slug) {
   let data = new FormData();
   for (const [key, fileObj] of Object.entries(proofRequestBody))
     data.append(key, fileObj);
-
-  console.log(">>>", url, authHeaders, data);
-  // console.log('>>>', url, {headers: authHeaders, ...data.getHeaders()}, data);
   return axios
     .post(url, data, { headers: authHeaders })
     .then((response) => {
