@@ -33,7 +33,6 @@
 import Notification from "@/components/notifications/Notification.vue";
 import { notificationService } from "@/services";
 import { config } from "@/configurations";
-import { stringFormat } from "@/helpers";
 
 export default {
   name: "Notification",
@@ -51,10 +50,7 @@ export default {
           this.notifications = notifications;
         })
         .catch(() => {
-          throw stringFormat(
-            config.messagingConfig.messages.error.unknown_error,
-            "notifications"
-          );
+          throw config.messagingConfig.messages.error.unknown_error;
         });
     },
   },
