@@ -1,11 +1,19 @@
-export function authHeader() {
-    let user = JSON.parse(localStorage.getItem('user'));
+import * as moment from "moment";
 
+export function authHeader() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const requestTimestamp = moment().format("DDMMYYhh").toString();
+    const randomPadding = Math.random() * (999999 - 100000) + 100000;
+    const securityKey = btoa(
+        `${requestTimestamp}${randomPadding}${requestTimestamp.reverse()}`
+    );
     if (user && user.token) {
-        return { 'Authorization': 'JWT ' + user.token };
-    } else {
-        return {};
+        return {
+            'Authorization': 'JWT ' + user.token,
+            'X-Security-Key': securityKey
+        };
     }
+    return { 'X-Security-Key': securityKey };
 }
 
 export function handleResponse(response) {
