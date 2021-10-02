@@ -20,7 +20,7 @@ import Notification from '@/views/protected/Notification.vue'
 import CaseDetail from '@/views/protected/case/Detail.vue'
 import CreateGroup from '@/views/Group/CreateGroup.vue'
 import GroupSettings from '@/views/Group/GroupSettings.vue'
-import GroupDetails from '@/views/Group/GroupDetails.vue'
+import GroupInfo from '@/views/Group/GroupInfo.vue'
 
 
 const routes = [
@@ -126,8 +126,8 @@ const routes = [
   },
   {
     path: '/groupdetails',
-    name: 'GroupDetails',
-    component: GroupDetails
+    name: 'GroupInfo',
+    component: GroupInfo
   }
 ]
 
@@ -158,7 +158,7 @@ router.beforeEach((to, from, next) => {
       'CaseDetail',
       'CreateGroup',
       'GroupSettings',
-      'GroupDetails'
+      'GroupInfo'
   ];
   const authPagesName = [
       

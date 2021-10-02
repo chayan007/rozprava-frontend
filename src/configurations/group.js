@@ -5,9 +5,12 @@ groupConfig = {
         createGroup:{
             endpoint: "profile/group/",  
         },
-        searchProfile:{
-            endpoint: "profile/search/{0}",
-        }   
+        getGroupInformation:{
+            endpoint: "profile/group/{0}",  
+        },
+        makeGroupAdmin:{
+           endpoint: "profile/group/admin/{0}"
+        }  
     }
 }
 
