@@ -165,7 +165,7 @@ export default {
     searchProfile() {
       const username = this.searchValue;
       const { dispatch } = this.$store;
-      
+
       groupService
         .searchProfile(username)
         .then((profile_info) => {
@@ -203,10 +203,11 @@ export default {
           is_paid: isPaid,
           members: members,
         })
-        .then(() => {
-         router.push({
-           name:"Group"
-         });
+        .then((createdGroup) => {
+          router.push({
+            name: "GroupInfo",
+            params: { uuid: createdGroup.uuid },
+          });
         })
         .catch(() => {
           dispatch(

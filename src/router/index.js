@@ -125,7 +125,7 @@ const routes = [
     component: GroupSettings
   },
   {
-    path: '/groupdetails',
+    path: '/groupdetails/:uuid',
     name: 'GroupInfo',
     component: GroupInfo
   }
