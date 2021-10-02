@@ -4,7 +4,9 @@
         <!-- Name and edit -->
         <div class="group-name-box row m-0 mb-2 w-100 px-3 justify-content-between">
             <h3 class="group-name d-inline">Rozprava CMI Developers</h3>
-            <span class="rounded-circle"><img class="group-info-edit-pen" src="@/assets/edit.svg" alt=""></span>
+            <router-link to="/group-settings">
+                <span class="rounded-circle"><img class="group-info-edit-pen" src="@/assets/edit.svg" alt=""></span>
+            </router-link>
         </div>
         <!-- info box -->
         <div class="group-info-box min-vh-100 p-4 pt-4">
