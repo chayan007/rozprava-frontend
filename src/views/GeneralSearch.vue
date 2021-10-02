@@ -1,7 +1,7 @@
 <template>
   <div class="search-body m-0">
     <!-- search -->
-    
+
     <div class="p-2 mb-2">
       <div class="row m-0 align-items-center form-control1 w-100 rounded">
         <span class="fas fa-search col p-1 col-1" />
@@ -45,7 +45,7 @@
 
     <!-- accounts -->
     <div
-      class="row m-0"
+      class="row m-0 display-row"
       v-if="(displayFlag == 0 || displayFlag == 1) && profileInfo"
     >
       <h4 class="cat-head col col-12 mt-1 m-0">Accounts</h4>
@@ -53,7 +53,7 @@
         <hr />
       </div>
       <div v-for="account in accountShowInfo" :key="account.uuid">
-        <ProfileSearchComponent :account="account"/>
+        <ProfileSearchComponent :account="account" />
       </div>
       <div class="m-0 row justify-content-end col col-12">
         <h6
@@ -68,7 +68,7 @@
 
     <!-- groups -->
     <div
-      class="row m-0"
+      class="row m-0 display-row"
       v-if="(displayFlag == 0 || displayFlag == 2) && groupInfo"
     >
       <h4 class="cat-head col col-12 mt-1 m-0">Groups</h4>
@@ -91,7 +91,7 @@
 
     <!-- cases -->
     <div
-      class="row m-0"
+      class="row m-0 display-row"
       v-if="(displayFlag == 0 || displayFlag == 3) && caseInfo"
     >
       <h4 class="cat-head col col-12 mt-1 m-0">Cases</h4>
@@ -101,7 +101,6 @@
       <div v-for="allCases in caseShowInfo" :key="allCases.uuid">
         <CaseSearchComponent :allCases="allCases" />
       </div>
-      {{allCases}}
       <div class="m-0 row justify-content-end col col-12">
         <h6
           class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
@@ -132,9 +131,12 @@ export default {
     return {
       searchValue: "",
       profileInfo: 0,
+      profiles:[],
       groupInfo: 0,
       caseInfo: 0,
       displayFlag: 0,
+      offset: 0,
+      limit: 5,
     };
   },
   watch: {
@@ -181,28 +183,65 @@ export default {
     load() {
       if (this.displayFlag == 0) {
         this.loadProfile();
+        this.loadInitialProfiles();
         this.loadGroup();
         this.loadCases();
       } else if (this.displayFlag == 1) {
         this.loadProfile();
+        this.loadInitialProfiles();
       } else if (this.displayFlag == 2) {
         this.loadGroup();
       } else {
         this.loadCases();
       }
     },
-    loadProfile() {
+    loadInitialProfiles() {
       const username = this.searchValue;
+      this.offset = this.offset + this.pageSize;
       const { dispatch } = this.$store;
-
-     searchService
+      searchService
         .searchProfile(username)
         .then((profileInfo) => {
+          console.log(profileInfo.results);
           this.profileInfo = profileInfo;
+          this.profiles = profileInfo;
         })
         .catch((e) => {
           dispatch("alertStore/error", e);
         });
+    },
+
+    loadProfile() {
+      const username = this.searchValue;
+      this.offset = this.offset + this.pageSize;
+      const { dispatch } = this.$store;
+      let bottomOfWindow =
+        document.documentElement.scrollTop + window.innerHeight ===
+        document.documentElement.offsetHeight;
+
+      window.scroll = () => {
+        if (bottomOfWindow) {
+          searchService
+            .searchProfile(username, this.offset, this.limit)
+            .then((profileInfo) => {
+              console.log(this.offset);
+              this.profileInfo = profileInfo;
+              this.profiles = profileInfo.results;
+            })
+            .catch((e) => {
+              dispatch("alertStore/error", e);
+            });
+        }
+      };
+
+      // searchService
+      //   .searchProfile(username, offset)
+      //   .then((profileInfo) => {
+      //     this.profileInfo = profileInfo;
+      //   })
+      //   .catch((e) => {
+      //     dispatch("alertStore/error", e);
+      //   });
     },
     loadGroup() {
       const username = this.searchValue;
@@ -228,10 +267,17 @@ export default {
           dispatch("alertStore/error", e);
         });
     },
+
     filterSearch(f) {
       this.displayFlag = f;
       this.load();
     },
+  },
+  beforeMount() {
+    this.loadInitialProfiles();
+  },
+  mounted() {
+    this.loadProfile();
   },
 };
 </script>
@@ -256,6 +302,10 @@ export default {
 }
 .form-control1:focus {
   outline: none;
+}
+
+.display-row {
+  flex-direction: column;
 }
 
 .inputsearch {
