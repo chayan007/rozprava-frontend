@@ -7,13 +7,10 @@ export function authHeader() {
     const securityKey = btoa(
         `${requestTimestamp}${randomPadding}${requestTimestamp.reverse()}`
     );
-    if (user && user.token) {
-        return {
-            'Authorization': 'JWT ' + user.token,
-            'X-Security-Key': securityKey
-        };
-    }
-    return { 'X-Security-Key': securityKey };
+    let apiHeader = { 'X-Security-Key': securityKey };
+    if (user && user.token)
+        apiHeader['Authorization'] = 'JWT ' + user.token;
+    return apiHeader;
 }
 
 export function handleResponse(response) {
