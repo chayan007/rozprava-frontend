@@ -222,6 +222,7 @@ export default {
         .getRebuttals(uuid)
         .then((rebuttals) => {
           this.rebuttals = rebuttals.rebuttals;
+          console.log(this.rebuttals);
         })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
