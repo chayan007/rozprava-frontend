@@ -42,7 +42,6 @@
     </div>
 
     <!-- search results -->
-
     <!-- accounts -->
     <div
       class="row m-0 display-row"
@@ -131,12 +130,11 @@ export default {
     return {
       searchValue: "",
       profileInfo: 0,
-      profiles:[],
       groupInfo: 0,
       caseInfo: 0,
       displayFlag: 0,
       offset: 0,
-      limit: 5,
+      limit: 10, //remove n add it to funct
     };
   },
   watch: {
@@ -179,75 +177,46 @@ export default {
       }
     },
   },
+  created() {
+    this.load;
+    window.addEventListener("scroll", this.load);
+  },
   methods: {
     load() {
       if (this.displayFlag == 0) {
         this.loadProfile();
-        this.loadInitialProfiles();
         this.loadGroup();
         this.loadCases();
       } else if (this.displayFlag == 1) {
-        this.loadProfile();
-        this.loadInitialProfiles();
+       this.loadProfile();
       } else if (this.displayFlag == 2) {
         this.loadGroup();
       } else {
         this.loadCases();
       }
     },
-    loadInitialProfiles() {
+
+    loadProfile() {
       const username = this.searchValue;
-      this.offset = this.offset + this.pageSize;
       const { dispatch } = this.$store;
+
+      this.offset = this.offset + this.pageSize;
       searchService
-        .searchProfile(username)
+        .searchProfile(username, this.offset, this.limit)
         .then((profileInfo) => {
-          console.log(profileInfo.results);
           this.profileInfo = profileInfo;
-          this.profiles = profileInfo;
         })
         .catch((e) => {
           dispatch("alertStore/error", e);
         });
     },
-
-    loadProfile() {
-      const username = this.searchValue;
-      this.offset = this.offset + this.pageSize;
-      const { dispatch } = this.$store;
-      let bottomOfWindow =
-        document.documentElement.scrollTop + window.innerHeight ===
-        document.documentElement.offsetHeight;
-
-      window.scroll = () => {
-        if (bottomOfWindow) {
-          searchService
-            .searchProfile(username, this.offset, this.limit)
-            .then((profileInfo) => {
-              console.log(this.offset);
-              this.profileInfo = profileInfo;
-              this.profiles = profileInfo.results;
-            })
-            .catch((e) => {
-              dispatch("alertStore/error", e);
-            });
-        }
-      };
-
-      // searchService
-      //   .searchProfile(username, offset)
-      //   .then((profileInfo) => {
-      //     this.profileInfo = profileInfo;
-      //   })
-      //   .catch((e) => {
-      //     dispatch("alertStore/error", e);
-      //   });
-    },
     loadGroup() {
       const username = this.searchValue;
       const { dispatch } = this.$store;
+
+      this.offset = this.offset + this.pageSize;
       searchService
-        .searchGroup(username)
+        .searchGroup(username, this.offset, this.limit)
         .then((groupInfo) => {
           this.groupInfo = groupInfo;
         })
@@ -258,8 +227,10 @@ export default {
     loadCases() {
       const username = this.searchValue;
       const { dispatch } = this.$store;
+
+      this.offset = this.offset + this.pageSize;
       searchService
-        .searchCase(username)
+        .searchCase(username, this.offset, this.limit)
         .then((caseInfo) => {
           this.caseInfo = caseInfo;
         })
@@ -272,12 +243,6 @@ export default {
       this.displayFlag = f;
       this.load();
     },
-  },
-  beforeMount() {
-    this.loadInitialProfiles();
-  },
-  mounted() {
-    this.loadProfile();
   },
 };
 </script>
