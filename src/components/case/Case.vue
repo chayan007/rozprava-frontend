@@ -82,13 +82,13 @@
         </div>
 
         <div class="likes-box row m-0">
-          <span class="row m-0 mr-3 align-items-center">
+          <span @click="like()" class="row m-0 mr-3 align-items-center">
             <img
               class="metrics-icon mr-1"
               src="@/assets/case-like.svg"
               alt=""
             />
-            {{ detail.metrics[1] }}
+            {{ detail.metrics[1] }} <b>{{liked}}</b>
           </span>
           <span class="row m-0 align-items-center">
             <img
@@ -129,13 +129,32 @@
 </template>
 
 <script>
+import { activityService } from "@/services";
+import { config } from "@/configurations";
 export default {
   name: "Case",
   props: ["detail"],
+  data() {
+    return {
+      liked: 0,
+      disliked: 0,
+    }
+  },
   methods: {
     hasValue(key) {
       return Object.keys(this.detail).includes(key);
     },
+    like() {
+      const uuid = this.detail.uuid;
+       activityService
+        .getActivity(uuid,1)
+        .then(() => {
+          this.liked = 1;
+        })
+        .catch(() => {
+          throw config.messagingConfig.messages.error.unknown_error;
+        });
+    }
   },
 };
 </script>
