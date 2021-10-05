@@ -24,7 +24,7 @@
       </button>
       <div class="follow_cards">
         <template
-          v-for="recommendation in recommendations"
+          v-for="recommendation in recommendations.results"
           :key="recommendation.recommends"
         >
           <PeopleCard :recommendation="recommendation" />
@@ -54,6 +54,7 @@ export default {
         .getRecommendations()
         .then((recommendations) => {
           this.recommendations = recommendations;
+          console.log(recommendations.results);
         })
         .catch(() => {
           throw stringFormat(

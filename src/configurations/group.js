@@ -10,6 +10,9 @@ groupConfig = {
         },
         makeGroupAdmin:{
            endpoint: "profile/group/admin/{0}"
+        },
+        leaveGroup:{
+            endpoint:"profile/group/leave/{0}"
         }  
     }
 }

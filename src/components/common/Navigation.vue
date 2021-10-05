@@ -93,7 +93,7 @@
               </router-link>
             </li>
             <li data-toggle="collapse" data-target="#navbar_global">
-              <router-link to="/groups">
+              <router-link to="/my-groups">
                 <a class="dropdown-item">Groups</a>
               </router-link>
             </li>
