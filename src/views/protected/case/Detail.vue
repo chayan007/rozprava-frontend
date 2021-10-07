@@ -231,7 +231,7 @@ export default {
       this.activityDone = act;
       const uuid = this.caseDetail.uuid;
       activityService
-        .getActivity(uuid, act)
+        .caseActivity(uuid, act)
         .then(() => {
           console.log(act);
         })

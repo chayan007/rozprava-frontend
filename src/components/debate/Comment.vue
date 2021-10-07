@@ -172,7 +172,7 @@ export default {
       this.activityDone = act;
       const uuid = this.debate.uuid;
       activityService
-        .getActivity(uuid, act)
+        .debateActivity(uuid, act)
         .then(() => {
           console.log(act);
         })
