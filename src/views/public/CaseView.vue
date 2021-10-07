@@ -179,7 +179,7 @@
           >
           <span
             @click="filter = 7"
-            :class="{ active: filter === 7 }"
+            :class="{ active: filter === 8 }"
             class="
               filter
               p-1
@@ -198,7 +198,7 @@
           >
           <span
             @click="filter = 8"
-            :class="{ active: filter === 8}"
+            :class="{ active: filter === 9}"
             class="
               filter
               p-1
@@ -257,7 +257,9 @@
 
       <!-- cases -->
       <template v-for="case_detail in cases" :key="case_detail.uuid">
-        <Case v-show="filter === -1 || filter === case_detail.category" :detail="case_detail"></Case>
+        <router-link :to="'/case/'+case_detail.slug">
+          <Case v-show="filter === -1 || filter === case_detail.category" :detail="case_detail"></Case>
+        </router-link>
       </template>
     </div>
   </div>
