@@ -45,13 +45,19 @@
                 caseDetail.profile.user.username
               "
             >
-              <div class="d-flex justify-content-between align-items-center" @click="deleteDebate()">
+              <div
+                class="d-flex justify-content-between align-items-center"
+                @click="deleteDebate()"
+              >
                 <span class="leave-btn-text h6 m-0">Delete</span>
                 <img class="icon" src="@/assets/delete.svg" alt="" />
               </div>
             </li>
             <li v-else>
-              <div class="d-flex justify-content-between align-items-center" @click="activity(0)">
+              <div
+                class="d-flex justify-content-between align-items-center"
+                @click="activity(0)"
+              >
                 <span class="admin-tag h6 m-0">Report</span>
                 <img class="icon" src="@/assets/report.svg" alt="" />
               </div>
@@ -67,12 +73,25 @@
         <hr class="m-0 mb-1" />
         <small>{{ caseDetail.description }}</small>
       </div>
+      <!-- proofs -->
+      <div v-if="caseDetail.proofs" class="proofs-box w-100 my-4 d-flex">
+        <div class="proof mr-4" v-for="proof in caseDetail.proofs" :key="proof.uuid">
+          <img class="proof-img" :src="proof.file" alt="">
+        </div>
+      </div>
 
       <!-- case reaction box -->
       <div class="reactions-box row justify-content-between m-0 mt-3">
         <span class="row m-0 align-items-center">
           <span @click="activity(1)" class="row m-0 align-items-center">
             <img
+              v-if="activityDone == 1"
+              class="case-react-icons mr-1"
+              src="@/assets/liked.svg"
+              alt=""
+            />
+            <img
+              v-else
               class="case-react-icons mr-1"
               src="@/assets/case-like.svg"
               alt=""
@@ -83,6 +102,13 @@
           </span>
           <span @click="activity(2)" class="row m-0 align-items-center">
             <img
+              v-if="activityDone == 2"
+              class="case-react-icons mr-1"
+              src="@/assets/disliked.svg"
+              alt=""
+            />
+            <img
+              v-else
               class="case-react-icons mr-1"
               src="@/assets/case-dislike.svg"
               alt=""
@@ -118,7 +144,7 @@
             alt=""
           />
         </span>
-        <small>10 proofs</small>
+        <small>{{caseDetail.proofs.length}} proofs</small>
       </div>
 
       <!-- case comments -->
@@ -128,9 +154,21 @@
       </div>
     </div>
   </div>
-    <div v-else class="loader-box mt-10 p-5 w-100 row m-0 justify-content-center align-center">
-       <div  class="loader"></div>
-    </div>
+  <div
+    v-else
+    class="
+      loader-box
+      mt-10
+      p-5
+      w-100
+      row
+      m-0
+      justify-content-center
+      align-center
+    "
+  >
+    <div class="loader"></div>
+  </div>
 </template>
 
 
@@ -148,6 +186,7 @@ export default {
   data() {
     return {
       caseDetail: null,
+      activityDone: null,
     };
   },
   methods: {
@@ -189,6 +228,7 @@ export default {
     },
 
     activity(act) {
+      this.activityDone = act;
       const uuid = this.caseDetail.uuid;
       activityService
         .getActivity(uuid, act)
@@ -198,7 +238,7 @@ export default {
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
         });
-    }, 
+    },
   },
 
   created() {
@@ -216,7 +256,7 @@ export default {
 .icon {
   width: 1.5em;
 }
-.dropdown-menu{
+.dropdown-menu {
   left: -6em !important;
 }
 .close-case-detail h2 {
@@ -273,14 +313,31 @@ export default {
   letter-spacing: 1px;
   white-space: pre-wrap;
 }
+
+.proofs-box {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.proofs-box::-webkit-scrollbar {
+  display: none;
+}
+.proof-img{
+  width: 23em;
+  height: 15em;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
 .react-txt {
-  font-size: 0.89em;
+  font-size: 1.1em;
+  margin-top: 0.45em !important;
 }
 .case-react-icons {
-  width: 1.6em;
+  width: 1.9em;
 }
 .case-view-icon {
-  width: 1.5em;
+  width: 1.7em;
+  margin-top: 0.3em !important;
 }
 .case-react-profile-pic {
   width: 2.3em;
@@ -295,7 +352,7 @@ export default {
 }
 
 /* loader */
-.loader-box{
+.loader-box {
   height: 40vh;
 }
 .loader {
@@ -310,12 +367,24 @@ export default {
 
 /* Safari */
 @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.log {
+  white-space: pre-wrap;
 }
 </style>

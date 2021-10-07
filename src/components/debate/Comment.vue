@@ -24,6 +24,7 @@
           <img
             class="com-pro-img rounded-circle"
             :src="debate.profile.display_pic"
+            alt="profile picture"
           />
           <small class="ml-2 h6 m-0">{{ debate.profile.user.full_name }}</small>
         </div>
@@ -32,7 +33,7 @@
             class="comment-menu nav-link p-0"
             data-toggle="dropdown"
             src="@/assets/menu-dots.svg"
-            alt=""
+            alt="menu dots"
           />
 
           <!-- dropdown -->
@@ -48,7 +49,7 @@
                 @click="deleteDebate()"
               >
                 <span class="leave-btn-text h6 m-0">Delete</span>
-                <img class="icon" src="@/assets/delete.svg" alt="" />
+                <img class="icon" src="@/assets/delete.svg" alt="delete icon" />
               </div>
             </li>
             <li v-else>
@@ -57,7 +58,7 @@
                 @click="activity(0)"
               >
                 <span class="admin-tag h6 m-0">Report</span>
-                <img class="icon" src="@/assets/report.svg" alt="" />
+                <img class="icon" src="@/assets/report.svg" alt="report a post icon" />
               </div>
             </li>
           </ul>
@@ -77,20 +78,30 @@
       <div class="com-react-box row justify-content-between m-0 p-1">
         <span class="row m-0 align-items-center">
           <span @click="activity(1)" class="row m-0 align-items-center">
-            <img
+            <img v-if="activityDone == 1"
+              class="case-react-icons mr-1"
+              src="@/assets/liked.svg"
+              alt="liked icon"
+            />
+            <img v-else
               class="case-react-icons mr-1"
               src="@/assets/case-like.svg"
-              alt=""
+              alt="like icon"
             />
             <small class="react-txt m-0 mr-3 h6">{{
               debate.activities[1]
             }}</small>
           </span>
           <span @click="activity(2)" class="row m-0 align-items-center">
-            <img
+            <img v-if="activityDone == 2"
+              class="case-react-icons mr-1"
+              src="@/assets/disliked.svg"
+              alt="disliked icon"
+            />
+            <img v-else
               class="case-react-icons mr-1"
               src="@/assets/case-dislike.svg"
-              alt=""
+              alt="dislike icon"
             />
             <small class="react-txt m-0 mr-2 h6">{{
               debate.activities[2]
@@ -124,9 +135,10 @@ export default {
   props: ["newDebate", "createdAt", "isRebuttal"],
   data() {
     return {
-      debate: this.newDebate,
-      cAgainst: false,
-      uuid: this.newDebate.uuid,
+      debate : this.newDebate,
+      cAgainst : false,
+      uuid : this.newDebate.uuid,
+      activityDone : null,
     };
   },
   methods: {
@@ -157,6 +169,7 @@ export default {
         });
     },
     activity(act) {
+      this.activityDone = act;
       const uuid = this.debate.uuid;
       activityService
         .getActivity(uuid, act)
