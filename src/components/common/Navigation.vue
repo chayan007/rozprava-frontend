@@ -205,7 +205,7 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/login">
+          <router-link to="/logout">
             <a class="dropdown-item">Log out</a>
           </router-link>
         </li>
