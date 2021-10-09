@@ -125,7 +125,7 @@ const routes = [
     component: Group
   },
   {
-    path: '/generalsearch',
+    path: '/search',
     name: 'GeneralSearch',
     component: GeneralSearch
   }

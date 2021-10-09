@@ -161,6 +161,8 @@ export default {
       profile_info: [],
       searchValue: "",
       groupFormed: 0,
+      offset: 0,
+      limit: 30,
     };
   },
 
@@ -184,7 +186,7 @@ export default {
       const { dispatch } = this.$store;
 
       searchService
-        .searchProfile(username)
+        .searchProfile(username, this.offset, this.limit)
         .then((profile_info) => {
           this.profile_info = profile_info.results;
         })
