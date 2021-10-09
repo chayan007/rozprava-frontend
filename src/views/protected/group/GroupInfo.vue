@@ -73,7 +73,6 @@ export default {
       groupService
         .getGroupInformation(uuid)
         .then((groupDetails) => {
-          console.log(groupDetails.profiles);
           this.groupDetails = groupDetails;
         })
         .catch((error) => {
@@ -88,7 +87,7 @@ export default {
         .leaveGroup(uuid, profile)
         .then(() => {
           let arr = this.groupDetails.profiles
-          console.log(arr);
+          console.log("leave wala",arr);
           router.push({
             path: "MyGroups",
           });

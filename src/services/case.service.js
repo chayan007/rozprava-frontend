@@ -53,22 +53,18 @@ function getCases(category = null, username = null) {
 }
 
 function createCase(createCaseBody) {
-    const headers = authHeader();
-    const url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.create.endpoint}`;
-    return axios
-        .post(
-            url,
-            createCaseBody,
-            { headers: headers },
-        )
-        .then((response) => {
-            const case_info = response.data
-            return case_info;
-        })
-        .catch((error) => {
-            console.log(error.response.data)
-            throw config.messagingConfig.messages.unknown_error;
-        });
+  const headers = authHeader();
+  const url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.create.endpoint}`;
+  return axios
+    .post(url, createCaseBody, { headers: headers })
+    .then((response) => {
+      const case_info = response.data;
+      return case_info;
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+      throw config.messagingConfig.messages.unknown_error;
+    });
 }
 
 function getCase(slug) {
