@@ -65,7 +65,7 @@
       ></Rebuttal>
     </div>
 
-    <!-- add comment dumy box -->
+    <!-- add comment dummy box -->
     <div
       class="add-comment-btn-box p-2 row m-0 w-100"
       v-show="!addComment && !rebuttal"

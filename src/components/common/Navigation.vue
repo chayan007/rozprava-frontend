@@ -89,7 +89,7 @@
           <ul class="dropdown-menu">
             <li data-toggle="collapse" data-target="#navbar_global">
               <router-link to="/inbox">
-                <a class="dropdown-item">Chats</a>
+                <a class="dropdown-item">Inbox</a>
               </router-link>
             </li>
             <li data-toggle="collapse" data-target="#navbar_global">

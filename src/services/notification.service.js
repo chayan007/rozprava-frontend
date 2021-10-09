@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { authHeader } from '@/helpers';
+=======
+import { authHeader} from '@/helpers';
+>>>>>>> 8875e0e97c910039a2c08e59c999f87a1df71220
 import { config } from "@/configurations";
 import axios from "axios";
 
