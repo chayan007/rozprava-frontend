@@ -22,6 +22,7 @@ import MyGroups from '@/views/protected/group/MyGroups.vue'
 import Group from '@/views/protected/group/Group.vue'
 import GroupInfo from '@/views/protected/group/GroupInfo.vue'
 import GroupSettings from '@/views/protected/group/GroupSettings.vue'
+import GeneralSearch from '@/views/GeneralSearch.vue'
 
 
 const routes = [
@@ -134,6 +135,11 @@ const routes = [
     path: '/group-settings',
     name: 'GroupSettings',
     component: GroupSettings
+  },
+  {
+    path: '/general-search',
+    name: 'GeneralSearch',
+    component: GeneralSearch
   }
 ]
 
@@ -165,7 +171,8 @@ router.beforeEach((to, from, next) => {
       'MyGroups',
       'GroupSettings',
       'GroupInfo',
-      'Group'
+      'Group',
+      'GeneralSearch'
   ];
   const authPagesName = [
       
