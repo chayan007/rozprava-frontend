@@ -384,7 +384,4 @@ export default {
   }
 }
 
-.log {
-  white-space: pre-wrap;
-}
 </style>

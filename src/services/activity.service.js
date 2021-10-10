@@ -26,7 +26,6 @@ function caseActivity(uuid, category) {
   const headers = authHeader();
 
   let url = stringFormat(`${config.commonConfig.$apiUrl}/${config.activityConfig.api.postCaseActivity.endpoint}`, uuid, category);
-  console.log(headers);
   return axios
     .post(url,{}, { headers: headers })
     .then((response) => {
