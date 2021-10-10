@@ -13,44 +13,53 @@
     </div>
     <div>
       <img
-        class="rounded-circle mt-n2 profile-pic"
+        class="rounded-circle profile-pic"
         src="@/assets/profile-picture-1.jpg"
         alt=""
       />
     </div>
     <div>
       <h1 class="fw-bolder m-0 mt-2 profile-name">
-        {{ profile.user.full_name}}
+        {{ profile.user.full_name }}
       </h1>
       <h5 class="m-0">
-        {{profile.user.username}}
+        {{ profile.user.username }}
       </h5>
-      <p class="m-0">
-        ( {{profile.profession}} ) 
-      </p>
+      <p class="m-0">( {{ profile.profession }} )</p>
       <div class="row m-0">
         <div class="col-4">
           <p class="m-0">Posts</p>
-          <h5>{{profile.metrics.posts}}</h5>
+          <h5>{{ profile.metrics.posts }}</h5>
         </div>
         <div class="col-4">
           <p class="m-0">Followers</p>
-          <h5>{{profile.metrics.followers}}</h5>
+          <h5>{{ profile.metrics.followers }}</h5>
         </div>
         <div class="col-4">
           <p class="m-0">Following</p>
-          <h5>{{profile.metrics.following}}</h5>
+          <h5>{{ profile.metrics.following }}</h5>
         </div>
       </div>
       <div class="px-3">
         <h6>
-          {{profile.bio}}
+          {{ profile.bio }}
         </h6>
+      </div>
+      <div class="w-100 row m-0 justify-content-around my-4">
+        <span class="follow-btn rounded-pill py-2 px-4 col-5 btn" @click="followUser()"
+          ><h6 class="m-0">Follow</h6></span
+        >
+        <span class="profile-action-btn rounded-pill py-2 px-4 col-5 btn"
+          ><h6 class="m-0">Message</h6></span
+        >
       </div>
       <div>
         <template v-for="case_detail in cases" :key="case_detail.uuid">
-        <Case v-show="filter === -1 || filter === case_detail.category" :detail="case_detail"></Case>
-      </template>
+          <Case
+            v-show="filter === -1 || filter === case_detail.category"
+            :detail="case_detail"
+          ></Case>
+        </template>
       </div>
     </div>
   </div>
@@ -126,17 +135,28 @@ export default {
           });
       }
     },
+    followUser() {
+      const username = this.profile.user.username ;
+      userService
+        .followUser(username)
+        .then(() => {
+          console.log("followed");
+        })
+        .catch(() => {
+          // throw config.messagingConfig.messages.error.unknown_error;
+        });
+    },
   },
 };
 </script>
 
 <style scoped>
-.profile-name{
+.profile-name {
   font-size: 2.5em;
 }
 .small-icon {
   font-size: 2em;
-  color:#fff;
+  color: #fff;
 }
 .profile-cover {
   top: 3.5em;
@@ -145,6 +165,7 @@ export default {
 }
 .profile-pic {
   width: 8em;
+  border: 3px solid #fff;
 }
 .bio {
   width: 30rem;
@@ -251,5 +272,11 @@ export default {
     margin-right: 4%;
     margin-left: 4%;
   }
+}
+.follow-btn {
+  background-color: rgba(72, 23, 176, 1);
+}
+.follow-btn h6 {
+  color: #fff;
 }
 </style>

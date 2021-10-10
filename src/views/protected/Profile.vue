@@ -2,17 +2,17 @@
   <div class="box" style="text-align: center">
     <ProfileComponent></ProfileComponent>
     <div class="popup">
-      <BottomMenu></BottomMenu>
+      <!-- <BottomMenu></BottomMenu> -->
     </div>
   </div>
 </template>
 <script>
 import Profile from "@/components/profile/Profile.vue";
-import BottomMenu from "@/components/profile/BottomMenu.vue";
+// import BottomMenu from "@/components/profile/BottomMenu.vue";
 
 export default {
   name: "Profile",
-  components: { "ProfileComponent": Profile, BottomMenu },
+  components: { "ProfileComponent": Profile},
 };
 </script>
 <style scoped>
