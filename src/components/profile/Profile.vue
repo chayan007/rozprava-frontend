@@ -1,124 +1,175 @@
 <template>
-  <div class="cant mt-5" >
-    <div class="card bg-primary  ">
-      <div class="a1" >
-        <img src="@/assets/post_pic.png"  class="image card-img-top rounded-top" alt="Cover picture">
-        <button type="button " class="aero a2"><span class="a2"><img src="@/assets/Back.png" alt="Back icon image" width="18"></span></button>
-        <button type="button" class="a3" @click="()=>Toggle('buttonTrigger')">...</button>
-        <PopupMenu v-if="popupTriggers.buttonTrigger" :Toggle="()=>Toggle('buttonTrigger')" class="popup" >
-        </PopupMenu>
-        <div class="middle">
-          <div class="a4 profile-image bg-primary shadow-inset border border-light rounded-circle">
-            <img src="@/assets/black-rose.jpg" class="card-img-top rounded-circle" alt="Profile Pic" width="200" />
-          </div>
+  <div>
+    <div>
+      <div class="p-3 d-flex justify-content-between">
+        <i class="fas fa-arrow-left small-icon"></i>
+        <i class="fas fa-ellipsis-v small-icon"></i>
+      </div>
+      <img
+        class="profile-cover position-fixed w-100"
+        src="@/assets/post_pic.png"
+        alt=""
+      />
+    </div>
+    <div>
+      <img
+        class="rounded-circle mt-n2 profile-pic"
+        src="@/assets/profile-picture-1.jpg"
+        alt=""
+      />
+    </div>
+    <div>
+      <h1 class="fw-bolder m-0 mt-2 profile-name">
+        {{ profile.user.full_name}}
+      </h1>
+      <h5 class="m-0">
+        {{profile.user.username}}
+      </h5>
+      <p class="m-0">
+        ( {{profile.profession}} ) 
+      </p>
+      <div class="row m-0">
+        <div class="col-4">
+          <p class="m-0">Posts</p>
+          <h5>{{profile.metrics.posts}}</h5>
+        </div>
+        <div class="col-4">
+          <p class="m-0">Followers</p>
+          <h5>{{profile.metrics.followers}}</h5>
+        </div>
+        <div class="col-4">
+          <p class="m-0">Following</p>
+          <h5>{{profile.metrics.following}}</h5>
         </div>
       </div>
-      <h2 class=" card-title mt-3">{{ profile.user.full_name }}</h2>
-      <div class="nowrap">
-        <div class="c3"><span class="h4"><strong>{{ profile.metrics.posts }}</strong></span><br>posts</div>
-        <div class="c2"><span class="h4"><strong>{{ profile.metrics.followers }}</strong></span><br>Followers</div>
-        <div class="c1"><span class="h4"><strong>{{ profile.metrics.following }}</strong></span><br>Following</div>
+      <div class="px-3">
+        <h6>
+          {{profile.bio}}
+        </h6>
       </div>
-      <div class="bio">
-        <div>
-          {{ profile.bio }}
-        </div>
+      <div>
+        <template v-for="case_detail in cases" :key="case_detail.uuid">
+        <Case v-show="filter === -1 || filter === case_detail.category" :detail="case_detail"></Case>
+      </template>
       </div>
     </div>
   </div>
 </template>
 
 <script>
- import PopupMenu from "@/components/profile/PopupMenu.vue"
- import { ref } from "vue";
- import {  userService } from '@/services';
- import router from "../../router";
+//import PopupMenu from "@/components/profile/PopupMenu.vue"
+//import Case from "@/components/case/Case.vue";
+import { ref } from "vue";
+import { userService } from "@/services";
+import router from "../../router";
 
- export default {
-    name: "Profile",
-    components: { PopupMenu },
-    data () {
-      return {
-        profile: null,
-        username:'',
+export default {
+  name: "Profile",
+  // components: { PopupMenu,Case },
+  data() {
+    return {
+      profile: null,
+      username: "",
+    };
+  },
+
+  setup() {
+    const popupTriggers = ref({
+      buttonTrigger: false,
+      timedTrigger: false,
+    });
+
+    const Toggle = (trigger) => {
+      popupTriggers.value[trigger] = !popupTriggers.value[trigger];
+    };
+
+    const ToggleClose = (trigger) => {
+      popupTriggers.value[trigger] = !popupTriggers.value[trigger];
+    };
+
+    return {
+      popupTriggers,
+      Toggle,
+      ToggleClose,
+    };
+  },
+
+  created() {
+    this.declareUser();
+  },
+
+  methods: {
+    declareUser() {
+      this.username = this.$route.params.username;
+      this.profile = JSON.parse(localStorage.getItem("user"));
+      if (!this.profile) {
+        router.push("/login");
+      }
+      this.profile = this.profile.profile;
+      const { dispatch } = this.$store;
+
+      if (this.profile.user.username !== this.username) {
+        // When profile is not the authenticated profile (any other random profile).
+        userService
+          .getProfile(this.username)
+          .then(
+            (userProfile) => {
+              this.profile = userProfile;
+              console.log(userProfile);
+            },
+            (error) => {
+              dispatch("alertStore/error", error, { root: true });
+            }
+          )
+          .catch((error) => {
+            dispatch("alertStore/error", error, { root: true });
+          });
       }
     },
-
-    setup(){
-      const popupTriggers = ref({
-        buttonTrigger:false,
-        timedTrigger:false
-      });
-
-      const Toggle = (trigger) => {
-        popupTriggers.value[trigger] = !popupTriggers.value[trigger]
-      }
-
-      const ToggleClose = (trigger) => {
-        popupTriggers.value[trigger] = !popupTriggers.value[trigger]
-      }
-
-      return{
-        popupTriggers,
-        Toggle,
-        ToggleClose,
-      }
-    },
-
-    created(){
-      this.declareUser();
-    },
-
-    methods:{
-      declareUser(){
-        this.username = this.$route.params.username;
-        this.profile = JSON.parse(localStorage.getItem('user'));
-        if (!this.profile){
-          router.push('/login');
-        }
-        this.profile = this.profile.profile;
-        const { dispatch } = this.$store;
-
-        if(this.profile.user.username !== this.username){
-          // When profile is not the authenticated profile (any other random profile).
-          userService.getProfile(this.username)
-              .then(
-                  userProfile => { this.profile = userProfile; console.log(userProfile); },
-                  error => { dispatch('alertStore/error', error, { root: true }); }
-              ).catch(
-              error => { dispatch('alertStore/error', error, { root: true }); }
-          );
-        }
-      }
-    },
-  }
+  },
+};
 </script>
 
 <style scoped>
-.bio{
+.profile-name{
+  font-size: 2.5em;
+}
+.small-icon {
+  font-size: 2em;
+  color:#fff;
+}
+.profile-cover {
+  top: 3.5em;
+  left: 0;
+  z-index: -1;
+}
+.profile-pic {
+  width: 8em;
+}
+.bio {
   width: 30rem;
   margin-right: auto;
   margin-left: auto;
   max-width: 100%;
   margin-top: 1.5rem;
 }
-.image{
+.image {
   max-height: 25rem;
 }
-.c1{
+.c1 {
   margin-left: auto;
   padding: 0rem 1rem;
   order: 2;
 }
-.c2{
+.c2 {
   margin-left: auto;
   padding-left: 1rem;
   order: 2;
 }
-.c3{
+.c3 {
   padding: 0rem 1rem;
 }
-.cant{
+.cant {
   width: 65rem;
   margin-left: auto;
   margin-right: auto;
@@ -128,7 +179,7 @@
 .btn {
   display: inline-block;
   font-weight: 400;
-  color: #44476A;
+  color: #44476a;
   text-align: center;
   vertical-align: middle;
   -webkit-user-select: none;
@@ -141,11 +192,10 @@
   line-height: 1.5;
   border-radius: 0.55rem;
 }
-.margin{
+.margin {
   margin-left: 2rem;
   margin-right: 2rem;
   white-space: nowrap !important;
-
 }
 .btn-primary {
   color: #31344b;
@@ -153,55 +203,53 @@
   border-color: #e6e7ee;
   box-shadow: none;
 }
-.nowrap{
+.nowrap {
   display: flex;
   width: 30rem;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
-.a1{
+.a1 {
   position: relative;
 }
-.a1 .aero{
+.a1 .aero {
   position: absolute;
   top: 10%;
   left: 4%;
 }
-.a2{
+.a2 {
   background: transparent;
   color: white;
   border: none;
   font-size: 1.5rem;
 }
-.a1 .a3{
+.a1 .a3 {
   position: absolute;
-  top:5%;
+  top: 5%;
   left: 90%;
   background: none;
   color: white;
   border: none;
   font-size: 2rem;
 }
-.a4{
+.a4 {
   top: 45%;
   margin-right: auto;
-  margin-left:auto ;
+  margin-left: auto;
   width: 14rem;
   height: 14rem;
-  padding : 0.15rem;
-  
+  padding: 0.15rem;
 }
-.middle{
+.middle {
   position: absolute;
   top: 12rem;
   width: 100%;
-  
 }
 @media (max-width: 700px) {
-    .space {
-      margin-right: 4%;
-      margin-left: 4%;
-    }
+  .space {
+    margin-right: 4%;
+    margin-left: 4%;
+  }
 }
 </style>

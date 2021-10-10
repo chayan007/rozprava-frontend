@@ -30,7 +30,7 @@ export default {
 }
 .box {
   font-family: Josefin Sans;
-  margin-top: 7rem;
+  margin-top: 4rem;
   padding: 0%;
   max-width: 100%;
 }
