@@ -1,4 +1,4 @@
-import { authHeader} from '@/helpers';
+import { authHeader } from '@/helpers';
 import { config } from "@/configurations";
 import axios from "axios";
 
