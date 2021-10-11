@@ -10,7 +10,7 @@ import ResetPassword from '@/views/ResetPassword.vue'
 import Settings from '@/views/protected/Settings.vue'
 import CaseView from '@/views/public/CaseView.vue'
 import Activity from '@/views/protected/Activity.vue'
-import Search from '@/views/protected/Search.vue'
+// import Search from '@/views/protected/Search.vue'
 import Profile from '@/views/protected/Profile.vue'
 import Recommendation from '@/views/protected/Recommendation.vue'
 import Inbox from '@/views/protected/chat/Inbox.vue'
@@ -81,11 +81,11 @@ const routes = [
      name: 'CaseView',
      component: CaseView
   },
-  {
-    path: '/search',
-    name: 'Search',
-    component: Search
-  },
+  // {
+  //   path: '/search',
+  //   name: 'Search',
+  //   component: Search
+  // },
   {
     path: '/forget-login',
     name: 'ForgetLogin',
@@ -137,7 +137,7 @@ const routes = [
     component: GroupSettings
   },
   {
-    path: '/general-search',
+    path: '/search',
     name: 'GeneralSearch',
     component: GeneralSearch
   }
