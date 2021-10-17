@@ -46,7 +46,11 @@
           {{ profile.bio }}
         </h6>
       </div>
-      <div class="w-100 row m-0 justify-content-around my-4">
+      <!-- Follow & Massage div -->
+      <div
+        v-if="is_authenticated.profile.user.username !== profile.user.username"
+        class="w-100 row m-0 justify-content-around my-4"
+      >
         <span
           :class="[following ? 'followed-btn' : 'follow-btn']"
           class="rounded-pill py-2 px-4 col-5 btn"
@@ -59,6 +63,15 @@
           ><h6 class="m-0">Message</h6></span
         >
       </div>
+      <div class="p-3" v-else>
+        <router-link to="/settings">
+          <div class="btn p-2 btn-block">
+            <h5 class="m-0 d-inline">Edit Profile</h5>
+            <img class="ml-2 icon pb-2" src="@/assets/editDark.svg" alt="pen" />
+          </div>
+        </router-link>
+      </div>
+      <!-- Follow & Massage div -->
       <div>
         <template v-for="case_detail in cases" :key="case_detail.uuid">
           <Case
@@ -114,6 +127,11 @@ export default {
   created() {
     this.declareUser();
   },
+  computed: {
+    is_authenticated() {
+      return this.$store.state.authStore.user;
+    },
+  },
 
   methods: {
     declareUser() {
@@ -149,9 +167,7 @@ export default {
       this.following = !this.following;
       userService
         .followUser(username)
-        .then(() => {
-          
-        })
+        .then(() => {})
         .catch(() => {
           // throw config.messagingConfig.messages.error.unknown_error;
         });
@@ -294,5 +310,8 @@ export default {
 }
 .followed-btn {
   background-color: rgb(31, 31, 31);
+}
+.icon {
+  width: 1.3em;
 }
 </style>
