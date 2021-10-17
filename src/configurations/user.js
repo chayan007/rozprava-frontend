@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
                 "endpoint": "profile/user/{0}/"
             },
             sendFollowUser: {
-                "endpoint": "profile/follow/{0}/"
+                "endpoint": "profile/follow/{0}"
             }
         },
         constants: {
@@ -68,7 +68,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
                 "endpoint": "profile/recommend/",  
             },
             sendFollowUser: {
-                "endpoint": "profile/follow/{0}/"
+                "endpoint": "profile/follow/{0}"
             }
         },
         constants: {

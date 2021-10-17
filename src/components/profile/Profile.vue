@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <Loader v-if="!profile" />
+  <div v-else>
     <div>
       <div class="p-3 d-flex justify-content-between">
         <i class="fas fa-arrow-left small-icon"></i>
@@ -46,8 +47,13 @@
         </h6>
       </div>
       <div class="w-100 row m-0 justify-content-around my-4">
-        <span class="follow-btn rounded-pill py-2 px-4 col-5 btn" @click="followUser()"
-          ><h6 class="m-0">Follow</h6></span
+        <span
+          :class="[following ? 'followed-btn' : 'follow-btn']"
+          class="rounded-pill py-2 px-4 col-5 btn"
+          @click="followUser()"
+          ><h6 class="m-0 follow-btn-txt">
+            <span v-if="!following">Follow</span> <span v-else>Following</span>
+          </h6></span
         >
         <span class="profile-action-btn rounded-pill py-2 px-4 col-5 btn"
           ><h6 class="m-0">Message</h6></span
@@ -66,6 +72,7 @@
 </template>
 
 <script>
+import Loader from "@/components/Loader.vue";
 //import PopupMenu from "@/components/profile/PopupMenu.vue"
 //import Case from "@/components/case/Case.vue";
 import { ref } from "vue";
@@ -74,11 +81,12 @@ import router from "../../router";
 
 export default {
   name: "Profile",
-  // components: { PopupMenu,Case },
+  components: { Loader },
   data() {
     return {
       profile: null,
       username: "",
+      following: false,
     };
   },
 
@@ -124,6 +132,7 @@ export default {
           .then(
             (userProfile) => {
               this.profile = userProfile;
+              this.setFollow();
               console.log(userProfile);
             },
             (error) => {
@@ -136,15 +145,19 @@ export default {
       }
     },
     followUser() {
-      const username = this.profile.user.username ;
+      const username = this.profile.user.username;
+      this.following = !this.following;
       userService
         .followUser(username)
         .then(() => {
-          console.log("followed");
+          
         })
         .catch(() => {
           // throw config.messagingConfig.messages.error.unknown_error;
         });
+    },
+    setFollow() {
+      this.following = this.profile.authenticated_details.is_following;
     },
   },
 };
@@ -276,7 +289,10 @@ export default {
 .follow-btn {
   background-color: rgba(72, 23, 176, 1);
 }
-.follow-btn h6 {
+.follow-btn-txt {
   color: #fff;
+}
+.followed-btn {
+  background-color: rgb(31, 31, 31);
 }
 </style>

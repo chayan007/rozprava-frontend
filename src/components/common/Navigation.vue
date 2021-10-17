@@ -58,6 +58,26 @@
           data-toggle="collapse"
           data-target="#navbar_global"
         >
+          <router-link to="/general-search">
+            <span
+              class="
+                nav-link-inner-text nav-link
+                w-100
+                row
+                m-0
+                justify-content-between
+              "
+            >
+              <span>Search</span>
+              <img class="menu-item-icon pr-2" src="@/assets/search.svg" alt="" />
+            </span>
+          </router-link>
+        </li>
+        <li
+          class="nav-item"
+          data-toggle="collapse"
+          data-target="#navbar_global"
+        >
           <router-link to="/case-create">
             <span
               class="

@@ -5,11 +5,6 @@
       <img class="case-head-img w-100" src="@/assets/Detail-case.png" alt="" />
     </div>
     <!-- close btn -->
-    <!-- <div class="close-case-detail-outer w-100 text-center" v-show="!rebuttal">
-        <span class="close-case-detail m-0  row justify-content-center w-100">
-          <h2 class="rounded-circle m-0 row align-items-center justify-content-center shadow">x</h2>
-        </span>
-      </div> -->
 
     <!-- full case box -->
     <div class="case-detail w-100 mt-9 p-3">
@@ -154,25 +149,13 @@
       </div>
     </div>
   </div>
-  <div
-    v-else
-    class="
-      loader-box
-      mt-10
-      p-5
-      w-100
-      row
-      m-0
-      justify-content-center
-      align-center
-    "
-  >
-    <div class="loader"></div>
-  </div>
+  <!-- loader -->
+  <Loader v-else />
 </template>
 
 
 <script>
+import Loader from "@/components/Loader.vue";
 import List from "@/components/debate/List.vue";
 import { caseService } from "@/services";
 import { activityService } from "@/services";
@@ -180,9 +163,10 @@ import { config } from "@/configurations";
 import { getSanitizedTime } from "@/helpers";
 import router from "@/router";
 
+
 export default {
   name: "DetailCase",
-  components: { List },
+  components: { List, Loader },
   data() {
     return {
       caseDetail: null,
@@ -349,39 +333,6 @@ export default {
 }
 .rel-right-2 {
   right: 1.6em;
-}
-
-/* loader */
-.loader-box {
-  height: 40vh;
-}
-.loader {
-  border: 3px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 3px solid #383838;
-  width: 50px;
-  height: 50px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 1s linear infinite;
-}
-
-/* Safari */
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 
 </style>

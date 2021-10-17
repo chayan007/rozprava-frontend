@@ -3,7 +3,7 @@
     <div class="row justify-content-md-around">
       <!-- search -->
       <div class="search-outer pt-0 pl-3 pr-3 w-100">
-        <router-link to="/search">
+        <router-link to="/general-search">
           <div
             class="
               search
@@ -238,21 +238,7 @@
       </div>
 
       <!-- loader -->
-      <div
-        v-show="cases.length === 0"
-        class="
-          loader-box
-          p-5
-          w-100
-          row
-          m-0
-          mt-9
-          justify-content-center
-          align-center
-        "
-      >
-        <div class="loader"></div>
-      </div>
+      <Loader v-show="cases.length === 0" />
       <!-- loader -->
 
       <!-- cases -->
@@ -266,12 +252,13 @@
 </template>
 
 <script>
+import Loader from "@/components/Loader.vue";
 import Case from "@/components/case/Case.vue";
 import { config } from "@/configurations";
 
 export default {
   name: "CaseView",
-  components: { Case },
+  components: { Case, Loader },
   data() {
     return {
       filter: -1,
@@ -347,36 +334,4 @@ export default {
   border: 1px solid rgb(143, 143, 143);
 }
 
-/* loader */
-.loader-box {
-  height: 40vh;
-}
-.loader {
-  border: 3px solid #fff;
-  border-radius: 50%;
-  border-top: 3px solid #383838;
-  width: 50px;
-  height: 50px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 1s linear infinite;
-}
-
-/* Safari */
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 </style>

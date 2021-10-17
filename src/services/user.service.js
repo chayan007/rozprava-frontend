@@ -65,7 +65,9 @@ function followUser(username) {
     return axios.post(url, {}, { headers: authenticationHeader })
         .then(response => {
             const data = response.data;
+
             if (data) {
+                console.log(data);
                 return data;
             } else {
                 throw config.messagingConfig.messages.error.unknown_error;
