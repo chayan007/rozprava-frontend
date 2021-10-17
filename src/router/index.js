@@ -11,7 +11,6 @@ import Settings from '@/views/protected/Settings.vue'
 import CaseView from '@/views/public/CaseView.vue'
 import Activity from '@/views/protected/Activity.vue'
 import Profile from '@/views/protected/Profile.vue'
-// import Recommendation from '@/views/protected/Recommendation.vue'
 import Inbox from '@/views/protected/chat/Inbox.vue'
 import Chat from '@/views/protected/chat/Chat.vue'
 import CaseCreate from '@/views/protected/case/Create.vue'
@@ -45,11 +44,6 @@ const routes = [
     name: 'Inbox',
     component: Inbox
   },
-  // {
-  //   path: '/recommendation',
-  //   name: 'Recommendation',
-  //   component: Recommendation
-  // },
   {
     path: '/profile/:username',
     name: 'Profile',
@@ -131,7 +125,7 @@ const routes = [
     component: GroupSettings
   },
   {
-    path: '/general-search',
+    path: '/search',
     name: 'GeneralSearch',
     component: GeneralSearch
   }

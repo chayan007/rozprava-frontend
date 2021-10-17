@@ -3,7 +3,7 @@
     <div class="row justify-content-md-around">
       <!-- search -->
       <div class="search-outer pt-0 pl-3 pr-3 w-100">
-        <router-link to="/general-search">
+        <router-link to="/search">
           <div
             class="
               search

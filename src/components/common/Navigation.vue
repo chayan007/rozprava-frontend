@@ -58,7 +58,7 @@
           data-toggle="collapse"
           data-target="#navbar_global"
         >
-          <router-link to="/general-search">
+          <router-link to="/search">
             <span
               class="
                 nav-link-inner-text nav-link
