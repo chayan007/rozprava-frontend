@@ -1,55 +1,152 @@
 <template>
-  <div
-    class="row m-0 justify-content-between align-items-center p-3 w-100 mt-7"
-  >
-    <h1 class="m-0 font-weight-bold">Fantasy Bros</h1>
-    <img
-      class="addimgedit mr-5"
-      src="@/assets/Edit.png"
-      v-if="openSettings"
-      alt=""
-    />
-
-    <div>
-      <img
-        class="addimg"
-        v-on:click="openSettings = !openSettings"
-        src="@/assets/settings.png"
-        alt=""
-      />
-      <img class="addimg" src="@/assets/grpicon.png" alt="" />
+  <div class="group-chat">
+    <!-- group nav -->
+    <div
+      class="
+        group-nav
+        position-fixed
+        p-2
+        d-flex
+        justify-content-between
+        align-items-center
+        w-100
+      "
+    >
+      <div class="group-name d-flex nav-item align-items-center">
+        <router-link to="/group-info">
+          <img
+            class="dp rounded-circle"
+            src="@/assets/groupDp.png"
+            alt="group dp"
+          />
+          <span class="name ml-2">Rozprava CMI Developers </span>
+        </router-link>
+      </div>
+      <!-- group options -->
+      <div class="dropdown">
+        <a class="nav-link p-0" data-toggle="dropdown">
+          <img class="icon" src="@/assets/menu-dots.svg" alt="" />
+        </a>
+        <!-- dropdown -->
+        <ul class="dropdown-menu shadow p-3">
+          <li class="mb-3">
+            <router-link to="/group-info">
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="h6 m-0">Group info</span>
+                <img class="icon" src="@/assets/info.svg" alt="" />
+              </div>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/group-info">
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="h6 m-0">Share group</span>
+                <img class="icon" src="@/assets/share.svg" alt="" />
+              </div>
+            </router-link>
+          </li>
+          <hr class="my-3" />
+          <li>
+            <router-link to="/group-info">
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="leave-btn h6 m-0">Leave</span>
+                <img class="icon" src="@/assets/logout.svg" alt="" />
+              </div>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+      <!-- group options -->
     </div>
-  </div>
-
-  <!-- setting panel -->
-  <div class="p-3" v-if="openSettings">
-    <h3 class="p-3 icon-title h6 mb-0 font-weight-bold">Change Group Picture</h3>
-    <h3 class="p-3 icon-title h6 mb-0 font-weight-bold">Change BIO</h3>
-    <h3 class="p-3 icon-title h6 mb-0 font-weight-bold">Change <a style="color: green">Admins</a></h3>
-    <h3 class="p-3 icon-title h6 mb-0 font-weight-bold">Invite People</h3>
+    <!-- group nav -->
+    <!-- base -->
+    <div class="base min-vh-100 w-100 py-6">
+      <div class="case-box w-100">
+        <GroupCase :case="0" :user="'pankaj'"></GroupCase>
+        <GroupCase :case="0" :user="'p'"></GroupCase>
+        <GroupCase :case="0" :user="'pankaj'"></GroupCase>
+        <GroupCase :case="0" :user="'h'"></GroupCase>
+      </div>
+      <div
+        class="add-box w-100 p-3 position-fixed d-flex justify-content-center"
+      >
+        <router-link to="/case-create">
+          <div
+            class="
+              add-btn
+              rounded-circle
+              d-flex
+              justify-content-center
+              align-items-center
+              p-1
+            "
+          >
+            <img class="add-icon" src="@/assets/addLight.svg" alt="" />
+          </div>
+        </router-link>
+      </div>
+    </div>
+    <!-- base -->
   </div>
 </template>
 
 <script>
+import GroupCase from "@/components/group/GroupCase.vue";
 export default {
   name: "Group",
-  data() {
-    return {
-      openSettings: 0,
-    };
-  },
+  components: { GroupCase },
 };
 </script>
 
 <style scoped>
-.addimg {
-  height: 3em;
-  width: 3em;
-  color: black;
+.group-nav {
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background-color: #f2f2f5;
 }
-
-.addimgedit {
-  height: 2em;
-  width: 2em;
+.dp {
+  width: 3em;
+  height: 3em;
+  border: 2px solid #fff;
+}
+.name {
+  font-size: 1.3em;
+  white-space: nowrap;
+  width: 50vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.icon {
+  width: 1.5em;
+}
+.leave-btn {
+  color: #eb3223;
+}
+.dropdown-menu {
+  border: none;
+  background-color: #fff;
+}
+.base {
+  background-color: #fff;
+}
+.case-box {
+  overflow-y: scroll;
+}
+.add-box {
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+}
+.add-btn {
+  background-color: rgba(72, 23, 176, 1);
+  width: 3.3em;
+  height: 3.3em;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 10px 2px rgba(0, 0, 0, 0.445);
+}
+.add-icon {
+  width: 3em;
+  height: 3em;
 }
 </style>

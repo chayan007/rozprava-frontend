@@ -3,16 +3,8 @@
     <!-- case banner art -->
     <div class="case-head-box w-100">
       <img class="case-head-img w-100" src="@/assets/Detail-case.png" alt="" />
-      <h3 class="case-head p-3 pt-6">
-        {{ caseDetail.question }}
-      </h3>
     </div>
     <!-- close btn -->
-    <!-- <div class="close-case-detail-outer w-100 text-center" v-show="!rebuttal">
-        <span class="close-case-detail m-0  row justify-content-center w-100">
-          <h2 class="rounded-circle m-0 row align-items-center justify-content-center shadow">x</h2>
-        </span>
-      </div> -->
 
     <!-- full case box -->
     <div class="case-detail w-100 mt-9 p-3">
@@ -33,24 +25,40 @@
             <small>{{ sanitizedTime(caseDetail.created_at) }}</small>
           </span>
         </span>
-        <span class="row m-0 align-items-center">
+        <span class="row m-0 align-items-center dropdown">
           <img
-            class="case-menu"
-            @click="caseMenu = !caseMenu"
+            class="case-menu nav-link p-0"
+            data-toggle="dropdown"
             src="@/assets/menu-dots.svg"
             alt=""
           />
-          <div v-show="caseMenu" class="case-menu-box p-3 w-100">
-            <p v-if="
-              is_authenticated.profile.user.username ==
-              caseDetail.profile.user.username
-            "
-              class="p-2 mt-1 w-100 text-center shadow"
-              @click="deleteDebate()"
+          <!-- dropdown -->
+          <ul class="dropdown-menu p-3">
+            <li
+              v-if="
+                is_authenticated.profile.user.username ==
+                caseDetail.profile.user.username
+              "
             >
-              Delete
-            </p>
-          </div>
+              <div
+                class="d-flex justify-content-between align-items-center"
+                @click="deleteDebate()"
+              >
+                <span class="leave-btn-text h6 m-0">Delete</span>
+                <img class="icon" src="@/assets/delete.svg" alt="" />
+              </div>
+            </li>
+            <li v-else>
+              <div
+                class="d-flex justify-content-between align-items-center"
+                @click="activity(0)"
+              >
+                <span class="admin-tag h6 m-0">Report</span>
+                <img class="icon" src="@/assets/report.svg" alt="" />
+              </div>
+            </li>
+          </ul>
+          <!-- dropdown -->
         </span>
       </div>
 
@@ -60,22 +68,25 @@
         <hr class="m-0 mb-1" />
         <small>{{ caseDetail.description }}</small>
       </div>
+      <!-- proofs -->
+      <div v-if="caseDetail.proofs" class="proofs-box w-100 my-4 d-flex">
+        <div class="proof mr-4" v-for="proof in caseDetail.proofs" :key="proof.uuid">
+          <Proof :proof="proof" />
+        </div>
+      </div>
 
       <!-- case reaction box -->
       <div class="reactions-box row justify-content-between m-0 mt-3">
         <span class="row m-0 align-items-center">
-          <span class="row m-0 align-items-center">
+          <span @click="activity(1)" class="row m-0 align-items-center">
             <img
+              v-if="activityDone == 1"
               class="case-react-icons mr-1"
-              src="@/assets/case-up.svg"
+              src="@/assets/liked.svg"
               alt=""
             />
-            <small class="react-txt m-0 mr-3 h6">{{
-              caseDetail.metrics[0]
-            }}</small>
-          </span>
-          <span class="row m-0 align-items-center">
             <img
+              v-else
               class="case-react-icons mr-1"
               src="@/assets/case-like.svg"
               alt=""
@@ -84,8 +95,15 @@
               caseDetail.metrics[1]
             }}</small>
           </span>
-          <span class="row m-0 align-items-center">
+          <span @click="activity(2)" class="row m-0 align-items-center">
             <img
+              v-if="activityDone == 2"
+              class="case-react-icons mr-1"
+              src="@/assets/disliked.svg"
+              alt=""
+            />
+            <img
+              v-else
               class="case-react-icons mr-1"
               src="@/assets/case-dislike.svg"
               alt=""
@@ -121,7 +139,7 @@
             alt=""
           />
         </span>
-        <small>10 proofs</small>
+        <small>{{caseDetail.proofs.length}} proofs</small>
       </div>
 
       <!-- case comments -->
@@ -131,23 +149,29 @@
       </div>
     </div>
   </div>
+  <!-- loader -->
+  <Loader v-else />
 </template>
 
 
 <script>
+import Loader from "@/components/Loader.vue";
 import List from "@/components/debate/List.vue";
 import { caseService } from "@/services";
+import { activityService } from "@/services";
 import { config } from "@/configurations";
 import { getSanitizedTime } from "@/helpers";
 import router from "@/router";
+import Proof from "@/components/case/Proofs.vue"
+
 
 export default {
   name: "DetailCase",
-  components: { List },
+  components: { List, Loader, Proof },
   data() {
     return {
       caseDetail: null,
-      caseMenu: 0,
+      activityDone: null,
     };
   },
   methods: {
@@ -157,6 +181,7 @@ export default {
         .getCase(slug)
         .then((caseDetail) => {
           this.caseDetail = caseDetail;
+          this.activity(3);
         })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
@@ -186,6 +211,19 @@ export default {
           );
         });
     },
+
+    activity(act) {
+      this.activityDone = act;
+      const uuid = this.caseDetail.uuid;
+      activityService
+        .caseActivity(uuid, act)
+        .then(() => {
+          console.log(act);
+        })
+        .catch(() => {
+          throw config.messagingConfig.messages.error.unknown_error;
+        });
+    },
   },
 
   created() {
@@ -200,6 +238,12 @@ export default {
 </script>
 
 <style scoped>
+.icon {
+  width: 1.5em;
+}
+.dropdown-menu {
+  left: -6em !important;
+}
 .close-case-detail h2 {
   width: 1.7em;
   height: 1.7em;
@@ -254,14 +298,25 @@ export default {
   letter-spacing: 1px;
   white-space: pre-wrap;
 }
+
+.proofs-box {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.proofs-box::-webkit-scrollbar {
+  display: none;
+}
+
 .react-txt {
-  font-size: 0.89em;
+  font-size: 1.1em;
+  margin-top: 0.45em !important;
 }
 .case-react-icons {
-  width: 1.6em;
+  width: 1.9em;
 }
 .case-view-icon {
-  width: 1.5em;
+  width: 1.7em;
+  margin-top: 0.3em !important;
 }
 .case-react-profile-pic {
   width: 2.3em;
@@ -274,4 +329,5 @@ export default {
 .rel-right-2 {
   right: 1.6em;
 }
+
 </style>
