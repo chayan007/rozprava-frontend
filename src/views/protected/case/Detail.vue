@@ -71,7 +71,7 @@
       <!-- proofs -->
       <div v-if="caseDetail.proofs" class="proofs-box w-100 my-4 d-flex">
         <div class="proof mr-4" v-for="proof in caseDetail.proofs" :key="proof.uuid">
-          <img class="proof-img" :src="proof.file" alt="">
+          <Proof :proof="proof" />
         </div>
       </div>
 
@@ -162,11 +162,12 @@ import { activityService } from "@/services";
 import { config } from "@/configurations";
 import { getSanitizedTime } from "@/helpers";
 import router from "@/router";
+import Proof from "@/components/case/Proofs.vue"
 
 
 export default {
   name: "DetailCase",
-  components: { List, Loader },
+  components: { List, Loader, Proof },
   data() {
     return {
       caseDetail: null,
@@ -304,12 +305,6 @@ export default {
 }
 .proofs-box::-webkit-scrollbar {
   display: none;
-}
-.proof-img{
-  width: 23em;
-  height: 15em;
-  object-fit: cover;
-  border-radius: 15px;
 }
 
 .react-txt {
