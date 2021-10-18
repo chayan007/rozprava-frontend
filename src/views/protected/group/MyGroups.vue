@@ -155,7 +155,7 @@ export default {
 
   methods: {
     addMember(index) {
-      console.log("members",this.profile_info[index]);
+      console.log("members",this.profile_info[index].user.username);
       this.members.push(this.profile_info[index].user.username);
     },
 
@@ -169,7 +169,7 @@ export default {
       searchService
         .searchProfile(username)
         .then((profile_info) => {
-          this.profile_info = profile_info.results.slice();
+          this.profile_info = profile_info.results;
           console.log("profiles", this.profile_info);
         })
         .catch(() => {
