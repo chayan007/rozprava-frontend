@@ -141,7 +141,7 @@ export default {
       debateService
         .getDebates(slug)
         .then((debates) => {
-          this.debates = debates;
+          this.debates = debates.results;
         })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;

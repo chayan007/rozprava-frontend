@@ -28,6 +28,7 @@ function login(username, password) {
             if (data.profile) {
                 localStorage.setItem('user', JSON.stringify(data));
                 return data.profile
+                
             }
         })
         .catch(error => {
