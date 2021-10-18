@@ -10,7 +10,7 @@ import ResetPassword from '@/views/ResetPassword.vue'
 import Settings from '@/views/protected/Settings.vue'
 import CaseView from '@/views/public/CaseView.vue'
 import Activity from '@/views/protected/Activity.vue'
-import Search from '@/views/protected/Search.vue'
+// import Search from '@/views/protected/Search.vue'
 import Profile from '@/views/protected/Profile.vue'
 import Recommendation from '@/views/protected/Recommendation.vue'
 import Inbox from '@/views/protected/chat/Inbox.vue'
@@ -22,6 +22,7 @@ import MyGroups from '@/views/protected/group/MyGroups.vue'
 import Group from '@/views/protected/group/Group.vue'
 import GroupInfo from '@/views/protected/group/GroupInfo.vue'
 import GroupSettings from '@/views/protected/group/GroupSettings.vue'
+import GeneralSearch from '@/views/GeneralSearch.vue'
 
 
 const routes = [
@@ -80,11 +81,11 @@ const routes = [
      name: 'CaseView',
      component: CaseView
   },
-  {
-    path: '/search',
-    name: 'Search',
-    component: Search
-  },
+  // {
+  //   path: '/search',
+  //   name: 'Search',
+  //   component: Search
+  // },
   {
     path: '/forget-login',
     name: 'ForgetLogin',
@@ -134,6 +135,11 @@ const routes = [
     path: '/group-settings',
     name: 'GroupSettings',
     component: GroupSettings
+  },
+  {
+    path: '/search',
+    name: 'GeneralSearch',
+    component: GeneralSearch
   }
 ]
 
@@ -165,7 +171,8 @@ router.beforeEach((to, from, next) => {
       'MyGroups',
       'GroupSettings',
       'GroupInfo',
-      'Group'
+      'Group',
+      'GeneralSearch'
   ];
   const authPagesName = [
       

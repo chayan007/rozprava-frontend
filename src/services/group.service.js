@@ -28,7 +28,7 @@ function getGroupInformation(uuid) {
     uuid
   );
   return axios
-    .get(url, { headers: headers })
+    .get(url, this.uuid, { headers: headers })
     .then((response) => {
       return response.data;
     })

@@ -129,7 +129,7 @@
 <script>
 import { stringFormat } from "@/helpers";
 import { config } from "@/configurations";
-import { groupService } from "@/services";
+import { groupService, searchService } from "@/services";
 import router from "@/router";
 
 export default {
@@ -155,7 +155,8 @@ export default {
 
   methods: {
     addMember(index) {
-      this.members.push(this.profile_info[index]);
+      console.log("members",this.profile_info[index]);
+      this.members.push(this.profile_info[index].user.username);
     },
 
     removeMember(index) {
@@ -165,11 +166,11 @@ export default {
     searchProfile() {
       const username = this.searchValue;
       const { dispatch } = this.$store;
-
-      groupService
+      searchService
         .searchProfile(username)
         .then((profile_info) => {
-          this.profile_info = profile_info;
+          this.profile_info = profile_info.results.slice();
+          console.log("profiles", this.profile_info);
         })
         .catch(() => {
           dispatch(
@@ -204,9 +205,10 @@ export default {
           members: members,
         })
         .then((createdGroup) => {
+          console.log(createdGroup);
           router.push({
             name: "GroupInfo",
-            params: { uuid: createdGroup.uuid },
+            params: { uuid: createdGroup.group.uuid },
           });
         })
         .catch(() => {

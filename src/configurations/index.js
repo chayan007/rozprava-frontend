@@ -2,7 +2,8 @@ import {userConfig} from "@/configurations/user";
 import {messagingConfig} from "@/configurations/messages";
 import {caseConfig} from "@/configurations/case";
 import {notificationConfig} from "@/configurations/notification";
-import {groupConfig} from "@/configurations/group"
+import {groupConfig} from "@/configurations/group";
+import {generalSearchConfig} from "@/configurations/generalSearch";
 import {debateConfig} from "@/configurations/debate";
 import { activityConfig } from "@/configurations/activity";
 
@@ -27,6 +28,7 @@ export const config = {
     'caseConfig': caseConfig,
     'notificationConfig':notificationConfig,
     'groupConfig':groupConfig,
+    'generalSearchConfig':generalSearchConfig,
     'debateConfig': debateConfig,
     'activityConfig':activityConfig
 };

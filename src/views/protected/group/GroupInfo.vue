@@ -64,15 +64,16 @@ export default {
   data() {
     return {
       groupDetails: null,
+      uuid: this.$route.params.uuid,
     };
   },
   methods: {
     getGroupDetail() {
       const { dispatch } = this.$store;
-      let uuid = "8f45b973-7da4-40ab-be38-1d815858de82";
       groupService
-        .getGroupInformation(uuid)
+        .getGroupInformation(this.uuid)
         .then((groupDetails) => {
+          console.log(groupDetails);
           this.groupDetails = groupDetails;
         })
         .catch((error) => {
@@ -81,13 +82,12 @@ export default {
     },
     leaveGroup() {
       const { dispatch } = this.$store;
-      let uuid = "3beecf80-10e8-46d5-bfde-4ce96a7cbd5b";
-      let profile = "Chirag"
+      let profile = "Chirag";
       groupService
-        .leaveGroup(uuid, profile)
+        .leaveGroup(this.uuid, profile)
         .then(() => {
-          let arr = this.groupDetails.profiles
-          console.log("leave wala",arr);
+          let arr = this.groupDetails.profiles;
+          console.log("leave wala", arr);
           router.push({
             path: "MyGroups",
           });
