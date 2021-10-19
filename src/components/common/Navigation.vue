@@ -208,7 +208,7 @@
           />
         </div>
       </a>
-      <ul class="nav-profile-dropdown dropdown-menu mt-4">
+      <ul class="nav-profile-dropdown dropdown-menu mt-4" v-if="is_authenticated.profile">
         <li>
           <router-link :to="'/profile/'+is_authenticated.profile.user.username">
             <a class="dropdown-item">My Profile</a>

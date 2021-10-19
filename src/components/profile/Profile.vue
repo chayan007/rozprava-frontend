@@ -20,31 +20,30 @@
       />
     </div>
     <div>
-      <h1 class="fw-bolder m-0 mt-2 profile-name">
+      <h5 class="fw-bolder m-0 mt-2 profile-name">
         {{ profile.user.full_name }}
-      </h1>
+      </h5>
       <h5 class="m-0">
         {{ profile.user.username }}
       </h5>
-      <p class="m-0">( {{ profile.profession }} )</p>
-      <div class="row m-0">
-        <div class="col-4">
-          <p class="m-0">Posts</p>
-          <h5>{{ profile.metrics.posts }}</h5>
-        </div>
-        <div class="col-4">
-          <p class="m-0">Followers</p>
-          <h5>{{ profile.metrics.followers }}</h5>
-        </div>
-        <div class="col-4">
-          <p class="m-0">Following</p>
-          <h5>{{ profile.metrics.following }}</h5>
-        </div>
-      </div>
-      <div class="px-3">
+      <div class="px-3 my-2">
         <h6>
           {{ profile.bio }}
         </h6>
+      </div>
+      <div class="row m-0">
+        <div class="col-4">
+          <p class="m-0">{{ profile.metrics.posts }}</p>
+          <p class="m-0">Posts</p>
+        </div>
+        <div class="col-4">
+          <p class="m-0">{{ profile.metrics.followers }}</p>
+          <p class="m-0">Followers</p>
+        </div>
+        <div class="col-4">
+          <p class="m-0">{{ profile.metrics.following }}</p>
+          <p class="m-0">Following</p>
+        </div>
       </div>
       <!-- Follow & Massage div -->
       <div
@@ -53,21 +52,21 @@
       >
         <span
           :class="[following ? 'followed-btn' : 'follow-btn']"
-          class="rounded-pill py-2 px-4 col-5 btn"
+          class="rounded-pill py-1 px-4 col-5 btn"
           @click="followUser()"
-          ><h6 class="m-0 follow-btn-txt">
+          ><p class="m-0 follow-btn-txt">
             <span v-if="!following">Follow</span> <span v-else>Following</span>
-          </h6></span
+          </p></span
         >
-        <span class="profile-action-btn rounded-pill py-2 px-4 col-5 btn"
-          ><h6 class="m-0">Message</h6></span
+        <span class="profile-action-btn rounded-pill py-1 px-4 col-5 btn"
+          ><p class="m-0">Message</p></span
         >
       </div>
       <div class="p-3" v-else>
         <router-link to="/settings">
-          <div class="btn p-2 btn-block">
-            <h5 class="m-0 d-inline">Edit Profile</h5>
-            <img class="ml-2 icon pb-2" src="@/assets/editDark.svg" alt="pen" />
+          <div class="btn p-2 btn-block rounded-pill d-flex justify-content-center align-items-center">
+            <h6 class="m-0 d-inline">Edit Profile</h6>
+            <img class="ml-2 icon" src="@/assets/editDark.svg" alt="pen" />
           </div>
         </router-link>
       </div>
@@ -181,10 +180,10 @@ export default {
 
 <style scoped>
 .profile-name {
-  font-size: 2.5em;
+  font-size: 1.8em;
 }
 .small-icon {
-  font-size: 2em;
+  font-size: 1.4em;
   color: #fff;
 }
 .profile-cover {
@@ -312,6 +311,6 @@ export default {
   background-color: rgb(31, 31, 31);
 }
 .icon {
-  width: 1.3em;
+  width: 1.1em;
 }
 </style>
