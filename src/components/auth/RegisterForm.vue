@@ -155,6 +155,7 @@
           </button>
         </form>
         <h3 class="text-center my-4"> OR </h3>
+        <!-- social sign-up -->
         <div>
           <button class="social-icon rounded-circle mx-3 btn p-2 shadow">
             <img src="@/assets/@.png" alt="">
@@ -169,6 +170,15 @@
             <img src="@/assets/twitter.png" alt="">
           </button>
         </div>
+        <!-- social sign-up -->
+        <span >
+        <h6 class="mt-5">
+          <router-link to="/login"
+            >Already have an account?  <b class="pl-2"> Sign-In</b></router-link
+          >
+        </h6>
+      </span>
+
       </div>
     </div>
   </div>
@@ -281,6 +291,9 @@ export default {
 label {
   width: 100%;
   text-align: left;
+}
+.btn {
+  background-color: #fff;
 }
 .card {
   background-color: #fff !important;
