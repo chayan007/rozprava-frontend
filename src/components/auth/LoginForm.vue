@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 col-md-6 col-lg-5 mb-5 mb-lg-0">
     <div class="card bg-primary border-light rounded-xl shadow p-4">
-      <div class="card-header text-center pb-0">
+      <div class="card-header text-center p-2">
         <h2 class="h1">Log in</h2>
       </div>
       <div class="card-body p-1">
