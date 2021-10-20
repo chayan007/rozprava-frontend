@@ -150,7 +150,6 @@ router.beforeEach((to, from, next) => {
       'EnterOTP',
       'ResetPassword',
       'Timeline',
-      // 'Recommendation',
       'Inbox',
       'Chat',
       'CaseCreate',
