@@ -52,7 +52,7 @@
     <div class="rebuttal-box w-100" v-show="rebuttal">
       <div class="w-100 row m-0 justify-content-center p-3 pt-6">
         <p
-          class="close-rebuttal shadow-soft p-1 pr-3 pl-3"
+          class="close-rebuttal shadow-lg p-1 pr-3 pl-3"
           v-on:click="toggleRebuttals"
         >
           Close all tabs
@@ -177,7 +177,7 @@ export default {
   top: 0%;
   left: 0;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.849);
+  background-color: rgba(0, 0, 0, 0.418);
 }
 .close-rebuttal {
   background-color: white;
@@ -204,7 +204,7 @@ export default {
   top: 0%;
   left: 0;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.849);
+  background-color: rgba(0, 0, 0, 0.418);
 }
 
 .create-comment-form {

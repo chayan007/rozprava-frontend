@@ -1,5 +1,5 @@
 <template>
-  <div class="create-comment-form-inner shadow-soft p-2">
+  <div class="create-comment-form-inner shadow p-2">
     <textarea
       v-model="comment"
       class="form-control1"

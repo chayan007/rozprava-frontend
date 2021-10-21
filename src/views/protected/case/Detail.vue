@@ -2,7 +2,7 @@
   <div class="detail-case-box w-100" v-if="caseDetail">
     <!-- case banner art -->
     <div class="case-head-box w-100">
-      <img class="case-head-img w-100" src="@/assets/Detail-case.png" alt="" />
+      <img class="case-head-img w-100" src="@/assets/detail-imgs/30.png" alt="" />
     </div>
     <!-- close btn -->
 
@@ -263,9 +263,10 @@ export default {
   position: absolute;
   top: 0;
   background-color: white;
-  border-radius: 1.2em 1.2em 0 0;
+  border-radius: 1.4em 1.4em 0 0;
   min-height: 100vh;
   z-index: 1;
+  box-shadow: 0 0 20px 10px rgba(22, 22, 22, 0.288);
 }
 .case-profile-pic {
   width: 3em;

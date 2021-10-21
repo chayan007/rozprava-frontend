@@ -157,9 +157,6 @@
         <h3 class="text-center my-4"> OR </h3>
         <!-- social sign-up -->
         <div>
-          <button class="social-icon rounded-circle mx-3 btn p-2 shadow">
-            <img src="@/assets/@.png" alt="">
-          </button>
            <button class="social-icon rounded-circle mx-3 btn p-2 shadow">
             <img src="@/assets/google.png" alt="">
           </button>

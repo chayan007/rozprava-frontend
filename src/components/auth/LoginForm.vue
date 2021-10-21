@@ -84,9 +84,9 @@
             <h2 style="font-size: 0.8rem">
               <router-link to="/forget-login">Forgot Password?</router-link>
             </h2>
-            <h2 style="font-size: 0.8rem;">
+            <!-- <h2 style="font-size: 0.8rem;">
               Forgot Username?
-            </h2>
+            </h2> -->
           </span>
         </div>
 

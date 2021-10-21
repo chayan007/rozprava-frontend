@@ -35,7 +35,6 @@
           v-model="title"
           id="CaseTitle"
           aria-describedby="Title"
-          maxlength="100"
         />
         <br />
         <textarea

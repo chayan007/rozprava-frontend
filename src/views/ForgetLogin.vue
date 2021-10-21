@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <div class="p-3">
     <div
       id="forgetLoginBox"
       class="card bg-primary shadow-soft border-light px-4 py-5"
-      style="width: 800px; height: 420px; margin-top: 13%; margin-left: 25%;"
     >
       <div class="card-header pb-0 text-center">
         <h2 class="h1 mb-3">Find Your Account</h2>
@@ -19,12 +18,12 @@
               <label
                 class="h6 font-weight-light text-gray"
                 for="subscribeInputEmail"
-                >username or Email address</label
+                >Username / Email address :</label
               >
               <div class="d-flex flex-row justify-content-center">
                 <div class="input-group">
                   <input
-                    class="form-control form-control-xl border-light"
+                    class="form-control border-light"
                     id="subscribeInputEmail"
                     v-model="userId"
                     placeholder="example@company.com"
@@ -50,9 +49,9 @@
 </template>
 <script>
 import router from "@/router";
-import { authService } from '@/services';
+import { authService } from "@/services";
 import { config } from "@/configurations";
-import {stringFormat} from "@/helpers";
+import { stringFormat } from "@/helpers";
 
 export default {
   name: "ForgetLogin",
@@ -70,13 +69,21 @@ export default {
       const { dispatch } = this.$store;
 
       if (userId.trim()) {
-        authService.checkUser(userId.trim())
-          .then(username => { router.push({ name: "EnterOTP", params: { username: username } }); })
-          .catch(error => { dispatch('alertStore/error', error, { root: true }); })
+        authService
+          .checkUser(userId.trim())
+          .then((username) => {
+            router.push({ name: "EnterOTP", params: { username: username } });
+          })
+          .catch((error) => {
+            dispatch("alertStore/error", error, { root: true });
+          });
       } else {
         dispatch(
-          'alertStore/error',
-          stringFormat(config.messagingConfig.messages.error.empty_field_error, 'username / email'),
+          "alertStore/error",
+          stringFormat(
+            config.messagingConfig.messages.error.empty_field_error,
+            "username / email"
+          ),
           { root: true }
         );
       }
@@ -85,8 +92,12 @@ export default {
 };
 </script>
 
-<style>
-@media only screen and (max-width: 1024px) {
+<style scoped>
+.card {
+  width: 100%;
+  margin: 25vh auto;
+}
+/* @media only screen and (max-width: 1024px) {
   #forgetLoginBox {
     margin-top: 50% !important;
     width: 100%;
@@ -94,5 +105,5 @@ export default {
     border: 0px solid black !important;
     box-shadow: 0px 0px 0px #e6e7ee !important;
   }
-}
+} */
 </style>
