@@ -64,8 +64,9 @@
               </label>
             </div>
           </div>
-          <button type="submit" class="btn btn-pill pl-4 pr-4 btn-primary">
-            <img src="../../assets/login.svg" alt="sign in" width="30" />
+          <button type="submit" class="btn btn-pill pl-4 pr-4 btn-primary" @click="logedIn = 1">
+            <Loader v-if="logedIn"></Loader>
+            <img v-else src="../../assets/login.svg" alt="sign in" width="30" />
           </button>
         </form>
 
@@ -134,14 +135,17 @@
 <script>
 import { isInRange, stringFormat } from "@/helpers";
 import { config } from "@/configurations";
+import Loader from "@/components/Loader.vue";
 
 export default {
   name: "LoginForm",
+  components: {Loader},
   data() {
     return {
       username: "",
       password: "",
       submitted: false,
+      logedIn: 0
     };
   },
   computed: {

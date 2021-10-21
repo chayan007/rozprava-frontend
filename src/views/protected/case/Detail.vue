@@ -150,7 +150,7 @@
     </div>
   </div>
   <!-- loader -->
-  <Loader v-else />
+  <Loader class="mt-10" v-else />
 </template>
 
 

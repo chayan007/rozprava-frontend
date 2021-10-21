@@ -45,7 +45,7 @@
 
     <!-- recommendations -->
     <Recomendations v-if="!searchValue" />
-    <Loader
+    <Loader class="my-10 vh-100"
       v-if="searchValue && !accountShowInfo && !groupShowInfo && !caseShowInfo"
     />
 

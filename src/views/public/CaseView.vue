@@ -238,7 +238,7 @@
       </div>
 
       <!-- loader -->
-      <Loader v-show="cases.length === 0" />
+      <Loader class="mt-10" v-show="cases.length === 0" />
       <!-- loader -->
 
       <!-- cases -->
@@ -268,6 +268,9 @@ export default {
     cases() {
       return this.$store.state.caseStore.cases;
     },
+    is_authenticated() {
+      return this.$store.state.authStore.user;
+    },
   },
   methods: {
     getCasesByURL() {
@@ -291,6 +294,9 @@ export default {
   },
   created() {
     this.getCasesByURL();
+    if (!this.is_authenticated.profile) {
+      this.$router.go()
+    }
   },
 };
 </script>

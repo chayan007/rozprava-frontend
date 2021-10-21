@@ -2,8 +2,6 @@
   <div
     class="
       loader-box
-      mt-10
-      p-5
       w-100
       row
       m-0
@@ -23,9 +21,6 @@ export default {
 
 <style scoped>
 /* loader */
-.loader-box {
-  height: 40vh;
-}
 .loader {
   border: 3px solid #f3f3f3;
   border-radius: 50%;
