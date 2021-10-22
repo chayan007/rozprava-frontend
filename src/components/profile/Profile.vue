@@ -19,7 +19,7 @@
         alt=""
       />
     </div>
-    <div>
+    <div class="profile-info-box py-2">
       <h5 class="fw-bolder m-0 mt-2 profile-name">
         {{ profile.user.full_name }}
       </h5>
@@ -121,10 +121,10 @@
         </router-link>
       </div>
       <!-- Follow & Massage div -->
-      <div>
-        <template v-for="case_detail in cases" :key="case_detail.uuid">
+      <div class="mt-5">
+        <Loader class="mt-8" v-if="!cases"/>
+        <template v-else v-for="case_detail in cases" :key="case_detail.uuid">
           <Case
-            v-show="filter === -1 || filter === case_detail.category"
             :detail="case_detail"
           ></Case>
         </template>
@@ -136,21 +136,23 @@
 <script>
 import Loader from "@/components/Loader.vue";
 //import PopupMenu from "@/components/profile/PopupMenu.vue"
-//import Case from "@/components/case/Case.vue";
+import Case from "@/components/case/Case.vue";
 import { ref } from "vue";
 import { userService } from "@/services";
+import { caseService } from "@/services";
 import Followers from "@/components/profile/Followers.vue";
 import router from "../../router";
 
 export default {
   name: "Profile",
-  components: { Loader, Followers },
+  components: { Loader, Followers, Case },
   data() {
     return {
       profile: null,
       username: "",
       following: false,
       followersFlag: null,
+      cases: null
     };
   },
 
@@ -202,7 +204,6 @@ export default {
             (userProfile) => {
               this.profile = userProfile;
               this.setFollow();
-              console.log(userProfile);
             },
             (error) => {
               dispatch("alertStore/error", error, { root: true });
@@ -212,6 +213,20 @@ export default {
             dispatch("alertStore/error", error, { root: true });
           });
       }
+      // profile cases service
+       caseService
+          .getCases(null, this.username)
+          .then(
+            (userCases) => {
+              this.cases = userCases.results
+            },
+            (error) => {
+              dispatch("alertStore/error", error, { root: true });
+            }
+          )
+          .catch((error) => {
+            dispatch("alertStore/error", error, { root: true });
+          });
     },
     followUser() {
       const username = this.profile.user.username;
@@ -227,7 +242,10 @@ export default {
       this.following = this.profile.authenticated_details.is_following;
     },
     changeFollowerFlag(flag) {
-      if (this.is_authenticated.profile.user.username == this.profile.user.username) {
+      if (
+        this.is_authenticated.profile.user.username ==
+        this.profile.user.username
+      ) {
         this.followersFlag = flag;
       }
     },
@@ -251,6 +269,9 @@ export default {
 .profile-pic {
   width: 8em;
   border: 3px solid #fff;
+}
+.profile-info-box {
+  background-color: #f2f2f5;
 }
 .bio {
   width: 30rem;

@@ -12,16 +12,22 @@
       <div class="row m-0 justify-content-between w-100">
         <span class="row m-0 align-items-center">
           <span class="">
-            <img
+            <img v-if="caseDetail.profile"
               class="case-profile-pic rounded-circle"
               :src="caseDetail.profile.display_pic"
               alt=""
             />
+             <img v-else
+              class="case-profile-pic rounded-circle"
+              src="@/assets/anonymous.png"
+              alt=""
+            />
           </span>
           <span class="pl-2">
-            <small class="case-profile-name m-0">{{
+            <small v-if="caseDetail.profile" class="case-profile-name m-0">{{
               caseDetail.profile.user.full_name
             }}</small>
+            <small v-else class="case-profile-name m-0">Anonymous</small>
             <small>{{ sanitizedTime(caseDetail.created_at) }}</small>
           </span>
         </span>
@@ -164,6 +170,7 @@ export default {
         .getCase(slug)
         .then((caseDetail) => {
           this.caseDetail = caseDetail;
+          console.log(this.caseDetail);
           this.activity(3);
         })
         .catch(() => {
