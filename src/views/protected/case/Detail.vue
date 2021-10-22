@@ -122,23 +122,6 @@
       </div>
       <!-- case reaction box 2 -->
       <div class="row m-0 justify-content-between align-items-end mt-3">
-        <span>
-          <img
-            class="case-react-profile-pic rounded-circle"
-            src="@/assets/profile-picture-1.jpg"
-            alt=""
-          />
-          <img
-            class="rel-right-1 case-react-profile-pic rounded-circle"
-            src="@/assets/profile-picture-1.jpg"
-            alt=""
-          />
-          <img
-            class="rel-right-2 case-react-profile-pic rounded-circle"
-            src="@/assets/profile-picture-1.jpg"
-            alt=""
-          />
-        </span>
         <small>{{caseDetail.proofs.length}} proofs</small>
       </div>
 

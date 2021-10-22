@@ -64,9 +64,9 @@
               </label>
             </div>
           </div>
-          <button type="submit" class="btn btn-pill pl-4 pr-4 btn-primary" @click="logedIn = 1">
-            <Loader v-if="logedIn"></Loader>
-            <img v-else src="../../assets/login.svg" alt="sign in" width="30" />
+          <Loader v-if="logedIn"></Loader>
+          <button v-show="!logedIn" type="submit" class="btn btn-pill pl-4 pr-4 btn-primary" @click="logedIn = 1">
+            <img  src="../../assets/login.svg" alt="sign in" width="30" />
           </button>
         </form>
 

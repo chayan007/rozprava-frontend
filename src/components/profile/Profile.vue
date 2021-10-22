@@ -36,15 +36,55 @@
           <p class="m-0">{{ profile.metrics.posts }}</p>
           <p class="m-0">Posts</p>
         </div>
-        <div class="col-4">
+        <div class="col-4" @click="changeFollowerFlag(0)">
           <p class="m-0">{{ profile.metrics.followers }}</p>
           <p class="m-0">Followers</p>
         </div>
-        <div class="col-4">
+        <div class="col-4" @click="changeFollowerFlag(1)">
           <p class="m-0">{{ profile.metrics.following }}</p>
           <p class="m-0">Following</p>
         </div>
       </div>
+      <!-- followers list -->
+      <div
+        v-if="followersFlag == 0 || followersFlag == 1"
+        class="
+          followers-box
+          position-absolute
+          vh-100
+          w-100
+          p-3
+          d-flex
+          align-items-end
+        "
+      >
+        <div class="followers-inner w-100 text-left m-0">
+          <div class="p-3 close-list-box mb-4">
+            <img
+              @click="changeFollowerFlag(null)"
+              class="icon-md"
+              src="@/assets/back.svg"
+              alt=""
+            />
+            <h5
+              v-if="followersFlag == 0"
+              @click="changeFollowerFlag(null)"
+              class="followers-head w-100 position-relative text-center"
+            >
+              <b>Followers</b>
+            </h5>
+            <h5
+              v-else
+              @click="changeFollowerFlag(null)"
+              class="followers-head w-100 position-relative text-center"
+            >
+              <b>Following</b>
+            </h5>
+          </div>
+          <Followers :followersFlag="followersFlag" />
+        </div>
+      </div>
+      <!-- followers list -->
       <!-- Follow & Massage div -->
       <div
         v-if="is_authenticated.profile.user.username !== profile.user.username"
@@ -64,7 +104,17 @@
       </div>
       <div class="p-3" v-else>
         <router-link to="/settings">
-          <div class="btn p-2 btn-block rounded-pill d-flex justify-content-center align-items-center">
+          <div
+            class="
+              btn
+              p-2
+              btn-block
+              rounded-pill
+              d-flex
+              justify-content-center
+              align-items-center
+            "
+          >
             <h6 class="m-0 d-inline">Edit Profile</h6>
             <img class="ml-2 icon" src="@/assets/editDark.svg" alt="pen" />
           </div>
@@ -89,16 +139,18 @@ import Loader from "@/components/Loader.vue";
 //import Case from "@/components/case/Case.vue";
 import { ref } from "vue";
 import { userService } from "@/services";
+import Followers from "@/components/profile/Followers.vue";
 import router from "../../router";
 
 export default {
   name: "Profile",
-  components: { Loader },
+  components: { Loader, Followers },
   data() {
     return {
       profile: null,
       username: "",
       following: false,
+      followersFlag: null,
     };
   },
 
@@ -173,6 +225,11 @@ export default {
     },
     setFollow() {
       this.following = this.profile.authenticated_details.is_following;
+    },
+    changeFollowerFlag(flag) {
+      if (this.is_authenticated.profile.user.username == this.profile.user.username) {
+        this.followersFlag = flag;
+      }
     },
   },
 };
@@ -312,5 +369,25 @@ export default {
 }
 .icon {
   width: 1.1em;
+}
+.icon-md {
+  width: 1.5em;
+}
+.followers-box {
+  bottom: 0;
+  left: 0;
+  background-color: rgba(26, 26, 26, 0.438);
+  z-index: 50;
+}
+.followers-inner {
+  background-color: #e6e7ee;
+  border-radius: 15px;
+}
+.close-list-box {
+  height: 2em;
+}
+.followers-head {
+  bottom: 22px;
+  left: 0;
 }
 </style>

@@ -142,6 +142,7 @@ export default {
         .getDebates(slug)
         .then((debates) => {
           this.debates = debates.results;
+          console.log(debates.results);
         })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
