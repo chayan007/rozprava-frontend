@@ -10,9 +10,7 @@ import ResetPassword from '@/views/ResetPassword.vue'
 import Settings from '@/views/protected/Settings.vue'
 import CaseView from '@/views/public/CaseView.vue'
 import Activity from '@/views/protected/Activity.vue'
-// import Search from '@/views/protected/Search.vue'
 import Profile from '@/views/protected/Profile.vue'
-import Recommendation from '@/views/protected/Recommendation.vue'
 import Inbox from '@/views/protected/chat/Inbox.vue'
 import Chat from '@/views/protected/chat/Chat.vue'
 import CaseCreate from '@/views/protected/case/Create.vue'
@@ -47,11 +45,6 @@ const routes = [
     component: Inbox
   },
   {
-    path: '/recommendation',
-    name: 'Recommendation',
-    component: Recommendation
-  },
-  {
     path: '/profile/:username',
     name: 'Profile',
     component: Profile,
@@ -81,11 +74,6 @@ const routes = [
      name: 'CaseView',
      component: CaseView
   },
-  // {
-  //   path: '/search',
-  //   name: 'Search',
-  //   component: Search
-  // },
   {
     path: '/forget-login',
     name: 'ForgetLogin',
@@ -162,7 +150,7 @@ router.beforeEach((to, from, next) => {
       'EnterOTP',
       'ResetPassword',
       'Timeline',
-      'Recommendation',
+      // 'Recommendation',
       'Inbox',
       'Chat',
       'CaseCreate',

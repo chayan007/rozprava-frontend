@@ -14,7 +14,7 @@ export function handleResponse(response) {
         if (!response.ok) {
             if (response.status === 401) {
                 localStorage.removeItem('user');
-                this.$router.go(0)
+                this.$router.go(1)
             }
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);

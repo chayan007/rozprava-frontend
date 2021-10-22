@@ -46,7 +46,7 @@
           >
           <span
             @click="filter = 1"
-            :class="{ active: filter === 1}"
+            :class="{ active: filter === 1 }"
             class="
               filter
               p-1
@@ -198,7 +198,7 @@
           >
           <span
             @click="filter = 8"
-            :class="{ active: filter === 9}"
+            :class="{ active: filter === 9 }"
             class="
               filter
               p-1
@@ -217,7 +217,7 @@
           >
           <span
             @click="filter = 0"
-            :class="{ active: filter === 0}"
+            :class="{ active: filter === 0 }"
             class="
               filter
               p-1
@@ -238,27 +238,16 @@
       </div>
 
       <!-- loader -->
-      <div
-        v-show="cases.length === 0"
-        class="
-          loader-box
-          p-5
-          w-100
-          row
-          m-0
-          mt-9
-          justify-content-center
-          align-center
-        "
-      >
-        <div class="loader"></div>
-      </div>
+      <Loader v-if="cases.length === 0" />
       <!-- loader -->
 
       <!-- cases -->
-      <template v-for="case_detail in cases" :key="case_detail.uuid">
-        <router-link :to="'/case/'+case_detail.slug">
-          <Case v-show="filter === -1 || filter === case_detail.category" :detail="case_detail"></Case>
+      <template v-else v-for="case_detail in cases" :key="case_detail.uuid">
+        <router-link :to="'/case/' + case_detail.slug">
+          <Case
+            v-show="filter === -1 || filter === case_detail.category"
+            :detail="case_detail"
+          ></Case>
         </router-link>
       </template>
     </div>
@@ -266,21 +255,20 @@
 </template>
 
 <script>
+import Loader from "@/components/Loader.vue";
 import Case from "@/components/case/Case.vue";
 import { config } from "@/configurations";
+import { caseService } from '@/services';
 
 export default {
   name: "CaseView",
-  components: { Case },
+  components: { Case, Loader },
   data() {
     return {
       filter: -1,
+      cases:[],
+
     };
-  },
-  computed: {
-    cases() {
-      return this.$store.state.caseStore.cases;
-    },
   },
   methods: {
     getCasesByURL() {
@@ -298,7 +286,13 @@ export default {
       }
 
       if (defined_list_route === "TIMELINE") {
-        dispatch("caseStore/storeTimelineCases");
+        caseService.getCases().then(
+          (cases) =>{ this.cases = cases;
+          }
+        )
+          .catch((error) => dispatch("alertStore/success", error, { root: true }));
+        
+        //directly use service and paginate
       }
     },
   },
@@ -345,38 +339,5 @@ export default {
 
 .active {
   border: 1px solid rgb(143, 143, 143);
-}
-
-/* loader */
-.loader-box {
-  height: 40vh;
-}
-.loader {
-  border: 3px solid #fff;
-  border-radius: 50%;
-  border-top: 3px solid #383838;
-  width: 50px;
-  height: 50px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 1s linear infinite;
-}
-
-/* Safari */
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 </style>
