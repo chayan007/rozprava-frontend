@@ -94,7 +94,7 @@
         <button class="login-social-btn  btn btn-pill github mb-3 p-2 w-100 shadow-md border-0" type="button">
            <img
               class="login-icons"
-              src="@/assets/google.png"
+              src="@/assets/socialIcons/google.png"
           />
           <span class="h6 m-0">
             Sign in using Google
@@ -104,7 +104,7 @@
         <button class="login-social-btn btn btn-pill github mb-3 p-2 w-100 shadow-md border-0" type="button">
            <img
               class="login-icons"
-              src="@/assets/facebook.png"
+              src="@/assets/socialIcons/facebook.png"
           />
           <span class="h6 m-0">
             Sign in using Facebook
@@ -114,7 +114,7 @@
         <button class="login-social-btn btn btn-pill github mb-3 p-2 w-100 shadow-md border-0" type="button">
           <img
               class="login-icons"
-              src="@/assets/twitter.png"
+              src="@/assets/socialIcons/twitter.png"
           />
           <span class="h6 m-0">
             Sign in using Twitter

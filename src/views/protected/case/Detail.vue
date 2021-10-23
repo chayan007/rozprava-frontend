@@ -94,7 +94,7 @@
             <img
               v-else
               class="case-react-icons mr-1"
-              src="@/assets/case-like.svg"
+              src="@/assets/like.svg"
               alt=""
             />
             <small class="react-txt m-0 mr-3 h6">{{
@@ -111,7 +111,7 @@
             <img
               v-else
               class="case-react-icons mr-1"
-              src="@/assets/case-dislike.svg"
+              src="@/assets/dislike.svg"
               alt=""
             />
             <small class="react-txt m-0 mr-3 h6">{{
@@ -170,7 +170,6 @@ export default {
         .getCase(slug)
         .then((caseDetail) => {
           this.caseDetail = caseDetail;
-          console.log(this.caseDetail);
           this.activity(3);
         })
         .catch(() => {

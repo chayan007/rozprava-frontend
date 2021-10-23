@@ -5,7 +5,7 @@
     <h1 class="m-0">Groups</h1>
     <img
       class="addimg"
-      src="@/assets/Add.png"
+      src="@/assets/add.svg"
       v-on:click="openAddMembers = !openAddMembers"
     />
   </div>
@@ -239,8 +239,8 @@ export default {
   outline: none;
 }
 .addimg {
-  width: 2.7em;
-  height: 2.7em;
+  width: 2.2em;
+  height: 2.2em;
 }
 
 .add-grp-box {

@@ -158,13 +158,13 @@
         <!-- social sign-up -->
         <div>
            <button class="social-icon rounded-circle mx-3 btn p-2 shadow">
-            <img src="@/assets/google.png" alt="">
+            <img src="@/assets/socialIcons/google.png" alt="">
           </button>
            <button class="social-icon rounded-circle mx-3 btn p-2 shadow">
-            <img src="@/assets/facebook.png" alt="">
+            <img src="@/assets/socialIcons/facebook.png" alt="">
           </button>
            <button class="social-icon rounded-circle mx-3 btn p-2 shadow">
-            <img src="@/assets/twitter.png" alt="">
+            <img src="@/assets/socialIcons/twitter.png" alt="">
           </button>
         </div>
         <!-- social sign-up -->
