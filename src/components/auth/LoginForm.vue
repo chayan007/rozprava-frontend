@@ -12,8 +12,11 @@
             <div class="input-group mb-4">
               <div class="input-group-prepend">
                 <span class="input-group-text border-0"
-                  ><span class="fas fa-envelope"></span
-                ></span>
+                  ><img
+                      src="../../assets/username.svg"
+                      alt="sign in"
+                      width="14"
+                  /></span>
               </div>
               <input
                 class="form-control border-0"
@@ -34,8 +37,11 @@
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
                   <span class="input-group-text border-0"
-                    ><span class="fas fa-unlock-alt"></span
-                  ></span>
+                    ><img
+                      src="../../assets/lock.svg"
+                      alt="sign in"
+                      width="14"
+                  /></span>
                 </div>
                 <input
                   class="form-control border-0"
