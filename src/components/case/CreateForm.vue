@@ -12,6 +12,10 @@
             border border-light
             rounded-circle
             p-0
+            row
+            m-0
+            align-items-center
+            justify-content-center
           "
         >
           <img
@@ -50,7 +54,7 @@
           v-model="newTag"
           name="GiveTag"
           id="GiveTag"
-          v-show="!tagadded"
+          v-show="!tagAdded"
         />
         <datalist id="GiveTags">
           <option value="Politics"></option>
@@ -106,11 +110,39 @@
             <img
               @click="upload"
               class="attach-icon"
-              src="@/assets/attachment1.png"
+              src="@/assets/attachment.svg"
               alt=""
             />
           </button>
-          <small class="row align-items-center col col-9 p-0 m-0"
+
+          <small
+            v-if="files"
+            class="row align-items-center col col-12 mt-2 p-0 m-0"
+          >
+            <p
+              v-for="(filename, index) in files"
+              :key="filename.name"
+              class="
+                tag
+                h6
+                row
+                m-0
+                align-items-center
+                rounded-pill 
+                shadow
+                pr-3
+                pl-3
+                pt-2
+                pb-2
+                mr-2
+              "
+            >
+              <span class="file-tag"> {{ filename.name }}</span>
+              <span class="pl-3" v-on:click="removeFile(index)"> x </span>
+            </p>
+          </small>
+
+          <small v-else class="row align-items-center col col-9 p-0 m-0"
             >PDF, Images, Links, Audios, Videos, etc</small
           >
         </div>
@@ -152,7 +184,7 @@
           Post
         </button>
         <div class="m-0 show_hide" id="show">
-          <UploadComponent />
+          <UploadComponent @clicked="addFile" />
         </div>
       </div>
     </div>
@@ -166,7 +198,7 @@ import { stringFormat } from "@/helpers";
 import { config } from "@/configurations";
 import { caseService } from "@/services";
 import router from "@/router";
-import Upload from "@/components/Upload.vue";
+import Upload from "@/components/Proof/Upload.vue";
 
 export default {
   name: "Create",
@@ -180,7 +212,8 @@ export default {
       category: "",
       isAnonymous: false,
       // mention: "",
-      tagadded: false,
+      tagAdded: false,
+      files: []
     };
   },
 
@@ -192,11 +225,19 @@ export default {
       };
       this.tags.push(newTag);
       this.newTag = "";
-      this.tagadded = true;
+      this.tagAdded = true;
     },
     removeTag(index) {
       this.tags.splice(index, 1);
-      this.tagadded = false;
+      this.tagAdded = false;
+    },
+
+    addFile(files) {
+      this.files.push(files);
+      this.upload();
+    },
+    removeFile(index) {
+      this.files.splice(index, 1);
     },
 
     createCase() {
@@ -243,11 +284,10 @@ export default {
       }
 
       let categoryId = config.caseConfig.categories.OTHER;
-      if (tags.length != 0) {
-        let userSelectedcategory = tags[0].tag.toUpperCase();
-
-        if (userSelectedcategory in config.caseConfig.categories) {
-          categoryId = config.caseConfig.categories[userSelectedcategory];
+      if (tags.length !== 0) {
+        let userSelectedCategory = tags[0].tag.toUpperCase();
+        if (userSelectedCategory in config.caseConfig.categories) {
+          categoryId = config.caseConfig.categories[userSelectedCategory];
         }
       }
 
@@ -261,25 +301,33 @@ export default {
           against_label: "against",
         })
         .then((caseResponse) => {
+          this.submitFiles(caseResponse.slug);
           router.push({
             name: "CaseDetail",
             params: { slug: caseResponse.slug },
           });
         })
-        .catch(() => {
-          dispatch(
-            "alertStore/error",
-            config.messagingConfig.messages.error.unknown_error
-          );
+        .catch((error) => {
+          dispatch("alertStore/error", error);
         });
     },
     upload() {
-      var element = document.getElementById("show");
+      const element = document.getElementById("show");
       element.classList.toggle("show_hide");
     },
-  },
-  created() {
-    this.createCase();
+
+    submitFiles(slug) {
+      const { dispatch } = this.$store;
+
+      // convert the list of files into json object
+      let proofRequestBody = {};
+      for (let x = 0; x < this.files.length; x++) {
+        proofRequestBody[`proof_${x + 1}`] = this.files[x];
+      }
+      caseService.uploadProof(proofRequestBody, slug).catch((error) => {
+        dispatch("alertStore/error", error);
+      });
+    },
   },
 };
 </script>
@@ -293,12 +341,20 @@ export default {
   font-weight: 300;
   line-height: 1.5;
   color: #44476a;
-  background-color: #e6e7ee;
+  background-color: #f2f2f5;
   background-clip: padding-box;
   border: none;
   border-bottom: 0.07rem solid #d1d9e6;
   border-radius: 0rem;
   transition: all 0.3s ease-in-out;
+}
+.profile-image {
+  width: 3.2em;
+  height: 3.2em;
+}
+.card-img-top {
+  width: 3.1em;
+  height: 3.1em;
 }
 .form-control1:focus {
   outline: none;
@@ -385,9 +441,17 @@ input:checked + .slider:before {
   border: none;
 }
 
-#show{
+.file-tag {
+  display: inline-block;
+  width: 6em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#show {
   position: absolute !important;
-  bottom: 5em;
+  bottom: 20em;
   left: 2.5em;
 }
 

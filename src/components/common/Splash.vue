@@ -1,36 +1,58 @@
 <template>
-  <section class="section section bg-soft pb-7 overflow-hidden z-2 mt-5">
-    <div class="box" style="text-align: center;">
-      <img src="../../assets/splash.gif" alt="Splash Rozprava">
-      <div class="row justify-content-md-around">
-        <div class="col-lg-4 col-md-6">
-          <button class="btn btn-primary github register mt-6" type="button">
-          <span class="mr-1">
-            <router-link to="/signup">Sign Up</router-link>
-          </span>
-          </button>
-          <div class="mb-2 mt-2">
-            <h3 class="h5 font-weight-bold">
-              --------------- OR ----------------
-            </h3>
-          </div>
-          <button class="btn btn-primary github login" type="button">
-            <router-link to="/login"> Login </router-link>
-          </button>
-        </div></div>
-    </div></section>
-  <router-view/>
+  <section class="section section bg-soft pb-7 overflow-hidden z-2 mt-3">
+    <div class="box" style="text-align: center">
+      <img
+        v-show="gif"
+        class="logo"
+        src="../../assets/splash.gif"
+        alt="Splash Rozprava"
+      />
+      <img v-show="!gif" class="logo" src="../../assets/splash.svg" alt="" />
+
+      <div class="row m-0 justify-content-around mt-6">
+        <div class="col-lg-5 col-md-6 col-12 p-4">
+          <router-link to="/register">
+            <button class="btn btn-block">Sign Up</button>
+          </router-link>
+          <h4 class="m-2">---- OR ----</h4>
+          <router-link to="/login">
+            <button class="btn btn-block">Login</button>
+          </router-link>
+        </div>
+      </div>
+    </div>
+  </section>
+  <router-view />
 </template>
 
 <script>
 export default {
   name: "Splash",
+  data() {
+    return {
+      gif: 1,
+    };
+  },
+  created() {
+    this.toggleGif();
+  },
+  methods: {
+    toggleGif() {
+      setTimeout(() => {
+        this.gif = 0;
+      }, 2000);
+    },
+  },
 };
 </script>
 
 <style>
-body{
+body {
   margin: 0%;
+}
+
+.logo {
+  width: 17em;
 }
 
 .login {
@@ -38,7 +60,7 @@ body{
   padding-right: 8.6rem;
 }
 
-.register{
+.register {
   padding-left: 8rem;
   padding-right: 8rem;
 }

@@ -18,6 +18,15 @@ caseConfig = {
         },
         getCase:{
             endpoint:"case/v1/{0}/"
+        },
+        uploadCaseProof:{
+            endpoint:"proof/v1/case/{0}/"
+        },
+        deleteCaseProof:{
+            endpoint:"proof/v1/case/"
+        },
+        deleteCase:{
+            endpoint:"case/v1/{0}/"
         }
     },
     categories: {

@@ -1,15 +1,15 @@
 <template>
-  <div class="section mt-7 pt-4 pb-0">
+  <div class="section mt-6 pt-4 pb-0">
     <div class="container">
       <div class="row">
         <div class="col">
-          <div class="text-center">
+          <div class="">
             <span class="h3">Notifications</span>
           </div>
           <!-- heading -->
-          <div class="position-relative mt-5">
+          <div class="position-relative mt-3">
             <div
-              class="rounded shadow-soft border border-light bg-soft p-4 mb-2"
+              class="mb-2"
             >
               <div class="mb-3">
                 <div>
@@ -33,7 +33,6 @@
 import Notification from "@/components/notifications/Notification.vue";
 import { notificationService } from "@/services";
 import { config } from "@/configurations";
-import { stringFormat } from "@/helpers";
 
 export default {
   name: "Notification",
@@ -51,10 +50,7 @@ export default {
           this.notifications = notifications;
         })
         .catch(() => {
-          throw stringFormat(
-            config.messagingConfig.messages.error.unknown_error,
-            "notifications"
-          );
+          throw config.messagingConfig.messages.error.unknown_error;
         });
     },
   },
