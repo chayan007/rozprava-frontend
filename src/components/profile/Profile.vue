@@ -50,7 +50,7 @@
         v-if="followersFlag == 0 || followersFlag == 1"
         class="
           followers-box
-          position-absolute
+          position-fixed
           vh-100
           w-100
           p-3
