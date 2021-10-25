@@ -24,9 +24,9 @@ function getActivity() {
 function caseActivity(uuid, category) {
   const headers = authHeader();
 
-  let url = stringFormat(`${config.commonConfig.$apiUrl}/${config.activityConfig.api.caseActivityPost.endpoint}`, uuid, category);
+  let url = stringFormat(`${config.commonConfig.$apiUrl}/${config.activityConfig.api.postCaseActivity.endpoint}`, uuid, category);
   return axios
-    .post(url, { headers: headers })
+    .post(url,{}, { headers: headers })
     .then((response) => {
       return response.data;
     })
@@ -38,9 +38,9 @@ function caseActivity(uuid, category) {
 function debateActivity(uuid, category) {
   const headers = authHeader();
 
-  let url = stringFormat(`${config.commonConfig.$apiUrl}/${config.activityConfig.api.debateActivityPost.endpoint}`, uuid, category);
+  let url = stringFormat(`${config.commonConfig.$apiUrl}/${config.activityConfig.api.postDebateActivity.endpoint}`, uuid, category);
   return axios
-    .post(url, { headers: headers })
+    .post(url,{}, { headers: headers })
     .then((response) => {
       return response.data;
     })

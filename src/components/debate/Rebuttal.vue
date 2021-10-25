@@ -1,6 +1,6 @@
 <template>
   <div class="rebuttal-outer p-2 mb-3 w-100" v-if="rebuttalItem">
-    <div class="rebuttal-inner shadow-soft">
+    <div class="rebuttal-inner shadow border-light border">
       <div class="pre-comment p-3">
         <!-- profile bar -->
         <div class="row m-0 justify-content-between w-100">
@@ -325,7 +325,7 @@ export default {
   top: 0%;
   left: 0;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.849);
+  background-color: rgba(0, 0, 0, 0.418);
 }
 
 .create-comment-form {

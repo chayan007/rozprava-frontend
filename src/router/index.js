@@ -10,17 +10,17 @@ import ResetPassword from '@/views/ResetPassword.vue'
 import Settings from '@/views/protected/Settings.vue'
 import CaseView from '@/views/public/CaseView.vue'
 import Activity from '@/views/protected/Activity.vue'
-import Search from '@/views/protected/Search.vue'
 import Profile from '@/views/protected/Profile.vue'
-import Recommendation from '@/views/protected/Recommendation.vue'
 import Inbox from '@/views/protected/chat/Inbox.vue'
 import Chat from '@/views/protected/chat/Chat.vue'
 import CaseCreate from '@/views/protected/case/Create.vue'
 import Notification from '@/views/protected/Notification.vue'
 import CaseDetail from '@/views/protected/case/Detail.vue'
+import MyGroups from '@/views/protected/group/MyGroups.vue'
 import Group from '@/views/protected/group/Group.vue'
 import GroupInfo from '@/views/protected/group/GroupInfo.vue'
 import GroupSettings from '@/views/protected/group/GroupSettings.vue'
+import GeneralSearch from '@/views/GeneralSearch.vue'
 
 
 const routes = [
@@ -43,11 +43,6 @@ const routes = [
     path: '/inbox',
     name: 'Inbox',
     component: Inbox
-  },
-  {
-    path: '/recommendation',
-    name: 'Recommendation',
-    component: Recommendation
   },
   {
     path: '/profile/:username',
@@ -80,11 +75,6 @@ const routes = [
      component: CaseView
   },
   {
-    path: '/search',
-    name: 'Search',
-    component: Search
-  },
-  {
     path: '/forget-login',
     name: 'ForgetLogin',
     component: ForgetLogin
@@ -115,19 +105,29 @@ const routes = [
     component: Activity
   },
   {
+    path: '/my-groups',
+    name: 'MyGroups',
+    component: MyGroups
+  },
+  {
+    path: '/groupdetails/:uuid',
+    name: 'GroupInfo',
+    component: GroupInfo
+  },
+  {
     path: '/group',
     name: 'Group',
     component: Group
   },
   {
-    path: '/group-info',
-    name: 'GroupInfo',
-    component: GroupInfo
-  },
-  {
     path: '/group-settings',
     name: 'GroupSettings',
     component: GroupSettings
+  },
+  {
+    path: '/search',
+    name: 'GeneralSearch',
+    component: GeneralSearch
   }
 ]
 
@@ -144,21 +144,9 @@ router.beforeEach((to, from, next) => {
       'Login',
       'Register',
       'Signup',
-      'CaseView',
-      'Notifications',
       'ForgetLogin',
       'EnterOTP',
       'ResetPassword',
-      'Timeline',
-      'Recommendation',
-      'Inbox',
-      'Chat',
-      'CaseCreate',
-      'Activity',
-      'CaseDetail',
-      'Group',
-      'GroupInfo',
-      'GroupSettings'
   ];
   const authPagesName = [
       

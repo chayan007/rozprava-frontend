@@ -58,6 +58,30 @@
           data-toggle="collapse"
           data-target="#navbar_global"
         >
+          <router-link to="/search">
+            <span
+              class="
+                nav-link-inner-text nav-link
+                w-100
+                row
+                m-0
+                justify-content-between
+              "
+            >
+              <span>Search</span>
+              <img
+                class="menu-item-icon pr-2"
+                src="@/assets/search.svg"
+                alt=""
+              />
+            </span>
+          </router-link>
+        </li>
+        <li
+          class="nav-item"
+          data-toggle="collapse"
+          data-target="#navbar_global"
+        >
           <router-link to="/case-create">
             <span
               class="
@@ -93,7 +117,7 @@
               </router-link>
             </li>
             <li data-toggle="collapse" data-target="#navbar_global">
-              <router-link to="/groups">
+              <router-link to="/my-groups">
                 <a class="dropdown-item">Groups</a>
               </router-link>
             </li>
@@ -130,17 +154,29 @@
           </router-link>
         </li>
         <br /><br />
-        <li class="nav-item" data-toggle="collapse" data-target="#navbar_global">
+        <li
+          class="nav-item"
+          data-toggle="collapse"
+          data-target="#navbar_global"
+        >
           <router-link to="/aboutus">
             <h6 class="m-0 nav-link">About us</h6>
           </router-link>
         </li>
-        <li class="nav-item" data-toggle="collapse" data-target="#navbar_global">
+        <li
+          class="nav-item"
+          data-toggle="collapse"
+          data-target="#navbar_global"
+        >
           <router-link to="/report">
             <h6 class="m-0 nav-link">Report</h6>
           </router-link>
         </li>
-        <li class="nav-item" data-toggle="collapse" data-target="#navbar_global">
+        <li
+          class="nav-item"
+          data-toggle="collapse"
+          data-target="#navbar_global"
+        >
           <router-link to="/termsandconditions">
             <h6 class="m-0 nav-link">Terms and Conditions</h6>
           </router-link>
@@ -189,8 +225,10 @@
         </div>
       </a>
       <ul class="nav-profile-dropdown dropdown-menu mt-4">
-        <li>
-          <router-link :to="'/profile/'+is_authenticated.profile.user.username">
+        <li v-if="is_authenticated">
+          <router-link
+            :to="'/profile/' + is_authenticated.profile.user.username"
+          >
             <a class="dropdown-item">My Profile</a>
           </router-link>
         </li>
@@ -220,7 +258,7 @@ export default {
   computed: {
     is_authenticated() {
       return this.$store.state.authStore.user;
-    }
+    },
   },
 };
 </script>
@@ -242,7 +280,7 @@ export default {
 .nav-profile-dropdown {
   background-color: #fff;
 }
-.nav-menu-collapse{
+.nav-menu-collapse {
   box-shadow: 3px 3px 20px -2px rgba(51, 51, 51, 0.534);
 }
 .menu-icon {

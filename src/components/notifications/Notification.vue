@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="alert alert-secondary alert-dismissible shadow-soft fade show"
+      class="alert alert-secondary alert-dismissible shadow fade show"
       role="alert"
     >
       <!-- Profile badge -->
@@ -10,14 +10,18 @@
           badge
           profile-image
           bg-primary
-          shadow-inset
           border border-light
           rounded-circle
-          ml-2
         "
       >
-        <img
+        <img v-if="notification.profile.display_pic"
           :src="notification.profile.display_pic"
+          class="card-img-top mt-5 rounded-circle"
+          alt="User image"
+          width="100"
+        />
+        <img v-else
+          src="@/assets/profile-picture-1.jpg"
           class="card-img-top mt-5 rounded-circle"
           alt="User image"
           width="100"
@@ -25,7 +29,7 @@
       </div>
 
       <!-- notification text  -->
-      <span v-on:click="redirect()" class="alert-inner--text h3 ml-3">{{
+      <span v-on:click="redirect()" class="alert-inner--text h6 ml-3">{{
         notification.message
       }}</span>
 
@@ -34,8 +38,7 @@
         class="close text-dark"
         data-dismiss="alert"
         aria-label="Close"
-      >
-      <span class="a.text-danger:hover" aria-hidden="true">x</span>
+      ><img class="cross" src="@/assets/cross-small.svg" alt="">
       </button>
     </div>
   </div>
@@ -60,6 +63,9 @@ export default {
   padding: 0.15rem;
   top: 45%;
   margin-right: 0.5rem;
+}
+.cross {
+  width: 1em;
 }
 </style>
 

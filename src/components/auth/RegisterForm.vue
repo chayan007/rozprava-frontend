@@ -1,22 +1,21 @@
 <template>
   <div class="col-12 col-md-6 col-lg-5 mb-5 mb-lg-0">
-    <div class="card bg-primary shadow-soft border-light p-4">
+    <div class="card bg-primary rounded-xl shadow border-0 p-4">
       <div class="text-center pb-0">
-        <h4 class="mb-3 h5"><strong>Register</strong></h4>
+        <h4 class="mb-3 h3"><strong>Register</strong></h4>
       </div>
       <div class="">
         <form action="" @submit.prevent="handleSubmit" novalidate>
           <!-- Form -->
           <div class="form-group">
-            <label for="exampleInputPassword345">Full Name</label>
             <div class="input-group mb-4">
               <div class="input-group-prepend">
-                <span class="input-group-text"
+                <span class="input-group-text border-0"
                   ><img src="../../assets/name.svg" alt="sign in" width="14"
                 /></span>
               </div>
               <input
-                class="form-control"
+                class="form-control border-0"
                 id="name-input"
                 placeholder="Name"
                 v-model="name"
@@ -27,15 +26,14 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="exampleInputIcon999">Email</label>
             <div class="input-group mb-4">
               <div class="input-group-prepend">
-                <span class="input-group-text"
+                <span class="input-group-text border-0"
                   ><span class="fas fa-envelope"></span
                 ></span>
               </div>
               <input
-                class="form-control"
+                class="form-control border-0"
                 id="exampleInputIcon999"
                 placeholder="example@company.com"
                 v-model="email"
@@ -50,10 +48,9 @@
             <!-- Form -->
 
             <div class="form-group">
-              <label for="exampleInputPassword345">Choose an username</label>
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
-                  <span class="input-group-text"
+                  <span class="input-group-text border-0"
                     ><img
                       src="../../assets/username.svg"
                       alt="sign in"
@@ -61,7 +58,7 @@
                   /></span>
                 </div>
                 <input
-                  class="form-control"
+                  class="form-control border-0"
                   id="username-input"
                   v-model="username"
                   placeholder="Username"
@@ -72,15 +69,14 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="exampleInputPassword345">Password</label>
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
-                  <span class="input-group-text"
+                  <span class="input-group-text border-0"
                     ><span class="fas fa-unlock-alt"></span
                   ></span>
                 </div>
                 <input
-                  class="form-control"
+                  class="form-control border-0"
                   id="password1-input"
                   placeholder="Password"
                   v-model="password1"
@@ -90,16 +86,15 @@
                 />
               </div>
             </div>
-            <div class="form-group">
-              <label for="exampleConfirmPassword712">Confirm Password</label>
+            <div class="form-group mb-4">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <span class="input-group-text"
+                  <span class="input-group-text border-0"
                     ><span class="fas fa-unlock-alt"></span
                   ></span>
                 </div>
                 <input
-                  class="form-control"
+                  class="form-control border-0"
                   id="password2-input"
                   placeholder="Confirm password"
                   v-model="password2"
@@ -110,15 +105,14 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="exampleInputPassword345">Phone Number</label>
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
-                  <span class="input-group-text"
+                  <span class="input-group-text border-0"
                     ><img src="../../assets/phone.svg" alt="sign in" width="14"
                   /></span>
                 </div>
                 <input
-                  class="form-control"
+                  class="form-control border-0"
                   id="phone-input"
                   placeholder="Phone Number"
                   type="integer"
@@ -132,7 +126,7 @@
             
             <div class="input-group mb-2 otp">
               <input
-                class="form-control"
+                class="form-control border-0"
                 id="exampleInputPassword345"
                 placeholder="OTP"
                 type="integer"
@@ -141,7 +135,7 @@
               />
             </div>
             <div class="mb-3">
-              <label class="text-center" for="defaultCheck634"> <b>Resend OTP</b> </label>
+              <p class="text-center" for="defaultCheck634"> <b>Resend OTP</b> </p>
             </div>
             <div class="form-check mb-4">
               <input
@@ -160,6 +154,28 @@
             <img src="../../assets/login.svg" alt="sign in" width="30" />
           </button>
         </form>
+        <h3 class="text-center my-4"> OR </h3>
+        <!-- social sign-up -->
+        <div>
+           <button class="social-icon rounded-circle mx-3 btn p-2 shadow">
+            <img src="@/assets/google.png" alt="">
+          </button>
+           <button class="social-icon rounded-circle mx-3 btn p-2 shadow">
+            <img src="@/assets/facebook.png" alt="">
+          </button>
+           <button class="social-icon rounded-circle mx-3 btn p-2 shadow">
+            <img src="@/assets/twitter.png" alt="">
+          </button>
+        </div>
+        <!-- social sign-up -->
+        <span >
+        <h6 class="mt-5">
+          <router-link to="/login"
+            >Already have an account?  <b class="pl-2"> Sign-In</b></router-link
+          >
+        </h6>
+      </span>
+
       </div>
     </div>
   </div>
@@ -272,5 +288,21 @@ export default {
 label {
   width: 100%;
   text-align: left;
+}
+.btn {
+  background-color: #fff;
+}
+.card {
+  background-color: #fff !important;
+}
+.form-control {
+  box-shadow: none !important;
+}
+.form-check-label::before, .form-check-label::after {
+  box-shadow: none;
+  border-radius: 5px;
+}
+.social-icon {
+  width: 3.5em;
 }
 </style>
