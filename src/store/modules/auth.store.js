@@ -17,7 +17,7 @@ export const authStore = {
                 .then(
                     user => {
                         commit('loginSuccess', user);
-                        router.push('/');
+                        router.push('/timeline');
                     },
                     error => {
                         dispatch('alertStore/error', error, { root: true });
@@ -43,7 +43,7 @@ export const authStore = {
                 .then(
                     user => {
                         commit('loginSuccess', user);
-                        router.push('/');
+                        router.push('/profile/username');
                     },
                     error => {
                         commit('loginFailure');

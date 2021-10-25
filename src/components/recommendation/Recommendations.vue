@@ -3,7 +3,7 @@
     <h3 class="p-3">Recommendations</h3>
     <div class="rec-container row m-0 w-100">
       <!-- loader -->
-      <Loader v-if="!recommendations" />
+      <Loader class="my-10" v-if="!recommendations" />
       <!-- loader -->
 
       <!-- Recommendation card -->

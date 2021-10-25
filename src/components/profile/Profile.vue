@@ -19,33 +19,72 @@
         alt=""
       />
     </div>
-    <div>
-      <h1 class="fw-bolder m-0 mt-2 profile-name">
+    <div class="profile-info-box py-2">
+      <h5 class="fw-bolder m-0 mt-2 profile-name">
         {{ profile.user.full_name }}
-      </h1>
+      </h5>
       <h5 class="m-0">
         {{ profile.user.username }}
       </h5>
-      <p class="m-0">( {{ profile.profession }} )</p>
-      <div class="row m-0">
-        <div class="col-4">
-          <p class="m-0">Posts</p>
-          <h5>{{ profile.metrics.posts }}</h5>
-        </div>
-        <div class="col-4">
-          <p class="m-0">Followers</p>
-          <h5>{{ profile.metrics.followers }}</h5>
-        </div>
-        <div class="col-4">
-          <p class="m-0">Following</p>
-          <h5>{{ profile.metrics.following }}</h5>
-        </div>
-      </div>
-      <div class="px-3">
+      <div class="px-3 my-2">
         <h6>
           {{ profile.bio }}
         </h6>
       </div>
+      <div class="row m-0">
+        <div class="col-4">
+          <p class="m-0">{{ profile.metrics.posts }}</p>
+          <p class="m-0">Posts</p>
+        </div>
+        <div class="col-4" @click="changeFollowerFlag(0)">
+          <p class="m-0">{{ profile.metrics.followers }}</p>
+          <p class="m-0">Followers</p>
+        </div>
+        <div class="col-4" @click="changeFollowerFlag(1)">
+          <p class="m-0">{{ profile.metrics.following }}</p>
+          <p class="m-0">Following</p>
+        </div>
+      </div>
+      <!-- followers list -->
+      <div
+        v-if="followersFlag == 0 || followersFlag == 1"
+        class="
+          followers-box
+          position-absolute
+          vh-100
+          w-100
+          p-3
+          d-flex
+          align-items-end
+        "
+      >
+        <div class="followers-inner w-100 text-left m-0">
+          <div class="p-3 close-list-box mb-4">
+            <img
+              @click="changeFollowerFlag(null)"
+              class="icon-md"
+              src="@/assets/back.svg"
+              alt=""
+            />
+            <h5
+              v-if="followersFlag == 0"
+              @click="changeFollowerFlag(null)"
+              class="followers-head w-100 position-relative text-center"
+            >
+              <b>Followers</b>
+            </h5>
+            <h5
+              v-else
+              @click="changeFollowerFlag(null)"
+              class="followers-head w-100 position-relative text-center"
+            >
+              <b>Following</b>
+            </h5>
+          </div>
+          <Followers :followersFlag="followersFlag" />
+        </div>
+      </div>
+      <!-- followers list -->
       <!-- Follow & Massage div -->
       <div
         v-if="is_authenticated.profile.user.username !== profile.user.username"
@@ -53,29 +92,39 @@
       >
         <span
           :class="[following ? 'followed-btn' : 'follow-btn']"
-          class="rounded-pill py-2 px-4 col-5 btn"
+          class="rounded-pill py-1 px-4 col-5 btn"
           @click="followUser()"
-          ><h6 class="m-0 follow-btn-txt">
+          ><p class="m-0 follow-btn-txt">
             <span v-if="!following">Follow</span> <span v-else>Following</span>
-          </h6></span
+          </p></span
         >
-        <span class="profile-action-btn rounded-pill py-2 px-4 col-5 btn"
-          ><h6 class="m-0">Message</h6></span
+        <span class="profile-action-btn rounded-pill py-1 px-4 col-5 btn"
+          ><p class="m-0">Message</p></span
         >
       </div>
       <div class="p-3" v-else>
         <router-link to="/settings">
-          <div class="btn p-2 btn-block">
-            <h5 class="m-0 d-inline">Edit Profile</h5>
-            <img class="ml-2 icon pb-2" src="@/assets/editDark.svg" alt="pen" />
+          <div
+            class="
+              btn
+              p-2
+              btn-block
+              rounded-pill
+              d-flex
+              justify-content-center
+              align-items-center
+            "
+          >
+            <h6 class="m-0 d-inline">Edit Profile</h6>
+            <img class="ml-2 icon" src="@/assets/editDark.svg" alt="pen" />
           </div>
         </router-link>
       </div>
       <!-- Follow & Massage div -->
-      <div>
-        <template v-for="case_detail in cases" :key="case_detail.uuid">
+      <div class="mt-5">
+        <Loader class="mt-8" v-if="!cases"/>
+        <template v-else v-for="case_detail in cases" :key="case_detail.uuid">
           <Case
-            v-show="filter === -1 || filter === case_detail.category"
             :detail="case_detail"
           ></Case>
         </template>
@@ -87,19 +136,23 @@
 <script>
 import Loader from "@/components/Loader.vue";
 //import PopupMenu from "@/components/profile/PopupMenu.vue"
-//import Case from "@/components/case/Case.vue";
+import Case from "@/components/case/Case.vue";
 import { ref } from "vue";
 import { userService } from "@/services";
+import { caseService } from "@/services";
+import Followers from "@/components/profile/Followers.vue";
 import router from "../../router";
 
 export default {
   name: "Profile",
-  components: { Loader },
+  components: { Loader, Followers, Case },
   data() {
     return {
       profile: null,
       username: "",
       following: false,
+      followersFlag: null,
+      cases: null
     };
   },
 
@@ -151,7 +204,6 @@ export default {
             (userProfile) => {
               this.profile = userProfile;
               this.setFollow();
-              console.log(userProfile);
             },
             (error) => {
               dispatch("alertStore/error", error, { root: true });
@@ -161,6 +213,20 @@ export default {
             dispatch("alertStore/error", error, { root: true });
           });
       }
+      // profile cases service
+       caseService
+          .getCases(null, this.username)
+          .then(
+            (userCases) => {
+              this.cases = userCases.results
+            },
+            (error) => {
+              dispatch("alertStore/error", error, { root: true });
+            }
+          )
+          .catch((error) => {
+            dispatch("alertStore/error", error, { root: true });
+          });
     },
     followUser() {
       const username = this.profile.user.username;
@@ -175,16 +241,24 @@ export default {
     setFollow() {
       this.following = this.profile.authenticated_details.is_following;
     },
+    changeFollowerFlag(flag) {
+      if (
+        this.is_authenticated.profile.user.username ==
+        this.profile.user.username
+      ) {
+        this.followersFlag = flag;
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
 .profile-name {
-  font-size: 2.5em;
+  font-size: 1.8em;
 }
 .small-icon {
-  font-size: 2em;
+  font-size: 1.4em;
   color: #fff;
 }
 .profile-cover {
@@ -195,6 +269,9 @@ export default {
 .profile-pic {
   width: 8em;
   border: 3px solid #fff;
+}
+.profile-info-box {
+  background-color: #f2f2f5;
 }
 .bio {
   width: 30rem;
@@ -312,6 +389,26 @@ export default {
   background-color: rgb(31, 31, 31);
 }
 .icon {
-  width: 1.3em;
+  width: 1.1em;
+}
+.icon-md {
+  width: 1.5em;
+}
+.followers-box {
+  bottom: 0;
+  left: 0;
+  background-color: rgba(26, 26, 26, 0.438);
+  z-index: 50;
+}
+.followers-inner {
+  background-color: #e6e7ee;
+  border-radius: 15px;
+}
+.close-list-box {
+  height: 2em;
+}
+.followers-head {
+  bottom: 22px;
+  left: 0;
 }
 </style>

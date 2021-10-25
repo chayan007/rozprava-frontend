@@ -144,23 +144,9 @@ router.beforeEach((to, from, next) => {
       'Login',
       'Register',
       'Signup',
-      'CaseView',
-      'Notifications',
       'ForgetLogin',
       'EnterOTP',
       'ResetPassword',
-      'Timeline',
-      // 'Recommendation',
-      'Inbox',
-      'Chat',
-      'CaseCreate',
-      'Activity',
-      'CaseDetail',
-      'MyGroups',
-      'GroupSettings',
-      'GroupInfo',
-      'Group',
-      'GeneralSearch'
   ];
   const authPagesName = [
       

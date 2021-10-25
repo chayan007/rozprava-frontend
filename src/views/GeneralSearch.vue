@@ -3,7 +3,7 @@
     <!-- search -->
 
     <div class="p-2 mb-2">
-      <div class="row m-0 align-items-center form-control1 w-100 rounded">
+      <div class="row m-0 align-items-center form-control1 w-100 rounded-pill py-2">
         <span class="fas fa-search col p-1 col-1" />
         <input
           class="inputsearch col p-0 pl-2 col-11 m-0"
@@ -16,25 +16,25 @@
     <!-- search categories -->
     <div class="search-cat-box row mb-2 m-0 w-100">
       <span
-        class="rounded-pill p-2 pl-4 pr-4 m-2 search-cat"
+        class="rounded-pill p-1 px-4 m-2 search-cat"
         @click="filterSearch(0)"
         :class="{ active: displayFlag == 0 }"
         >All</span
       >
       <span
-        class="rounded-pill p-2 pl-4 pr-4 m-2 search-cat"
+        class="rounded-pill p-1 px-4 m-2 search-cat"
         @click="filterSearch(1)"
         :class="{ active: displayFlag == 1 }"
         >Accounts</span
       >
       <span
-        class="rounded-pill p-2 pl-4 pr-4 m-2 search-cat"
+        class="rounded-pill p-1 px-4 m-2 search-cat"
         @click="filterSearch(2)"
         :class="{ active: displayFlag == 2 }"
         >Groups</span
       >
       <span
-        class="rounded-pill p-2 pl-4 pr-4 m-2 search-cat"
+        class="rounded-pill p-1 px-4 m-2 search-cat"
         @click="filterSearch(3)"
         :class="{ active: displayFlag == 3 }"
         >Cases</span
@@ -45,7 +45,7 @@
 
     <!-- recommendations -->
     <Recomendations v-if="!searchValue" />
-    <Loader
+    <Loader class="my-10 vh-100"
       v-if="searchValue && !accountShowInfo && !groupShowInfo && !caseShowInfo"
     />
 
@@ -271,7 +271,7 @@ export default {
 <style scoped>
 .search-body {
   background-color: #fff;
-  padding-top: 7.5em;
+  padding-top: 6em;
 }
 .form-control1 {
   display: inline-block;

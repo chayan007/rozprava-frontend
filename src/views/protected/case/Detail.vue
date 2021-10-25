@@ -2,7 +2,7 @@
   <div class="detail-case-box w-100" v-if="caseDetail">
     <!-- case banner art -->
     <div class="case-head-box w-100">
-      <img class="case-head-img w-100" src="@/assets/Detail-case.png" alt="" />
+      <img class="case-head-img w-100" src="@/assets/detail-imgs/30.png" alt="" />
     </div>
     <!-- close btn -->
 
@@ -12,16 +12,22 @@
       <div class="row m-0 justify-content-between w-100">
         <span class="row m-0 align-items-center">
           <span class="">
-            <img
+            <img v-if="caseDetail.profile"
               class="case-profile-pic rounded-circle"
               :src="caseDetail.profile.display_pic"
               alt=""
             />
+             <img v-else
+              class="case-profile-pic rounded-circle"
+              src="@/assets/anonymous.png"
+              alt=""
+            />
           </span>
           <span class="pl-2">
-            <small class="case-profile-name m-0">{{
+            <small v-if="caseDetail.profile" class="case-profile-name m-0">{{
               caseDetail.profile.user.full_name
             }}</small>
+            <small v-else class="case-profile-name m-0">Anonymous</small>
             <small>{{ sanitizedTime(caseDetail.created_at) }}</small>
           </span>
         </span>
@@ -122,23 +128,6 @@
       </div>
       <!-- case reaction box 2 -->
       <div class="row m-0 justify-content-between align-items-end mt-3">
-        <span>
-          <img
-            class="case-react-profile-pic rounded-circle"
-            src="@/assets/profile-picture-1.jpg"
-            alt=""
-          />
-          <img
-            class="rel-right-1 case-react-profile-pic rounded-circle"
-            src="@/assets/profile-picture-1.jpg"
-            alt=""
-          />
-          <img
-            class="rel-right-2 case-react-profile-pic rounded-circle"
-            src="@/assets/profile-picture-1.jpg"
-            alt=""
-          />
-        </span>
         <small>{{caseDetail.proofs.length}} proofs</small>
       </div>
 
@@ -150,7 +139,7 @@
     </div>
   </div>
   <!-- loader -->
-  <Loader v-else />
+  <Loader class="mt-10" v-else />
 </template>
 
 
@@ -181,6 +170,7 @@ export default {
         .getCase(slug)
         .then((caseDetail) => {
           this.caseDetail = caseDetail;
+          console.log(this.caseDetail);
           this.activity(3);
         })
         .catch(() => {
@@ -263,9 +253,10 @@ export default {
   position: absolute;
   top: 0;
   background-color: white;
-  border-radius: 1.2em 1.2em 0 0;
+  border-radius: 1.4em 1.4em 0 0;
   min-height: 100vh;
   z-index: 1;
+  box-shadow: 0 0 20px 10px rgba(22, 22, 22, 0.288);
 }
 .case-profile-pic {
   width: 3em;

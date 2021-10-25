@@ -3,7 +3,7 @@
     <div class="card case-inner shadow-soft col col-12 pt-3 pb-2 pl-3 pr-3">
       <!-- case-profile header -->
       <div class="case-profile-box row m-0 justify-content-between">
-        <div class="profile">
+        <div class="profile" v-if="detail.profile">
           <!-- <img v-if="detail.profile.display_pic"
             class="avatar-sm mr-2 img-fluid rounded-circle"
             :src="detail.profile.display_pic"
@@ -14,7 +14,15 @@
             src="@\assets\profile-picture-1.jpg"
             alt="display_pic"
           />
-          {{ detail.profile.user.username }}
+          <p class="m-0 d-inline"> {{ detail.profile.user.username }}</p>
+        </div>
+        <div v-else class="profile anonymous-tag" >
+          <img
+            class="avatar-md mr-2 img-fluid rounded-circle"
+            src="@\assets\anonymous.png"
+            alt="display_pic"
+          />
+          <p class="m-0 d-inline">Anonymous</p>
         </div>
 
         <div class="case-menu row m-0 align-items-center">
@@ -49,7 +57,8 @@
       </div>
       <!-- case-profile header -->
       <!-- case content -->
-      <div class="case-content">
+      <router-link :to="'/case/'+detail.slug">
+        <div class="case-content text-left">
         <h3 class="case-head h5 card-title mt-3 mb-2">
           {{ detail.question }}
         </h3>
@@ -57,6 +66,7 @@
           {{ detail.description }}
         </p>
       </div>
+      </router-link>
       <!-- case content -->
       <!-- proof -->
       <div class="proof-box mt-3 mb-3">
@@ -88,7 +98,7 @@
               src="@/assets/case-like.svg"
               alt=""
             />
-            {{ detail.metrics[1] }} <b>{{liked}}</b>
+            {{ detail.metrics[1] }}
           </span>
           <span class="row m-0 align-items-center">
             <img
@@ -101,25 +111,8 @@
         </div>
         
         <div class="w-100 mt-2 row m-0 justify-content-between align-items-center">
-          <div class="top-matrics">
-            <img
-              class="border-metrics-img avatar-sm rounded-circle"
-              src="@\assets\profile-picture-1.jpg"
-              alt=""
-            />
-            <img
-              class="border-metrics-img rt-2 avatar-sm rounded-circle"
-              src="@\assets\profile-picture-1.jpg"
-              alt=""
-            />
-            <img
-              class="border-metrics-img rt-3 avatar-sm rounded-circle"
-              src="@\assets\profile-picture-1.jpg"
-              alt=""
-            />
-          </div>
           <div>
-            10 Proofs
+            {{detail.proofs.length}} Proofs
           </div>
         </div>
       </div>

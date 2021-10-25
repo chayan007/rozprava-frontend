@@ -12,7 +12,7 @@
     </div>
 
     <div>
-      <div class="card shadow-soft border-light container bg-soft p-2">
+      <div class="card shadow-lg border-light container bg-soft p-2">
         <div class="upload_head">
           <img src="@/assets/upward-arrow.png" />
           <span class="h2 font-weight-bold align-top">Upload</span>
