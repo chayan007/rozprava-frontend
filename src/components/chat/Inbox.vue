@@ -2,7 +2,7 @@
     <div>
       <div class="a3">
         <h3>Chats</h3>
-        <button class="a6 plus"><img src="@/assets/plus.png" class="plus" alt=""></button>
+        <button class="a6 add-icon"><img class="add-icon" src="@/assets/add.svg" alt=""></button>
       </div>
       <div class="a5 shadow-soft">
         <div class="cant bg-primary shadow-soft" >
@@ -31,7 +31,8 @@
   }
 </script>
 <style scoped>
-.plus{
+.add-icon{
+  width: 2.5em;
   outline: none;
   border: none;
   padding: 0rem 0.1rem;

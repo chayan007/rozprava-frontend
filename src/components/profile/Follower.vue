@@ -1,14 +1,20 @@
 <template>
+  <router-link :to="'/profile/'+follower.user.username">
+    <span class="d-flex align-items-center">
+      <img
+        class="avatar-lg rounded-circle"
+        src="@/assets/profile-picture-1.jpg"
+        alt=""
+      />
+      <h6 class="d-inline m-0 ml-3">{{ follower.user.username }}</h6>
+    </span>
+  </router-link>
   <span class="d-flex align-items-center">
-    <img
-      class="avatar-lg rounded-circle"
-      src="@/assets/profile-picture-1.jpg"
-      alt=""
-    />
-    <h6 class="d-inline m-0 ml-3">{{ follower.user.username }}</h6>
-  </span>
-  <span class="d-flex align-items-center">
-    <p class="m-0" :class="[following ? 'text-danger ' : 'text-secondary ']" @click="followUser()">
+    <p
+      class="m-0"
+      :class="[following ? 'text-danger ' : 'text-secondary ']"
+      @click="followUser()"
+    >
       <span v-if="!following">Follow</span> <span v-else>Unfollow</span>
     </p>
   </span>
@@ -30,8 +36,8 @@ export default {
       return this.$store.state.authStore.user;
     },
   },
-  created () {
-      this.setFollow();
+  created() {
+    this.setFollow();
   },
   methods: {
     followUser() {

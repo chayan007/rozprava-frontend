@@ -30,7 +30,7 @@
         data-toggle="modal"
         data-target="#modal-default"
       >
-        <img class="attach-icon" src="@/assets/attachment1.png" alt="" />
+        <img class="attach-icon" src="@/assets/attachment.svg" alt="" />
       </button>
       <small class="row align-items-center col col-9 p-0 m-0"
         >PDF, Images, Links, Audios, Videos, etc
@@ -47,7 +47,7 @@
           class="p-2 post-com-btn post-com-post-for shadow"
           v-on:click="createDebate(1)"
         >
-          <img class="post-com-icon" src="@/assets/case-like.svg" alt="" />
+          <img class="post-com-icon" src="@/assets/like.svg" alt="" />
           <h6 class="text-center m-0">In Favour</h6>
         </div>
       </div>
@@ -56,7 +56,7 @@
           class="p-2 post-com-btn post-com-post-aga shadow"
           v-on:click="createDebate(0)"
         >
-          <img class="post-com-icon" src="@/assets/case-dislike.svg" alt="" />
+          <img class="post-com-icon" src="@/assets/dislike.svg" alt="" />
           <h6 class="text-center m-0">Against</h6>
         </div>
       </div>
@@ -94,6 +94,25 @@ export default {
   },
 
   methods: {
+    addFile(files) {
+      this.files.push(files);
+    },
+    removeFile(index) {
+      this.files.splice(index, 1);
+    },
+    submitFiles(slug) {
+      const { dispatch } = this.$store;
+      console.log(slug);
+      // convert the list of files into json object
+      let proofRequestBody = {};
+      for (let x = 0; x < this.files.length; x++) {
+        proofRequestBody[`proof_${x + 1}`] = this.files[x];
+      }
+      caseService.uploadProof(proofRequestBody, slug).catch((error) => {
+        dispatch("alertStore/error", error);
+      });
+    },
+
     createDebate(incline) {
       console.log(this.uuid);
       this.inclination = incline;
@@ -165,25 +184,7 @@ export default {
       }
 
     },
-    addFile(files) {
-      this.files.push(files);
-      this.upload();
-    },
-    removeFile(index) {
-      this.files.splice(index, 1);
-    },
-    submitFiles(slug) {
-      const { dispatch } = this.$store;
-
-      // convert the list of files into json object
-      let proofRequestBody = {};
-      for (let x = 0; x < this.files.length; x++) {
-        proofRequestBody[`proof_${x + 1}`] = this.files[x];
-      }
-      caseService.uploadProof(proofRequestBody, slug).catch((error) => {
-        dispatch("alertStore/error", error);
-      });
-    },
+    
   },
 };
 </script>

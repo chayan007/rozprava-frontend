@@ -95,7 +95,7 @@
           <span @click="like()" class="row m-0 mr-3 align-items-center">
             <img
               class="metrics-icon mr-1"
-              src="@/assets/case-like.svg"
+              src="@/assets/like.svg"
               alt=""
             />
             {{ detail.metrics[1] }}
@@ -103,7 +103,7 @@
           <span class="row m-0 align-items-center">
             <img
               class="metrics-icon mr-1"
-              src="@/assets/case-dislike.svg"
+              src="@/assets/dislike.svg"
               alt=""
             />
             {{ detail.metrics[2] }}

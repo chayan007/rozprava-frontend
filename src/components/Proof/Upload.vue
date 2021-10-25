@@ -14,7 +14,7 @@
     <div>
       <div class="card shadow-lg border-light container bg-soft p-2">
         <div class="upload_head">
-          <img src="@/assets/upward-arrow.png" />
+          <img class="upload-icon mr-2" src="@/assets/uploadArrow.svg" />
           <span class="h2 font-weight-bold align-top">Upload</span>
         </div>
 
@@ -23,7 +23,7 @@
           <label
             @click="openFileInput()"
             :v-model="file"
-            class="btn btn-icon-only"
+            class="btn btn-icon-only p-2 d-flex justify-content-center align-items-center"
             for="inputfile"
             type="button"
             title="doc button"
@@ -33,7 +33,7 @@
 
           <label
             @click="openFileInput"
-            class="btn btn-icon-only"
+            class="btn btn-icon-only p-2 d-flex justify-content-center align-items-center"
             for="inputfile"
             type="button"
             title="gallery button"
@@ -43,7 +43,7 @@
 
           <label
             @click="openFileInput"
-            class="btn btn-icon-only"
+            class="btn btn-icon-only p-2 d-flex justify-content-center align-items-center"
             for="inputfile"
             type="button"
             title="pdf button"
@@ -53,7 +53,7 @@
 
           <label
             @click="openFileInput"
-            class="btn btn-icon-only"
+            class="btn btn-icon-only p-2 d-flex justify-content-center align-items-center"
             for="inputfile"
             type="button"
             title="text button"
@@ -63,22 +63,22 @@
 
           <label
             @click="openFileInput"
-            class="btn btn-icon-only"
+            class="btn btn-icon-only p-2 d-flex justify-content-center align-items-center"
             for="inputfile"
             type="button"
             title="attach button"
           >
-            <img src="@/assets/attachment1.png" alt="attach" />
+            <img src="@/assets/attachment.svg" alt="attach" />
           </label>
 
           <label
             @click="openFileInput()"
-            class="btn btn-icon-only"
+            class="btn btn-icon-only p-2 d-flex justify-content-center align-items-center"
             for="inputfile"
             type="button"
             title="rozprava button"
           >
-            <img src="@/assets/rozprava.png" alt="rozprava" />
+            <img src="@/assets/file-music.png" alt="rozprava" />
           </label>
         </div>
       </div>
@@ -103,7 +103,7 @@ export default {
     openFileInput() {
       if (this.isDocfile) {
         this.isDocfile = false;
-      } else {
+      } else { 
         this.isDocfile = true;
       }
     },
@@ -165,5 +165,8 @@ input[type="file"]::file-selector-button {
   grid-row-gap: 25px;
   grid-column-gap: 25px;
   justify-content: center;
+}
+.upload-icon {
+  width: 1.9em;
 }
 </style>

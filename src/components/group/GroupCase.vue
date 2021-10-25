@@ -52,7 +52,7 @@
                 src="@/assets/likeLight.svg"
                 alt=""
               />
-              <img v-else class="sm-icon" src="@/assets/case-like.svg" alt="" />
+              <img v-else class="sm-icon" src="@/assets/like.svg" alt="" />
               <span class="metrics-txt ml-1">21</span>
             </span>
             <span class="mr-3">
@@ -65,7 +65,7 @@
               <img
                 v-else
                 class="sm-icon"
-                src="@/assets/case-dislike.svg"
+                src="@/assets/dislike.svg"
                 alt=""
               />
               <span class="metrics-txt ml-1">31</span>

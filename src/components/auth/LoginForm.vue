@@ -12,8 +12,11 @@
             <div class="input-group mb-4">
               <div class="input-group-prepend">
                 <span class="input-group-text border-0"
-                  ><span class="fas fa-envelope"></span
-                ></span>
+                  ><img
+                      src="../../assets/username.svg"
+                      alt="sign in"
+                      width="14"
+                  /></span>
               </div>
               <input
                 class="form-control border-0"
@@ -34,8 +37,11 @@
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
                   <span class="input-group-text border-0"
-                    ><span class="fas fa-unlock-alt"></span
-                  ></span>
+                    ><img
+                      src="../../assets/lock.svg"
+                      alt="sign in"
+                      width="14"
+                  /></span>
                 </div>
                 <input
                   class="form-control border-0"
@@ -94,7 +100,7 @@
         <button class="login-social-btn  btn btn-pill github mb-3 p-2 w-100 shadow-md border-0" type="button">
            <img
               class="login-icons"
-              src="@/assets/google.png"
+              src="@/assets/socialIcons/google.png"
           />
           <span class="h6 m-0">
             Sign in using Google
@@ -104,7 +110,7 @@
         <button class="login-social-btn btn btn-pill github mb-3 p-2 w-100 shadow-md border-0" type="button">
            <img
               class="login-icons"
-              src="@/assets/facebook.png"
+              src="@/assets/socialIcons/facebook.png"
           />
           <span class="h6 m-0">
             Sign in using Facebook
@@ -114,7 +120,7 @@
         <button class="login-social-btn btn btn-pill github mb-3 p-2 w-100 shadow-md border-0" type="button">
           <img
               class="login-icons"
-              src="@/assets/twitter.png"
+              src="@/assets/socialIcons/twitter.png"
           />
           <span class="h6 m-0">
             Sign in using Twitter

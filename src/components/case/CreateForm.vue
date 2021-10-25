@@ -110,7 +110,7 @@
             <img
               @click="upload"
               class="attach-icon"
-              src="@/assets/attachment1.png"
+              src="@/assets/attachment.svg"
               alt=""
             />
           </button>
@@ -128,7 +128,7 @@
                 row
                 m-0
                 align-items-center
-                rounded-pill
+                rounded-pill 
                 shadow
                 pr-3
                 pl-3

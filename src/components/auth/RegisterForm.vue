@@ -29,8 +29,11 @@
             <div class="input-group mb-4">
               <div class="input-group-prepend">
                 <span class="input-group-text border-0"
-                  ><span class="fas fa-envelope"></span
-                ></span>
+                  ><img
+                      src="../../assets/mail.svg"
+                      alt="sign in"
+                      width="14"
+                  /></span>
               </div>
               <input
                 class="form-control border-0"
@@ -72,8 +75,8 @@
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
                   <span class="input-group-text border-0"
-                    ><span class="fas fa-unlock-alt"></span
-                  ></span>
+                    ><img src="../../assets/lock.svg" alt="sign in" width="14"
+                  /></span>
                 </div>
                 <input
                   class="form-control border-0"
@@ -90,8 +93,8 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text border-0"
-                    ><span class="fas fa-unlock-alt"></span
-                  ></span>
+                    ><img src="../../assets/lock.svg" alt="sign in" width="14"
+                  /></span>
                 </div>
                 <input
                   class="form-control border-0"
@@ -158,13 +161,13 @@
         <!-- social sign-up -->
         <div>
            <button class="social-icon rounded-circle mx-3 btn p-2 shadow">
-            <img src="@/assets/google.png" alt="">
+            <img src="@/assets/socialIcons/google.png" alt="">
           </button>
            <button class="social-icon rounded-circle mx-3 btn p-2 shadow">
-            <img src="@/assets/facebook.png" alt="">
+            <img src="@/assets/socialIcons/facebook.png" alt="">
           </button>
            <button class="social-icon rounded-circle mx-3 btn p-2 shadow">
-            <img src="@/assets/twitter.png" alt="">
+            <img src="@/assets/socialIcons/twitter.png" alt="">
           </button>
         </div>
         <!-- social sign-up -->
