@@ -2,12 +2,6 @@ let activityConfig;
 
 activityConfig = {
     api: {
-        case: {
-            endpoint: "case/activity/{}/{}"
-        },
-        debate: {
-            endpoint: "debate/activity/{}/{}"
-        },
         fetchActivity: {
             endpoint: "activity/v1/list/"
         },
