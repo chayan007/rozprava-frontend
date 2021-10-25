@@ -70,7 +70,7 @@
       <!-- case content -->
       <!-- proof -->
       <div class="proof-box mt-3 mb-3">
-        <img class="rounded" src="../../assets/detail-case.png" alt="" />
+        <img class="rounded" src="@/assets/Detail-case.png" alt="" />
       </div>
       <!-- proof -->
       <!-- metrics -->
