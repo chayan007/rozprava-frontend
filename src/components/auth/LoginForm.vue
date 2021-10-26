@@ -8,15 +8,17 @@
         <form action="#" @submit.prevent="handleSubmit" novalidate>
           <!-- Form -->
           <div class="form-group">
-            <label class="w-100 text-left h6" for="exampleInputIcon999">Username</label>
+            <label class="w-100 text-left h6" for="exampleInputIcon999"
+              >Username</label
+            >
             <div class="input-group mb-4">
               <div class="input-group-prepend">
                 <span class="input-group-text border-0"
                   ><img
-                      src="../../assets/username.svg"
-                      alt="sign in"
-                      width="14"
-                  /></span>
+                    src="../../assets/username.svg"
+                    alt="sign in"
+                    width="14"
+                /></span>
               </div>
               <input
                 class="form-control border-0"
@@ -33,27 +35,40 @@
           <div class="form-group">
             <!-- Form -->
             <div class="form-group">
-              <label class="w-100 text-left h6" for="exampleInputPassword345">Password</label>
-              <div class="input-group mb-4">
+              <label class="w-100 text-left h6" for="exampleInputPassword345"
+                >Password</label
+              >
+              <div class="input-group mb-1">
                 <div class="input-group-prepend">
                   <span class="input-group-text border-0"
-                    ><img
-                      src="../../assets/lock.svg"
-                      alt="sign in"
-                      width="14"
+                    ><img src="../../assets/lock.svg" alt="sign in" width="14"
                   /></span>
                 </div>
                 <input
                   class="form-control border-0"
                   id="exampleInputPassword345"
                   placeholder="Password"
-                  type="password"
+                  :type="togglePass"
                   v-model="password"
                   name="password"
                   aria-label="Password"
                   required
                 />
               </div>
+              <span
+                v-if="togglePass == 'password'"
+                class="w-100 d-block text-right"
+                @click="togglePass = 'text'"
+              >
+                View password
+              </span>
+              <span
+                v-else
+                class="w-100 d-block text-right"
+                @click="togglePass = 'password'"
+              >
+                Hide password
+              </span>
             </div>
             <!-- End of Form -->
 
@@ -71,8 +86,13 @@
             </div>
           </div>
           <Loader v-if="logedIn"></Loader>
-          <button v-show="!logedIn" type="submit" class="btn btn-pill pl-4 pr-4 btn-primary" @click="logedIn = 1">
-            <img  src="../../assets/login.svg" alt="sign in" width="30" />
+          <button
+            v-show="!logedIn"
+            type="submit"
+            class="btn btn-pill pl-4 pr-4 btn-primary"
+            @click="logedIn = 1"
+          >
+            <img src="../../assets/login.svg" alt="sign in" width="30" />
           </button>
         </form>
 
@@ -97,40 +117,61 @@
           </span>
         </div>
 
-        <button class="login-social-btn  btn btn-pill github mb-3 p-2 w-100 shadow-md border-0" type="button">
-           <img
-              class="login-icons"
-              src="@/assets/socialIcons/google.png"
-          />
-          <span class="h6 m-0">
-            Sign in using Google
-           </span>
+        <button
+          class="
+            login-social-btn
+            btn btn-pill
+            github
+            mb-3
+            p-2
+            w-100
+            shadow-md
+            border-0
+          "
+          type="button"
+        >
+          <img class="login-icons" src="@/assets/socialIcons/google.png" />
+          <span class="h6 m-0"> Sign in using Google </span>
         </button>
         <br />
-        <button class="login-social-btn btn btn-pill github mb-3 p-2 w-100 shadow-md border-0" type="button">
-           <img
-              class="login-icons"
-              src="@/assets/socialIcons/facebook.png"
-          />
-          <span class="h6 m-0">
-            Sign in using Facebook
-           </span>
+        <button
+          class="
+            login-social-btn
+            btn btn-pill
+            github
+            mb-3
+            p-2
+            w-100
+            shadow-md
+            border-0
+          "
+          type="button"
+        >
+          <img class="login-icons" src="@/assets/socialIcons/facebook.png" />
+          <span class="h6 m-0"> Sign in using Facebook </span>
         </button>
         <br />
-        <button class="login-social-btn btn btn-pill github mb-3 p-2 w-100 shadow-md border-0" type="button">
-          <img
-              class="login-icons"
-              src="@/assets/socialIcons/twitter.png"
-          />
-          <span class="h6 m-0">
-            Sign in using Twitter
-            </span>
+        <button
+          class="
+            login-social-btn
+            btn btn-pill
+            github
+            mb-3
+            p-2
+            w-100
+            shadow-md
+            border-0
+          "
+          type="button"
+        >
+          <img class="login-icons" src="@/assets/socialIcons/twitter.png" />
+          <span class="h6 m-0"> Sign in using Twitter </span>
         </button>
       </div>
       <span class="mt-4">
         <h6>
           <router-link to="/register"
-            >Don't have an account?  <b class="pl-2"> Sign-Up</b></router-link
+            >Don't have an account? <b class="pl-2"> Sign-Up</b></router-link
           >
         </h6>
       </span>
@@ -145,13 +186,14 @@ import Loader from "@/components/Loader.vue";
 
 export default {
   name: "LoginForm",
-  components: {Loader},
+  components: { Loader },
   data() {
     return {
       username: "",
       password: "",
       submitted: false,
-      logedIn: 0
+      logedIn: 0,
+      togglePass: 'password',
     };
   },
   computed: {
@@ -212,7 +254,7 @@ export default {
 }
 .login-icons {
   position: absolute;
-  left: .5em;
+  left: 0.5em;
   width: 1.5em;
 }
 .btn {
@@ -224,7 +266,8 @@ export default {
 .form-control {
   box-shadow: none !important;
 }
-.form-check-label::before, .form-check-label::after {
+.form-check-label::before,
+.form-check-label::after {
   box-shadow: none;
   border-radius: 5px;
 }

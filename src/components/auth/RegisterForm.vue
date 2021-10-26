@@ -72,7 +72,7 @@
               </div>
             </div>
             <div class="form-group">
-              <div class="input-group mb-4">
+              <div class="input-group mb-1">
                 <div class="input-group-prepend">
                   <span class="input-group-text border-0"
                     ><img src="../../assets/lock.svg" alt="sign in" width="14"
@@ -83,11 +83,25 @@
                   id="password1-input"
                   placeholder="Password"
                   v-model="password1"
-                  type="password"
+                  :type="togglePass"
                   aria-label="Password"
                   required
                 />
               </div>
+              <span
+                v-if="togglePass == 'password'"
+                class="w-100 d-block text-right"
+                @click="togglePass = 'text'"
+              >
+                View password
+              </span>
+              <span
+                v-else
+                class="w-100 d-block text-right"
+                @click="togglePass = 'password'"
+              >
+                Hide password
+              </span>
             </div>
             <div class="form-group mb-4">
               <div class="input-group">
@@ -199,6 +213,7 @@ export default {
       password2: "",
       phone: "",
       submitted: false,
+      togglePass: 'password'
     };
   },
   computed: {
