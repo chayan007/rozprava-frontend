@@ -69,7 +69,11 @@
               "
             >
               <span>Search</span>
-              <img class="menu-item-icon pr-2" src="@/assets/search.svg" alt="" />
+              <img
+                class="menu-item-icon pr-2"
+                src="@/assets/search.svg"
+                alt=""
+              />
             </span>
           </router-link>
         </li>
@@ -150,17 +154,29 @@
           </router-link>
         </li>
         <br /><br />
-        <li class="nav-item" data-toggle="collapse" data-target="#navbar_global">
+        <li
+          class="nav-item"
+          data-toggle="collapse"
+          data-target="#navbar_global"
+        >
           <router-link to="/aboutus">
             <h6 class="m-0 nav-link">About us</h6>
           </router-link>
         </li>
-        <li class="nav-item" data-toggle="collapse" data-target="#navbar_global">
+        <li
+          class="nav-item"
+          data-toggle="collapse"
+          data-target="#navbar_global"
+        >
           <router-link to="/report">
             <h6 class="m-0 nav-link">Report</h6>
           </router-link>
         </li>
-        <li class="nav-item" data-toggle="collapse" data-target="#navbar_global">
+        <li
+          class="nav-item"
+          data-toggle="collapse"
+          data-target="#navbar_global"
+        >
           <router-link to="/termsandconditions">
             <h6 class="m-0 nav-link">Terms and Conditions</h6>
           </router-link>
@@ -210,7 +226,9 @@
       </a>
       <ul class="nav-profile-dropdown dropdown-menu mt-4">
         <li>
-          <router-link :to="'/profile/'+is_authenticated.profile.user.username">
+          <router-link
+            :to="'/profile/' + is_authenticated.profile.user.username"
+          >
             <a class="dropdown-item">My Profile</a>
           </router-link>
         </li>
@@ -225,9 +243,7 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/logout">
-            <a class="dropdown-item">Log out</a>
-          </router-link>
+          <a class="dropdown-item" @click="logout">Log out</a>
         </li>
       </ul>
     </div>
@@ -235,12 +251,24 @@
 </template>
 
 <script>
+// import router from "@/router";
+
 export default {
   name: "Nav",
   computed: {
     is_authenticated() {
       return this.$store.state.authStore.user;
-    }
+    },
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("user");
+      // this.$router.go("/");
+      this.$router.go({
+        path: "/",
+        // force: true,
+      });
+    },
   },
 };
 </script>
@@ -262,7 +290,7 @@ export default {
 .nav-profile-dropdown {
   background-color: #fff;
 }
-.nav-menu-collapse{
+.nav-menu-collapse {
   box-shadow: 3px 3px 20px -2px rgba(51, 51, 51, 0.534);
 }
 .menu-icon {

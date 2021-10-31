@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
                 "endpoint": "profile/auth/login/"
             },
             settings: {
-                "endpoint": "profile/user/{0}/"
+                "endpoint": "profile/user/{0}"
             },
             checkUser: {
                 "endpoint": "profile/reset-password/check-user/{0}/"

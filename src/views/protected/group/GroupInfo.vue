@@ -67,13 +67,17 @@ export default {
       uuid: this.$route.params.uuid,
     };
   },
+  computed: {
+    is_authenticated() {
+      return this.$store.state.authStore.user;
+    },
+  },
   methods: {
     getGroupDetail() {
       const { dispatch } = this.$store;
       groupService
         .getGroupInformation(this.uuid)
         .then((groupDetails) => {
-          console.log(groupDetails);
           this.groupDetails = groupDetails;
         })
         .catch((error) => {
@@ -82,20 +86,18 @@ export default {
     },
     leaveGroup() {
       const { dispatch } = this.$store;
-      let profile = "Chirag";
+      let profile = this.is_authenticated.profile.user.username;
       groupService
         .leaveGroup(this.uuid, profile)
         .then(() => {
-          let arr = this.groupDetails.profiles;
-          console.log("leave wala", arr);
           router.push({
-            path: "MyGroups",
+            path: "my-groups",
           });
         })
         .catch((error) => {
           dispatch("alertStore/error", error);
         });
-    },
+    }
   },
   created() {
     this.getGroupDetail();

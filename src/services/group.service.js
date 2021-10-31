@@ -6,6 +6,8 @@ export const groupService = {
   addGroup,
   getGroupInformation,
   leaveGroup,
+  makeGroupAdmin,
+  getGroupList,
 };
 
 function addGroup(createGroupBody) {
@@ -45,6 +47,36 @@ function leaveGroup(uuid, profile) {
   );
   return axios
     .post(url, profile, { headers: headers })
+    .then((response) => {
+      return response.data;
+    })
+    .catch(() => {
+      throw config.messagingConfig.messages.unknown_error;
+    });
+}
+
+function makeGroupAdmin(uuid) {
+  const headers = authHeader();
+  const url = stringFormat(
+    `${config.commonConfig.$apiUrl}/${config.groupConfig.api.makeGroupAdmin.endpoint}`,
+    uuid
+  );
+  return axios
+    .post(url, { headers: headers })
+    .then((response) => {
+      return response.data;
+    })
+    .catch(() => {
+      throw config.messagingConfig.messages.unknown_error;
+    });
+}
+
+function getGroupList(is_my_groups = 0, offset = 0, limit = 10) {
+  const headers = authHeader();
+  let url = `${config.commonConfig.$apiUrl}/${config.groupConfig.api.getGroupList.endpoint}?is_my_groups=${is_my_groups}?limit=${limit}`;
+  if (offset) url = `${url}&offset=${offset.toString()}`;
+  return axios
+    .get(url, { headers: headers })
     .then((response) => {
       return response.data;
     })

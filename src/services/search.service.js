@@ -11,7 +11,6 @@ function searchProfile(username, offset = 0, limit = 10) {
     username
   );
   if (offset) url = `${url}&offset=${offset.toString()}`;
-  console.log(url);
   return axios
     .get(url, { headers: headers })
     .then((response) => {

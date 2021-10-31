@@ -17,7 +17,7 @@
       <li class="mb-3">
         <router-link to="/group-info">
           <div class="d-flex justify-content-between align-items-center">
-            <span class="admin-tag h6 m-0">Make Admin</span>
+            <span class="admin-tag h6 m-0" @click="makeAdmin">Make Admin</span>
             <img class="icon" src="@/assets/ticks.svg" alt="" />
           </div>
         </router-link>
@@ -26,7 +26,9 @@
       <li>
         <router-link to="/group-info">
           <div class="d-flex justify-content-between align-items-center">
-            <span class="leave-btn-text h6 m-0">Remove</span>
+            <span class="leave-btn-text h6 m-0" v-on:click="removeFromGroup"
+              >Remove</span
+            >
             <img class="icon" src="@/assets/logout.svg" alt="" />
           </div>
         </router-link>
@@ -37,9 +39,16 @@
 </template>
 
 <script>
+import { groupService } from "@/services";
+
 export default {
   name: "GroupParticipant",
   props: ["profile", "admin"],
+  data() {
+    return {
+      uuid: this.$route.params.uuid,
+    };
+  },
   computed: {
     checkAdmin() {
       var foundAdmin = false;
@@ -54,6 +63,34 @@ export default {
       } else {
         return 0;
       }
+    },
+  },
+  methods: {
+    makeAdmin() {
+      const { dispatch } = this.$store;
+      groupService
+        .makeGroupAdmin(this.uuid)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          dispatch("alertStore/error", error);
+        });
+    },
+    removeFromGroup() {
+      const { dispatch } = this.$store;
+      // let profile = profile.user.username;
+      groupService
+        .leaveGroup(this.uuid, this.profile)
+        .then((res) => {
+          console.log("removed from group", res);
+          // router.push({
+          //   path: "my-groups",
+          // });
+        })
+        .catch((error) => {
+          dispatch("alertStore/error", error);
+        });
     },
   },
 };

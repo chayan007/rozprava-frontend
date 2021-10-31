@@ -9,6 +9,48 @@
       v-on:click="openAddMembers = !openAddMembers"
     />
   </div>
+
+  <!-- Groups of Person -->
+
+  <div v-if="groupLists.length == 0">
+    <h1>No groups found !</h1>
+  </div>
+
+  <div v-else>
+    <div v-if="!groupLists">
+      <Loader class="my-10" />
+    </div>
+
+    <div v-else class="p-3">
+      <div
+        class="card bg-primary shadow-soft border-light py-2 my-4"
+        v-for="groupList in groupLists"
+        :key="groupList.message"
+      >
+        <div
+          class="p-2 col col-12 row m-0 align-items-center"
+          @click="getGroupDetail(groupList)"
+        >
+          <div class="w-100">
+            <img
+              class="pro-pic-sm rounded-circle mr-2"
+              v-if="groupList.display_pic"
+              :src="groupList.display_pic"
+              alt=""
+            />
+            <img
+              class="pro-pic-md rounded-circle mr-2"
+              v-else
+              src="@/assets/profile-picture-1.jpg"
+              alt=""
+            />
+            <h2 class="m-0 ml-2 d-inline">{{ groupList.name }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- add grp component -->
 
   <div class="add-grp-box w-100" v-if="openAddMembers">
@@ -57,7 +99,7 @@
                   src="@/assets/profile-picture-1.jpg"
                   alt=""
                 />
-                {{ member.user.username }}
+                {{ member }}
                 <span class="pl-3" v-on:click="removeMember(index)"> x</span>
               </p>
             </span>
@@ -77,30 +119,32 @@
           </div>
 
           <!-- add names -->
-          <div
-            class="
-              outer
-              row
-              m-0
-              justify-content-between
-              mt-3
-              align-items-center
-            "
-            v-for="(profile, index) in profile_info"
-            :key="profile.uuid"
-            v-on:click="addMember(index)"
-          >
-            <div class="pro-box row m-0 align-items-center">
-              <img
-                class="pro-pic rounded-circle"
-                src="@/assets/profile-picture-1.jpg"
-                alt=""
-              />
-              <div class="pro-name pl-3">
-                <p>{{ profile.user.username }}</p>
+          <div class="search-profile-box">
+            <div
+              class="
+                outer
+                row
+                m-0
+                justify-content-between
+                mt-3
+                align-items-center
+              "
+              v-for="(profile, index) in profile_info"
+              :key="profile.uuid"
+              v-on:click="addMember(index)"
+            >
+              <div class="pro-box row m-0 align-items-center">
+                <img
+                  class="pro-pic rounded-circle"
+                  src="@/assets/profile-picture-1.jpg"
+                  alt=""
+                />
+                <div class="pro-name pl-3">
+                  <p>{{ profile.user.username }}</p>
+                </div>
               </div>
+              <!-- <img src="@/assets/dtick.png" alt="tick" class="pro-tick" /> -->
             </div>
-            <!-- <img src="@/assets/dtick.png" alt="tick" class="pro-tick" /> -->
           </div>
 
           <!-- create button -->
@@ -130,10 +174,12 @@
 import { stringFormat } from "@/helpers";
 import { config } from "@/configurations";
 import { groupService, searchService } from "@/services";
+// import Loader from "@/components/Loader.vue";
 import router from "@/router";
 
 export default {
   name: "CreateGroup",
+  // components: { Loader },
   data() {
     return {
       groupName: "",
@@ -144,6 +190,10 @@ export default {
       profile_info: [],
       searchValue: "",
       groupFormed: 0,
+      is_my_groups: 1,
+      offset: 0,
+      limit: 10,
+      groupList: null,
     };
   },
 
@@ -153,14 +203,26 @@ export default {
     },
   },
 
+  computed: {
+    is_authenticated() {
+      return this.$store.state.authStore.user;
+    },
+  },
+
   methods: {
     addMember(index) {
-      console.log("members",this.profile_info[index]);
       this.members.push(this.profile_info[index].user.username);
     },
 
     removeMember(index) {
       this.members.splice(index, 1);
+    },
+
+    getGroupDetail(groupList) {
+      router.push({
+        name: "GroupInfo",
+        params: { uuid: groupList.uuid },
+      });
     },
 
     searchProfile() {
@@ -170,7 +232,6 @@ export default {
         .searchProfile(username)
         .then((profile_info) => {
           this.profile_info = profile_info.results.slice();
-          console.log("profiles", this.profile_info);
         })
         .catch(() => {
           dispatch(
@@ -205,7 +266,6 @@ export default {
           members: members,
         })
         .then((createdGroup) => {
-          console.log(createdGroup);
           router.push({
             name: "GroupInfo",
             params: { uuid: createdGroup.group.uuid },
@@ -218,6 +278,26 @@ export default {
           );
         });
     },
+    getGroup() {
+      const { dispatch } = this.$store;
+      // this.offset = this.offset + this.limit;
+
+      groupService
+        .getGroupList(this.is_my_groups, this.offset, this.limit)
+        .then((groupLists) => {
+          this.groupLists = groupLists.results;
+          console.log(groupLists.results);
+        })
+        .catch(() => {
+          dispatch(
+            "alertStore/error",
+            config.messagingConfig.messages.error.unknown_error
+          );
+        });
+    },
+  },
+  created() {
+    this.getGroup();
   },
 };
 </script>
@@ -284,5 +364,15 @@ export default {
   background-color: #e6e7ee;
   margin: 1em auto !important;
   width: 5em;
+}
+
+.search-profile-box {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.pro-pic-md {
+  height: 3.5em;
+  width: 3.5em;
 }
 </style>
