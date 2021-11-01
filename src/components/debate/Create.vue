@@ -1,5 +1,5 @@
 <template>
-  <div class="create-comment-form-inner shadow-soft p-2">
+  <div class="create-comment-form-inner shadow p-2">
     <textarea
       v-model="comment"
       class="form-control1"
@@ -24,16 +24,20 @@
 
     <div class="row w-100 m-0 mt-3 mb-3">
       <button
+        @click="openUpload = !openUpload"
         type="submit"
         class="btn attach-btn mr-2 rounded-0 p-0 pr-2"
         data-toggle="modal"
         data-target="#modal-default"
       >
-        <img class="attach-icon" src="@/assets/attachment1.png" alt="" />
+        <img class="attach-icon" src="@/assets/attachment.svg" alt="" />
       </button>
       <small class="row align-items-center col col-9 p-0 m-0"
         >PDF, Images, Links, Audios, Videos, etc
       </small>
+       <div v-if="openUpload" class="upload-box d-flex justify-content-center w-100">
+         <UploadComponent class="upload position-absolute" @clicked="addFile" />
+       </div>
     </div>
 
     <div class="com-post-btn-box row m-0">
@@ -43,7 +47,7 @@
           class="p-2 post-com-btn post-com-post-for shadow"
           v-on:click="createDebate(1)"
         >
-          <img class="post-com-icon" src="@/assets/case-like.svg" alt="" />
+          <img class="post-com-icon" src="@/assets/like.svg" alt="" />
           <h6 class="text-center m-0">In Favour</h6>
         </div>
       </div>
@@ -52,7 +56,7 @@
           class="p-2 post-com-btn post-com-post-aga shadow"
           v-on:click="createDebate(0)"
         >
-          <img class="post-com-icon" src="@/assets/case-dislike.svg" alt="" />
+          <img class="post-com-icon" src="@/assets/dislike.svg" alt="" />
           <h6 class="text-center m-0">Against</h6>
         </div>
       </div>
@@ -65,19 +69,22 @@
 import { stringFormat } from "@/helpers";
 import { config } from "@/configurations";
 import { debateService } from "@/services";
+import { caseService } from "@/services";
 import router from "@/router";
-// import Upload from "@/components/Upload.vue";
+import Upload from "@/components/Proof/Upload.vue";
 
 export default {
   name: "DebateCreate",
   props: ["caseUuid", "commentSection"],
-  // components: { UploadComponent: Upload },
+  components: { UploadComponent: Upload },
   data() {
     return {
       uuid: this.caseUuid,
       comment: "",
       isAnonymous: 0,
       inclination: null,
+      openUpload: 0,
+      files: []
     };
   },
   watch: {
@@ -87,6 +94,25 @@ export default {
   },
 
   methods: {
+    addFile(files) {
+      this.files.push(files);
+    },
+    removeFile(index) {
+      this.files.splice(index, 1);
+    },
+    submitFiles(slug) {
+      const { dispatch } = this.$store;
+      console.log(slug);
+      // convert the list of files into json object
+      let proofRequestBody = {};
+      for (let x = 0; x < this.files.length; x++) {
+        proofRequestBody[`proof_${x + 1}`] = this.files[x];
+      }
+      caseService.uploadProof(proofRequestBody, slug).catch((error) => {
+        dispatch("alertStore/error", error);
+      });
+    },
+
     createDebate(incline) {
       console.log(this.uuid);
       this.inclination = incline;
@@ -158,10 +184,7 @@ export default {
       }
 
     },
-    upload() {
-      var element = document.getElementById("show");
-      element.classList.toggle("show_hide");
-    },
+    
   },
 };
 </script>
@@ -186,7 +209,9 @@ export default {
 .form-control1:focus {
   outline: none;
 }
-
+.upload {
+  bottom: 11rem;
+}
 .create-comment-form-inner {
   background-color: rgb(243, 243, 243);
   border-radius: 20px;

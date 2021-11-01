@@ -1,6 +1,6 @@
 <template>
   <div class="rebuttal-outer p-2 mb-3 w-100" v-if="rebuttalItem">
-    <div class="rebuttal-inner shadow-soft">
+    <div class="rebuttal-inner shadow border-light border">
       <div class="pre-comment p-3">
         <!-- profile bar -->
         <div class="row m-0 justify-content-between w-100">
@@ -35,7 +35,7 @@
             <span class="row m-0 align-items-center">
               <img
                 class="case-react-icons mr-1"
-                src="@/assets/case-like.svg"
+                src="@/assets/like.svg"
                 alt=""
               />
               <small class="react-txt m-0 mr-3 h6">{{
@@ -45,7 +45,7 @@
             <span class="row m-0 align-items-center">
               <img
                 class="case-react-icons mr-1"
-                src="@/assets/case-dislike.svg"
+                src="@/assets/dislike.svg"
                 alt=""
               />
               <small class="react-txt m-0 mr-3 h6">{{
@@ -222,6 +222,7 @@ export default {
         .getRebuttals(uuid)
         .then((rebuttals) => {
           this.rebuttals = rebuttals.rebuttals;
+          console.log(this.rebuttals);
         })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
@@ -324,7 +325,7 @@ export default {
   top: 0%;
   left: 0;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.849);
+  background-color: rgba(0, 0, 0, 0.418);
 }
 
 .create-comment-form {

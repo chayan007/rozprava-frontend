@@ -24,8 +24,14 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             resetPassword: {
                 "endpoint": "profile/reset-password/change-password/{0}/"
             },
-            getProfile:{
+            getProfile: {
                 "endpoint": "profile/user/{0}/"
+            },
+            sendFollowUser: {
+                "endpoint": "profile/follow/{}"
+            },
+            getFollowers: {
+                "endpoint": "profile/followers/{0}"
             }
         },
         constants: {
@@ -63,6 +69,12 @@ if (process.env.NODE_ENV === "PRODUCTION") {
             },
             fetchRecommendations:{
                 "endpoint": "profile/recommend/",  
+            },
+            sendFollowUser: {
+                "endpoint": "profile/follow/{0}"
+            },
+            getFollowers: {
+                "endpoint": "profile/followers/{0}"
             }
         },
         constants: {

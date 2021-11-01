@@ -36,7 +36,7 @@ function getCases(category = null, username = null) {
   return axios
     .get(url, { headers: headers })
     .then((response) => {
-      if (response.data.length) {
+      if (response.data.results.length) {
         return response.data;
       } else {
         throw stringFormat(

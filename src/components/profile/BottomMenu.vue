@@ -6,10 +6,10 @@
           <img src="@/assets/Edit.png" alt="Edit icon image" width="30" />
         </button>
         <button type="button" class="btn btn-pill btn-primary">
-          <img src="@/assets/Add.png" alt="Add Icon image" width="33" />
+          <img src="@/assets/add.svg" alt="Add Icon image" width="33" />
         </button>
         <button type="button" class="a2 btn btn-pill btn-primary">
-          <img src="@/assets/upward-arrow.png" alt="Upward arrow image" width="33" />
+          <img src="@/assets/uploadArrow.svg" alt="Upward arrow image" width="33" />
         </button>
       </div>
     </div>
