@@ -117,7 +117,7 @@
           class="w-100 mt-2 row m-0 align-items-center"
         >
           <div>{{ detail.proofs.length }} Proofs</div>
-          <div class="ml-3" v-if="detail.proofs">
+          <div class="ml-3" v-if="detail.proofs.length">
             <small class="text-left m-0" v-if="!showProofs" @click="showProofs = 1">
               Show proofs
             </small>

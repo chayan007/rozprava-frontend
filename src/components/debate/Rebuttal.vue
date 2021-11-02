@@ -30,7 +30,7 @@
         </div>
 
         <!-- proofs -->
-        <div class="mt-2" v-if="rebuttalItem.proofs">
+        <div class="mt-2" v-if="rebuttalItem.proofs.length">
           <p v-if="!showProofs" @click="showProofs = 1">Show proofs</p>
           <p v-else @click="showProofs = 0">Hide proofs</p>
         </div>
