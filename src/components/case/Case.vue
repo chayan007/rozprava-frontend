@@ -72,10 +72,6 @@
       </router-link>
       <!-- case content -->
       <!-- proofs -->
-      <div class="mt-2" v-if="detail.proofs">
-        <p v-if="!showProofs" @click="showProofs = 1">Show proofs</p>
-        <p v-else @click="showProofs = 0">Hide proofs</p>
-      </div>
       <div
         v-if="showProofs && detail.proofs"
         class="proofs-box w-100 my-4 d-flex"
@@ -92,7 +88,7 @@
       <!-- metrics -->
       <div
         class="
-          mt-3
+          mt-0
           metrics-box
           p-1
           row
@@ -118,9 +114,17 @@
         </div>
 
         <div
-          class="w-100 mt-2 row m-0 justify-content-between align-items-center"
+          class="w-100 mt-2 row m-0 align-items-center"
         >
           <div>{{ detail.proofs.length }} Proofs</div>
+          <div class="ml-3" v-if="detail.proofs">
+            <small class="text-left m-0" v-if="!showProofs" @click="showProofs = 1">
+              Show proofs
+            </small>
+            <small class="text-left m-0" v-else @click="showProofs = 0">
+              Hide proofs
+            </small>
+          </div>
         </div>
       </div>
       <!-- metrics -->
