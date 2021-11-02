@@ -58,7 +58,11 @@
                 @click="activity(0)"
               >
                 <span class="admin-tag h6 m-0">Report</span>
-                <img class="icon" src="@/assets/report.svg" alt="report a post icon" />
+                <img
+                  class="icon"
+                  src="@/assets/report.svg"
+                  alt="report a post icon"
+                />
               </div>
             </li>
           </ul>
@@ -73,17 +77,34 @@
         </small>
       </div>
 
+      <!-- proofs -->
+      <!-- <div class="mt-2" v-if="debate.proofs">
+        <small v-if="!showProofs" @click="showProofs = 1">Show proofs</small>
+        <small v-else @click="showProofs = 0">Hide proofs</small>
+      </div>
+      <div v-if="debate.proofs && showProofs" class="proofs-box w-100 my-4 d-flex">
+        <div
+          class="proof mr-4"
+          v-for="proof in debate.proofs"
+          :key="proof.uuid"
+        >
+          <Proof :proof="proof" />
+        </div>
+      </div> -->
+
       <hr class="mb-0 mt-2" />
       <!-- reactions -->
       <div class="com-react-box row justify-content-between m-0 p-1">
         <span class="row m-0 align-items-center">
           <span @click="activity(1)" class="row m-0 align-items-center">
-            <img v-if="activityDone == 1"
+            <img
+              v-if="activityDone == 1"
               class="case-react-icons mr-1"
               src="@/assets/liked.svg"
               alt="liked icon"
             />
-            <img v-else
+            <img
+              v-else
               class="case-react-icons mr-1"
               src="@/assets/like.svg"
               alt="like icon"
@@ -93,12 +114,14 @@
             }}</small>
           </span>
           <span @click="activity(2)" class="row m-0 align-items-center">
-            <img v-if="activityDone == 2"
+            <img
+              v-if="activityDone == 2"
               class="case-react-icons mr-1"
               src="@/assets/disliked.svg"
               alt="disliked icon"
             />
-            <img v-else
+            <img
+              v-else
               class="case-react-icons mr-1"
               src="@/assets/dislike.svg"
               alt="dislike icon"
@@ -128,17 +151,21 @@
 import { config } from "@/configurations";
 import { debateService } from "@/services";
 import { activityService } from "@/services";
+// import Proof from "@/components/case/Proofs.vue";
+
 import router from "@/router";
 
 export default {
   name: "Against",
+  // components: { Proof },
   props: ["newDebate", "createdAt", "isRebuttal"],
   data() {
     return {
-      debate : this.newDebate,
-      cAgainst : false,
-      uuid : this.newDebate.uuid,
-      activityDone : null,
+      debate: this.newDebate,
+      cAgainst: false,
+      uuid: this.newDebate.uuid,
+      activityDone: null,
+      showProofs: 0
     };
   },
   methods: {
@@ -232,5 +259,14 @@ export default {
   border-radius: 10px;
   background-color: #a91e2c;
   color: #fff;
+}
+
+/* proofs */
+.proofs-box {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.proofs-box::-webkit-scrollbar {
+  display: none;
 }
 </style>

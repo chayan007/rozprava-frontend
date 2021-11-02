@@ -50,10 +50,11 @@ function register(name, email, phone, username, password1, password2) {
         password1: password1,
         password2: password2,
         email: email,
-        phone: phone,
+        mobile_number: phone,
         first_name: name.split(' ')[0],
         last_name: name.split(' ').slice(1).join(' ').replace(/\s+/g,' ').trim()
     }
+    console.log(registerBody);
 
     return axios.post(
         `${config.commonConfig.$apiUrl}/${config.userConfig.api.register.endpoint}`,
@@ -68,6 +69,7 @@ function register(name, email, phone, username, password1, password2) {
         })
         .catch((error) => {
             const data = error.response.data;
+            console.log(data);
             if ('non_field_errors' in data){
                 throw data.non_field_errors[0];
             } else if ('email' in data) {

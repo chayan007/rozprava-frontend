@@ -17,7 +17,10 @@ debateConfig = {
         },
         deleteDebate : {
             endpoint : "debate/v1/detail/{0}/"
-        }
+        },
+        uploadDebateProof:{
+            endpoint:"proof/v1/debate/{0}"
+        },
     }
 }
 

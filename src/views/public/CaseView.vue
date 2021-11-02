@@ -243,9 +243,7 @@
 
       <!-- cases -->
       <template v-for="case_detail in cases" :key="case_detail.uuid">
-        <router-link :to="'/case/'+case_detail.slug">
           <Case v-show="filter === -1 || filter === case_detail.category" :detail="case_detail"></Case>
-        </router-link>
       </template>
     </div>
   </div>

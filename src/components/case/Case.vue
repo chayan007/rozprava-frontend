@@ -4,19 +4,22 @@
       <!-- case-profile header -->
       <div class="case-profile-box row m-0 justify-content-between">
         <div class="profile" v-if="detail.profile">
-          <!-- <img v-if="detail.profile.display_pic"
+          <router-link :to="'/profile/' + detail.profile.user.username">
+            <!-- <img v-if="detail.profile.display_pic"
             class="avatar-sm mr-2 img-fluid rounded-circle"
             :src="detail.profile.display_pic"
             alt="display_pic"
           /> -->
-          <img
-            class="avatar-md mr-2 img-fluid rounded-circle"
-            src="@\assets\profile-picture-1.jpg"
-            alt="display_pic"
-          />
-          <p class="m-0 d-inline"> {{ detail.profile.user.username }}</p>
+            <img
+              class="avatar-md mr-2 img-fluid rounded-circle"
+              src="@\assets\profile-picture-1.jpg"
+              alt="display_pic"
+            />
+            <p class="m-0 d-inline">{{ detail.profile.user.username }}</p>
+          </router-link>
         </div>
-        <div v-else class="profile anonymous-tag" >
+
+        <div v-else class="profile anonymous-tag">
           <img
             class="avatar-md mr-2 img-fluid rounded-circle"
             src="@\assets\anonymous.png"
@@ -57,20 +60,33 @@
       </div>
       <!-- case-profile header -->
       <!-- case content -->
-      <router-link :to="'/case/'+detail.slug">
+      <router-link :to="'/case/' + detail.slug">
         <div class="case-content text-left">
-        <h3 class="case-head h5 card-title mt-3 mb-2">
-          {{ detail.question }}
-        </h3>
-        <p class="case-desc card-text">
-          {{ detail.description }}
-        </p>
-      </div>
+          <h3 class="case-head h5 card-title mt-3 mb-2">
+            {{ detail.question }}
+          </h3>
+          <p class="case-desc card-text">
+            {{ detail.description }}
+          </p>
+        </div>
       </router-link>
       <!-- case content -->
-      <!-- proof -->
-      <div class="proof-box mt-3 mb-3">
-        <img class="rounded" src="@/assets/Detail-case.png" alt="" />
+      <!-- proofs -->
+      <div class="mt-2" v-if="detail.proofs">
+        <p v-if="!showProofs" @click="showProofs = 1">Show proofs</p>
+        <p v-else @click="showProofs = 0">Hide proofs</p>
+      </div>
+      <div
+        v-if="showProofs && detail.proofs"
+        class="proofs-box w-100 my-4 d-flex"
+      >
+        <div
+          class="proof mr-4"
+          v-for="proof in detail.proofs"
+          :key="proof.uuid"
+        >
+          <Proof :proof="proof" />
+        </div>
       </div>
       <!-- proof -->
       <!-- metrics -->
@@ -85,7 +101,6 @@
           align-items-center
         "
       >
-
         <div class="views">
           <img class="metrics-icon p-1" src="@/assets/Eye.svg" alt="" />
           {{ detail.metrics[0] }}
@@ -93,27 +108,19 @@
 
         <div class="likes-box row m-0">
           <span @click="like()" class="row m-0 mr-3 align-items-center">
-            <img
-              class="metrics-icon mr-1"
-              src="@/assets/like.svg"
-              alt=""
-            />
+            <img class="metrics-icon mr-1" src="@/assets/like.svg" alt="" />
             {{ detail.metrics[1] }}
           </span>
           <span class="row m-0 align-items-center">
-            <img
-              class="metrics-icon mr-1"
-              src="@/assets/dislike.svg"
-              alt=""
-            />
+            <img class="metrics-icon mr-1" src="@/assets/dislike.svg" alt="" />
             {{ detail.metrics[2] }}
           </span>
         </div>
-        
-        <div class="w-100 mt-2 row m-0 justify-content-between align-items-center">
-          <div>
-            {{detail.proofs.length}} Proofs
-          </div>
+
+        <div
+          class="w-100 mt-2 row m-0 justify-content-between align-items-center"
+        >
+          <div>{{ detail.proofs.length }} Proofs</div>
         </div>
       </div>
       <!-- metrics -->
@@ -124,14 +131,17 @@
 <script>
 import { activityService } from "@/services";
 import { config } from "@/configurations";
+import Proof from "@/components/case/Proofs.vue";
 export default {
   name: "Case",
   props: ["detail"],
+  components: { Proof },
   data() {
     return {
       liked: 0,
       disliked: 0,
-    }
+      showProofs: 1,
+    };
   },
   methods: {
     hasValue(key) {
@@ -139,15 +149,15 @@ export default {
     },
     like() {
       const uuid = this.detail.uuid;
-       activityService
-        .getActivity(uuid,1)
+      activityService
+        .getActivity(uuid, 1)
         .then(() => {
           this.liked = 1;
         })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
         });
-    }
+    },
   },
 };
 </script>
@@ -195,5 +205,13 @@ export default {
 }
 .rt-3 {
   right: 1em;
+}
+/* proofs */
+.proofs-box {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.proofs-box::-webkit-scrollbar {
+  display: none;
 }
 </style>
