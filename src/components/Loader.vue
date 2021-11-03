@@ -2,7 +2,7 @@
   <div
     class="
       loader-box
-      mt-10
+      my-1
       p-5
       w-100
       row

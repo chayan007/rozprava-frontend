@@ -237,19 +237,22 @@
         </div>
       </div>
 
-      <!-- loader -->
-      <Loader v-if="cases.length === 0" />
-      <!-- loader -->
-
       <!-- cases -->
-      <template v-else v-for="case_detail in cases" :key="case_detail.uuid">
-        <router-link :to="'/case/' + case_detail.slug">
-          <Case
-            v-show="filter === -1 || filter === case_detail.category"
-            :detail="case_detail"
-          ></Case>
-        </router-link>
-      </template>
+      <div class="infinite-list" id="infinite-list">
+        <div v-for="case_detail in cases" :key="case_detail.uuid">
+          <router-link :to="'/case/' + case_detail.slug">
+            <Case
+              v-show="filter === -1 || filter === case_detail.category"
+              :detail="case_detail"
+            ></Case>
+          </router-link>
+        </div>
+      </div>
+    </div>
+
+    <!-- loader -->
+    <div v-if="viewLoader">
+      <Loader class="m-0" />
     </div>
   </div>
 </template>
@@ -258,7 +261,7 @@
 import Loader from "@/components/Loader.vue";
 import Case from "@/components/case/Case.vue";
 import { config } from "@/configurations";
-import { caseService } from '@/services';
+import { caseService } from "@/services";
 
 export default {
   name: "CaseView",
@@ -266,15 +269,30 @@ export default {
   data() {
     return {
       filter: -1,
-      cases:[],
-
+      cases: [],
+      offset: "0",
+      limit: 10,
+      viewLoader: 0,
     };
+  },
+  mounted() {
+    // Detect when scrolled to bottom.
+    const listElm = document.querySelector("#infinite-list");
+    listElm.addEventListener("scroll", () => {
+      if (listElm.scrollTop + listElm.clientHeight >= listElm.scrollHeight) {
+        this.getCasesByURL();
+      }
+    });
+
+    // Initially load some items.
+    this.getCasesByURL();
   },
   methods: {
     getCasesByURL() {
       const routePath = this.$route.path;
       const defined_list_route = config.caseConfig.list_routes[routePath];
       const { dispatch } = this.$store;
+      this.viewLoader = 1;
 
       if (!defined_list_route) {
         dispatch(
@@ -286,18 +304,28 @@ export default {
       }
 
       if (defined_list_route === "TIMELINE") {
-        caseService.getCases().then(
-          (cases) =>{ this.cases = cases;
-          }
-        )
-          .catch((error) => dispatch("alertStore/success", error, { root: true }));
-        
-        //directly use service and paginate
+        caseService
+          .getCases(
+            (this.category = null),
+            (this.username = null),
+            (this.uuid = null),
+            this.offset,
+            this.limit
+          )
+          .then((cases) => {
+            if (this.cases == 0) {
+              this.cases = cases;
+            } else {
+              this.cases.push(...cases);
+            }
+            this.viewLoader = 0;
+          })
+          .catch((error) =>
+            dispatch("alertStore/success", error, { root: true })
+          );
       }
+      this.offset = parseInt(this.offset) + this.limit;
     },
-  },
-  created() {
-    this.getCasesByURL();
   },
 };
 </script>
@@ -339,5 +367,10 @@ export default {
 
 .active {
   border: 1px solid rgb(143, 143, 143);
+}
+
+.infinite-list {
+  overflow-y: scroll;
+  max-height: 80vh;
 }
 </style>

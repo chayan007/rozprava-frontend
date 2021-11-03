@@ -10,12 +10,15 @@ export const caseService = {
   deleteCase,
 };
 
-function getCases(category = null, username = null) {
+function getCases(category = null, username = null, uuid = null, offset = null, limit = null) {
   const headers = authHeader();
-  let url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.list.endpoint}`;
+  let url = stringFormat(
+    `${config.commonConfig.$apiUrl}/${config.caseConfig.api.list.endpoint}`,
+    username
+  );
 
   // Check if any query parameter is present or not. If present add trailing `?`
-  url = category || username ? `${url}?` : url;
+  url = category || username || uuid || offset || limit? `${url}?` : url;
 
   // Add category to URL if present.
   url = category
@@ -33,11 +36,24 @@ function getCases(category = null, username = null) {
       )}`
     : url;
 
+  //Add group uuid to url if present
+  url = uuid
+    ? `${url}${stringFormat(
+        config.caseConfig.api.list.queryParameters.groupUuid,
+        uuid
+      )}`
+    : url;
+
+  // Pagination 
+    url = limit
+    ? `${url}&offset=${offset}&limit=${limit}`
+    : url;
+
   return axios
     .get(url, { headers: headers })
     .then((response) => {
-      if (response.data.length) {
-        return response.data;
+      if (response.data.results.length) {
+        return response.data.results;
       } else {
         throw stringFormat(
           config.messagingConfig.messages.notification.watched_all,
@@ -77,7 +93,6 @@ function getCase(slug) {
     .get(url, { headers: headers })
     .then((response) => {
       const getCaseInfo = response.data;
-      this.uploadProof(getCaseInfo);
       return getCaseInfo;
     })
     .catch(() => {

@@ -14,7 +14,7 @@
         /></span>
       </router-link>
     </div>
-    <!-- info box -->
+       <!-- info box -->
     <div class="group-info-box min-vh-100 p-4 pt-4">
       <!-- description -->
       <h6 class="group-desc-title"><b>Description</b></h6>
@@ -46,6 +46,19 @@
         <img
           class="logout-icon position-absolute"
           src="@/assets/logout.svg"
+          alt=""
+        />
+      </div>
+
+      <!-- Delete group button -->
+      <div
+        class="leave-btn btn-dark text-center shadow rounded-pill p-2 mt-3"
+        v-on:click="deleteGroup"
+      >
+        <h5 class="delete-btn-text m-0 d-inline">Delete group</h5>
+        <img
+          class="logout-icon position-absolute"
+          src="@/assets/delete.svg"
           alt=""
         />
       </div>
@@ -91,13 +104,27 @@ export default {
         .leaveGroup(this.uuid, profile)
         .then(() => {
           router.push({
-            path: "my-groups",
+            path: "/my-groups",
           });
         })
         .catch((error) => {
           dispatch("alertStore/error", error);
         });
-    }
+    },
+    deleteGroup() {
+      const { dispatch } = this.$store;
+
+      groupService
+        .deleteGroup(this.uuid)
+        .then(() => {
+          router.push({
+            path: "/my-groups",
+          });
+        })
+        .catch((error) => {
+          dispatch("alertStore/error", error);
+        });
+    },
   },
   created() {
     this.getGroupDetail();
@@ -154,6 +181,9 @@ export default {
 }
 .leave-btn-text {
   color: rgba(235, 50, 35, 1);
+}
+.delete-btn-text {
+  color: #fff;
 }
 .logout-icon {
   width: 2em;

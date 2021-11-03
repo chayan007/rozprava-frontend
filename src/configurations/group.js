@@ -16,6 +16,9 @@ groupConfig = {
     },
     getGroupList: {
       endpoint: "profile/groups/"
+    },
+    deleteGroup:{
+      endpoint:"profile/group/delete/{0}"
     }
   },
 };

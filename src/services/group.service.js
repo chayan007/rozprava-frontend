@@ -8,6 +8,7 @@ export const groupService = {
   leaveGroup,
   makeGroupAdmin,
   getGroupList,
+  deleteGroup
 };
 
 function addGroup(createGroupBody) {
@@ -71,9 +72,9 @@ function makeGroupAdmin(uuid) {
     });
 }
 
-function getGroupList(is_my_groups = 0, offset = 0, limit = 10) {
+function getGroupList(is_my_groups = 0, offset = 0, limit) {
   const headers = authHeader();
-  let url = `${config.commonConfig.$apiUrl}/${config.groupConfig.api.getGroupList.endpoint}?is_my_groups=${is_my_groups}?limit=${limit}`;
+  let url = `${config.commonConfig.$apiUrl}/${config.groupConfig.api.getGroupList.endpoint}?is_my_groups=${is_my_groups}&limit=${limit}`;
   if (offset) url = `${url}&offset=${offset.toString()}`;
   return axios
     .get(url, { headers: headers })
@@ -81,6 +82,23 @@ function getGroupList(is_my_groups = 0, offset = 0, limit = 10) {
       return response.data;
     })
     .catch(() => {
+      throw config.messagingConfig.messages.unknown_error;
+    });
+}
+
+function deleteGroup(uuid) {
+  const headers = authHeader();
+  const url = stringFormat(
+    `${config.commonConfig.$apiUrl}/${config.groupConfig.api.deleteGroup.endpoint}`,
+    uuid
+  );
+  return axios
+    .delete(url, { headers: headers })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response);
       throw config.messagingConfig.messages.unknown_error;
     });
 }

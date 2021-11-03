@@ -251,7 +251,7 @@
 </template>
 
 <script>
-// import router from "@/router";
+import router from "@/router";
 
 export default {
   name: "Nav",
@@ -263,10 +263,8 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem("user");
-      // this.$router.go("/");
-      this.$router.go({
-        path: "/",
-        // force: true,
+      router.push({
+       name:"Home"
       });
     },
   },

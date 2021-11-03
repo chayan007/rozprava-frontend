@@ -19,7 +19,7 @@
             src="@/assets/groupDp.png"
             alt="group dp"
           />
-          <span class="name ml-2">Rozprava CMI Developers </span>
+          <span class="name ml-2">{{groupname}}</span>
         </router-link>
       </div>
       <!-- group options -->
@@ -92,9 +92,45 @@
 
 <script>
 import GroupCase from "@/components/group/GroupCase.vue";
+import { caseService } from "@/services";
+
 export default {
   name: "Group",
   components: { GroupCase },
+  data() {
+    return {
+      groupname : this.$route.params.groupname,
+      offset: "0",
+      limit: 5,
+      viewLoader: 0,
+    };
+  },
+
+  methods: {
+    getGroupCases() {
+      const { dispatch } = this.$store;
+      let uuid = this.$route.params.uuid;
+
+      caseService
+        .getCases(
+          (this.category = null),
+          (this.username = null),
+          (this.uuid = uuid),
+          this.offset,
+          this.limit
+        )
+        .then((cases) => {
+          console.log(cases);
+        })
+        .catch((error) =>
+          dispatch("alertStore/success", error, { root: true })
+        );
+    },
+  },
+
+  created() {
+    this.getGroupCases();
+  },
 };
 </script>
 
@@ -113,7 +149,7 @@ export default {
 .name {
   font-size: 1.3em;
   white-space: nowrap;
-  width: 50vw;
+  width: 60vw;
   overflow: hidden;
   text-overflow: ellipsis;
 }

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="row m-0 justify-content-between align-items-center p-3 w-100 mt-7"
+    class="row m-0 justify-content-between align-items-center p-3 w-100 mt-6"
   >
     <h1 class="m-0">Groups</h1>
     <img
@@ -16,45 +16,42 @@
     <h1>No groups found !</h1>
   </div>
 
-  <div v-else>
-    <div v-if="!groupLists">
-      <Loader class="my-10" />
-    </div>
-
-    <div v-else class="p-3">
+  <div class="p-3 infinite-list" id="infinite-list">
+    <div
+      class="card bg-primary shadow-soft border-light py-2 my-4"
+      v-for="groupList in groupLists"
+      :key="groupList.message"
+    >
       <div
-        class="card bg-primary shadow-soft border-light py-2 my-4"
-        v-for="groupList in groupLists"
-        :key="groupList.message"
+        class="p-2 col col-12 row m-0 align-items-center"
+        @click="getGroupCases(groupList)"
       >
-        <div
-          class="p-2 col col-12 row m-0 align-items-center"
-          @click="getGroupDetail(groupList)"
-        >
-          <div class="w-100">
-            <img
+        <div class="w-100">
+          <!-- <img
               class="pro-pic-sm rounded-circle mr-2"
               v-if="groupList.display_pic"
               :src="groupList.display_pic"
               alt=""
-            />
-            <img
-              class="pro-pic-md rounded-circle mr-2"
-              v-else
-              src="@/assets/profile-picture-1.jpg"
-              alt=""
-            />
-            <h2 class="m-0 ml-2 d-inline">{{ groupList.name }}</h2>
-          </div>
+            /> -->
+          <img
+            class="pro-pic-md rounded-circle mr-2"
+            src="@/assets/profile-picture-1.jpg"
+            alt=""
+          />
+          <h2 class="m-0 ml-2 d-inline">{{ groupList.name }}a</h2>
         </div>
       </div>
+    </div>
+
+    <div v-if="viewLoader">
+      <Loader class="m-0" />
     </div>
   </div>
 
   <!-- add grp component -->
 
   <div class="add-grp-box w-100" v-if="openAddMembers">
-    <div class="mt-10 p-3">
+    <div class="mt-7 p-3">
       <div class="add-grp-inner shadow p-3">
         <h3 class="float-right" v-on:click="openAddMembers = !openAddMembers">
           x
@@ -71,7 +68,17 @@
             v-model="groupDescription"
           />
           <button
-            class="col col-5 text-center create-btn p-2 rounded border-none btn"
+            class="
+              w-100
+              rounded-pill
+              text-center
+              create-btn
+              p-2
+              rounded
+              border-none
+              btn
+              next-btn
+            "
             v-on:click="createGroup"
           >
             Create
@@ -81,32 +88,34 @@
         <div v-else>
           <div class="w-100" v-if="members.length">
             <h3>Group Members:</h3>
-            <span
-              class="pb-3"
-              v-for="(member, index) in members"
-              :key="member.uuid"
-            >
-              <p class="tag h6 rounded-pill pr-3 pl-3 pt-2 pb-2 mr-2 mb-2">
-                <img
-                  class="pro-pic-sm rounded-circle mr-2"
-                  v-if="member.display_pic"
-                  :src="member.display_pic"
-                  alt=""
-                />
-                <img
-                  class="pro-pic-sm rounded-circle mr-2"
-                  v-else
-                  src="@/assets/profile-picture-1.jpg"
-                  alt=""
-                />
-                {{ member }}
-                <span class="pl-3" v-on:click="removeMember(index)"> x</span>
-              </p>
-            </span>
+            <div class="scroll">
+              <span
+                class="pb-3"
+                v-for="(member, index) in members"
+                :key="member.uuid"
+              >
+                <p class="tag h6 rounded-pill pr-3 pl-3 pt-2 pb-2 mr-2 mb-2">
+                  <img
+                    class="pro-pic-sm rounded-circle mr-2"
+                    v-if="member.display_pic"
+                    :src="member.display_pic"
+                    alt=""
+                  />
+                  <img
+                    class="pro-pic-sm rounded-circle mr-2"
+                    v-else
+                    src="@/assets/profile-picture-1.jpg"
+                    alt=""
+                  />
+                  {{ member }}
+                  <span class="pl-3" v-on:click="removeMember(index)"> x</span>
+                </p>
+              </span>
+            </div>
           </div>
 
           <div class="row m-0 justify-content-between">
-            <h4 class="font-weight-bold">Add People</h4>
+            <h4 class="font-weight-bold mt-3">Add People</h4>
           </div>
 
           <div class="row m-0 align-items-center form-control1 w-100 rounded">
@@ -119,7 +128,7 @@
           </div>
 
           <!-- add names -->
-          <div class="search-profile-box">
+          <div class="search-profile-box mt-3 scroll-lg">
             <div
               class="
                 outer
@@ -151,13 +160,15 @@
           <div class="w-100 row m-0 justify-content-center">
             <button
               class="
-                col col-5
+                next-btn
+                rounded-pill
                 text-center
                 create-btn
                 p-2
                 rounded
                 border-none
                 btn
+                w-100
               "
               v-on:click="groupFormed = 1"
             >
@@ -174,12 +185,12 @@
 import { stringFormat } from "@/helpers";
 import { config } from "@/configurations";
 import { groupService, searchService } from "@/services";
-// import Loader from "@/components/Loader.vue";
+import Loader from "@/components/Loader.vue";
 import router from "@/router";
 
 export default {
   name: "CreateGroup",
-  // components: { Loader },
+  components: { Loader },
   data() {
     return {
       groupName: "",
@@ -191,9 +202,10 @@ export default {
       searchValue: "",
       groupFormed: 0,
       is_my_groups: 1,
-      offset: 0,
+      offset: "0",
       limit: 10,
-      groupList: null,
+      groupLists: 0,
+      viewLoader: 0,
     };
   },
 
@@ -208,7 +220,18 @@ export default {
       return this.$store.state.authStore.user;
     },
   },
+  mounted() {
+    // Detect when scrolled to bottom.
+    const listElm = document.querySelector("#infinite-list");
+    listElm.addEventListener("scroll", () => {
+      if (listElm.scrollTop + listElm.clientHeight >= listElm.scrollHeight) {
+        this.getGroup();
+      }
+    });
 
+    // Initially load some items.
+    this.getGroup();
+  },
   methods: {
     addMember(index) {
       this.members.push(this.profile_info[index].user.username);
@@ -218,11 +241,8 @@ export default {
       this.members.splice(index, 1);
     },
 
-    getGroupDetail(groupList) {
-      router.push({
-        name: "GroupInfo",
-        params: { uuid: groupList.uuid },
-      });
+    getGroupCases(groupList) {
+      this.$router.push({name: 'Group', params: {uuid: groupList.uuid, groupname:groupList.name}})
     },
 
     searchProfile() {
@@ -278,15 +298,20 @@ export default {
           );
         });
     },
+
     getGroup() {
       const { dispatch } = this.$store;
-      // this.offset = this.offset + this.limit;
+      this.viewLoader = 1;
 
       groupService
         .getGroupList(this.is_my_groups, this.offset, this.limit)
         .then((groupLists) => {
-          this.groupLists = groupLists.results;
-          console.log(groupLists.results);
+          if (this.groupLists == 0) {
+            this.groupLists = groupLists.results;
+          } else {
+            this.groupLists.push(...groupLists.results);
+          }
+          this.viewLoader = 0;
         })
         .catch(() => {
           dispatch(
@@ -294,10 +319,8 @@ export default {
             config.messagingConfig.messages.error.unknown_error
           );
         });
+      this.offset = parseInt(this.offset) + this.limit;
     },
-  },
-  created() {
-    this.getGroup();
   },
 };
 </script>
@@ -374,5 +397,24 @@ export default {
 .pro-pic-md {
   height: 3.5em;
   width: 3.5em;
+}
+
+.scroll {
+  overflow-y: scroll;
+  max-height: 20vh;
+}
+
+.scroll-lg {
+  overflow-y: scroll;
+  max-height: 30vh;
+}
+.next-btn {
+  background-color: rgba(72, 23, 176, 1);
+  color: #fff;
+}
+
+.infinite-list {
+  overflow-y: scroll;
+  max-height: 100vh;
 }
 </style>

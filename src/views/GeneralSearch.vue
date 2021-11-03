@@ -52,75 +52,81 @@
     <!-- Search results -->
     <div v-if="searchValue">
       <!-- accounts -->
-      <div
-        class="row m-0 display-row"
-        v-if="(displayFlag == 0 || displayFlag == 1) && accountShowInfo"
-      >
-        <h4 class="cat-head col col-12 mt-1 m-0">Accounts</h4>
-        <div class="col col-12 pl-3 pr-3">
-          <hr />
-        </div>
-        <div v-for="account in accountShowInfo" :key="account.uuid">
-          <router-link :to="'/profile/' + account.user.username">
-            <ProfileSearchComponent :account="account" />
-          </router-link>
-        </div>
-        <div class="m-0 row justify-content-end col col-12">
-          <h6
-            class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
-            v-if="displayFlag == 0"
-            @click="filterSearch(1)"
-          >
-            View All
-          </h6>
+      <div class="infinite-list" id="infinite-list-profiles">
+        <div
+          class="row m-0 display-row"
+          v-if="(displayFlag == 0 || displayFlag == 1) && accountShowInfo"
+        >
+          <h4 class="cat-head col col-12 mt-1 m-0">Accounts</h4>
+          <div class="col col-12 pl-3 pr-3">
+            <hr />
+          </div>
+          <div v-for="account in accountShowInfo" :key="account.uuid">
+            <router-link :to="'/profile/' + account.user.username">
+              <ProfileSearchComponent :account="account" />
+            </router-link>
+          </div>
+          <div class="m-0 row justify-content-end col col-12">
+            <h6
+              class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
+              v-if="displayFlag == 0"
+              @click="filterSearch(1)"
+            >
+              View All
+            </h6>
+          </div>
         </div>
       </div>
 
       <!-- groups -->
-      <div
-        class="row m-0 display-row"
-        v-if="(displayFlag == 0 || displayFlag == 2) && groupShowInfo"
-      >
-        <h4 class="cat-head col col-12 mt-1 m-0">Groups</h4>
-        <div class="col col-12 pl-3 pr-3">
-          <hr />
-        </div>
-        <div v-for="group in groupShowInfo" :key="group.uuid">
-          <GroupSearchComponent :group="group" />
-        </div>
-        <div class="m-0 row justify-content-end col col-12">
-          <h6
-            class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
-            v-if="displayFlag == 0"
-            @click="filterSearch(2)"
-          >
-            View All
-          </h6>
+      <div class="infinite-list" id="infinite-list-groups">
+        <div
+          class="row m-0 display-row"
+          v-if="(displayFlag == 0 || displayFlag == 2) && groupShowInfo"
+        >
+          <h4 class="cat-head col col-12 mt-1 m-0">Groups</h4>
+          <div class="col col-12 pl-3 pr-3">
+            <hr />
+          </div>
+          <div v-for="group in groupShowInfo" :key="group.uuid">
+            <GroupSearchComponent :group="group" />
+          </div>
+          <div class="m-0 row justify-content-end col col-12">
+            <h6
+              class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
+              v-if="displayFlag == 0"
+              @click="filterSearch(2)"
+            >
+              View All
+            </h6>
+          </div>
         </div>
       </div>
 
       <!-- cases -->
-      <div
-        class="row m-0 display-row"
-        v-if="(displayFlag == 0 || displayFlag == 3) && caseShowInfo"
-      >
-        <h4 class="cat-head col col-12 mt-1 m-0">Cases</h4>
-        <div class="col col-12 pl-3 pr-3">
-          <hr />
-        </div>
-        <div v-for="allCases in caseShowInfo" :key="allCases.uuid">
-          <router-link :to="'/case/' + allCases.slug">
-            <CaseSearchComponent :allCases="allCases" />
-          </router-link>
-        </div>
-        <div class="m-0 row justify-content-end col col-12">
-          <h6
-            class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
-            v-if="displayFlag == 0"
-            @click="filterSearch(3)"
-          >
-            View All
-          </h6>
+      <div class="infinite-list" id="infinite-list-cases">
+        <div
+          class="row m-0 display-row"
+          v-if="(displayFlag == 0 || displayFlag == 3) && caseShowInfo"
+        >
+          <h4 class="cat-head col col-12 mt-1 m-0">Cases</h4>
+          <div class="col col-12 pl-3 pr-3">
+            <hr />
+          </div>
+          <div v-for="allCases in caseShowInfo" :key="allCases.uuid">
+            <router-link :to="'/case/' + allCases.slug">
+              <CaseSearchComponent :allCases="allCases" />
+            </router-link>
+          </div>
+          <div class="m-0 row justify-content-end col col-12">
+            <h6
+              class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
+              v-if="displayFlag == 0"
+              @click="filterSearch(3)"
+            >
+              View All
+            </h6>
+          </div>
         </div>
       </div>
     </div>
@@ -152,8 +158,8 @@ export default {
       groupInfo: 0,
       caseInfo: 0,
       displayFlag: 0,
-      offset: 0,
-      limit: 10, //remove n add it to funct
+      offset: "0",
+      limit: 10,
     };
   },
   watch: {
@@ -196,27 +202,6 @@ export default {
       }
     },
   },
-  created() {
-    this.load;
-    // window.addEventListener("scroll", function (event) {
-    //   var element = event.target;
-    //   if (element.scrollHeight - element.scrollTop === element.clientHeight) {
-    //     this.load();
-    //   }
-    // });
-    // window.addEventListener(window.scrollTo(0, document.body.scrollHeight), this.load);
-      window.onscroll = () => {
-        console.log("scrolling");
-    // let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
-    let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
-
-    if (bottomOfWindow) {
-    //  this.scrolledToBottom = true // replace it with your code
-     console.log("hit bottom");
-     this.load();
-    }
- }
-  },
   methods: {
     load() {
       if (this.searchValue) {
@@ -225,11 +210,49 @@ export default {
           this.loadGroup();
           this.loadCases();
         } else if (this.displayFlag == 1) {
-          this.loadProfile();
+          // Detect when scrolled to bottom.
+          const listElm = document.querySelector("#infinite-list-profiles");
+          listElm.addEventListener("scroll", () => {
+            if (
+              listElm.scrollTop + listElm.clientHeight >=
+              listElm.scrollHeight
+            ) {
+              this.loadProfile();
+            }
+
+            // Initially load some items.
+            this.loadProfile();
+          });
         } else if (this.displayFlag == 2) {
-          this.loadGroup();
+          // Detect when scrolled to bottom.
+          const listElm = document.querySelector("#infinite-list-groups");
+          listElm.addEventListener("scroll", () => {
+            if (
+              listElm.scrollTop + listElm.clientHeight >=
+              listElm.scrollHeight
+            ) {
+              this.loadGroup();
+            } else {
+              return "";
+            }
+
+            // Initially load some items.
+            this.loadGroup();
+          });
         } else {
-          this.loadCases();
+          // Detect when scrolled to bottom.
+          const listElm = document.querySelector("#infinite-list-cases");
+          listElm.addEventListener("scroll", () => {
+            if (
+              listElm.scrollTop + listElm.clientHeight >=
+              listElm.scrollHeight
+            ) {
+              this.loadCases();
+            }
+
+            // Initially load some items.
+            this.loadCases();
+          });
         }
       }
     },
@@ -241,42 +264,54 @@ export default {
       searchService
         .searchProfile(username, this.offset, this.limit)
         .then((profileInfo) => {
-          console.log(profileInfo);
-          this.profileInfo = profileInfo;
+          if (this.profileInfo == 0) {
+            this.profileInfo = profileInfo;
+          } else {
+            this.profileInfo.push(...profileInfo);
+          }
         })
         .catch((e) => {
           dispatch("alertStore/error", e);
         });
-
-      this.offset = this.offset + this.limit;
+      this.offset = parseInt(this.offset) + this.limit;
     },
     loadGroup() {
       const username = this.searchValue;
       const { dispatch } = this.$store;
+      this.offset = 0;
 
-      this.offset = this.offset + this.limit;
       searchService
         .searchGroup(username, this.offset, this.limit)
         .then((groupInfo) => {
-          this.groupInfo = groupInfo;
+          if (this.groupInfo == 0) {
+            this.groupInfo = groupInfo;
+          } else {
+            this.groupInfo.push(...groupInfo);
+          }
         })
         .catch((e) => {
           dispatch("alertStore/error", e);
         });
+      this.offset = parseInt(this.offset) + this.limit;
     },
     loadCases() {
       const username = this.searchValue;
       const { dispatch } = this.$store;
+      this.offset = 0;
 
-      this.offset = this.offset + this.limit;
       searchService
         .searchCase(username, this.offset, this.limit)
         .then((caseInfo) => {
-          this.caseInfo = caseInfo;
+          if (this.caseInfo == 0) {
+            this.caseInfo = caseInfo;
+          } else {
+            this.caseInfo.push(...caseInfo);
+          }
         })
         .catch((e) => {
           dispatch("alertStore/error", e);
         });
+      this.offset = parseInt(this.offset) + this.limit;
     },
 
     filterSearch(f) {
@@ -379,5 +414,10 @@ hr {
 
 .active {
   border: 2px solid rgb(117, 117, 117);
+}
+
+.infinite-list {
+  overflow-y: scroll;
+  max-height: 70vh;
 }
 </style>

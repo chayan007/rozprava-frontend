@@ -7,7 +7,8 @@ caseConfig = {
             queryParameters: {
                 username: "username={0}",
                 category: "category={0}",
-                isOrdered: "is_ordered={0}"
+                isOrdered: "is_ordered={0}",
+                groupUuid:"group_uuid={0}"
             }
         },
         fetchNotification:{
