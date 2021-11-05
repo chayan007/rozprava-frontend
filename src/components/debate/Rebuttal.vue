@@ -50,29 +50,41 @@
         <!-- case reaction box -->
         <div class="reactions-box row justify-content-between m-0 mt-3">
           <span class="row m-0 align-items-center">
-            <span class="row m-0 align-items-center">
+            <span @click="activity(1)" class="row m-0 align-items-center">
               <img
+                v-if="liked"
+                class="case-react-icons mr-1"
+                src="@/assets/liked.svg"
+                alt=""
+              />
+              <img
+                v-else
                 class="case-react-icons mr-1"
                 src="@/assets/like.svg"
                 alt=""
               />
-              <small class="react-txt m-0 mr-3 h6">{{
-                rebuttalItem.activities[1]
-              }}</small>
+              <small class="react-txt m-0 mr-3 h6">{{ metrics[1] }}</small>
             </span>
-            <span class="row m-0 align-items-center">
+            <span @click="activity(2)" class="row m-0 align-items-center">
               <img
+                v-if="disliked"
+                class="case-react-icons mr-1"
+                src="@/assets/disliked.svg"
+                alt=""
+              />
+              <img
+                v-else
                 class="case-react-icons mr-1"
                 src="@/assets/dislike.svg"
                 alt=""
               />
-              <small class="react-txt m-0 mr-3 h6">{{
-                rebuttalItem.activities[2]
-              }}</small>
+              <small class="react-txt m-0 mr-3 h6">{{ metrics[2] }}</small>
             </span>
           </span>
           <span class="case-view-box row m-0 align-items-center">
-            <small class="react-txt h6 m-0 pl-1">{{rebuttalItem.proofs.length}} proofs</small>
+            <small class="react-txt h6 m-0 pl-1"
+              >{{ rebuttalItem.proofs.length }} proofs</small
+            >
           </span>
           <small
             class="col-12 col mt-3 p-0 m-0 font-weight-bold"
@@ -195,9 +207,10 @@
 import Create from "@/components/debate/Create.vue";
 import Comment from "@/components/debate/Comment.vue";
 import Proof from "@/components/case/Proofs.vue";
-import Loader from "@/components/Loader.vue"
+import Loader from "@/components/Loader.vue";
 
 import { debateService } from "@/services";
+import { activityService } from "@/services";
 import { config } from "@/configurations";
 import { getSanitizedTime } from "@/helpers";
 export default {
@@ -213,6 +226,15 @@ export default {
   created() {
     this.loadRebuttals();
   },
+  computed: {
+    metrics() {
+      if (this.rebuttalItem) {
+        return this.rebuttalItem.activities;
+      } else {
+        return [0, 0, 0, 0];
+      }
+    },
+  },
   data() {
     return {
       rebuttals: null,
@@ -220,6 +242,8 @@ export default {
       openRebuttal: false,
       inclination: null,
       showProofs: 1,
+      liked: null,
+      disliked: null,
     };
   },
 
@@ -233,7 +257,6 @@ export default {
         .getRebuttals(uuid)
         .then((rebuttals) => {
           this.rebuttals = rebuttals.rebuttals;
-          console.log(this.rebuttals);
         })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
@@ -250,6 +273,43 @@ export default {
     toggleRebuttals() {
       this.rebuttals = null;
       this.openRebuttal = !this.openRebuttal;
+    },
+
+    activity(act) {
+      if (act == 1) {
+        if (this.liked) {
+          this.metrics[1]--;
+          this.liked = 0;
+        } else {
+          this.metrics[1]++;
+          this.liked = 1;
+          if (this.disliked) {
+            this.metrics[2]--;
+            this.disliked = 0;
+          }
+        }
+      } else if (act == 2) {
+        if (this.disliked) {
+          this.metrics[2]--;
+          this.disliked = 0;
+        } else {
+          this.metrics[2]++;
+          this.disliked = 1;
+          if (this.liked) {
+            this.metrics[1]--;
+            this.liked = 0;
+          }
+        }
+      }
+      const uuid = this.rebuttalItem.uuid;
+      activityService
+        .debateActivity(uuid, act)
+        .then(() => {
+          console.log(act);
+        })
+        .catch(() => {
+          throw config.messagingConfig.messages.error.unknown_error;
+        });
     },
   },
 };
@@ -358,6 +418,4 @@ export default {
 .proofs-box::-webkit-scrollbar {
   display: none;
 }
-
-
 </style>

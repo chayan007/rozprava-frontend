@@ -98,7 +98,7 @@
         <span class="row m-0 align-items-center">
           <span @click="activity(1)" class="row m-0 align-items-center">
             <img
-              v-if="activityDone == 1"
+              v-if="liked"
               class="case-react-icons mr-1"
               src="@/assets/liked.svg"
               alt="liked icon"
@@ -110,12 +110,12 @@
               alt="like icon"
             />
             <small class="react-txt m-0 mr-3 h6">{{
-              debate.activities[1]
+              activities[1]
             }}</small>
           </span>
           <span @click="activity(2)" class="row m-0 align-items-center">
             <img
-              v-if="activityDone == 2"
+              v-if="disliked"
               class="case-react-icons mr-1"
               src="@/assets/disliked.svg"
               alt="disliked icon"
@@ -127,7 +127,7 @@
               alt="dislike icon"
             />
             <small class="react-txt m-0 mr-2 h6">{{
-              debate.activities[2]
+              activities[2]
             }}</small>
           </span>
           <span>
@@ -165,7 +165,10 @@ export default {
       cAgainst: false,
       uuid: this.newDebate.uuid,
       activityDone: null,
-      showProofs: 0
+      showProofs: 0,
+      liked: null,
+      disliked: null,
+      activities: this.newDebate.activities
     };
   },
   methods: {
@@ -196,7 +199,31 @@ export default {
         });
     },
     activity(act) {
-      this.activityDone = act;
+      if (act == 1) {
+        if (this.liked) {
+          this.activities[1]--;
+          this.liked = 0;
+        } else {
+          this.activities[1]++;
+          this.liked = 1;
+          if (this.disliked) {
+            this.activities[2]--;
+            this.disliked = 0;
+          }
+        }
+      } else if (act == 2) {
+        if (this.disliked) {
+          this.activities[2]--;
+          this.disliked = 0;
+        } else {
+          this.activities[2]++;
+          this.disliked = 1;
+          if (this.liked) {
+            this.activities[1]--;
+            this.liked = 0;
+          }
+        }
+      }
       const uuid = this.debate.uuid;
       activityService
         .debateActivity(uuid, act)
