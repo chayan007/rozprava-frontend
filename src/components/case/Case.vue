@@ -99,26 +99,50 @@
       >
         <div class="views">
           <img class="metrics-icon p-1" src="@/assets/Eye.svg" alt="" />
-          {{ detail.metrics[0] }}
+          {{ metrics[0] }}
         </div>
 
         <div class="likes-box row m-0">
-          <span @click="like()" class="row m-0 mr-3 align-items-center">
-            <img class="metrics-icon mr-1" src="@/assets/like.svg" alt="" />
-            {{ detail.metrics[1] }}
+          <span @click="activity(1)" class="row m-0 mr-3 align-items-center">
+            <img
+              v-if="liked"
+              class="metrics-icon mr-1"
+              src="@/assets/liked.svg"
+              alt=""
+            />
+            <img
+              v-else
+              class="metrics-icon mr-1"
+              src="@/assets/like.svg"
+              alt=""
+            />
+            {{ metrics[1] }}
           </span>
-          <span class="row m-0 align-items-center">
-            <img class="metrics-icon mr-1" src="@/assets/dislike.svg" alt="" />
-            {{ detail.metrics[2] }}
+          <span @click="activity(2)" class="row m-0 align-items-center">
+            <img
+              v-if="disliked"
+              class="metrics-icon mr-1"
+              src="@/assets/liked.svg"
+              alt=""
+            />
+            <img
+              v-else
+              class="metrics-icon mr-1"
+              src="@/assets/like.svg"
+              alt=""
+            />
+            {{ metrics[2] }}
           </span>
         </div>
 
-        <div
-          class="w-100 mt-2 row m-0 align-items-center"
-        >
+        <div class="w-100 mt-2 row m-0 align-items-center">
           <div>{{ detail.proofs.length }} Proofs</div>
           <div class="ml-3" v-if="detail.proofs.length">
-            <small class="text-left m-0" v-if="!showProofs" @click="showProofs = 1">
+            <small
+              class="text-left m-0"
+              v-if="!showProofs"
+              @click="showProofs = 1"
+            >
               Show proofs
             </small>
             <small class="text-left m-0" v-else @click="showProofs = 0">
@@ -145,18 +169,44 @@ export default {
       liked: 0,
       disliked: 0,
       showProofs: 1,
+      metrics: this.detail.metrics,
     };
   },
   methods: {
     hasValue(key) {
       return Object.keys(this.detail).includes(key);
     },
-    like() {
+    activity(act) {
       const uuid = this.detail.uuid;
-      activityService
-        .getActivity(uuid, 1)
-        .then(() => {
+      if (act == 1) {
+        if (this.liked) {
+          this.metrics[1]--;
+          this.liked = 0;
+        } else {
+          this.metrics[1]++;
           this.liked = 1;
+          if (this.disliked) {
+            this.metrics[2]--;
+            this.disliked = 0;
+          }
+        }
+      } else if (act == 2) {
+        if (this.disliked) {
+          this.metrics[2]--;
+          this.disliked = 0;
+        } else {
+          this.metrics[2]++;
+          this.disliked = 1;
+          if (this.liked) {
+            this.metrics[1]--;
+            this.liked = 0;
+          }
+        }
+      }
+      activityService
+        .caseActivity(uuid, act)
+        .then(() => {
+          console.log(act);
         })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
