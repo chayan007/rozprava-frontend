@@ -5,7 +5,7 @@ export function authHeader() {
     const requestTimestamp = moment().format("DDMMYYhh").toString();
     const randomPadding = Math.random() * (999999 - 100000) + 100000;
     const securityKey = btoa(
-        `${requestTimestamp}${randomPadding}${requestTimestamp.reverse()}`
+        `${requestTimestamp}${randomPadding}${requestTimestamp.split("").reverse().join("")}`
     );
     let apiHeader = { 'X-Security-Key': securityKey };
     if (user && user.token)
