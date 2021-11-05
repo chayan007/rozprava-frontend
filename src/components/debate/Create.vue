@@ -35,9 +35,12 @@
       <small class="row align-items-center col col-9 p-0 m-0"
         >PDF, Images, Links, Audios, Videos, etc
       </small>
-       <div v-if="openUpload" class="upload-box d-flex justify-content-center w-100">
-         <UploadComponent class="upload position-absolute" @clicked="addFile" />
-       </div>
+      <div
+        v-if="openUpload"
+        class="upload-box d-flex justify-content-center w-100"
+      >
+        <UploadComponent class="upload position-absolute" @clicked="addFile" />
+      </div>
     </div>
 
     <div class="com-post-btn-box row m-0">
@@ -69,7 +72,7 @@
 import { stringFormat } from "@/helpers";
 import { config } from "@/configurations";
 import { debateService } from "@/services";
-import { caseService } from "@/services";
+// import { caseService } from "@/services";
 import router from "@/router";
 import Upload from "@/components/Proof/Upload.vue";
 
@@ -84,7 +87,7 @@ export default {
       isAnonymous: 0,
       inclination: null,
       openUpload: 0,
-      files: []
+      files: [],
     };
   },
   watch: {
@@ -100,15 +103,16 @@ export default {
     removeFile(index) {
       this.files.splice(index, 1);
     },
-    submitFiles(slug) {
+    submitFiles(uuid) {
       const { dispatch } = this.$store;
-      console.log(slug);
+      console.log(uuid);
       // convert the list of files into json object
       let proofRequestBody = {};
       for (let x = 0; x < this.files.length; x++) {
         proofRequestBody[`proof_${x + 1}`] = this.files[x];
+        console.log(this.files);
       }
-      caseService.uploadProof(proofRequestBody, slug).catch((error) => {
+      debateService.uploadProof(proofRequestBody, uuid).catch((error) => {
         dispatch("alertStore/error", error);
       });
     },
@@ -141,12 +145,17 @@ export default {
             },
             uuid
           )
-          .then(() => {
+          .then((caseResponse) => {
+            this.submitFiles(caseResponse.uuid);
             const slug = this.$route.params.slug;
             router.push({
               name: "CaseDetail",
               params: { slug: slug },
             });
+            this.$parent.toggleComment();
+            // setTimeout(() => {
+              this.$router.go();
+            // }, 5000);
           })
           .catch(() => {
             dispatch(
@@ -154,18 +163,14 @@ export default {
               config.messagingConfig.messages.error.unknown_error
             );
           });
-          this.$parent.toggleComment();
-          this.$router.go()
       } else {
         debateService
-          .createRebuttal(
-            {
-              debate_uuid: uuid,
-              comment: comment,
-              is_posted_anonymously: isAnonymous,
-              inclination: inclination,
-            }
-          )
+          .createRebuttal({
+            debate_uuid: uuid,
+            comment: comment,
+            is_posted_anonymously: isAnonymous,
+            inclination: inclination,
+          })
           .then(() => {
             const slug = this.$route.params.slug;
             router.push({
@@ -179,12 +184,10 @@ export default {
               config.messagingConfig.messages.error.unknown_error
             );
           });
-          this.$parent.toggleComment();
-          this.$router.go()
+        this.$parent.toggleComment();
+        this.$router.go();
       }
-
     },
-    
   },
 };
 </script>

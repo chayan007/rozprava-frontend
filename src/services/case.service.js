@@ -37,7 +37,8 @@ function getCases(category = null, username = null) {
     .get(url, { headers: headers })
     .then((response) => {
       if (response.data.results.length) {
-        return response.data;
+        console.log(response.data);
+        return response.data.results;
       } else {
         throw stringFormat(
           config.messagingConfig.messages.notification.watched_all,
@@ -76,7 +77,6 @@ function getCase(slug) {
     .get(url, { headers: headers })
     .then((response) => {
       const getCaseInfo = response.data;
-      this.uploadProof(getCaseInfo);
       return getCaseInfo;
     })
     .catch(() => {
