@@ -218,7 +218,7 @@ export default {
           .getCases(null, this.username)
           .then(
             (userCases) => {
-              this.cases = userCases.results
+              this.cases = userCases
             },
             (error) => {
               dispatch("alertStore/error", error, { root: true });

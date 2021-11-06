@@ -14,7 +14,7 @@
 <script>
 import NavigationRegistered from "@/components/common/NavigationRegistered.vue";
 import Nav from "@/components/common/Navigation.vue";
-import Alert from "@/components/alerts/alert.vue";
+import Alert from "@/components/alerts/AlertNew.vue";
 
 export default {
   components: {
