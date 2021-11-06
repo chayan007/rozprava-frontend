@@ -198,6 +198,7 @@ export default {
       }
 
       dispatch("authStore/login", { username, password });
+      this.loggedIn = 0;
     },
   },
 };
