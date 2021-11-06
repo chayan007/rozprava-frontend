@@ -71,7 +71,7 @@
               <span>Notifications</span>
               <img
                   class="menu-item-icon pr-2"
-                  src="@/assets/settings.svg"
+                  src="@/assets/bell.svg"
                   alt=""
               />
             </span>
@@ -187,10 +187,10 @@
                 justify-content-between
               "
             >
-              <span>Logout</span>
+              <span class="text-danger">Logout</span>
               <img
                   class="menu-item-icon pr-2"
-                  src="@/assets/settings.svg"
+                  src="@/assets/logout.svg"
                   alt=""
               />
             </span>

@@ -169,7 +169,6 @@ export default {
       const { dispatch } = this.$store;
 
       if (!username) {
-        this.logedIn = 0
         dispatch(
           "alertStore/error",
           stringFormat(
@@ -185,7 +184,6 @@ export default {
       const password_length_range = config.userConfig.constants.password_length;
 
       if (!password || !isInRange(password.length, password_length_range)) {
-        this.logedIn = 0
         dispatch(
           "alertStore/error",
           stringFormat(
