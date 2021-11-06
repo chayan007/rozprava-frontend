@@ -70,8 +70,8 @@
               </label>
             </div>
           </div>
-          <Loader v-if="logedIn"></Loader>
-          <button v-show="!logedIn" type="submit" class="btn btn-pill pl-4 pr-4 btn-primary" @click="logedIn = 1">
+          <Loader v-if="loggedIn"></Loader>
+          <button v-show="!loggedIn" type="submit" class="btn btn-pill pl-4 pr-4 btn-primary" @click="loggedIn = 1">
             <img  src="../../assets/login.svg" alt="sign in" width="30" />
           </button>
         </form>
@@ -151,7 +151,7 @@ export default {
       username: "",
       password: "",
       submitted: false,
-      logedIn: 0
+      loggedIn: 0
     };
   },
   computed: {
@@ -178,6 +178,7 @@ export default {
           ).trim(),
           { root: true }
         );
+        this.loggedIn = 0;
         return;
       }
 
@@ -194,10 +195,12 @@ export default {
           ).trim(),
           { root: true }
         );
+        this.loggedIn = 0;
         return;
       }
 
       dispatch("authStore/login", { username, password });
+      this.loggedIn = 0;
     },
   },
 };

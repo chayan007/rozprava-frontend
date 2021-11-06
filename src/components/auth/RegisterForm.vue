@@ -126,7 +126,7 @@
               </div>
             </div>
             <!-- End of Form -->
-            
+
             <div class="input-group mb-2 otp">
               <input
                 class="form-control border-0"
@@ -278,6 +278,7 @@ export default {
         email,
         phone,
       });
+      this.submitted = false;
     },
   },
 };

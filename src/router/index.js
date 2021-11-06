@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import SignUp from '@/components/auth/SignUp.vue'
 import Register from '@/views/auth/Register.vue'
 import Login from '@/views/auth/Login.vue'
+import Logout from '@/views/auth/Logout.vue'
 import Home from '@/views/Home.vue'
 import ForgetLogin from '@/views/ForgetLogin.vue'
 import EnterOTP from '@/views/EnterOTP.vue'
@@ -58,6 +59,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    component: Logout
   },
   {
     path: '/',
@@ -149,7 +155,7 @@ router.beforeEach((to, from, next) => {
       'ResetPassword',
   ];
   const authPagesName = [
-      
+
       'Register',
       'ForgetLogin',
       'EnterOTP'
