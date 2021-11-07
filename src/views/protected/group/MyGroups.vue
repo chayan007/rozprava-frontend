@@ -206,6 +206,7 @@ export default {
       limit: 10,
       groupLists: 0,
       viewLoader: 0,
+      stopSearch: 0,
     };
   },
 
@@ -242,7 +243,10 @@ export default {
     },
 
     getGroupCases(groupList) {
-      this.$router.push({name: 'Group', params: {uuid: groupList.uuid, groupname:groupList.name}})
+      this.$router.push({
+        name: "Group",
+        params: { uuid: groupList.uuid, groupname: groupList.name },
+      });
     },
 
     searchProfile() {
@@ -302,24 +306,28 @@ export default {
     getGroup() {
       const { dispatch } = this.$store;
       this.viewLoader = 1;
-
-      groupService
-        .getGroupList(this.is_my_groups, this.offset, this.limit)
-        .then((groupLists) => {
-          if (this.groupLists == 0) {
-            this.groupLists = groupLists.results;
-          } else {
-            this.groupLists.push(...groupLists.results);
-          }
-          this.viewLoader = 0;
-        })
-        .catch(() => {
-          dispatch(
-            "alertStore/error",
-            config.messagingConfig.messages.error.unknown_error
-          );
-        });
-      this.offset = parseInt(this.offset) + this.limit;
+      if (!this.stopSearch) {
+        groupService
+          .getGroupList(this.is_my_groups, this.offset, this.limit)
+          .then((groupLists) => {
+            if (this.groupLists == 0) {
+              this.groupLists = groupLists.results;
+            } else {
+              this.groupLists.push(...groupLists.results);
+            }
+            this.viewLoader = 0;
+            if (groupLists.results.length < 10) {
+              this.stopSearch = 1;
+            }
+          })
+          .catch(() => {
+            dispatch(
+              "alertStore/error",
+              config.messagingConfig.messages.error.unknown_error
+            );
+          });
+        this.offset = parseInt(this.offset) + this.limit;
+      }
     },
   },
 };

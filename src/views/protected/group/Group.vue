@@ -1,4 +1,7 @@
 <template>
+  <div class="mt-7 p-5" v-if="!cases">
+    <h2>No cases</h2>
+  </div>
   <div class="group-chat">
     <!-- group nav -->
     <div
@@ -19,7 +22,7 @@
             src="@/assets/groupDp.png"
             alt="group dp"
           />
-          <span class="name ml-2">{{groupname}}</span>
+          <span class="name ml-2">{{ groupname }}</span>
         </router-link>
       </div>
       <!-- group options -->
@@ -61,16 +64,17 @@
     <!-- group nav -->
     <!-- base -->
     <div class="base min-vh-100 w-100 py-6">
-      <div class="case-box w-100">
-        <GroupCase :case="0" :user="'pankaj'"></GroupCase>
-        <GroupCase :case="0" :user="'p'"></GroupCase>
-        <GroupCase :case="0" :user="'pankaj'"></GroupCase>
-        <GroupCase :case="0" :user="'h'"></GroupCase>
+      <div class="case-box w-100" v-for="cases in cases" :key="cases.uuid">
+        <GroupCase
+          :cases="cases"
+          :user="cases.profile.user.username"
+        ></GroupCase>
       </div>
       <div
         class="add-box w-100 p-3 position-fixed d-flex justify-content-center"
       >
-        <router-link to="/case-create">
+
+        <div @click="createGroupCase">
           <div
             class="
               add-btn
@@ -83,7 +87,7 @@
           >
             <img class="add-icon" src="@/assets/addLight.svg" alt="" />
           </div>
-        </router-link>
+        </div>
       </div>
     </div>
     <!-- base -->
@@ -99,14 +103,22 @@ export default {
   components: { GroupCase },
   data() {
     return {
-      groupname : this.$route.params.groupname,
+      groupname: this.$route.params.groupname,
       offset: "0",
       limit: 5,
       viewLoader: 0,
+      cases: [],
     };
   },
 
   methods: {
+    createGroupCase() {
+      this.$router.push({
+        name: "CaseCreate",
+        params: { uuid: this.$route.params.uuid },
+      });
+    },
+
     getGroupCases() {
       const { dispatch } = this.$store;
       let uuid = this.$route.params.uuid;
@@ -120,7 +132,7 @@ export default {
           this.limit
         )
         .then((cases) => {
-          console.log(cases);
+          this.cases = cases;
         })
         .catch((error) =>
           dispatch("alertStore/success", error, { root: true })
@@ -129,6 +141,7 @@ export default {
   },
 
   created() {
+    console.log(this.$route);
     this.getGroupCases();
   },
 };

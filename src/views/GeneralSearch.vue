@@ -50,9 +50,9 @@
     />
 
     <!-- Search results -->
-    <div v-if="searchValue">
-      <!-- accounts -->
-      <div class="infinite-list" id="infinite-list-profiles">
+    <div class="infinite-list infinite-list-search">
+      <div v-if="searchValue">
+        <!-- accounts -->
         <div
           class="row m-0 display-row"
           v-if="(displayFlag == 0 || displayFlag == 1) && accountShowInfo"
@@ -79,54 +79,54 @@
       </div>
 
       <!-- groups -->
-      <div class="infinite-list" id="infinite-list-groups">
+      <div
+        class="row m-0 display-row"
+        v-if="(displayFlag == 0 || displayFlag == 2) && groupShowInfo"
+      >
+        <h4 class="cat-head col col-12 mt-1 m-0">Groups</h4>
+        <div class="col col-12 pl-3 pr-3">
+          <hr />
+        </div>
         <div
-          class="row m-0 display-row"
-          v-if="(displayFlag == 0 || displayFlag == 2) && groupShowInfo"
+          v-for="group in groupShowInfo"
+          :key="group.uuid"
+          @click="getGroupCases(group)"
         >
-          <h4 class="cat-head col col-12 mt-1 m-0">Groups</h4>
-          <div class="col col-12 pl-3 pr-3">
-            <hr />
-          </div>
-          <div v-for="group in groupShowInfo" :key="group.uuid">
-            <GroupSearchComponent :group="group" />
-          </div>
-          <div class="m-0 row justify-content-end col col-12">
-            <h6
-              class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
-              v-if="displayFlag == 0"
-              @click="filterSearch(2)"
-            >
-              View All
-            </h6>
-          </div>
+          <GroupSearchComponent :group="group" />
+        </div>
+        <div class="m-0 row justify-content-end col col-12">
+          <h6
+            class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
+            v-if="displayFlag == 0"
+            @click="filterSearch(2)"
+          >
+            View All
+          </h6>
         </div>
       </div>
 
       <!-- cases -->
-      <div class="infinite-list" id="infinite-list-cases">
-        <div
-          class="row m-0 display-row"
-          v-if="(displayFlag == 0 || displayFlag == 3) && caseShowInfo"
-        >
-          <h4 class="cat-head col col-12 mt-1 m-0">Cases</h4>
-          <div class="col col-12 pl-3 pr-3">
-            <hr />
-          </div>
-          <div v-for="allCases in caseShowInfo" :key="allCases.uuid">
-            <router-link :to="'/case/' + allCases.slug">
-              <CaseSearchComponent :allCases="allCases" />
-            </router-link>
-          </div>
-          <div class="m-0 row justify-content-end col col-12">
-            <h6
-              class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
-              v-if="displayFlag == 0"
-              @click="filterSearch(3)"
-            >
-              View All
-            </h6>
-          </div>
+      <div
+        class="row m-0 display-row"
+        v-if="(displayFlag == 0 || displayFlag == 3) && caseShowInfo"
+      >
+        <h4 class="cat-head col col-12 mt-1 m-0">Cases</h4>
+        <div class="col col-12 pl-3 pr-3">
+          <hr />
+        </div>
+        <div v-for="allCases in caseShowInfo" :key="allCases.uuid">
+          <router-link :to="'/case/' + allCases.slug">
+            <CaseSearchComponent :allCases="allCases" />
+          </router-link>
+        </div>
+        <div class="m-0 row justify-content-end col col-12">
+          <h6
+            class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
+            v-if="displayFlag == 0"
+            @click="filterSearch(3)"
+          >
+            View All
+          </h6>
         </div>
       </div>
     </div>
@@ -160,42 +160,53 @@ export default {
       displayFlag: 0,
       offset: "0",
       limit: 10,
+      stopSearch: 0,
     };
   },
   watch: {
     searchValue() {
+      this.stopSearch = 0;
       this.load();
     },
   },
+  mounted() {
+    // Detect when scrolled to bottom.
+    const listElm = document.querySelector(".infinite-list-search");
+    listElm.addEventListener("scroll", () => {
+      if (listElm.scrollTop + listElm.clientHeight >= listElm.scrollHeight) {
+        this.load();
+      }
+    });
+  },
   computed: {
     accountShowInfo() {
-      if (this.profileInfo.results) {
+      if (this.profileInfo) {
         if (this.displayFlag == 0) {
-          return this.profileInfo.results.slice(0, 5);
+          return this.profileInfo.slice(0, 5);
         } else {
-          return this.profileInfo.results;
+          return this.profileInfo;
         }
       } else {
         return null;
       }
     },
     groupShowInfo() {
-      if (this.groupInfo.results) {
+      if (this.groupInfo) {
         if (this.displayFlag == 0) {
-          return this.groupInfo.results.slice(0, 5);
+          return this.groupInfo.slice(0, 5);
         } else {
-          return this.groupInfo.results;
+          return this.groupInfo;
         }
       } else {
         return null;
       }
     },
     caseShowInfo() {
-      if (this.caseInfo.results) {
+      if (this.caseInfo) {
         if (this.displayFlag == 0) {
-          return this.caseInfo.results.slice(0, 5);
+          return this.caseInfo.slice(0, 5);
         } else {
-          return this.caseInfo.results;
+          return this.caseInfo;
         }
       } else {
         return null;
@@ -203,6 +214,13 @@ export default {
     },
   },
   methods: {
+    getGroupCases(group) {
+      this.$router.push({
+        name: "Group",
+        params: { uuid: group.uuid, groupname: group.name },
+      });
+    },
+
     load() {
       if (this.searchValue) {
         if (this.displayFlag == 0) {
@@ -210,49 +228,11 @@ export default {
           this.loadGroup();
           this.loadCases();
         } else if (this.displayFlag == 1) {
-          // Detect when scrolled to bottom.
-          const listElm = document.querySelector("#infinite-list-profiles");
-          listElm.addEventListener("scroll", () => {
-            if (
-              listElm.scrollTop + listElm.clientHeight >=
-              listElm.scrollHeight
-            ) {
-              this.loadProfile();
-            }
-
-            // Initially load some items.
-            this.loadProfile();
-          });
+          this.loadProfile();
         } else if (this.displayFlag == 2) {
-          // Detect when scrolled to bottom.
-          const listElm = document.querySelector("#infinite-list-groups");
-          listElm.addEventListener("scroll", () => {
-            if (
-              listElm.scrollTop + listElm.clientHeight >=
-              listElm.scrollHeight
-            ) {
-              this.loadGroup();
-            } else {
-              return "";
-            }
-
-            // Initially load some items.
-            this.loadGroup();
-          });
+          this.loadGroup();
         } else {
-          // Detect when scrolled to bottom.
-          const listElm = document.querySelector("#infinite-list-cases");
-          listElm.addEventListener("scroll", () => {
-            if (
-              listElm.scrollTop + listElm.clientHeight >=
-              listElm.scrollHeight
-            ) {
-              this.loadCases();
-            }
-
-            // Initially load some items.
-            this.loadCases();
-          });
+          this.loadCases();
         }
       }
     },
@@ -261,32 +241,40 @@ export default {
       const username = this.searchValue;
       const { dispatch } = this.$store;
 
-      searchService
-        .searchProfile(username, this.offset, this.limit)
-        .then((profileInfo) => {
-          if (this.profileInfo == 0) {
-            this.profileInfo = profileInfo;
-          } else {
-            this.profileInfo.push(...profileInfo);
-          }
-        })
-        .catch((e) => {
-          dispatch("alertStore/error", e);
-        });
-      this.offset = parseInt(this.offset) + this.limit;
+      if (!this.stopSearch) {
+        searchService
+          .searchProfile(username, this.offset, this.limit)
+          .then((profileInfo) => {
+            if (this.profileInfo == 0) {
+              this.profileInfo = profileInfo.results;
+            } else {
+              this.profileInfo.push(...profileInfo.results);
+            }
+            if (profileInfo.results.length < 10) {
+              this.stopSearch = 1;
+            }
+          })
+          .catch((e) => {
+            dispatch("alertStore/error", e);
+          });
+        this.offset = parseInt(this.offset) + this.limit;
+      }
     },
     loadGroup() {
       const username = this.searchValue;
       const { dispatch } = this.$store;
-      this.offset = 0;
 
       searchService
         .searchGroup(username, this.offset, this.limit)
         .then((groupInfo) => {
+          console.log("hi");
           if (this.groupInfo == 0) {
-            this.groupInfo = groupInfo;
+            this.groupInfo = groupInfo.results;
           } else {
-            this.groupInfo.push(...groupInfo);
+            this.groupInfo.push(...groupInfo.results);
+          }
+          if (groupInfo.results.length < 10) {
+            this.stopSearch = 1;
           }
         })
         .catch((e) => {
@@ -297,15 +285,17 @@ export default {
     loadCases() {
       const username = this.searchValue;
       const { dispatch } = this.$store;
-      this.offset = 0;
 
       searchService
         .searchCase(username, this.offset, this.limit)
         .then((caseInfo) => {
           if (this.caseInfo == 0) {
-            this.caseInfo = caseInfo;
+            this.caseInfo = caseInfo.results;
           } else {
-            this.caseInfo.push(...caseInfo);
+            this.caseInfo.push(...caseInfo.results);
+          }
+          if (caseInfo.results.length < 10) {
+            this.stopSearch = 1;
           }
         })
         .catch((e) => {
@@ -315,8 +305,12 @@ export default {
     },
 
     filterSearch(f) {
+      this.stopSearch = 0;
       this.displayFlag = f;
       this.offset = 0;
+      this.profileInfo = 0;
+      this.groupInfo = 0;
+      this.caseInfo = 0;
       this.load();
     },
   },

@@ -273,7 +273,13 @@ export default {
       offset: "0",
       limit: 10,
       viewLoader: 0,
+      stopSearch: 0,
     };
+  },
+  watch: {
+    searchValue() {
+      this.stopSearch = 0;
+    },
   },
   mounted() {
     // Detect when scrolled to bottom.
@@ -304,27 +310,33 @@ export default {
       }
 
       if (defined_list_route === "TIMELINE") {
-        caseService
-          .getCases(
-            (this.category = null),
-            (this.username = null),
-            (this.uuid = null),
-            this.offset,
-            this.limit
-          )
-          .then((cases) => {
-            if (this.cases == 0) {
-              this.cases = cases;
-            } else {
-              this.cases.push(...cases);
-            }
-            this.viewLoader = 0;
-          })
-          .catch((error) =>
-            dispatch("alertStore/success", error, { root: true })
-          );
+        if (!this.stopSearch) {
+          caseService
+            .getCases(
+              (this.category = null),
+              (this.username = null),
+              (this.uuid = null),
+              this.offset,
+              this.limit
+            )
+            .then((cases) => {
+              console.log(cases.length);
+              if (this.cases == 0) {
+                this.cases = cases;
+              } else {
+                this.cases.push(...cases);
+              }
+              this.viewLoader = 0;
+              if (cases.length < 10) {
+                this.stopSearch = 1;
+              }
+            })
+            .catch((error) =>
+              dispatch("alertStore/success", error, { root: true })
+            );
+        }
+        this.offset = parseInt(this.offset) + this.limit;
       }
-      this.offset = parseInt(this.offset) + this.limit;
     },
   },
 };
