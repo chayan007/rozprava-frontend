@@ -8,6 +8,7 @@ export const userService = {
   getProfile,
   getRecommendations,
   followUser,
+  getFollowers,
 };
 
 function settings(updateFields) {
@@ -19,7 +20,7 @@ function settings(updateFields) {
     existingUsername
   );
 
-  console.log("field",updateFields);
+  console.log("field", updateFields);
 
   let updatedSettings = new FormData();
   for (const [key, settingsObj] of Object.entries(updateFields))
@@ -104,6 +105,35 @@ function followUser(username) {
       throw stringFormat(
         config.messagingConfig.messages.error.does_not_exist_error,
         username
+      );
+    });
+}
+
+function getFollowers(flag) {
+  const authenticationHeader = authHeader();
+  let followerFlag = "0";
+  if (flag) {
+    followerFlag = 1;
+  }
+  const url = stringFormat(
+    `${config.commonConfig.$apiUrl}/${config.userConfig.api.getFollowers.endpoint}`,
+    followerFlag
+  );
+
+  return axios
+    .get(url, { headers: authenticationHeader })
+    .then((response) => {
+      const data = response.data;
+      if (data) {
+        return data;
+      } else {
+        throw config.messagingConfig.messages.error.unknown_error;
+      }
+    })
+    .catch(() => {
+      throw stringFormat(
+        config.messagingConfig.messages.error.does_not_exist_error,
+        flag
       );
     });
 }

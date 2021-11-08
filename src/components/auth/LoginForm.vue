@@ -1,22 +1,25 @@
 <template>
   <div class="col-12 col-md-6 col-lg-5 mb-5 mb-lg-0">
-    <div class="card bg-primary shadow-soft border-light p-4">
-      <div class="card-header text-center pb-0">
+    <div class="card bg-primary border-light rounded-xl shadow p-4">
+      <div class="card-header text-center p-2">
         <h2 class="h1">Log in</h2>
       </div>
       <div class="card-body p-1">
         <form action="#" @submit.prevent="handleSubmit" novalidate>
           <!-- Form -->
           <div class="form-group">
-            <label for="exampleInputIcon999">Username</label>
+            <label class="w-100 text-left h6" for="exampleInputIcon999">Username</label>
             <div class="input-group mb-4">
               <div class="input-group-prepend">
-                <span class="input-group-text"
-                  ><span class="fas fa-envelope"></span
-                ></span>
+                <span class="input-group-text border-0"
+                  ><img
+                      src="../../assets/username.svg"
+                      alt="sign in"
+                      width="14"
+                  /></span>
               </div>
               <input
-                class="form-control"
+                class="form-control border-0"
                 id="exampleInputIcon999"
                 placeholder="Username"
                 v-model="username"
@@ -30,15 +33,18 @@
           <div class="form-group">
             <!-- Form -->
             <div class="form-group">
-              <label for="exampleInputPassword345">Password</label>
+              <label class="w-100 text-left h6" for="exampleInputPassword345">Password</label>
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
-                  <span class="input-group-text"
-                    ><span class="fas fa-unlock-alt"></span
-                  ></span>
+                  <span class="input-group-text border-0"
+                    ><img
+                      src="../../assets/lock.svg"
+                      alt="sign in"
+                      width="14"
+                  /></span>
                 </div>
                 <input
-                  class="form-control"
+                  class="form-control border-0"
                   id="exampleInputPassword345"
                   placeholder="Password"
                   type="password"
@@ -64,8 +70,9 @@
               </label>
             </div>
           </div>
-          <button type="submit" class="btn btn-pill pl-4 pr-4 btn-primary">
-            <img src="../../assets/login.svg" alt="sign in" width="30" />
+          <Loader v-if="loggedIn"></Loader>
+          <button v-show="!loggedIn" type="submit" class="btn btn-pill pl-4 pr-4 btn-primary" @click="loggedIn = 1">
+            <img  src="../../assets/login.svg" alt="sign in" width="30" />
           </button>
         </form>
 
@@ -84,39 +91,39 @@
             <h2 style="font-size: 0.8rem">
               <router-link to="/forget-login">Forgot Password?</router-link>
             </h2>
-            <h2 style="font-size: 0.8rem;">
+            <!-- <h2 style="font-size: 0.8rem;">
               Forgot Username?
-            </h2>
+            </h2> -->
           </span>
         </div>
 
-        <button class="login-social-btn  btn btn-pill github mb-3 p-2 w-100" type="button">
+        <button class="login-social-btn  btn btn-pill github mb-3 p-2 w-100 shadow-md border-0" type="button">
            <img
               class="login-icons"
-              src="https://user-images.githubusercontent.com/83393749/121353888-f9772f80-c94b-11eb-9776-b7f4a5e003b5.png"
+              src="@/assets/socialIcons/google.png"
           />
-          <span class="login-social-btn-txt">
-            Sign in using Twitter
-           </span>
-        </button>
-        <br />
-        <button class="login-social-btn btn btn-pill github mb-3 p-2 w-100" type="button">
-           <img
-              class="login-icons"
-              src="https://user-images.githubusercontent.com/83393749/121353904-fd0ab680-c94b-11eb-8c81-a4b8ffac5a14.png"
-          />
-          <span class="login-social-btn-txt">
+          <span class="h6 m-0">
             Sign in using Google
            </span>
         </button>
         <br />
-        <button class="login-social-btn btn btn-pill github mb-3 p-2 w-100" type="button">
+        <button class="login-social-btn btn btn-pill github mb-3 p-2 w-100 shadow-md border-0" type="button">
+           <img
+              class="login-icons"
+              src="@/assets/socialIcons/facebook.png"
+          />
+          <span class="h6 m-0">
+            Sign in using Facebook
+           </span>
+        </button>
+        <br />
+        <button class="login-social-btn btn btn-pill github mb-3 p-2 w-100 shadow-md border-0" type="button">
           <img
               class="login-icons"
-              src="https://user-images.githubusercontent.com/83393749/121784049-4b7bb780-cbcf-11eb-913a-c47cc60d7831.png"
+              src="@/assets/socialIcons/twitter.png"
           />
-          <span class="login-social-btn-txt">
-            Sign in using Facebook
+          <span class="h6 m-0">
+            Sign in using Twitter
             </span>
         </button>
       </div>
@@ -134,14 +141,17 @@
 <script>
 import { isInRange, stringFormat } from "@/helpers";
 import { config } from "@/configurations";
+import Loader from "@/components/Loader.vue";
 
 export default {
   name: "LoginForm",
+  components: {Loader},
   data() {
     return {
       username: "",
       password: "",
       submitted: false,
+      loggedIn: 0
     };
   },
   computed: {
@@ -167,6 +177,7 @@ export default {
           ).trim(),
           { root: true }
         );
+        this.loggedIn = 0;
         return;
       }
 
@@ -182,10 +193,12 @@ export default {
           ).trim(),
           { root: true }
         );
+        this.loggedIn = 0;
         return;
       }
 
       dispatch("authStore/login", { username, password });
+      this.loggedIn = 0;
     },
   },
 };
@@ -203,9 +216,22 @@ export default {
 .login-icons {
   position: absolute;
   left: .5em;
-  width: 1.8em;
+  width: 1.5em;
 }
-.login-social-btn-txt {
-  font-weight: 600 !important;
+.btn {
+  background-color: #fff;
+}
+.card {
+  background-color: #fff !important;
+}
+.form-control {
+  box-shadow: none !important;
+}
+.form-check-label::before, .form-check-label::after {
+  box-shadow: none;
+  border-radius: 5px;
+}
+.social-icon {
+  width: 3.5em;
 }
 </style>

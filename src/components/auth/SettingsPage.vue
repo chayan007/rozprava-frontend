@@ -150,17 +150,17 @@
               data-v-6db336fc=""
               >Social Links<img
                 class="ml-6 mr-2"
-                src="../../assets/google.svg"
+                src="@/assets/socialIcons/google.png"
                 alt="Google"
                 width="25"
               /><img
                 class="mr-2"
-                src="../../assets/facebook.svg"
+                src="@/assets/socialIcons/facebook.png"
                 alt="Google"
                 width="25"
               /><img
                 class="mr-2"
-                src="../../assets/twitter.svg"
+                src="@/assets/socialIcons/twitter.png"
                 alt="Google"
                 width="25"
               />

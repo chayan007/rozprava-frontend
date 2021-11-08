@@ -35,7 +35,6 @@
           v-model="title"
           id="CaseTitle"
           aria-describedby="Title"
-          maxlength="100"
         />
         <br />
         <textarea
@@ -111,7 +110,7 @@
             <img
               @click="upload"
               class="attach-icon"
-              src="@/assets/attachment1.png"
+              src="@/assets/attachment.svg"
               alt=""
             />
           </button>
@@ -129,7 +128,7 @@
                 row
                 m-0
                 align-items-center
-                rounded-pill
+                rounded-pill 
                 shadow
                 pr-3
                 pl-3
@@ -304,6 +303,7 @@ export default {
         })
         .then((caseResponse) => {
           this.submitFiles(caseResponse.slug);
+          console.log(caseResponse.slug);
           router.push({
             name: "CaseDetail",
             params: { slug: caseResponse.slug },

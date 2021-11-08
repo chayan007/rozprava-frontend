@@ -3,18 +3,29 @@
     <div class="card case-inner shadow-soft col col-12 pt-3 pb-2 pl-3 pr-3">
       <!-- case-profile header -->
       <div class="case-profile-box row m-0 justify-content-between">
-        <div class="profile">
-          <!-- <img v-if="detail.profile.display_pic"
+        <div class="profile" v-if="detail.profile">
+          <router-link :to="'/profile/' + detail.profile.user.username">
+            <!-- <img v-if="detail.profile.display_pic"
             class="avatar-sm mr-2 img-fluid rounded-circle"
             :src="detail.profile.display_pic"
             alt="display_pic"
           /> -->
+            <img
+              class="avatar-md mr-2 img-fluid rounded-circle"
+              src="@\assets\profile-picture-1.jpg"
+              alt="display_pic"
+            />
+            <p class="m-0 d-inline">{{ detail.profile.user.username }}</p>
+          </router-link>
+        </div>
+
+        <div v-else class="profile anonymous-tag">
           <img
             class="avatar-md mr-2 img-fluid rounded-circle"
-            src="@\assets\profile-picture-1.jpg"
+            src="@\assets\anonymous.png"
             alt="display_pic"
           />
-          {{ detail.profile.user.username }}
+          <p class="m-0 d-inline">Anonymous</p>
         </div>
 
         <div class="case-menu row m-0 align-items-center">
@@ -49,24 +60,35 @@
       </div>
       <!-- case-profile header -->
       <!-- case content -->
-      <div class="case-content">
-        <h3 class="case-head h5 card-title mt-3 mb-2">
-          {{ detail.question }}
-        </h3>
-        <p class="case-desc card-text">
-          {{ detail.description }}
-        </p>
-      </div>
+      <router-link :to="'/case/' + detail.slug">
+        <div class="case-content text-left">
+          <h3 class="case-head h5 card-title mt-3 mb-2">
+            {{ detail.question }}
+          </h3>
+          <p class="case-desc card-text">
+            {{ detail.description }}
+          </p>
+        </div>
+      </router-link>
       <!-- case content -->
-      <!-- proof -->
-      <div class="proof-box mt-3 mb-3">
-        <img class="rounded" src="@/assets/Detail-case.png" alt="" />
+      <!-- proofs -->
+      <div
+        v-if="showProofs && detail.proofs"
+        class="proofs-box w-100 my-4 d-flex"
+      >
+        <div
+          class="proof mr-4"
+          v-for="proof in detail.proofs"
+          :key="proof.uuid"
+        >
+          <Proof :proof="proof" />
+        </div>
       </div>
       <!-- proof -->
       <!-- metrics -->
       <div
         class="
-          mt-3
+          mt-0
           metrics-box
           p-1
           row
@@ -75,51 +97,57 @@
           align-items-center
         "
       >
-
         <div class="views">
           <img class="metrics-icon p-1" src="@/assets/Eye.svg" alt="" />
-          {{ detail.metrics[0] }}
+          {{ metrics[0] }}
         </div>
 
         <div class="likes-box row m-0">
-          <span @click="like()" class="row m-0 mr-3 align-items-center">
+          <span @click="activity(1)" class="row m-0 mr-3 align-items-center">
             <img
+              v-if="liked"
               class="metrics-icon mr-1"
-              src="@/assets/case-like.svg"
+              src="@/assets/liked.svg"
               alt=""
             />
-            {{ detail.metrics[1] }} <b>{{liked}}</b>
+            <img
+              v-else
+              class="metrics-icon mr-1"
+              src="@/assets/like.svg"
+              alt=""
+            />
+            {{ metrics[1] }}
           </span>
-          <span class="row m-0 align-items-center">
+          <span @click="activity(2)" class="row m-0 align-items-center">
             <img
+              v-if="disliked"
               class="metrics-icon mr-1"
-              src="@/assets/case-dislike.svg"
+              src="@/assets/liked.svg"
               alt=""
             />
-            {{ detail.metrics[2] }}
+            <img
+              v-else
+              class="metrics-icon mr-1"
+              src="@/assets/like.svg"
+              alt=""
+            />
+            {{ metrics[2] }}
           </span>
         </div>
-        
-        <div class="w-100 mt-2 row m-0 justify-content-between align-items-center">
-          <div class="top-matrics">
-            <img
-              class="border-metrics-img avatar-sm rounded-circle"
-              src="@\assets\profile-picture-1.jpg"
-              alt=""
-            />
-            <img
-              class="border-metrics-img rt-2 avatar-sm rounded-circle"
-              src="@\assets\profile-picture-1.jpg"
-              alt=""
-            />
-            <img
-              class="border-metrics-img rt-3 avatar-sm rounded-circle"
-              src="@\assets\profile-picture-1.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            10 Proofs
+
+        <div class="w-100 mt-2 row m-0 align-items-center">
+          <div>{{ detail.proofs.length }} Proofs</div>
+          <div class="ml-3" v-if="detail.proofs.length">
+            <small
+              class="text-left m-0"
+              v-if="!showProofs"
+              @click="showProofs = 1"
+            >
+              Show proofs
+            </small>
+            <small class="text-left m-0" v-else @click="showProofs = 0">
+              Hide proofs
+            </small>
           </div>
         </div>
       </div>
@@ -131,30 +159,59 @@
 <script>
 import { activityService } from "@/services";
 import { config } from "@/configurations";
+import Proof from "@/components/case/Proofs.vue";
 export default {
   name: "Case",
   props: ["detail"],
+  components: { Proof },
   data() {
     return {
       liked: 0,
       disliked: 0,
-    }
+      showProofs: 1,
+      metrics: this.detail.metrics,
+    };
   },
   methods: {
     hasValue(key) {
       return Object.keys(this.detail).includes(key);
     },
-    like() {
+    activity(act) {
       const uuid = this.detail.uuid;
-       activityService
-        .getActivity(uuid,1)
-        .then(() => {
+      if (act == 1) {
+        if (this.liked) {
+          this.metrics[1]--;
+          this.liked = 0;
+        } else {
+          this.metrics[1]++;
           this.liked = 1;
+          if (this.disliked) {
+            this.metrics[2]--;
+            this.disliked = 0;
+          }
+        }
+      } else if (act == 2) {
+        if (this.disliked) {
+          this.metrics[2]--;
+          this.disliked = 0;
+        } else {
+          this.metrics[2]++;
+          this.disliked = 1;
+          if (this.liked) {
+            this.metrics[1]--;
+            this.liked = 0;
+          }
+        }
+      }
+      activityService
+        .caseActivity(uuid, act)
+        .then(() => {
+          console.log(act);
         })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
         });
-    }
+    },
   },
 };
 </script>
@@ -202,5 +259,13 @@ export default {
 }
 .rt-3 {
   right: 1em;
+}
+/* proofs */
+.proofs-box {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.proofs-box::-webkit-scrollbar {
+  display: none;
 }
 </style>

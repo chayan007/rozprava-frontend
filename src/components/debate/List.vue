@@ -32,9 +32,7 @@
     <!-- comments -->
 
     <p v-if="debates" >Debates :</p>
-    <div v-if="!debates" class="loader-box p-5 w-100 row m-0 justify-content-center align-center">
-       <div  class="loader"></div>
-    </div>
+    <Loader v-if="!debates" class="my-6"></Loader>
     <div v-else-if="!debates.length" >
       <p class="text-center">No Debates Yet!</p>
     </div>
@@ -52,7 +50,7 @@
     <div class="rebuttal-box w-100" v-show="rebuttal">
       <div class="w-100 row m-0 justify-content-center p-3 pt-6">
         <p
-          class="close-rebuttal shadow-soft p-1 pr-3 pl-3"
+          class="close-rebuttal shadow-lg p-1 pr-3 pl-3"
           v-on:click="toggleRebuttals"
         >
           Close all tabs
@@ -106,6 +104,7 @@
 import Comment from "@/components/debate/Comment.vue";
 import Rebuttal from "@/components/debate/Rebuttal.vue";
 import Create from "@/components/debate/Create.vue";
+import Loader from "@/components/Loader.vue"
 
 import { debateService } from "@/services";
 import { config } from "@/configurations";
@@ -113,7 +112,7 @@ import { getSanitizedTime } from "@/helpers";
 
 export default {
   name: "List",
-  components: { Comment, Rebuttal, Create },
+  components: { Comment, Rebuttal, Create, Loader },
   props: ["slug", "caseUuid"],
   watch: {
     slug: function () {
@@ -177,7 +176,7 @@ export default {
   top: 0%;
   left: 0;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.849);
+  background-color: rgba(0, 0, 0, 0.418);
 }
 .close-rebuttal {
   background-color: white;
@@ -204,7 +203,7 @@ export default {
   top: 0%;
   left: 0;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.849);
+  background-color: rgba(0, 0, 0, 0.418);
 }
 
 .create-comment-form {
@@ -219,28 +218,4 @@ export default {
   box-shadow: 5px 5px 10px -1px rgba(77, 77, 77, 0.349);
 }
 
-/* loader */
-.loader-box{
-  height: 40vh;
-}
-.loader {
-  border: 3px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 3px solid #383838;
-  width: 50px;
-  height: 50px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 1s linear infinite;
-}
-
-/* Safari */
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
 </style>

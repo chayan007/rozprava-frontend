@@ -54,6 +54,30 @@
           </router-link>
         </li>
         <li
+            class="nav-item"
+            data-toggle="collapse"
+            data-target="#navbar_global"
+        >
+          <router-link to="/notification">
+            <span
+                class="
+                nav-link-inner-text nav-link
+                w-100
+                row
+                m-0
+                justify-content-between
+              "
+            >
+              <span>Notifications</span>
+              <img
+                  class="menu-item-icon pr-2"
+                  src="@/assets/bell.svg"
+                  alt=""
+              />
+            </span>
+          </router-link>
+        </li>
+        <li
           class="nav-item"
           data-toggle="collapse"
           data-target="#navbar_global"
@@ -121,11 +145,6 @@
                 <a class="dropdown-item">Groups</a>
               </router-link>
             </li>
-            <li data-toggle="collapse" data-target="#navbar_global">
-              <router-link to="/notifications">
-                <a class="dropdown-item">Notifications</a>
-              </router-link>
-            </li>
           </ul>
         </li>
 
@@ -149,6 +168,30 @@
                 class="menu-item-icon pr-2"
                 src="@/assets/settings.svg"
                 alt=""
+              />
+            </span>
+          </router-link>
+        </li>
+        <li
+            class="nav-item"
+            data-toggle="collapse"
+            data-target="#navbar_global"
+        >
+          <router-link to="/logout">
+            <span
+                class="
+                nav-link-inner-text nav-link
+                w-100
+                row
+                m-0
+                justify-content-between
+              "
+            >
+              <span class="text-danger">Logout</span>
+              <img
+                  class="menu-item-icon pr-2"
+                  src="@/assets/logout.svg"
+                  alt=""
               />
             </span>
           </router-link>
@@ -225,7 +268,7 @@
         </div>
       </a>
       <ul class="nav-profile-dropdown dropdown-menu mt-4">
-        <li>
+        <li v-if="is_authenticated && is_authenticated.profile">
           <router-link
             :to="'/profile/' + is_authenticated.profile.user.username"
           >

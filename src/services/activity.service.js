@@ -4,22 +4,21 @@ import axios from "axios";
 
 export const activityService = { getActivity, caseActivity, debateActivity };
 
-function getActivity(uuid, category) {
+function getActivity() {
   const headers = authHeader();
-
-  let url = stringFormat(
-    `${config.commonConfig.$apiUrl}/${config.activityConfig.api.fetchActivity.endpoint}`,
-    uuid,
-    category
-  );
+  let url = `${config.commonConfig.$apiUrl}/${config.activityConfig.api.fetchActivity.endpoint}`;
   return axios
-    .get(url, { headers: headers })
-    .then((response) => {
-      return response.data;
-    })
-    .catch(() => {
-      throw config.messagingConfig.messages.error.unknown_error;
-    });
+      .get(
+          url,
+          { headers: headers }
+      )
+      .then((response) => {                      
+          return response.data;
+      })
+      .catch(() => {
+          throw config.messagingConfig.messages.error.unknown_error;
+      });
+
 }
 
 function caseActivity(uuid, category) {

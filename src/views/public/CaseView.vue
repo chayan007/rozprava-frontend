@@ -280,6 +280,9 @@ export default {
     searchValue() {
       this.stopSearch = 0;
     },
+    is_authenticated() {
+      return this.$store.state.authStore.user;
+    },
   },
   mounted() {
     // Detect when scrolled to bottom.
@@ -338,6 +341,12 @@ export default {
         this.offset = parseInt(this.offset) + this.limit;
       }
     },
+  },
+  created() {
+    this.getCasesByURL();
+    if (!this.is_authenticated.profile) {
+      this.$router.go()
+    }
   },
 };
 </script>

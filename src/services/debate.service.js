@@ -2,7 +2,7 @@ import {authHeader, stringFormat} from '@/helpers';
 import {config} from "@/configurations";
 import axios from "axios";
 
-export const debateService = {getDebates, getRebuttals, createDebate, createRebuttal, deleteDebate};
+export const debateService = {getDebates, getRebuttals, createDebate, createRebuttal, deleteDebate, uploadProof};
 
 function getDebates(slug) {
     const headers = authHeader();
@@ -62,7 +62,7 @@ function createRebuttal(createRebuttalBody) {
         .then((response) => {
             console.log(response.data);
             return response.data;
-        })
+        }) 
         .catch((error) => {
             console.log(error.response)
             throw config.messagingConfig.messages.unknown_error;
@@ -87,3 +87,30 @@ function deleteDebate(uuid) {
             throw config.messagingConfig.messages.unknown_error;
         });
 }
+
+function uploadProof(proofRequestBody, uuid) {
+    if (!uuid) return;
+
+    console.log(uuid);
+    console.log(proofRequestBody);
+  
+    const url = stringFormat(
+      `${config.commonConfig.$apiUrl}/${config.debateConfig.api.uploadDebateProof.endpoint}`,
+      uuid
+    );
+    const authHeaders = authHeader();
+    authHeaders["Content-Type"] = "multipart/form-data";
+  
+    let data = new FormData();
+    for (const [key, fileObj] of Object.entries(proofRequestBody))
+      data.append(key, fileObj);
+    return axios
+      .post(url, data, { headers: authHeaders })
+      .then((response) => {
+          console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log("service level error: ", error.response);
+      });
+  }

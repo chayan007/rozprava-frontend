@@ -1,6 +1,6 @@
 <template>
   <div class="rebuttal-outer p-2 mb-3 w-100" v-if="rebuttalItem">
-    <div class="rebuttal-inner shadow-soft">
+    <div class="rebuttal-inner shadow border-light border">
       <div class="pre-comment p-3">
         <!-- profile bar -->
         <div class="row m-0 justify-content-between w-100">
@@ -29,32 +29,62 @@
           <small> {{ rebuttalItem.comment }}</small>
         </div>
 
+        <!-- proofs -->
+        <div class="mt-2" v-if="rebuttalItem.proofs.length">
+          <p v-if="!showProofs" @click="showProofs = 1">Show proofs</p>
+          <p v-else @click="showProofs = 0">Hide proofs</p>
+        </div>
+        <div
+          v-if="showProofs && rebuttalItem.proofs"
+          class="proofs-box w-100 my-4 d-flex"
+        >
+          <div
+            class="proof mr-4"
+            v-for="proof in rebuttalItem.proofs"
+            :key="proof.uuid"
+          >
+            <Proof :proof="proof" />
+          </div>
+        </div>
+
         <!-- case reaction box -->
         <div class="reactions-box row justify-content-between m-0 mt-3">
           <span class="row m-0 align-items-center">
-            <span class="row m-0 align-items-center">
+            <span @click="activity(1)" class="row m-0 align-items-center">
               <img
+                v-if="liked"
                 class="case-react-icons mr-1"
-                src="@/assets/case-like.svg"
+                src="@/assets/liked.svg"
                 alt=""
               />
-              <small class="react-txt m-0 mr-3 h6">{{
-                rebuttalItem.activities[1]
-              }}</small>
+              <img
+                v-else
+                class="case-react-icons mr-1"
+                src="@/assets/like.svg"
+                alt=""
+              />
+              <small class="react-txt m-0 mr-3 h6">{{ metrics[1] }}</small>
             </span>
-            <span class="row m-0 align-items-center">
+            <span @click="activity(2)" class="row m-0 align-items-center">
               <img
+                v-if="disliked"
                 class="case-react-icons mr-1"
-                src="@/assets/case-dislike.svg"
+                src="@/assets/disliked.svg"
                 alt=""
               />
-              <small class="react-txt m-0 mr-3 h6">{{
-                rebuttalItem.activities[2]
-              }}</small>
+              <img
+                v-else
+                class="case-react-icons mr-1"
+                src="@/assets/dislike.svg"
+                alt=""
+              />
+              <small class="react-txt m-0 mr-3 h6">{{ metrics[2] }}</small>
             </span>
           </span>
           <span class="case-view-box row m-0 align-items-center">
-            <small class="react-txt h6 m-0 pl-1">10 proofs</small>
+            <small class="react-txt h6 m-0 pl-1"
+              >{{ rebuttalItem.proofs.length }} proofs</small
+            >
           </span>
           <small
             class="col-12 col mt-3 p-0 m-0 font-weight-bold"
@@ -113,20 +143,7 @@
 
         <!-- comments -->
         <p>Rebuttals :</p>
-        <div
-          v-if="!rebuttals"
-          class="
-            loader-box
-            p-5
-            w-100
-            row
-            m-0
-            justify-content-center
-            align-center
-          "
-        >
-          <div class="loader"></div>
-        </div>
+        <Loader class="my-4" v-if="!rebuttals"></Loader>
         <div v-else-if="!rebuttals.length">
           <p class="text-center p-4">No Rebuttals Yet!</p>
         </div>
@@ -173,8 +190,11 @@
               >
                 x
               </h3>
-            </div> 
-            <Create :caseUuid="rebuttalItem.uuid" :commentSection="'Rebuttal'"></Create>
+            </div>
+            <Create
+              :caseUuid="rebuttalItem.uuid"
+              :commentSection="'Rebuttal'"
+            ></Create>
           </div>
         </div>
       </div>
@@ -186,13 +206,16 @@
 <script>
 import Create from "@/components/debate/Create.vue";
 import Comment from "@/components/debate/Comment.vue";
+import Proof from "@/components/case/Proofs.vue";
+import Loader from "@/components/Loader.vue";
 
 import { debateService } from "@/services";
+import { activityService } from "@/services";
 import { config } from "@/configurations";
 import { getSanitizedTime } from "@/helpers";
 export default {
   name: "Rebuttal",
-  components: { Create, Comment },
+  components: { Create, Comment, Proof, Loader },
   props: ["rebuttalItem", "rebuttalTime", "uuid"],
   watch: {
     uuid: function () {
@@ -203,12 +226,24 @@ export default {
   created() {
     this.loadRebuttals();
   },
+  computed: {
+    metrics() {
+      if (this.rebuttalItem) {
+        return this.rebuttalItem.activities;
+      } else {
+        return [0, 0, 0, 0];
+      }
+    },
+  },
   data() {
     return {
       rebuttals: null,
       addComment: false,
       openRebuttal: false,
       inclination: null,
+      showProofs: 1,
+      liked: null,
+      disliked: null,
     };
   },
 
@@ -222,7 +257,6 @@ export default {
         .getRebuttals(uuid)
         .then((rebuttals) => {
           this.rebuttals = rebuttals.rebuttals;
-          console.log(this.rebuttals);
         })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
@@ -239,6 +273,43 @@ export default {
     toggleRebuttals() {
       this.rebuttals = null;
       this.openRebuttal = !this.openRebuttal;
+    },
+
+    activity(act) {
+      if (act == 1) {
+        if (this.liked) {
+          this.metrics[1]--;
+          this.liked = 0;
+        } else {
+          this.metrics[1]++;
+          this.liked = 1;
+          if (this.disliked) {
+            this.metrics[2]--;
+            this.disliked = 0;
+          }
+        }
+      } else if (act == 2) {
+        if (this.disliked) {
+          this.metrics[2]--;
+          this.disliked = 0;
+        } else {
+          this.metrics[2]++;
+          this.disliked = 1;
+          if (this.liked) {
+            this.metrics[1]--;
+            this.liked = 0;
+          }
+        }
+      }
+      const uuid = this.rebuttalItem.uuid;
+      activityService
+        .debateActivity(uuid, act)
+        .then(() => {
+          console.log(act);
+        })
+        .catch(() => {
+          throw config.messagingConfig.messages.error.unknown_error;
+        });
     },
   },
 };
@@ -298,7 +369,7 @@ export default {
 }
 .close-rebuttal {
   background-color: white;
-  border-radius: 15px; 
+  border-radius: 15px;
 }
 
 .filter-btn:hover {
@@ -317,7 +388,7 @@ export default {
 .comm-inp {
   background-color: rgb(236, 236, 236);
 }
-.comm-send-btn{
+.comm-send-btn {
   width: 2em;
 }
 .add-comment-form {
@@ -325,7 +396,7 @@ export default {
   top: 0%;
   left: 0;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.849);
+  background-color: rgba(0, 0, 0, 0.418);
 }
 
 .create-comment-form {
@@ -339,37 +410,12 @@ export default {
   background-color: white;
   box-shadow: 5px 5px 10px -1px rgba(77, 77, 77, 0.349);
 }
-
-/* loader */
-.loader-box {
-  height: 40vh;
+/* proofs */
+.proofs-box {
+  overflow-x: auto;
+  white-space: nowrap;
 }
-.loader {
-  border: 3px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 3px solid #383838;
-  width: 50px;
-  height: 50px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 1s linear infinite;
-}
-
-/* Safari */
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.proofs-box::-webkit-scrollbar {
+  display: none;
 }
 </style>
