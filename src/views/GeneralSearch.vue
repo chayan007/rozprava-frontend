@@ -50,29 +50,31 @@
     />
 
     <!-- Search results -->
-    <div v-if="searchValue">
-      <!-- accounts -->
-      <div
-        class="row m-0 display-row"
-        v-if="(displayFlag == 0 || displayFlag == 1) && accountShowInfo"
-      >
-        <h4 class="cat-head col col-12 mt-1 m-0">Accounts</h4>
-        <div class="col col-12 pl-3 pr-3">
-          <hr />
-        </div>
-        <div v-for="account in accountShowInfo" :key="account.uuid">
-          <router-link :to="'/profile/' + account.user.username">
-            <ProfileSearchComponent :account="account" />
-          </router-link>
-        </div>
-        <div class="m-0 row justify-content-end col col-12">
-          <h6
-            class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
-            v-if="displayFlag == 0"
-            @click="filterSearch(1)"
-          >
-            View All
-          </h6>
+    <div class="infinite-list infinite-list-search">
+      <div v-if="searchValue">
+        <!-- accounts -->
+        <div
+          class="row m-0 display-row"
+          v-if="(displayFlag == 0 || displayFlag == 1) && accountShowInfo"
+        >
+          <h4 class="cat-head col col-12 mt-1 m-0">Accounts</h4>
+          <div class="col col-12 pl-3 pr-3">
+            <hr />
+          </div>
+          <div v-for="account in accountShowInfo" :key="account.uuid">
+            <router-link :to="'/profile/' + account.user.username">
+              <ProfileSearchComponent :account="account" />
+            </router-link>
+          </div>
+          <div class="m-0 row justify-content-end col col-12">
+            <h6
+              class="pt-1 pb-1 pr-3 pl-3 view rounded-pill"
+              v-if="displayFlag == 0"
+              @click="filterSearch(1)"
+            >
+              View All
+            </h6>
+          </div>
         </div>
       </div>
 
@@ -85,7 +87,11 @@
         <div class="col col-12 pl-3 pr-3">
           <hr />
         </div>
-        <div v-for="group in groupShowInfo" :key="group.uuid">
+        <div
+          v-for="group in groupShowInfo"
+          :key="group.uuid"
+          @click="getGroupCases(group)"
+        >
           <GroupSearchComponent :group="group" />
         </div>
         <div class="m-0 row justify-content-end col col-12">
@@ -152,55 +158,69 @@ export default {
       groupInfo: 0,
       caseInfo: 0,
       displayFlag: 0,
-      offset: 0,
-      limit: 10, //remove n add it to funct
+      offset: "0",
+      limit: 10,
+      stopSearch: 0,
     };
   },
   watch: {
     searchValue() {
+      this.stopSearch = 0;
       this.load();
     },
   },
+  mounted() {
+    // Detect when scrolled to bottom.
+    const listElm = document.querySelector(".infinite-list-search");
+    listElm.addEventListener("scroll", () => {
+      if (listElm.scrollTop + listElm.clientHeight >= listElm.scrollHeight) {
+        this.load();
+      }
+    });
+  },
   computed: {
     accountShowInfo() {
-      if (this.profileInfo.results) {
+      if (this.profileInfo) {
         if (this.displayFlag == 0) {
-          return this.profileInfo.results.slice(0, 5);
+          return this.profileInfo.slice(0, 5);
         } else {
-          return this.profileInfo.results;
+          return this.profileInfo;
         }
       } else {
         return null;
       }
     },
     groupShowInfo() {
-      if (this.groupInfo.results) {
+      if (this.groupInfo) {
         if (this.displayFlag == 0) {
-          return this.groupInfo.results.slice(0, 5);
+          return this.groupInfo.slice(0, 5);
         } else {
-          return this.groupInfo.results;
+          return this.groupInfo;
         }
       } else {
         return null;
       }
     },
     caseShowInfo() {
-      if (this.caseInfo.results) {
+      if (this.caseInfo) {
         if (this.displayFlag == 0) {
-          return this.caseInfo.results.slice(0, 5);
+          return this.caseInfo.slice(0, 5);
         } else {
-          return this.caseInfo.results;
+          return this.caseInfo;
         }
       } else {
         return null;
       }
     },
   },
-  created() {
-    this.load;
-    window.addEventListener("scroll", this.load);
-  },
   methods: {
+    getGroupCases(group) {
+      this.$router.push({
+        name: "Group",
+        params: { uuid: group.uuid, groupname: group.name },
+      });
+    },
+
     load() {
       if (this.searchValue) {
         if (this.displayFlag == 0) {
@@ -221,47 +241,76 @@ export default {
       const username = this.searchValue;
       const { dispatch } = this.$store;
 
-      this.offset = this.offset + this.pageSize;
-      searchService
-        .searchProfile(username, this.offset, this.limit)
-        .then((profileInfo) => {
-          this.profileInfo = profileInfo;
-        })
-        .catch((e) => {
-          dispatch("alertStore/error", e);
-        });
+      if (!this.stopSearch) {
+        searchService
+          .searchProfile(username, this.offset, this.limit)
+          .then((profileInfo) => {
+            if (this.profileInfo == 0) {
+              this.profileInfo = profileInfo.results;
+            } else {
+              this.profileInfo.push(...profileInfo.results);
+            }
+            if (profileInfo.results.length < 10) {
+              this.stopSearch = 1;
+            }
+          })
+          .catch((e) => {
+            dispatch("alertStore/error", e);
+          });
+        this.offset = parseInt(this.offset) + this.limit;
+      }
     },
     loadGroup() {
       const username = this.searchValue;
       const { dispatch } = this.$store;
 
-      this.offset = this.offset + this.pageSize;
       searchService
         .searchGroup(username, this.offset, this.limit)
         .then((groupInfo) => {
-          this.groupInfo = groupInfo;
+          console.log("hi");
+          if (this.groupInfo == 0) {
+            this.groupInfo = groupInfo.results;
+          } else {
+            this.groupInfo.push(...groupInfo.results);
+          }
+          if (groupInfo.results.length < 10) {
+            this.stopSearch = 1;
+          }
         })
         .catch((e) => {
           dispatch("alertStore/error", e);
         });
+      this.offset = parseInt(this.offset) + this.limit;
     },
     loadCases() {
       const username = this.searchValue;
       const { dispatch } = this.$store;
 
-      this.offset = this.offset + this.pageSize;
       searchService
         .searchCase(username, this.offset, this.limit)
         .then((caseInfo) => {
-          this.caseInfo = caseInfo;
+          if (this.caseInfo == 0) {
+            this.caseInfo = caseInfo.results;
+          } else {
+            this.caseInfo.push(...caseInfo.results);
+          }
+          if (caseInfo.results.length < 10) {
+            this.stopSearch = 1;
+          }
         })
         .catch((e) => {
           dispatch("alertStore/error", e);
         });
+      this.offset = parseInt(this.offset) + this.limit;
     },
 
     filterSearch(f) {
+      this.stopSearch = 0;
       this.displayFlag = f;
+      this.offset = 0;
+      this.profileInfo = 0;
+      this.groupInfo = 0;
+      this.caseInfo = 0;
       this.load();
     },
   },
@@ -359,5 +408,10 @@ hr {
 
 .active {
   border: 2px solid rgb(117, 117, 117);
+}
+
+.infinite-list {
+  overflow-y: scroll;
+  max-height: 70vh;
 }
 </style>

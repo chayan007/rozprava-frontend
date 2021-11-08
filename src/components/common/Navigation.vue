@@ -286,9 +286,7 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/logout">
-            <a class="dropdown-item">Log out</a>
-          </router-link>
+          <a class="dropdown-item" @click="logout">Log out</a>
         </li>
       </ul>
     </div>
@@ -296,11 +294,21 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   name: "Nav",
   computed: {
     is_authenticated() {
       return this.$store.state.authStore.user;
+    },
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("user");
+      router.push({
+       name:"Home"
+      });
     },
   },
 };

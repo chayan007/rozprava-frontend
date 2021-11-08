@@ -35,11 +35,8 @@
         :class="[myCase ? 'right' : 'left']"
       >
         <div @click="openCase = !openCase">
-          <h6 class="mb-3"><b>Who is better SRK or Salman</b></h6>
-          <p class="mb-1">
-            Ironman is Ironman and Captain is Captain also Captain is not
-            Ironman and Ironman is not Captain because Ironman is Ironman and
-            Captain,Ironman is Ironman and Captain is Captain.
+          <h6 class="mb-3"><b>{{cases.question}}</b></h6>
+          <p class="mb-1">{{cases.description}}
           </p>
           <p><b>Read more</b></p>
         </div>
@@ -86,7 +83,7 @@
             w-100
           "
         >
-          <router-link to="/case/srk-vs-salman">
+          <router-link :to="'/case/'+cases.slug">
             <span :class="[myCase ? 'right-open' : 'left-open']" class="open-btn px-3 py-2 rounded-pill">Open</span>
           </router-link>
         </div>
@@ -99,7 +96,7 @@
 <script>
 export default {
   name: "GroupCase",
-  props: ["case", "user"],
+  props: ["cases", "user"],
   data() {
     return {
       openCase: 0,
@@ -110,11 +107,7 @@ export default {
       return this.$store.state.authStore.user;
     },
     myCase() {
-      if (this.is_authenticated.profile.user.username == this.user) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.is_authenticated.profile.user.username === this.user;
     },
   },
 };
