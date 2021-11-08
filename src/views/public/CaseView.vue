@@ -280,6 +280,8 @@ export default {
     searchValue() {
       this.stopSearch = 0;
     },
+  },
+  computed: {
     is_authenticated() {
       return this.$store.state.authStore.user;
     },
@@ -323,7 +325,6 @@ export default {
               this.limit
             )
             .then((cases) => {
-              console.log(cases.length);
               if (this.cases == 0) {
                 this.cases = cases;
               } else {
@@ -345,7 +346,7 @@ export default {
   created() {
     this.getCasesByURL();
     if (!this.is_authenticated.profile) {
-      this.$router.go()
+      this.$router.go();
     }
   },
 };
