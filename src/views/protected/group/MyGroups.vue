@@ -1,6 +1,6 @@
 <template>
   <div
-    class="row m-0 justify-content-between align-items-center p-3 w-100 mt-7"
+    class="row m-0 justify-content-between align-items-center p-3 w-100 mt-6"
   >
     <h1 class="m-0">Groups</h1>
     <img
@@ -9,10 +9,49 @@
       v-on:click="openAddMembers = !openAddMembers"
     />
   </div>
+
+  <!-- Groups of Person -->
+
+  <div v-if="groupLists.length == 0">
+    <h1>No groups found !</h1>
+  </div>
+
+  <div class="p-3 infinite-list" id="infinite-list">
+    <div
+      class="card bg-primary shadow-soft border-light py-2 my-4"
+      v-for="groupList in groupLists"
+      :key="groupList.message"
+    >
+      <div
+        class="p-2 col col-12 row m-0 align-items-center"
+        @click="getGroupCases(groupList)"
+      >
+        <div class="w-100">
+          <!-- <img
+              class="pro-pic-sm rounded-circle mr-2"
+              v-if="groupList.display_pic"
+              :src="groupList.display_pic"
+              alt=""
+            /> -->
+          <img
+            class="pro-pic-md rounded-circle mr-2"
+            src="@/assets/profile-picture-1.jpg"
+            alt=""
+          />
+          <h2 class="m-0 ml-2 d-inline">{{ groupList.name }}a</h2>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="viewLoader">
+      <Loader class="m-0" />
+    </div>
+  </div>
+
   <!-- add grp component -->
 
   <div class="add-grp-box w-100" v-if="openAddMembers">
-    <div class="mt-10 p-3">
+    <div class="mt-7 p-3">
       <div class="add-grp-inner shadow p-3">
         <h3 class="float-right" v-on:click="openAddMembers = !openAddMembers">
           x
@@ -29,7 +68,17 @@
             v-model="groupDescription"
           />
           <button
-            class="col col-5 text-center create-btn p-2 rounded border-none btn"
+            class="
+              w-100
+              rounded-pill
+              text-center
+              create-btn
+              p-2
+              rounded
+              border-none
+              btn
+              next-btn
+            "
             v-on:click="createGroup"
           >
             Create
@@ -39,32 +88,34 @@
         <div v-else>
           <div class="w-100" v-if="members.length">
             <h3>Group Members:</h3>
-            <span
-              class="pb-3"
-              v-for="(member, index) in members"
-              :key="member.uuid"
-            >
-              <p class="tag h6 rounded-pill pr-3 pl-3 pt-2 pb-2 mr-2 mb-2">
-                <img
-                  class="pro-pic-sm rounded-circle mr-2"
-                  v-if="member.display_pic"
-                  :src="member.display_pic"
-                  alt=""
-                />
-                <img
-                  class="pro-pic-sm rounded-circle mr-2"
-                  v-else
-                  src="@/assets/profile-picture-1.jpg"
-                  alt=""
-                />
-                {{ member.user.username }}
-                <span class="pl-3" v-on:click="removeMember(index)"> x</span>
-              </p>
-            </span>
+            <div class="scroll">
+              <span
+                class="pb-3"
+                v-for="(member, index) in members"
+                :key="member.uuid"
+              >
+                <p class="tag h6 rounded-pill pr-3 pl-3 pt-2 pb-2 mr-2 mb-2">
+                  <img
+                    class="pro-pic-sm rounded-circle mr-2"
+                    v-if="member.display_pic"
+                    :src="member.display_pic"
+                    alt=""
+                  />
+                  <img
+                    class="pro-pic-sm rounded-circle mr-2"
+                    v-else
+                    src="@/assets/profile-picture-1.jpg"
+                    alt=""
+                  />
+                  {{ member }}
+                  <span class="pl-3" v-on:click="removeMember(index)"> x</span>
+                </p>
+              </span>
+            </div>
           </div>
 
           <div class="row m-0 justify-content-between">
-            <h4 class="font-weight-bold">Add People</h4>
+            <h4 class="font-weight-bold mt-3">Add People</h4>
           </div>
 
           <div class="row m-0 align-items-center form-control1 w-100 rounded">
@@ -77,43 +128,47 @@
           </div>
 
           <!-- add names -->
-          <div
-            class="
-              outer
-              row
-              m-0
-              justify-content-between
-              mt-3
-              align-items-center
-            "
-            v-for="(profile, index) in profile_info"
-            :key="profile.uuid"
-            v-on:click="addMember(index)"
-          >
-            <div class="pro-box row m-0 align-items-center">
-              <img
-                class="pro-pic rounded-circle"
-                src="@/assets/profile-picture-1.jpg"
-                alt=""
-              />
-              <div class="pro-name pl-3">
-                <p>{{ profile.user.username }}</p>
+          <div class="search-profile-box mt-3 scroll-lg">
+            <div
+              class="
+                outer
+                row
+                m-0
+                justify-content-between
+                mt-3
+                align-items-center
+              "
+              v-for="(profile, index) in profile_info"
+              :key="profile.uuid"
+              v-on:click="addMember(index)"
+            >
+              <div class="pro-box row m-0 align-items-center">
+                <img
+                  class="pro-pic rounded-circle"
+                  src="@/assets/profile-picture-1.jpg"
+                  alt=""
+                />
+                <div class="pro-name pl-3">
+                  <p>{{ profile.user.username }}</p>
+                </div>
               </div>
+              <!-- <img src="@/assets/dtick.png" alt="tick" class="pro-tick" /> -->
             </div>
-            <!-- <img src="@/assets/dtick.png" alt="tick" class="pro-tick" /> -->
           </div>
 
           <!-- create button -->
           <div class="w-100 row m-0 justify-content-center">
             <button
               class="
-                col col-5
+                next-btn
+                rounded-pill
                 text-center
                 create-btn
                 p-2
                 rounded
                 border-none
                 btn
+                w-100
               "
               v-on:click="groupFormed = 1"
             >
@@ -129,11 +184,13 @@
 <script>
 import { stringFormat } from "@/helpers";
 import { config } from "@/configurations";
-import { groupService } from "@/services";
+import { groupService, searchService } from "@/services";
+import Loader from "@/components/Loader.vue";
 import router from "@/router";
 
 export default {
   name: "CreateGroup",
+  components: { Loader },
   data() {
     return {
       groupName: "",
@@ -144,6 +201,12 @@ export default {
       profile_info: [],
       searchValue: "",
       groupFormed: 0,
+      is_my_groups: 1,
+      offset: "0",
+      limit: 10,
+      groupLists: 0,
+      viewLoader: 0,
+      stopSearch: 0,
     };
   },
 
@@ -153,23 +216,46 @@ export default {
     },
   },
 
+  computed: {
+    is_authenticated() {
+      return this.$store.state.authStore.user;
+    },
+  },
+  mounted() {
+    // Detect when scrolled to bottom.
+    const listElm = document.querySelector("#infinite-list");
+    listElm.addEventListener("scroll", () => {
+      if (listElm.scrollTop + listElm.clientHeight >= listElm.scrollHeight) {
+        this.getGroup();
+      }
+    });
+
+    // Initially load some items.
+    this.getGroup();
+  },
   methods: {
     addMember(index) {
-      this.members.push(this.profile_info[index]);
+      this.members.push(this.profile_info[index].user.username);
     },
 
     removeMember(index) {
       this.members.splice(index, 1);
     },
 
+    getGroupCases(groupList) {
+      this.$router.push({
+        name: "Group",
+        params: { uuid: groupList.uuid, groupname: groupList.name },
+      });
+    },
+
     searchProfile() {
       const username = this.searchValue;
       const { dispatch } = this.$store;
-
-      groupService
+      searchService
         .searchProfile(username)
         .then((profile_info) => {
-          this.profile_info = profile_info;
+          this.profile_info = profile_info.results.slice();
         })
         .catch(() => {
           dispatch(
@@ -206,7 +292,7 @@ export default {
         .then((createdGroup) => {
           router.push({
             name: "GroupInfo",
-            params: { uuid: createdGroup.uuid },
+            params: { uuid: createdGroup.group.uuid },
           });
         })
         .catch(() => {
@@ -215,6 +301,33 @@ export default {
             config.messagingConfig.messages.error.unknown_error
           );
         });
+    },
+
+    getGroup() {
+      const { dispatch } = this.$store;
+      this.viewLoader = 1;
+      if (!this.stopSearch) {
+        groupService
+          .getGroupList(this.is_my_groups, this.offset, this.limit)
+          .then((groupLists) => {
+            if (this.groupLists == 0) {
+              this.groupLists = groupLists.results;
+            } else {
+              this.groupLists.push(...groupLists.results);
+            }
+            this.viewLoader = 0;
+            if (groupLists.results.length < 10) {
+              this.stopSearch = 1;
+            }
+          })
+          .catch(() => {
+            dispatch(
+              "alertStore/error",
+              config.messagingConfig.messages.error.unknown_error
+            );
+          });
+        this.offset = parseInt(this.offset) + this.limit;
+      }
     },
   },
 };
@@ -282,5 +395,34 @@ export default {
   background-color: #e6e7ee;
   margin: 1em auto !important;
   width: 5em;
+}
+
+.search-profile-box {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.pro-pic-md {
+  height: 3.5em;
+  width: 3.5em;
+}
+
+.scroll {
+  overflow-y: scroll;
+  max-height: 20vh;
+}
+
+.scroll-lg {
+  overflow-y: scroll;
+  max-height: 30vh;
+}
+.next-btn {
+  background-color: rgba(72, 23, 176, 1);
+  color: #fff;
+}
+
+.infinite-list {
+  overflow-y: scroll;
+  max-height: 100vh;
 }
 </style>
