@@ -107,11 +107,7 @@ export default {
       return this.$store.state.authStore.user;
     },
     myCase() {
-      if (this.is_authenticated.profile.user.username == this.user) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.is_authenticated.profile.user.username === this.user;
     },
   },
 };

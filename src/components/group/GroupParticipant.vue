@@ -51,9 +51,9 @@ export default {
   },
   computed: {
     checkAdmin() {
-      var foundAdmin = false;
-      for (var i = 0; i < this.admin.length; i++) {
-        if (this.admin[i].user.username == this.profile.user.username) {
+      let foundAdmin = false;
+      for (let i = 0; i < this.admin.length; i++) {
+        if (this.admin[i].user.username === this.profile.user.username) {
           foundAdmin = true;
           break;
         }

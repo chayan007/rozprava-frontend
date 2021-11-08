@@ -116,7 +116,7 @@ const routes = [
     component: MyGroups
   },
   {
-    path: '/groupdetails/:uuid',
+    path: '/group/:uuid',
     name: 'GroupInfo',
     component: GroupInfo
   },
