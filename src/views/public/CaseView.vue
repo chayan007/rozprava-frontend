@@ -242,14 +242,9 @@
       <!-- loader -->
 
       <!-- cases -->
-      <div class="mt-5">
-        <Loader class="mt-8" v-if="!cases"/>
-        <template v-else v-for="case_detail in cases" :key="case_detail.uuid">
-          <Case
-            :detail="case_detail"
-          ></Case>
-        </template>
-      </div>
+      <template v-for="case_detail in cases" :key="case_detail.uuid">
+          <Case v-show="filter === -1 || filter === case_detail.category" :detail="case_detail"></Case>
+      </template>
     </div>
   </div>
 </template>

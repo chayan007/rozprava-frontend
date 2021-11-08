@@ -302,6 +302,7 @@ export default {
         })
         .then((caseResponse) => {
           this.submitFiles(caseResponse.slug);
+          console.log(caseResponse.slug);
           router.push({
             name: "CaseDetail",
             params: { slug: caseResponse.slug },

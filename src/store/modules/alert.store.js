@@ -17,11 +17,11 @@ export const alertStore = {
     },
     mutations: {
         success(state, message) {
-            state.type = 'alert-success';
+            state.type = 'success';
             state.message = message;
         },
         error(state, message) {
-            state.type = 'alert-danger';
+            state.type = 'danger';
             state.message = message;
         },
         clear(state) {

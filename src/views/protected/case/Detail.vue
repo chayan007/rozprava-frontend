@@ -2,7 +2,11 @@
   <div class="detail-case-box w-100" v-if="caseDetail">
     <!-- case banner art -->
     <div class="case-head-box w-100">
-      <img class="case-head-img w-100" src="@/assets/detail-imgs/30.png" alt="" />
+      <img
+        class="case-head-img w-100"
+        src="@/assets/detail-imgs/30.png"
+        alt=""
+      />
     </div>
     <!-- close btn -->
 
@@ -12,12 +16,14 @@
       <div class="row m-0 justify-content-between w-100">
         <span class="row m-0 align-items-center">
           <span class="">
-            <img v-if="caseDetail.profile"
+            <img
+              v-if="caseDetail.profile"
               class="case-profile-pic rounded-circle"
               :src="caseDetail.profile.display_pic"
               alt=""
             />
-             <img v-else
+            <img
+              v-else
               class="case-profile-pic rounded-circle"
               src="@/assets/anonymous.png"
               alt=""
@@ -76,7 +82,11 @@
       </div>
       <!-- proofs -->
       <div v-if="caseDetail.proofs" class="proofs-box w-100 my-4 d-flex">
-        <div class="proof mr-4" v-for="proof in caseDetail.proofs" :key="proof.uuid">
+        <div
+          class="proof mr-4"
+          v-for="proof in caseDetail.proofs"
+          :key="proof.uuid"
+        >
           <Proof :proof="proof" />
         </div>
       </div>
@@ -86,7 +96,7 @@
         <span class="row m-0 align-items-center">
           <span @click="activity(1)" class="row m-0 align-items-center">
             <img
-              v-if="activityDone == 1"
+              v-if="liked"
               class="case-react-icons mr-1"
               src="@/assets/liked.svg"
               alt=""
@@ -97,13 +107,11 @@
               src="@/assets/like.svg"
               alt=""
             />
-            <small class="react-txt m-0 mr-3 h6">{{
-              caseDetail.metrics[1]
-            }}</small>
+            <small class="react-txt m-0 mr-3 h6">{{ metrics[1] }}</small>
           </span>
           <span @click="activity(2)" class="row m-0 align-items-center">
             <img
-              v-if="activityDone == 2"
+              v-if="disliked"
               class="case-react-icons mr-1"
               src="@/assets/disliked.svg"
               alt=""
@@ -114,9 +122,7 @@
               src="@/assets/dislike.svg"
               alt=""
             />
-            <small class="react-txt m-0 mr-3 h6">{{
-              caseDetail.metrics[2]
-            }}</small>
+            <small class="react-txt m-0 mr-3 h6">{{ metrics[2] }}</small>
           </span>
         </span>
         <span class="case-view-box row m-0 align-items-center">
@@ -128,7 +134,7 @@
       </div>
       <!-- case reaction box 2 -->
       <div class="row m-0 justify-content-between align-items-end mt-3">
-        <small>{{caseDetail.proofs.length}} proofs</small>
+        <small>{{ caseDetail.proofs.length }} proofs</small>
       </div>
 
       <!-- case comments -->
@@ -151,8 +157,7 @@ import { activityService } from "@/services";
 import { config } from "@/configurations";
 import { getSanitizedTime } from "@/helpers";
 import router from "@/router";
-import Proof from "@/components/case/Proofs.vue"
-
+import Proof from "@/components/case/Proofs.vue";
 
 export default {
   name: "DetailCase",
@@ -160,7 +165,9 @@ export default {
   data() {
     return {
       caseDetail: null,
-      activityDone: null,
+      metrics: null,
+      liked: null,
+      disliked: null,
     };
   },
   methods: {
@@ -170,6 +177,7 @@ export default {
         .getCase(slug)
         .then((caseDetail) => {
           this.caseDetail = caseDetail;
+          this.metrics = caseDetail.metrics;
           this.activity(3);
         })
         .catch(() => {
@@ -202,8 +210,32 @@ export default {
     },
 
     activity(act) {
-      this.activityDone = act;
       const uuid = this.caseDetail.uuid;
+      if (act == 1) {
+        if (this.liked) {
+          this.metrics[1]--;
+          this.liked = 0;
+        } else {
+          this.metrics[1]++;
+          this.liked = 1;
+          if (this.disliked) {
+            this.metrics[2]--;
+            this.disliked = 0;
+          }
+        }
+      } else if (act == 2) {
+        if (this.disliked) {
+          this.metrics[2]--;
+          this.disliked = 0;
+        } else {
+          this.metrics[2]++;
+          this.disliked = 1;
+          if (this.liked) {
+            this.metrics[1]--;
+            this.liked = 0;
+          }
+        }
+      }
       activityService
         .caseActivity(uuid, act)
         .then(() => {
@@ -319,5 +351,4 @@ export default {
 .rel-right-2 {
   right: 1.6em;
 }
-
 </style>
