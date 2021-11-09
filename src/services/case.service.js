@@ -10,7 +10,7 @@ export const caseService = {
   deleteCase,
 };
 
-function getCases(category = null, username = null, uuid = null, offset = null, limit = null) {
+function getCases(category = null, username = null, groupUuid = null, offset = null, limit = null) {
   const headers = authHeader();
   let url = stringFormat(
     `${config.commonConfig.$apiUrl}/${config.caseConfig.api.list.endpoint}`,
@@ -18,7 +18,7 @@ function getCases(category = null, username = null, uuid = null, offset = null, 
   );
 
   // Check if any query parameter is present or not. If present add trailing `?`
-  url = category || username || uuid || offset || limit? `${url}?` : url;
+  url = category || username || groupUuid || offset || limit? `${url}?` : url;
 
   // Add category to URL if present.
   url = category
@@ -36,11 +36,11 @@ function getCases(category = null, username = null, uuid = null, offset = null, 
       )}`
     : url;
 
-  //Add group uuid to url if present
-  url = uuid
+  //Add group groupUuid to url if present
+  url = groupUuid
     ? `${url}${stringFormat(
         config.caseConfig.api.list.queryParameters.groupUuid,
-        uuid
+        groupUuid
       )}`
     : url;
 
