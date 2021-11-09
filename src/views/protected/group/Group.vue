@@ -1,4 +1,7 @@
 <template>
+  <div class="mt-7 p-5" v-if="!cases">
+    <h2>No cases</h2>
+  </div>
   <div class="group-chat">
     <!-- group nav -->
     <div
@@ -19,7 +22,7 @@
             src="@/assets/groupDp.png"
             alt="group dp"
           />
-          <span class="name ml-2">Rozprava CMI Developers </span>
+          <span class="name ml-2">{{ groupname }}</span>
         </router-link>
       </div>
       <!-- group options -->
@@ -61,16 +64,17 @@
     <!-- group nav -->
     <!-- base -->
     <div class="base min-vh-100 w-100 py-6">
-      <div class="case-box w-100">
-        <GroupCase :case="0" :user="'pankaj'"></GroupCase>
-        <GroupCase :case="0" :user="'p'"></GroupCase>
-        <GroupCase :case="0" :user="'pankaj'"></GroupCase>
-        <GroupCase :case="0" :user="'h'"></GroupCase>
+      <div class="case-box w-100" v-for="cases in cases" :key="cases.uuid">
+        <GroupCase
+          :cases="cases"
+          :user="cases.profile.user.username"
+        ></GroupCase>
       </div>
       <div
         class="add-box w-100 p-3 position-fixed d-flex justify-content-center"
       >
-        <router-link to="/case-create">
+
+        <div @click="createGroupCase">
           <div
             class="
               add-btn
@@ -83,7 +87,7 @@
           >
             <img class="add-icon" src="@/assets/addLight.svg" alt="" />
           </div>
-        </router-link>
+        </div>
       </div>
     </div>
     <!-- base -->
@@ -92,9 +96,53 @@
 
 <script>
 import GroupCase from "@/components/group/GroupCase.vue";
+import { caseService } from "@/services";
+
 export default {
   name: "Group",
   components: { GroupCase },
+  data() {
+    return {
+      groupname: this.$route.params.groupname,
+      offset: "0",
+      limit: 5,
+      viewLoader: 0,
+      cases: [],
+    };
+  },
+
+  methods: {
+    createGroupCase() {
+      this.$router.push({
+        name: "CaseCreate",
+        params: { uuid: this.$route.params.uuid },
+      });
+    },
+
+    getGroupCases() {
+      const { dispatch } = this.$store;
+      let uuid = this.$route.params.uuid;
+
+      caseService
+        .getCases(
+          (this.category = null),
+          (this.username = null),
+          (this.uuid = uuid),
+          this.offset,
+          this.limit
+        )
+        .then((cases) => {
+          this.cases = cases;
+        })
+        .catch((error) =>
+          dispatch("alertStore/success", error, { root: true })
+        );
+    },
+  },
+
+  created() {
+    this.getGroupCases();
+  },
 };
 </script>
 
@@ -113,7 +161,7 @@ export default {
 .name {
   font-size: 1.3em;
   white-space: nowrap;
-  width: 50vw;
+  width: 60vw;
   overflow: hidden;
   text-overflow: ellipsis;
 }

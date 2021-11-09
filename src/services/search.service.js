@@ -10,7 +10,7 @@ function searchProfile(username, offset = 0, limit = 10) {
     `${config.commonConfig.$apiUrl}/${config.generalSearchConfig.api.searchProfile.endpoint}?limit=${limit}`,
     username
   );
-  if (offset) url = `${url}&offset=${offset}`;
+  if (offset) url = `${url}&offset=${offset.toString()}`;
   return axios
     .get(url, { headers: headers })
     .then((response) => {

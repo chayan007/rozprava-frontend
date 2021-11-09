@@ -10,12 +10,15 @@ export const caseService = {
   deleteCase,
 };
 
-function getCases(category = null, username = null) {
+function getCases(category = null, username = null, groupUuid = null, offset = null, limit = null) {
   const headers = authHeader();
-  let url = `${config.commonConfig.$apiUrl}/${config.caseConfig.api.list.endpoint}`;
+  let url = stringFormat(
+    `${config.commonConfig.$apiUrl}/${config.caseConfig.api.list.endpoint}`,
+    username
+  );
 
   // Check if any query parameter is present or not. If present add trailing `?`
-  url = category || username ? `${url}?` : url;
+  url = category || username || groupUuid || offset || limit? `${url}?` : url;
 
   // Add category to URL if present.
   url = category
@@ -33,11 +36,23 @@ function getCases(category = null, username = null) {
       )}`
     : url;
 
+  //Add group groupUuid to url if present
+  url = groupUuid
+    ? `${url}${stringFormat(
+        config.caseConfig.api.list.queryParameters.groupUuid,
+        groupUuid
+      )}`
+    : url;
+
+  // Pagination 
+    url = limit
+    ? `${url}&offset=${offset}&limit=${limit}`
+    : url;
+
   return axios
     .get(url, { headers: headers })
     .then((response) => {
       if (response.data.results.length) {
-        console.log(response.data);
         return response.data.results;
       } else {
         throw stringFormat(
@@ -62,7 +77,8 @@ function createCase(createCaseBody) {
       const case_info = response.data;
       return case_info;
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log(error.response.data);
       throw config.messagingConfig.messages.unknown_error;
     });
 }
