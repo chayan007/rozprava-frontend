@@ -1,33 +1,14 @@
 import { caseService } from "@/services";
-import { stringFormat } from "@/helpers";
-import { config } from "@/configurations";
 
 export const groupStore = {
   namespaced: true,
   state: {
-    groupCases: null,
+    groupCases: [],
   },
   actions: {
-    storeGroupCases({ dispatch, commit }, username, category = null) {
-      let defined_category = null;
+    storeGroupCases({ dispatch, commit }, groupUuid) {
 
-      if (category) {
-        defined_category = config.caseConfig.categories[category];
-
-        if (!defined_category) {
-          dispatch(
-            "alertStore/error",
-            stringFormat(
-              config.messagingConfig.messages.error.does_not_exist_error,
-              "category"
-            ),
-            { root: true }
-          );
-          return;
-        }
-      }
-
-      caseService.getCases(defined_category, username).then(
+      caseService.getCases(null, null, groupUuid).then(
         (cases) => commit("storeCases", cases),
         (error) => dispatch("alertStore/error", error, { root: true })
       );
@@ -35,8 +16,8 @@ export const groupStore = {
   },
 
   mutations: {
-    storeCases(state, cases) {
-      state.cases = cases;
+    storeCases(state, groupCases) {
+      state.groupCases = state.groupCases.push(...groupCases.results) 
     },
   },
 };

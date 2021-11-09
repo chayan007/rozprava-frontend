@@ -240,12 +240,10 @@
       <!-- cases -->
       <div class="infinite-list" id="infinite-list">
         <div v-for="case_detail in cases" :key="case_detail.uuid">
-          <router-link :to="'/case/' + case_detail.slug">
             <Case
               v-show="filter === -1 || filter === case_detail.category"
               :detail="case_detail"
             ></Case>
-          </router-link>
         </div>
       </div>
     </div>
@@ -325,7 +323,6 @@ export default {
               this.limit
             )
             .then((cases) => {
-              console.log(cases.length);
               if (this.cases == 0) {
                 this.cases = cases;
               } else {
@@ -347,7 +344,7 @@ export default {
   created() {
     this.getCasesByURL();
     if (!this.is_authenticated.profile) {
-      this.$router.go()
+      this.$router.go();
     }
   },
 };

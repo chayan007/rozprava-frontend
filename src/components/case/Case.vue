@@ -122,13 +122,13 @@
             <img
               v-if="disliked"
               class="metrics-icon mr-1"
-              src="@/assets/liked.svg"
+              src="@/assets/disliked.svg"
               alt=""
             />
             <img
               v-else
               class="metrics-icon mr-1"
-              src="@/assets/like.svg"
+              src="@/assets/dislike.svg"
               alt=""
             />
             {{ metrics[2] }}
