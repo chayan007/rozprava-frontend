@@ -276,12 +276,14 @@ export default {
       stopSearch: 0,
     };
   },
+  computed : {
+    is_authenticated() {
+      return this.$store.state.authStore.user;
+    },
+  },
   watch: {
     searchValue() {
       this.stopSearch = 0;
-    },
-    is_authenticated() {
-      return this.$store.state.authStore.user;
     },
   },
   mounted() {

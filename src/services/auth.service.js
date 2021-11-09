@@ -32,7 +32,7 @@ function login(username, password) {
         })
         .catch(error => {
             const data = error.response.data;
-            console.log(data);
+            console.log("lksjks", data);
             if ('non_field_errors' in data){
                 throw data.non_field_errors[0];
             } else {
