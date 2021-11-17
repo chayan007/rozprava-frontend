@@ -46,7 +46,7 @@
           >
           <span
             @click="filter = 1"
-            :class="{ active: filter === 1}"
+            :class="{ active: filter === 1 }"
             class="
               filter
               p-1
@@ -198,7 +198,7 @@
           >
           <span
             @click="filter = 8"
-            :class="{ active: filter === 9}"
+            :class="{ active: filter === 9 }"
             class="
               filter
               p-1
@@ -217,7 +217,7 @@
           >
           <span
             @click="filter = 0"
-            :class="{ active: filter === 0}"
+            :class="{ active: filter === 0 }"
             class="
               filter
               p-1
@@ -237,16 +237,22 @@
         </div>
       </div>
 
-      <!-- loader -->
-      <Loader class="mt-10" v-show="cases.length === 0" />
-      <!-- loader -->
-
       <!-- cases -->
-      <template v-for="case_detail in cases" :key="case_detail.uuid">
-        <router-link :to="'/case/'+case_detail.slug">
-          <Case v-show="filter === -1 || filter === case_detail.category" :detail="case_detail"></Case>
-        </router-link>
-      </template>
+      <div class="infinite-list" id="infinite-list">
+        <div v-for="case_detail in cases" :key="case_detail.uuid">
+          <router-link :to="'/case/' + case_detail.slug">
+            <Case
+              v-show="filter === -1 || filter === case_detail.category"
+              :detail="case_detail"
+            ></Case>
+          </router-link>
+        </div>
+      </div>
+    </div>
+
+    <!-- loader -->
+    <div v-if="viewLoader">
+      <Loader class="m-0" />
     </div>
   </div>
 </template>
@@ -255,6 +261,7 @@
 import Loader from "@/components/Loader.vue";
 import Case from "@/components/case/Case.vue";
 import { config } from "@/configurations";
+import { caseService } from "@/services";
 
 export default {
   name: "CaseView",
@@ -262,21 +269,41 @@ export default {
   data() {
     return {
       filter: -1,
+      cases: [],
+      offset: "0",
+      limit: 10,
+      viewLoader: 0,
+      stopSearch: 0,
     };
   },
-  computed: {
-    cases() {
-      return this.$store.state.caseStore.cases;
+  watch: {
+    searchValue() {
+      this.stopSearch = 0;
     },
+  },
+  computed: {
     is_authenticated() {
       return this.$store.state.authStore.user;
     },
+  },
+  mounted() {
+    // Detect when scrolled to bottom.
+    const listElm = document.querySelector("#infinite-list");
+    listElm.addEventListener("scroll", () => {
+      if (listElm.scrollTop + listElm.clientHeight >= listElm.scrollHeight) {
+        this.getCasesByURL();
+      }
+    });
+
+    // Initially load some items.
+    this.getCasesByURL();
   },
   methods: {
     getCasesByURL() {
       const routePath = this.$route.path;
       const defined_list_route = config.caseConfig.list_routes[routePath];
       const { dispatch } = this.$store;
+      this.viewLoader = 1;
 
       if (!defined_list_route) {
         dispatch(
@@ -288,14 +315,38 @@ export default {
       }
 
       if (defined_list_route === "TIMELINE") {
-        dispatch("caseStore/storeTimelineCases");
+        if (!this.stopSearch) {
+          caseService
+            .getCases(
+              (this.category = null),
+              (this.username = null),
+              (this.uuid = null),
+              this.offset,
+              this.limit
+            )
+            .then((cases) => {
+              if (this.cases == 0) {
+                this.cases = cases;
+              } else {
+                this.cases.push(...cases);
+              }
+              this.viewLoader = 0;
+              if (cases.length < 10) {
+                this.stopSearch = 1;
+              }
+            })
+            .catch((error) =>
+              dispatch("alertStore/success", error, { root: true })
+            );
+        }
+        this.offset = parseInt(this.offset) + this.limit;
       }
     },
   },
   created() {
     this.getCasesByURL();
     if (!this.is_authenticated.profile) {
-      this.$router.go()
+      this.$router.go();
     }
   },
 };
@@ -340,4 +391,8 @@ export default {
   border: 1px solid rgb(143, 143, 143);
 }
 
+.infinite-list {
+  overflow-y: scroll;
+  max-height: 80vh;
+}
 </style>

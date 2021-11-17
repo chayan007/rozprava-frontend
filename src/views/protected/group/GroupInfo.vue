@@ -7,75 +7,58 @@
     />
     <!-- Name and edit -->
     <div class="group-name-box row m-0 mb-2 w-100 px-3 justify-content-between">
-      <h3 class="group-name d-inline">Rozprava CMI Developers</h3>
+      <h3 class="group-name d-inline">{{ groupDetails.name }}</h3>
       <router-link to="/group-settings">
         <span class="rounded-circle"
           ><img class="group-info-edit-pen" src="@/assets/edit.svg" alt=""
         /></span>
       </router-link>
     </div>
-    <!-- info box -->
+       <!-- info box -->
     <div class="group-info-box min-vh-100 p-4 pt-4">
       <!-- description -->
       <h6 class="group-desc-title"><b>Description</b></h6>
       <p class="group-desc m-0">
-        This is a group description. <br />A random description. <br />This is a
-        group description.
+        {{ groupDetails.description }}
       </p>
 
       <hr class="group-hr w-100 my-4" />
 
       <div class="d-flex justify-content-between">
-        <h6 class="group-desc-title d-inline"><b>5 Participents</b></h6>
+        <h6 class="group-desc-title d-inline">
+          <b>{{ groupDetails.profiles.length }} Participants</b>
+        </h6>
       </div>
 
-      <!-- group-participent -->
-      <div
-        class="py-2 row m-0 align-items-center justify-content-between dropdown"
-      >
-        <a class="nav-link p-0" data-toggle="dropdown">
-          <div>
-            <img
-              class="part-pro rounded-circle mr-3"
-              src="@/assets/profile-picture-1.jpg"
-              alt=""
-            />
-            <h6 class="d-inline m-0">Tony Stark</h6>
-          </div>
-        </a>
-        <span class="admin-tag">Admin</span>
-
-        <!-- dropdown -->
-        <ul class="dropdown-menu p-3">
-          <li class="mb-3">
-            <router-link to="/group-info">
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="admin-tag h6 m-0">Make Admin</span>
-                <img class="icon" src="@/assets/ticks.svg" alt="" />
-              </div>
-            </router-link>
-          </li>
-          <hr class="my-3" />
-          <li>
-            <router-link to="/group-info">
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="leave-btn-text h6 m-0">Remove</span>
-                <img class="icon" src="@/assets/logout.svg" alt="" />
-              </div>
-            </router-link>
-          </li>
-        </ul>
+      <!-- group-participant -->
+      <div v-for="profile in groupDetails.profiles" :key="profile.uuid">
+        <GroupParticipant :profile="profile" :admin="groupDetails.admins" />
       </div>
-      <!-- dropdown -->
-      <!-- group-participent -->
+      <!-- group-participant -->
 
       <hr class="group-hr w-100 my-4" />
       <!-- leave btn -->
-      <div class="leave-btn text-center shadow rounded-pill p-2 mt-3">
+      <div
+        class="leave-btn text-center shadow rounded-pill p-2 mt-3"
+        v-on:click="leaveGroup"
+      >
         <h5 class="leave-btn-text m-0 d-inline">Leave group</h5>
         <img
           class="logout-icon position-absolute"
           src="@/assets/logout.svg"
+          alt=""
+        />
+      </div>
+
+      <!-- Delete group button -->
+      <div
+        class="leave-btn btn-dark text-center shadow rounded-pill p-2 mt-3"
+        v-on:click="deleteGroup"
+      >
+        <h5 class="delete-btn-text m-0 d-inline">Delete group</h5>
+        <img
+          class="logout-icon position-absolute"
+          src="@/assets/delete.svg"
           alt=""
         />
       </div>
@@ -84,8 +67,68 @@
 </template>
 
 <script>
+import GroupParticipant from "@/components/group/GroupParticipant";
+import { groupService } from "@/services";
+import router from "@/router";
+
 export default {
   name: "GroupInfo",
+  components: { GroupParticipant },
+  data() {
+    return {
+      groupDetails: null,
+      uuid: this.$route.params.uuid,
+    };
+  },
+  computed: {
+    is_authenticated() {
+      return this.$store.state.authStore.user;
+    },
+  },
+  methods: {
+    getGroupDetail() {
+      const { dispatch } = this.$store;
+      groupService
+        .getGroupInformation(this.uuid)
+        .then((groupDetails) => {
+          this.groupDetails = groupDetails;
+        })
+        .catch((error) => {
+          dispatch("alertStore/error", error);
+        });
+    },
+    leaveGroup() {
+      const { dispatch } = this.$store;
+      let profile = this.is_authenticated.profile.user.username;
+      groupService
+        .leaveGroup(this.uuid, profile)
+        .then(() => {
+          router.push({
+            path: "/my-groups",
+          });
+        })
+        .catch((error) => {
+          dispatch("alertStore/error", error);
+        });
+    },
+    deleteGroup() {
+      const { dispatch } = this.$store;
+
+      groupService
+        .deleteGroup(this.uuid)
+        .then(() => {
+          router.push({
+            path: "/my-groups",
+          });
+        })
+        .catch((error) => {
+          dispatch("alertStore/error", error);
+        });
+    },
+  },
+  created() {
+    this.getGroupDetail();
+  },
 };
 </script>
 
@@ -136,9 +179,11 @@ export default {
 .admin-tag {
   color: rgba(72, 23, 176, 1);
 }
-
 .leave-btn-text {
   color: rgba(235, 50, 35, 1);
+}
+.delete-btn-text {
+  color: #fff;
 }
 .logout-icon {
   width: 2em;

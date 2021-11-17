@@ -213,7 +213,7 @@ export default {
       isAnonymous: false,
       // mention: "",
       tagAdded: false,
-      files: []
+      files: [],
     };
   },
 
@@ -299,9 +299,11 @@ export default {
           is_anonymous: isAnonymous,
           for_label: "for",
           against_label: "against",
+          group_uuid: this.$route.params.uuid,
         })
         .then((caseResponse) => {
           this.submitFiles(caseResponse.slug);
+          console.log(caseResponse.slug);
           router.push({
             name: "CaseDetail",
             params: { slug: caseResponse.slug },

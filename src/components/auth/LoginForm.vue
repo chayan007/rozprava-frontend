@@ -219,6 +219,7 @@ export default {
           ).trim(),
           { root: true }
         );
+        this.loggedIn = 0;
         return;
       }
 
@@ -234,10 +235,12 @@ export default {
           ).trim(),
           { root: true }
         );
+        this.loggedIn = 0;
         return;
       }
 
       dispatch("authStore/login", { username, password });
+      this.loggedIn = 0;
     },
   },
 };
