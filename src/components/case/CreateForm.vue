@@ -114,7 +114,9 @@
               alt=""
             />
           </button>
-
+          <small class="row align-items-center col col-9 p-0 m-0"
+            >PDF, Images, Links, Audios, Videos, etc</small
+          >
           <small
             v-if="files"
             class="row align-items-center col col-12 mt-2 p-0 m-0"
@@ -125,15 +127,14 @@
               class="
                 tag
                 h6
-                row
+                d-flex
                 m-0
                 align-items-center
-                rounded-pill 
+                rounded-pill
                 shadow
-                pr-3
-                pl-3
-                pt-2
-                pb-2
+                py-2
+                px-3
+                mb-2
                 mr-2
               "
             >
@@ -141,10 +142,6 @@
               <span class="pl-3" v-on:click="removeFile(index)"> x </span>
             </p>
           </small>
-
-          <small v-else class="row align-items-center col col-9 p-0 m-0"
-            >PDF, Images, Links, Audios, Videos, etc</small
-          >
         </div>
         <!-- Modal Content -->
         <div
@@ -365,7 +362,7 @@ export default {
   border-bottom: 0.07rem solid #d1d9e6;
 }
 .tag {
-  background-color: #e6e7ee;
+  background-color: #ffffff;
   display: inline-block;
 }
 .attach-btn {
@@ -453,7 +450,7 @@ input:checked + .slider:before {
 
 #show {
   position: absolute !important;
-  bottom: 20em;
+  bottom: 5em;
   left: 2.5em;
 }
 

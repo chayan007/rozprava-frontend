@@ -8,11 +8,12 @@
         multiple="multiple"
         id="inputfile"
         v-on:change="getFile"
+        :accept="fileType"
       />
     </div>
 
     <div>
-      <div class="card shadow-lg border-light container bg-soft p-2">
+      <div class="card shadow-lg border-light container bg-soft pt-4 pb-1">
         <div class="upload_head">
           <img class="upload-icon mr-2" src="@/assets/uploadArrow.svg" />
           <span class="h2 font-weight-bold align-top">Upload</span>
@@ -21,9 +22,15 @@
         <!-- Icons  -->
         <div class="icons">
           <label
-            @click="openFileInput()"
+            @click="openFileInput(0)"
             :v-model="file"
-            class="btn btn-icon-only p-2 d-flex justify-content-center align-items-center"
+            class="
+              btn btn-icon-only
+              p-2
+              d-flex
+              justify-content-center
+              align-items-center
+            "
             for="inputfile"
             type="button"
             title="doc button"
@@ -32,8 +39,14 @@
           </label>
 
           <label
-            @click="openFileInput"
-            class="btn btn-icon-only p-2 d-flex justify-content-center align-items-center"
+            @click="openFileInput(1)"
+            class="
+              btn btn-icon-only
+              p-2
+              d-flex
+              justify-content-center
+              align-items-center
+            "
             for="inputfile"
             type="button"
             title="gallery button"
@@ -41,7 +54,7 @@
             <img src="@/assets/gallery.png" alt="gallery" />
           </label>
 
-          <label
+          <!-- <label
             @click="openFileInput"
             class="btn btn-icon-only p-2 d-flex justify-content-center align-items-center"
             for="inputfile"
@@ -49,9 +62,9 @@
             title="pdf button"
           >
             <img src="@/assets/pdf.png" alt="pdf" />
-          </label>
+          </label> -->
 
-          <label
+          <!-- <label
             @click="openFileInput"
             class="btn btn-icon-only p-2 d-flex justify-content-center align-items-center"
             for="inputfile"
@@ -59,9 +72,9 @@
             title="text button"
           >
             <img src="@/assets/text.png" alt="text" />
-          </label>
+          </label> -->
 
-          <label
+          <!-- <label
             @click="openFileInput"
             class="btn btn-icon-only p-2 d-flex justify-content-center align-items-center"
             for="inputfile"
@@ -69,11 +82,17 @@
             title="attach button"
           >
             <img src="@/assets/attachment.svg" alt="attach" />
-          </label>
+          </label> -->
 
           <label
-            @click="openFileInput()"
-            class="btn btn-icon-only p-2 d-flex justify-content-center align-items-center"
+            @click="openFileInput(2)"
+            class="
+              btn btn-icon-only
+              p-2
+              d-flex
+              justify-content-center
+              align-items-center
+            "
             for="inputfile"
             type="button"
             title="rozprava button"
@@ -88,32 +107,33 @@
 
 
 <script>
-
 export default {
   name: "Upload",
-  props:['files'],
+  props: ["files"],
   data() {
     return {
       isDocfile: false,
       file: [],
-      filenames:null,
+      filenames: null,
     };
   },
   methods: {
-    openFileInput() {
-      if (this.isDocfile) {
-        this.isDocfile = false;
-      } else { 
-        this.isDocfile = true;
-      }
+    openFileInput(type) {
+      let fileTypes = [
+        ".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf",
+        "image/*, video/*",
+        "audio/*",
+      ];
+      this.isDocfile = !this.isDocfile;
+      this.fileType = fileTypes[type];
     },
 
     getFile() {
       let fileInput = document.getElementById("inputfile");
       this.filenames = fileInput.files[0];
-      this.$emit('clicked',this.filenames)
-      fileInput.files = null
-    }
+      this.$emit("clicked", this.filenames);
+      fileInput.files = null;
+    },
   },
 };
 </script>
@@ -152,8 +172,6 @@ input[type="file"]::file-selector-button {
 }
 
 .container {
-  height: 200px;
-  width: 300px;
 }
 .upload_head {
   text-align: center;
