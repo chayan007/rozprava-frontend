@@ -240,12 +240,10 @@
       <!-- cases -->
       <div class="infinite-list" id="infinite-list">
         <div v-for="case_detail in cases" :key="case_detail.uuid">
-          <router-link :to="'/case/' + case_detail.slug">
             <Case
               v-show="filter === -1 || filter === case_detail.category"
               :detail="case_detail"
             ></Case>
-          </router-link>
         </div>
       </div>
     </div>
@@ -276,14 +274,14 @@ export default {
       stopSearch: 0,
     };
   },
+  computed : {
+    is_authenticated() {
+      return this.$store.state.authStore.user;
+    },
+  },
   watch: {
     searchValue() {
       this.stopSearch = 0;
-    },
-  },
-  computed: {
-    is_authenticated() {
-      return this.$store.state.authStore.user;
     },
   },
   mounted() {

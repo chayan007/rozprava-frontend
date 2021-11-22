@@ -1,0 +1,62 @@
+.brand-name-cont{
+  margin-left: 1em;
+}
+.logo {
+  width: 5rem;
+}
+.brand-name {
+  font-size: 1.7rem;
+  letter-spacing: 0.4em;
+  font-family: "Anonymous Pro", monospace;
+}
+.tagline {
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 0.2em;
+}
+.mockup-sec {
+  font-family: "Nunito", sans-serif;
+  overflow: auto;
+  width: 100vw;
+  padding-top: 5vh !important;
+}
+.mockup-box {
+  margin-top: 3em !important;
+  margin-right: 3.6em !important;
+  zoom: .8;
+  opacity: .5;
+  color: rgb(177, 177, 177);
+}
+.mockup-img {
+  border: 1px solid rgb(230, 230, 230);
+  width: 53vw;
+  box-shadow: 25px 25px 25px -8px rgba(0, 0, 0, 0.256);
+  border-radius: 15px;
+}
+.mockup-box-on {
+  margin-top: 0 !important;
+  margin-right: 3.6em !important;
+  zoom: 1;
+  opacity: 1;
+  color: rgb(58, 58, 58);
+}
+
+.down-btn {
+  width: 80vw;
+  margin: 0 10vw;
+  background-color: #4234e3;
+  color: #fff;
+  box-shadow: 15px 15px 25px -8px #4334e39d;
+  position: fixed;
+  bottom: 1.2em;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.mockup-sec::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.mockup-sec {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

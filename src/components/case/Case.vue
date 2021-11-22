@@ -122,13 +122,13 @@
             <img
               v-if="disliked"
               class="metrics-icon mr-1"
-              src="@/assets/liked.svg"
+              src="@/assets/disliked.svg"
               alt=""
             />
             <img
               v-else
               class="metrics-icon mr-1"
-              src="@/assets/like.svg"
+              src="@/assets/dislike.svg"
               alt=""
             />
             {{ metrics[2] }}
@@ -178,6 +178,7 @@ export default {
     },
     activity(act) {
       const uuid = this.detail.uuid;
+      console.log(this.metrics);
       if (act == 1) {
         if (this.liked) {
           this.metrics[1]--;
@@ -206,7 +207,6 @@ export default {
       activityService
         .caseActivity(uuid, act)
         .then(() => {
-          console.log(act);
         })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
@@ -245,7 +245,13 @@ export default {
 }
 .case-desc {
   white-space: pre-wrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 5; /* number of lines to show */
+   -webkit-box-orient: vertical;
 }
+
 
 .metrics-icon {
   width: 1.7em;
