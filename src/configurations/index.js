@@ -11,7 +11,7 @@ let commonConfig;
 
 if (process.env.NODE_ENV !== "PRODUCTION") {
     commonConfig = {
-        $apiUrl: "https://rozprava.com",
+        $apiUrl: "https://api.rozprava.com",
         timeoutDuration: 30000,
     };
 } else {
