@@ -15,7 +15,7 @@
     <!-- dropdown -->
     <ul class="dropdown-menu p-3" v-if="!checkAdmin">
       <li class="mb-3">
-        <router-link to="/group-info">
+        <router-link to="/group/info">
           <div class="d-flex justify-content-between align-items-center">
             <span class="admin-tag h6 m-0" @click="makeAdmin">Make Admin</span>
             <img class="icon" src="@/assets/ticks.svg" alt="" />

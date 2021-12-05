@@ -1,6 +1,22 @@
 <template>
   <div class="mt-7 p-5" v-if="!cases">
-    <h2>No cases</h2>
+    <img src="@/assets/empty.svg" />
+    <h2 class="text-center mt-3">No cases yet !</h2>
+    <div class="mt-5" @click="createGroupCase">
+      <div
+        class="
+          add-btn-empty
+          mx-auto
+          rounded-pill
+          d-flex
+          justify-content-center
+          align-items-center
+          p-1
+        "
+      >
+        <h5 class="m-0">Create a case</h5>
+      </div>
+    </div>
   </div>
   <div class="group-chat">
     <!-- group nav -->
@@ -16,13 +32,13 @@
       "
     >
       <div class="group-name d-flex nav-item align-items-center">
-        <router-link to="/group-info">
+        <router-link :to="'/group/info/' + groupDetails.uuid">
           <img
             class="dp rounded-circle"
             src="@/assets/groupDp.png"
             alt="group dp"
           />
-          <span class="name ml-2">{{ groupname }}</span>
+          <span class="name ml-2">{{ groupDetails.name }}</span>
         </router-link>
       </div>
       <!-- group options -->
@@ -33,7 +49,7 @@
         <!-- dropdown -->
         <ul class="dropdown-menu shadow p-3">
           <li class="mb-3">
-            <router-link to="/group-info">
+            <router-link :to="'/group/info/' + groupDetails.uuid">
               <div class="d-flex justify-content-between align-items-center">
                 <span class="h6 m-0">Group info</span>
                 <img class="icon" src="@/assets/info.svg" alt="" />
@@ -41,7 +57,7 @@
             </router-link>
           </li>
           <li>
-            <router-link to="/group-info">
+            <router-link :to="'/group/info/' + groupDetails.uuid">
               <div class="d-flex justify-content-between align-items-center">
                 <span class="h6 m-0">Share group</span>
                 <img class="icon" src="@/assets/share.svg" alt="" />
@@ -73,7 +89,6 @@
       <div
         class="add-box w-100 p-3 position-fixed d-flex justify-content-center"
       >
-
         <div @click="createGroupCase">
           <div
             class="
@@ -96,14 +111,14 @@
 
 <script>
 import GroupCase from "@/components/group/GroupCase.vue";
-import { caseService } from "@/services";
+import { caseService, groupService } from "@/services";
 
 export default {
   name: "Group",
   components: { GroupCase },
   data() {
     return {
-      groupname: this.$route.params.groupname,
+      groupDetails:0,
       offset: "0",
       limit: 5,
       viewLoader: 0,
@@ -117,6 +132,18 @@ export default {
         name: "CaseCreate",
         params: { uuid: this.$route.params.uuid },
       });
+    },
+
+    getGroupDetail() {
+      const { dispatch } = this.$store;
+      groupService
+        .getGroupInformation(this.uuid)
+        .then((groupDetails) => {
+          this.groupDetails = groupDetails;
+        })
+        .catch((error) => {
+          dispatch("alertStore/error", error);
+        });
     },
 
     getGroupCases() {
@@ -142,6 +169,7 @@ export default {
 
   created() {
     this.getGroupCases();
+    this.getGroupDetail();
   },
 };
 </script>
@@ -193,6 +221,15 @@ export default {
   border: 2px solid #fff;
   box-shadow: 0 4px 10px 2px rgba(0, 0, 0, 0.445);
 }
+.add-btn-empty {
+  width: 12em;
+  background-color: rgba(72, 23, 176, 1);
+}
+
+.add-btn-empty h5 {
+  color: #fff;
+}
+
 .add-icon {
   width: 3em;
   height: 3em;
