@@ -107,7 +107,7 @@
                     src="@/assets/profile-picture-1.jpg"
                     alt=""
                   />
-                  {{ member }}
+                  {{ member.user.username }}
                   <span class="pl-3" v-on:click="removeMember(index)"> x</span>
                 </p>
               </span>
@@ -127,7 +127,7 @@
             />
           </div>
 
-          <!-- add names -->
+          <!-- add profile in group -->
           <div class="search-profile-box mt-3 scroll-lg">
             <div
               class="
@@ -143,13 +143,20 @@
               v-on:click="addMember(index)"
             >
               <div class="pro-box row m-0 align-items-center">
-                <img
-                  class="pro-pic rounded-circle"
-                  src="@/assets/profile-picture-1.jpg"
-                  alt=""
-                />
+                   <img
+                    class="pro-pic rounded-circle"
+                    v-if="profile.display_pic"
+                    :src="profile.display_pic"
+                    alt=""
+                  />
+                  <img
+                    class="pro-pic rounded-circle"
+                    v-else
+                    src="@/assets/profile-picture-1.jpg"
+                    alt=""
+                  />
                 <div class="pro-name pl-3">
-                  <p>{{ profile.user.username }}</p>
+                  <p class="m-0">{{ profile.user.username }}</p>
                 </div>
               </div>
               <!-- <img src="@/assets/dtick.png" alt="tick" class="pro-tick" /> -->
@@ -235,10 +242,12 @@ export default {
   },
   methods: {
     addMember(index) {
-      this.members.push(this.profile_info[index].user.username);
+      this.members.push(this.profile_info[index]);
+      this.profile_info.splice(index, 1);
     },
 
     removeMember(index) {
+      this.profile_info.push(this.members[index]);
       this.members.splice(index, 1);
     },
 
