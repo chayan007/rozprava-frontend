@@ -34,11 +34,11 @@
               alt=""
             /> -->
           <img
-            class="pro-pic-md rounded-circle mr-2"
+            class="pro-pic rounded-circle mr-2"
             src="@/assets/profile-picture-1.jpg"
             alt=""
           />
-          <h2 class="m-0 ml-2 d-inline">{{ groupList.name }}a</h2>
+          <h3 class="m-0 ml-2 d-inline">{{ groupList.name }}</h3>
         </div>
       </div>
     </div>
@@ -142,7 +142,7 @@
               :key="profile.uuid"
               v-on:click="addMember(index)"
             >
-              <div class="pro-box row m-0 align-items-center">
+              <div class="pro-box row m-0 align-items-center"  v-if="is_authenticated.profile.user.username !== profile.user.username ">
                    <img
                     class="pro-pic rounded-circle"
                     v-if="profile.display_pic"
@@ -300,7 +300,7 @@ export default {
         })
         .then((createdGroup) => {
           router.push({
-            name: "GroupInfo",
+            name: "Group",
             params: { uuid: createdGroup.group.uuid },
           });
         })
@@ -409,11 +409,6 @@ export default {
 .search-profile-box {
   max-height: 50vh;
   overflow-y: auto;
-}
-
-.pro-pic-md {
-  height: 3.5em;
-  width: 3.5em;
 }
 
 .scroll {

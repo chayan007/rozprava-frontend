@@ -10,8 +10,6 @@ export default defineComponent({
   props: ["alertType", "message"],
   created() {
     this.toast(this.alertType, this.message);
-    console.log(this.alertType);
-    
   },
   setup() {
     const toast = (type, message) => {

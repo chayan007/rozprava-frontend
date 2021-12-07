@@ -23,9 +23,9 @@
             src="@/assets/groupDp.png"
             alt=""
           />
-          <span class="ml-2 h6 m-0">Tony Stark</span>
+          <span class="ml-2 h6 m-0">{{ cases.profile.user.username }}</span>
         </span>
-        <span>2hr ago</span>
+        <span>{{ sanitizedTime(cases.created_at) }}</span>
       </div>
 
       <!-- profile -->
@@ -35,9 +35,10 @@
         :class="[myCase ? 'right' : 'left']"
       >
         <div @click="openCase = !openCase">
-          <h6 class="mb-3"><b>{{cases.question}}</b></h6>
-          <p class="mb-1">{{cases.description}}
-          </p>
+          <h6 class="mb-3">
+            <b>{{ cases.question }}</b>
+          </h6>
+          <p class="mb-1">{{ cases.description }}</p>
           <p><b>Read more</b></p>
         </div>
         <div class="metrics mt-3">
@@ -59,12 +60,7 @@
                 src="@/assets/dislikeLight.svg"
                 alt=""
               />
-              <img
-                v-else
-                class="sm-icon"
-                src="@/assets/dislike.svg"
-                alt=""
-              />
+              <img v-else class="sm-icon" src="@/assets/dislike.svg" alt="" />
               <span class="metrics-txt ml-1">31</span>
             </span>
             <b class="metrics-txt">Rebuttals</b>
@@ -83,8 +79,12 @@
             w-100
           "
         >
-          <router-link :to="'/case/'+cases.slug">
-            <span :class="[myCase ? 'right-open' : 'left-open']" class="open-btn px-3 py-2 rounded-pill">Open</span>
+          <router-link :to="'/case/' + cases.slug">
+            <span
+              :class="[myCase ? 'right-open' : 'left-open']"
+              class="open-btn px-3 py-2 rounded-pill"
+              >Open</span
+            >
           </router-link>
         </div>
       </div>
@@ -94,6 +94,8 @@
 </template>
 
 <script>
+import { getSanitizedTime } from "@/helpers";
+
 export default {
   name: "GroupCase",
   props: ["cases", "user"],
@@ -108,6 +110,11 @@ export default {
     },
     myCase() {
       return this.is_authenticated.profile.user.username === this.user;
+    },
+  },
+  methods: {
+    sanitizedTime(createdAt) {
+      return getSanitizedTime(createdAt);
     },
   },
 };
