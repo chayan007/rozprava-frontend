@@ -34,11 +34,11 @@
               alt=""
             /> -->
           <img
-            class="pro-pic-md rounded-circle mr-2"
+            class="pro-pic rounded-circle mr-2"
             src="@/assets/profile-picture-1.jpg"
             alt=""
           />
-          <h2 class="m-0 ml-2 d-inline">{{ groupList.name }}a</h2>
+          <h3 class="m-0 ml-2 d-inline">{{ groupList.name }}</h3>
         </div>
       </div>
     </div>
@@ -107,7 +107,7 @@
                     src="@/assets/profile-picture-1.jpg"
                     alt=""
                   />
-                  {{ member }}
+                  {{ member.user.username }}
                   <span class="pl-3" v-on:click="removeMember(index)"> x</span>
                 </p>
               </span>
@@ -127,7 +127,7 @@
             />
           </div>
 
-          <!-- add names -->
+          <!-- add profile in group -->
           <div class="search-profile-box mt-3 scroll-lg">
             <div
               class="
@@ -142,14 +142,21 @@
               :key="profile.uuid"
               v-on:click="addMember(index)"
             >
-              <div class="pro-box row m-0 align-items-center">
-                <img
-                  class="pro-pic rounded-circle"
-                  src="@/assets/profile-picture-1.jpg"
-                  alt=""
-                />
+              <div class="pro-box row m-0 align-items-center"  v-if="is_authenticated.profile.user.username !== profile.user.username ">
+                   <img
+                    class="pro-pic rounded-circle"
+                    v-if="profile.display_pic"
+                    :src="profile.display_pic"
+                    alt=""
+                  />
+                  <img
+                    class="pro-pic rounded-circle"
+                    v-else
+                    src="@/assets/profile-picture-1.jpg"
+                    alt=""
+                  />
                 <div class="pro-name pl-3">
-                  <p>{{ profile.user.username }}</p>
+                  <p class="m-0">{{ profile.user.username }}</p>
                 </div>
               </div>
               <!-- <img src="@/assets/dtick.png" alt="tick" class="pro-tick" /> -->
@@ -235,10 +242,12 @@ export default {
   },
   methods: {
     addMember(index) {
-      this.members.push(this.profile_info[index].user.username);
+      this.members.push(this.profile_info[index]);
+      this.profile_info.splice(index, 1);
     },
 
     removeMember(index) {
+      this.profile_info.push(this.members[index]);
       this.members.splice(index, 1);
     },
 
@@ -291,7 +300,7 @@ export default {
         })
         .then((createdGroup) => {
           router.push({
-            name: "GroupInfo",
+            name: "Group",
             params: { uuid: createdGroup.group.uuid },
           });
         })
@@ -400,11 +409,6 @@ export default {
 .search-profile-box {
   max-height: 50vh;
   overflow-y: auto;
-}
-
-.pro-pic-md {
-  height: 3.5em;
-  width: 3.5em;
 }
 
 .scroll {
