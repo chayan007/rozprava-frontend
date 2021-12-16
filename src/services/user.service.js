@@ -109,7 +109,7 @@ function followUser(username) {
     });
 }
 
-function getFollowers(flag) {
+function getFollowers(flag, user) {
   const authenticationHeader = authHeader();
   let followerFlag = "0";
   if (flag) {
@@ -117,6 +117,7 @@ function getFollowers(flag) {
   }
   const url = stringFormat(
     `${config.commonConfig.$apiUrl}/${config.userConfig.api.getFollowers.endpoint}`,
+    user,
     followerFlag
   );
 

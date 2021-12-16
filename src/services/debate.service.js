@@ -20,6 +20,7 @@ function getDebates(slug) {
 function createDebate(createDebateBody, uuid) {
     const headers = authHeader();
     const url = stringFormat(`${config.commonConfig.$apiUrl}/${config.debateConfig.api.create.endpoint}`, uuid);
+    console.log(url, createDebateBody);
     return axios
         .post(
             url,

@@ -121,12 +121,15 @@
         </router-link>
       </div>
       <!-- Follow & Massage div -->
-      <div class="mt-5">
-        <Loader class="mt-8" v-if="!cases"/>
+
+      <div class="mt-4">
+        <div v-if="is_authenticated.profile.user.username == profile.user.username" class="cases-tag row m-0 mb-3">
+          <h5 class="col-6 p-0 m-0" @click="anonymous_flag=0">Open Cases</h5>
+          <h5 class="col-6 p-0 m-0" @click="anonymous_flag=1">Anonymous</h5>
+        </div>
+        <Loader class="mt-8" v-if="!cases" />
         <template v-else v-for="case_detail in cases" :key="case_detail.uuid">
-          <Case
-            :detail="case_detail"
-          ></Case>
+          <Case :detail="case_detail"></Case>
         </template>
       </div>
     </div>
@@ -152,7 +155,8 @@ export default {
       username: "",
       following: false,
       followersFlag: null,
-      cases: null
+      cases: null,
+      anonymous_flag: 0
     };
   },
 
@@ -214,19 +218,19 @@ export default {
           });
       }
       // profile cases service
-       caseService
-          .getCases(null, this.username)
-          .then(
-            (userCases) => {
-              this.cases = userCases
-            },
-            (error) => {
-              dispatch("alertStore/error", error, { root: true });
-            }
-          )
-          .catch((error) => {
+      caseService
+        .getCases(null, this.username, this.anonymous_flag)
+        .then(
+          (userCases) => {
+            this.cases = userCases;
+          },
+          (error) => {
             dispatch("alertStore/error", error, { root: true });
-          });
+          }
+        )
+        .catch((error) => {
+          dispatch("alertStore/error", error, { root: true });
+        });
     },
     followUser() {
       const username = this.profile.user.username;
@@ -242,12 +246,7 @@ export default {
       this.following = this.profile.authenticated_details.is_following;
     },
     changeFollowerFlag(flag) {
-      if (
-        this.is_authenticated.profile.user.username ==
-        this.profile.user.username
-      ) {
-        this.followersFlag = flag;
-      }
+      this.followersFlag = flag;
     },
   },
 };

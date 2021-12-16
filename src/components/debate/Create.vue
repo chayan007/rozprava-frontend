@@ -148,7 +148,7 @@ export default {
           .then((caseResponse) => {
             this.submitFiles(caseResponse.uuid);
             const slug = this.$route.params.slug;
-            router.push({
+            router.go({
               name: "CaseDetail",
               params: { slug: slug },
             });

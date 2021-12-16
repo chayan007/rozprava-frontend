@@ -32,9 +32,10 @@ export default {
   methods: {
     getFollowers() {
       const flag = this.followersFlag;
+      let username = this.$route.params.username;
       console.log(flag);
       userService
-        .getFollowers(flag)
+        .getFollowers(flag, username)
         .then((followers) => {
           this.followers = followers.results;
         })

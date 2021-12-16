@@ -178,7 +178,8 @@ export default {
     },
     activity(act) {
       const uuid = this.detail.uuid;
-      console.log(this.metrics);
+      console.log(uuid);
+      console.log('metrics', this.metrics);
       if (act == 1) {
         if (this.liked) {
           this.metrics[1]--;
@@ -206,8 +207,6 @@ export default {
       }
       activityService
         .caseActivity(uuid, act)
-        .then(() => {
-        })
         .catch(() => {
           throw config.messagingConfig.messages.error.unknown_error;
         });

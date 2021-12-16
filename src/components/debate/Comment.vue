@@ -21,12 +21,23 @@
         "
       >
         <div>
-          <img
+          <img v-if="!debate.profile"
+            class="com-pro-img rounded-circle"
+            src="@/assets/anonymous.png"
+            alt="profile picture"
+          />
+          <img v-else-if="debate.profile.display_pic"
             class="com-pro-img rounded-circle"
             :src="debate.profile.display_pic"
             alt="profile picture"
           />
-          <small class="ml-2 h6 m-0">{{ debate.profile.user.full_name }}</small>
+          <img v-else
+            class="com-pro-img rounded-circle"
+            src="@/assets/profile-picture-1.jpg"
+            alt="profile picture"
+          />
+          <small v-if="debate.profile" class="ml-2 h6 m-0">{{ debate.profile.user.full_name }}</small>
+          <small v-else class="ml-2 h6 m-0">Anonymous</small>
         </div>
         <div class="text-right dropdown">
           <img
@@ -39,9 +50,9 @@
           <!-- dropdown -->
           <ul class="dropdown-menu p-3">
             <li
-              v-if="
+              v-if=" debate.profile && (
                 is_authenticated.profile.user.username ==
-                debate.profile.user.username
+                debate.profile.user.username )
               "
             >
               <div
