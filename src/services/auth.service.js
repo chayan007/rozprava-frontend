@@ -17,7 +17,7 @@ function login(username, password) {
         username: username,
         password: password
     }
-
+    console.log(loginBody);
     return axios
         .post(
         `${config.commonConfig.$apiUrl}/${config.userConfig.api.login.endpoint}`,
@@ -32,6 +32,7 @@ function login(username, password) {
         })
         .catch(error => {
             const data = error.response.data;
+            console.log("lksjks", data);
             if ('non_field_errors' in data){
                 throw data.non_field_errors[0];
             } else {

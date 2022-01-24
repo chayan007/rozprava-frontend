@@ -28,9 +28,11 @@ function caseActivity(uuid, category) {
   return axios
     .post(url,{}, { headers: headers })
     .then((response) => {
+      console.log(response.data);
       return response.data;
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err.response.data);
       throw config.messagingConfig.messages.error.unknown_error;
     });
 }
